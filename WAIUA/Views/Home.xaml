@@ -15,8 +15,8 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Margin="10,10,5,10">
 
+        <Grid Grid.Column="0" Margin="10,10,5,10">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />

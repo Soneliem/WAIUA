@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using WAIUA.Commands;
 using WAIUA.ViewModels;
 
 namespace WAIUA
@@ -16,6 +17,10 @@ namespace WAIUA
 
         public void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            if (APIConnection.CheckLocal())
+            {
+                APIConnection.LocalLogin();
+            }
         }
     }
 }

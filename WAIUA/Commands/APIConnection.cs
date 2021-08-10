@@ -48,9 +48,9 @@ namespace WAIUA.Commands
 
         public static void Login(CookieContainer cookie, string username, string password)
         {
-            APIConnection.GetAuthorization(cookie);
             try
             {
+                APIConnection.GetAuthorization(cookie);
                 var authJson = JsonConvert.DeserializeObject(APIConnection.Authenticate(cookie, username, password));
                 JToken authObj = JObject.FromObject(authJson);
 
@@ -263,11 +263,11 @@ namespace WAIUA.Commands
 
         public static Boolean LiveMatchID(CookieContainer jar)
         {
-            string url = $"https://glz-{Region}-1.{Region}.a.pvp.net/core-game/v1/players/{PPUUID}";
-            RestClient client = new RestClient(url);
-            client.CookieContainer = jar;
             try
             {
+                string url = $"https://glz-{Region}-1.{Region}.a.pvp.net/core-game/v1/players/{PPUUID}";
+                RestClient client = new RestClient(url);
+                client.CookieContainer = jar;
                 RestRequest request = new RestRequest(Method.GET);
                 request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
                 request.AddHeader("Authorization", $"Bearer {AccessToken}");
@@ -500,9 +500,10 @@ namespace WAIUA.Commands
 
                 foreach (var season in content.Seasons)
                 {
-                    if ((season.IsActive == true) & (season.Type == "act")){ 
-                            CurrentSeason = season.ID;
-                            currentindex = index;
+                    if ((season.IsActive == true) & (season.Type == "act"))
+                    {
+                        CurrentSeason = season.ID;
+                        currentindex = index;
                     }
                     index++;
                 }

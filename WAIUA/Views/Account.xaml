@@ -177,7 +177,7 @@
                 Background="Transparent"
                 FontSize="20"
                 FontWeight="Normal"
-                Foreground="White"
+                Foreground="#32e2b2"
                 Opacity="0.7"
                 Text="Click below to update"
                 TextWrapping="Wrap" />
