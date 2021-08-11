@@ -1,4 +1,8 @@
-
+<p align="center">
+<a href="https://github.com/Soneliem/WAIUA">
+    <img src="WAIUA/Assets/logo.ico" alt="Logo" width="80" height="80">
+  </a>
+</p>
 <h3 align="center">WAIUA</h3>
 <h5 align="center">Who Am I Up Against?</h5>
 
@@ -8,12 +12,13 @@
 
 
 <details open="open">
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <summary>Table of Contents</summary>
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+      <li><a href="#current-features">Current Features</a></li>
+      <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
     <li>
@@ -34,9 +39,7 @@
 
 
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-A simple(for you, not me) windows GUI app that lets you see the ranks, recent games and other games of a live Valorant match which you're still playing it.
+A simple(for you, not me) Windows GUI app that lets you see the ranks, recent games and other info of players of a live Valorant match which you're still playing it.
 
 ### Current Features
 Displays for each player:
@@ -50,67 +53,59 @@ Displays for each player:
 * [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
 * [.NET 5.0](https://dotnet.microsoft.com/)
 
-
-
-<!-- GETTING STARTED -->
 ## Getting Started
 
-To get a local copy up and running follow these simple steps.
+To get the app up and running follow these simple steps.
 
 ### Prerequisites
 
 * Windows 64-bit
+* .NET (may be automatically installed)
 
 ### Installation
 
-1. Download the .exe from
-2.
+1. Download the latest .exe from the [Github releases page](https://github.com/Soneliem/WAIUA/releases)
+2. Run the .exe
 
-
-
-<!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Please ensure you are in a match when you try to use it. I swear if you complain about it not working and you're not in a match...
+
+If Valorant is already running:
+1. Press the big "WAIUA" button
+2. Profit
+
+If Valorant is not running:
+1. Press the account button in the top left
+2. Use your Riot Account details to log in. Remember to select your region from the bottom left.
+3. Open Valorant lmao
+3. Press the big "WAIUA" button
+4. Profit slightly less
 
 ## Roadmap
 
 See the [open issues](https://github.com/Soneliem/WAIUA/issues) for a list of proposed features (and known issues).
 
-
-
-<!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+I welcome any sort of contribution and am happy to take in any ~~hate/~~ feedback. Open source means open heart :)
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-
-
-<!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License. See [LISCENSE](https://github.com/Soneliem/WAIUA/blob/master/LICENSE) for more information.
 
-
-
-<!-- CONTACT -->
 ## Contact
 
 Discord: Soneliem#4194
-
 Project Link: [https://github.com/Soneliem/WAIUA](https://github.com/Soneliem/WAIUA)
 
-
-
-<!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
-* []()
-* []()
-* []()
+* [techchrism for work on documenting Valorant endpoints](https://github.com/techchrism/valorant-api-docs)
+* [RumbleMike for auth flow](https://github.com/RumbleMike/ValorantClientAPI)
+* [Valorant-API.com](https://valorant-api.com/)
+* [The guys on the Valorant App Developers Discord Server](https://discord.gg/a9yzrw3KAm)
+* This project uses Riot's unofficial-private-notforpublicuse API for most of the information. Riot pls no kil
+
+## DISCLAIMER
+THIS PROJECT IS NOT ASSOCIATED OR ENDORSED BY RIOT GAMES.

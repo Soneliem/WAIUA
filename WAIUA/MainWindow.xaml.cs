@@ -20,6 +20,7 @@ namespace WAIUA
             if (APIConnection.CheckLocal())
             {
                 APIConnection.LocalLogin();
+                APIConnection.LocalRegion();
             }
         }
     }

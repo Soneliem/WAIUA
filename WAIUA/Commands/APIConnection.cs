@@ -286,37 +286,53 @@ namespace WAIUA.Commands
 
         public static void LiveMatchSetup()
         {
-            GetSeasons();
-            GetLatestVersion();
-            CookieContainer cookie = new CookieContainer();
-            string url = $"https://glz-{Region}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
-            RestClient client = new RestClient(url);
-            RestRequest request = new RestRequest(Method.GET);
-            request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
-            request.AddHeader("Authorization", $"Bearer {AccessToken}");
-            string content = client.Execute(request).Content;
-            dynamic matchinfo = JsonConvert.DeserializeObject(content);
-            int[] playerno = new int[10];
-            string[] puuid = new string[10];
-            string[] agent = new string[10];
-            string[] card = new string[10];
-            string[] level = new string[10];
-            int index = 0;
-            foreach (var entry in matchinfo.Players)
+            try
             {
-                playerno[index] = index;
-                puuid[index] = entry.Subject;
-                agent[index] = entry.CharacterID;
-                card[index] = entry.PlayerIdentity.PlayerCardID;
-                level[index] = entry.PlayerIdentity.AccountLevel;
-
-                index++;
+                CookieContainer cookie = new CookieContainer();
+                if (String.IsNullOrEmpty(APIConnection.GetIGUsername(cookie, PPUUID)))
+                {
+                    if (CheckLocal())
+                    {
+                        LocalLogin();
+                        LocalRegion();
+                    }
+                }
+                if (LiveMatchID(cookie))
+                {
+                    GetSeasons();
+                    GetLatestVersion();
+                    string url = $"https://glz-{Region}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
+                    RestClient client = new RestClient(url);
+                    RestRequest request = new RestRequest(Method.GET);
+                    request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
+                    request.AddHeader("Authorization", $"Bearer {AccessToken}");
+                    string content = client.Execute(request).Content;
+                    dynamic matchinfo = JsonConvert.DeserializeObject(content);
+                    int[] playerno = new int[10];
+                    string[] puuid = new string[10];
+                    string[] agent = new string[10];
+                    string[] card = new string[10];
+                    string[] level = new string[10];
+                    int index = 0;
+                    foreach (var entry in matchinfo.Players)
+                    {
+                        playerno[index] = index;
+                        puuid[index] = entry.Subject;
+                        agent[index] = entry.CharacterID;
+                        card[index] = entry.PlayerIdentity.PlayerCardID;
+                        level[index] = entry.PlayerIdentity.AccountLevel;
+                        index++;
+                    }
+                    PlayerNo = playerno;
+                    PUUIDList = puuid;
+                    AgentList = agent;
+                    CardList = card;
+                    LevelList = level;
+                }
             }
-            PlayerNo = playerno;
-            PUUIDList = puuid;
-            AgentList = agent;
-            CardList = card;
-            LevelList = level;
+            catch (Exception)
+            {
+            }
         }
 
         public static string[] LiveMatchOutput(int playerno)
