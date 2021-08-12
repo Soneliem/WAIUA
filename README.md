@@ -7,7 +7,7 @@
 <h5 align="center">Who Am I Up Against?</h5>
 
   <p align="center">
-    A WPF app to view player ranks and stats in a live Valorant Match
+    A Windows application to view player ranks and stats in a live Valorant Match
     <br />
 
 
@@ -29,7 +29,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#roadmap-and-known-bugs">Roadmap And Known Bugs</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -39,7 +39,8 @@
 
 
 ## About The Project
-A simple(for you, not me) Windows GUI app that lets you see the ranks, recent games and other info of players of a live Valorant match which you're still playing it.
+![Screenshot](https://imgur.com/XGkE4k1.png)
+A simple(for you, not me) Windows GUI app that lets you see the ranks, recent games and other info of players in a live Valorant match while you're still playing it.
 
 ### Current Features
 Displays for each player:
@@ -53,6 +54,8 @@ Displays for each player:
 * [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
 * [.NET 5.0](https://dotnet.microsoft.com/)
 
+I knew none of these things before making this lol
+
 ## Getting Started
 
 To get the app up and running follow these simple steps.
@@ -60,7 +63,7 @@ To get the app up and running follow these simple steps.
 ### Prerequisites
 
 * Windows 64-bit
-* .NET (may be automatically installed)
+* .NET (might be automatically installed)
 
 ### Installation
 
@@ -72,19 +75,27 @@ To get the app up and running follow these simple steps.
 Please ensure you are in a match when you try to use it. I swear if you complain about it not working and you're not in a match...
 
 If Valorant is already running:
-1. Press the big "WAIUA" button
+1. Press the big "WAIUA" button and wait about 20-30 seconds
 2. Profit
 
 If Valorant is not running:
 1. Press the account button in the top left
 2. Use your Riot Account details to log in. Remember to select your region from the bottom left.
-3. Open Valorant lmao
-3. Press the big "WAIUA" button
+3. Open Valorant LMAO
+3. Press the big "WAIUA" button and wait about 20-30 seconds
 4. Profit slightly less
 
-## Roadmap
+Appologies about the long wait to load the information. I have to individually query each player's information from different APIs and then query another API to display images.
 
-See the [open issues](https://github.com/Soneliem/WAIUA/issues) for a list of proposed features (and known issues).
+## Roadmap and Known Bugs
+
+See the [open issues](https://github.com/Soneliem/WAIUA/issues) for a list of proposed features (and known bugs).
+
+## Why I Made This
+
+The main reason I made this was to detect smurfs. Being able to see an account that were bronze 1 last act and then miraculously became gold 3 this act while having an account level of 2 is a very clear indication of them being a smurf. I have chosen the set of available features carefully mainly to maintain the competitive integrity of the game. For example I could have given you access to player ranks while you're still choosing agents, but this will lead to people dodging because they don't want "bad" teammates. I could have also given you access to the enemy's last 90 games but that both breaches their privacy and could lead to bullying.
+
+Another reason to making this was that I wanted some experience with .NET and GUI apps. This application uses C# as the backend, WPF as the frontend and .NET as the framework. I knew none of these so this was a fun journey. Because of this, the code is very messy but it does the job. I probably should have made it all asynchronously but I am lazy and I wanted to slowly get into C#. But mainly I am lazy.
 
 ## Contributing
 
@@ -96,16 +107,16 @@ Distributed under the MIT License. See [LISCENSE](https://github.com/Soneliem/WA
 
 ## Contact
 
-Discord: Soneliem#4194
+Discord: Soneliem#4194  
 Project Link: [https://github.com/Soneliem/WAIUA](https://github.com/Soneliem/WAIUA)
 
 ## Acknowledgements
 
 * [techchrism for work on documenting Valorant endpoints](https://github.com/techchrism/valorant-api-docs)
-* [RumbleMike for auth flow](https://github.com/RumbleMike/ValorantClientAPI)
+* [RumbleMike for base C# authentication flow](https://github.com/RumbleMike/ValorantClientAPI)
 * [Valorant-API.com](https://valorant-api.com/)
 * [The guys on the Valorant App Developers Discord Server](https://discord.gg/a9yzrw3KAm)
 * This project uses Riot's unofficial-private-notforpublicuse API for most of the information. Riot pls no kil
 
 ## DISCLAIMER
-THIS PROJECT IS NOT ASSOCIATED OR ENDORSED BY RIOT GAMES.
+THIS PROJECT IS NOT ASSOCIATED OR ENDORSED BY RIOT GAMES. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.

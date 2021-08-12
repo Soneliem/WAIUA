@@ -51,19 +51,8 @@ namespace WAIUA.Views
         {
             InitializeComponent();
             CookieContainer cookie = new CookieContainer();
-            if (APIConnection.LiveMatchID(cookie))
-            {
-                DataContext = HomeInfo.GetHomeInfo();
-            }
-            else
-            {
-                if (APIConnection.CheckLocal())
-                {
-                    APIConnection.LocalLogin();
-                    APIConnection.LocalRegion();
-                    DataContext = HomeInfo.GetHomeInfo();
-                }
-            }
+            DataContext = HomeInfo.GetHomeInfo();
+            
         }
 
         public void Window_Loaded(object sender, RoutedEventArgs e)
