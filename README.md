@@ -89,7 +89,7 @@ Appologies about the long wait to load the information. I have to individually q
 
 ## Roadmap and Known Bugs
 
-See the [open issues](https://github.com/Soneliem/WAIUA/issues) for a list of proposed features (and known bugs).
+See the [project board](https://github.com/Soneliem/WAIUA/projects/1) for a list of proposed features (and known verified bugs). Please check the [FAQ](#faq) and [issues tab](https://github.com/Soneliem/WAIUA/issues) bofore making a new issue. 
 
 ## Why I Made This
 
