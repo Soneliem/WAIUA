@@ -43,9 +43,6 @@ namespace WAIUA.Commands
         public static string[] PGList { get; set; } = new string[10];
         public static string[] PPGList { get; set; } = new string[10];
         public static string[] PPPGList { get; set; } = new string[10];
-        //public static string processName { get; set; };
-        //public static string processId { get; set; };
-
         public static void Login(CookieContainer cookie, string username, string password)
         {
             try
@@ -192,7 +189,6 @@ namespace WAIUA.Commands
 
         public static void LocalRegion()
         {
-            GetLatestVersion();
             RestClient client = new RestClient(new Uri($"https://127.0.0.1:{Port}/product-session/v1/external-sessions"));
             RestRequest request = new RestRequest(Method.GET);
             client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
@@ -461,7 +457,14 @@ namespace WAIUA.Commands
                 string content = client.Execute(request).Content;
                 dynamic contentobj = JObject.Parse(content);
 
-                rank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{CurrentSeason}"].CompetitiveTier;
+                try
+                {
+                    rank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{CurrentSeason}"].CompetitiveTier;
+                }
+                catch (Exception)
+                {
+                    rank = "0";
+                }
                 RankList[playerno] = GetLRankIcon(rank);
                 try
                 {

@@ -6,10 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WAIUA", "WAIUA\WAIUA.csproj", "{AF25112C-91B9-4735-AE9B-C7CE963A30A4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{13E3F6B6-D516-4741-9317-407D36E7B34F}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		WAIUA\Views\Account.xaml.cs = WAIUA\Views\Account.xaml.cs
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
