@@ -7,7 +7,7 @@
 <h5 align="center">Who Am I Up Against?</h5>
 
   <p align="center">
-    A Windows application to view player ranks and stats in a live Valorant Match
+    A Windows application to view player ranks in a live Valorant Match
     <br />
 
 
@@ -40,7 +40,7 @@
 
 ## About The Project
 ![Screenshot](https://imgur.com/XGkE4k1.png)
-A simple(for you, not me) Windows GUI app that lets you see the ranks, recent games and other info of players in a live Valorant match while you're still playing it.
+A simple(for you, not me) Windows GUI app that lets you see the ranks, recent games and other info of players in a live Valorant match while you're still playing it. What you see above is what you get (for now).
 
 ### Current Features
 Displays for each player:
@@ -63,12 +63,13 @@ To get the app up and running follow these simple steps.
 ### Prerequisites
 
 * Windows 64-bit
-* .NET (might be automatically installed)
+* .NET (might already be installed)
 
 ### Installation
 
 1. Download the latest .exe from the [Github releases page](https://github.com/Soneliem/WAIUA/releases)
 2. Run the .exe
+3. It may require you to download and install the .NET desktop runtime, which you will require to use the app
 
 ## Usage
 
