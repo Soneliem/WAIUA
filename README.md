@@ -76,21 +76,21 @@ To get the app up and running follow these simple steps.
 Please ensure you are in a match when you try to use it. I swear if you complain about it not working and you're not in a match...
 
 If Valorant is already running:
-1. Press the big "WAIUA" button and wait about 20-30 seconds
+1. Press the big "WAIUA" button and wait about 10 seconds
 2. Profit
 
 If Valorant is not running:
 1. Press the account button in the top left
 2. Use your Riot Account details to log in. Remember to select your region from the bottom left.
 3. Open Valorant LMAO
-3. Press the big "WAIUA" button and wait about 20-30 seconds
+3. Press the big "WAIUA" button and wait about 10 seconds
 4. Profit slightly less
 
 Appologies about the long wait to load the information. I have to individually query each player's information from different APIs and then query another API to display images.
 
 ## Roadmap and Known Bugs
 
-See the [project board](https://github.com/Soneliem/WAIUA/projects/1) for a list of proposed features (and known verified bugs). Please check the [issues tab](https://github.com/Soneliem/WAIUA/issues) before making a new issue. 
+See the [project board](https://github.com/Soneliem/WAIUA/projects/1) for a list of proposed features (and known verified bugs). Please check the [issues tab](https://github.com/Soneliem/WAIUA/issues) before making a new issue.
 
 ## Why I Made This
 

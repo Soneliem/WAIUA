@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using WAIUA.Commands;
 using WAIUA.ViewModels;
 
 namespace WAIUA

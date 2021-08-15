@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using WAIUA.Commands;
@@ -23,22 +24,65 @@ namespace WAIUA.Views
             public static string[] Player8 { get; set; }
             public static string[] Player9 { get; set; }
 
+            private static void SetPlayer(int number)
+            {
+                switch (number)
+                {
+                    case 0:
+                        Player0 = APIConnection.LiveMatchOutput(0);
+                        break;
+
+                    case 1:
+                        Player1 = APIConnection.LiveMatchOutput(1);
+                        break;
+
+                    case 2:
+                        Player2 = APIConnection.LiveMatchOutput(2);
+                        break;
+
+                    case 3:
+                        Player3 = APIConnection.LiveMatchOutput(3);
+                        break;
+
+                    case 4:
+                        Player4 = APIConnection.LiveMatchOutput(4);
+                        break;
+
+                    case 5:
+                        Player5 = APIConnection.LiveMatchOutput(5);
+                        break;
+
+                    case 6:
+                        Player6 = APIConnection.LiveMatchOutput(6);
+                        break;
+
+                    case 7:
+                        Player7 = APIConnection.LiveMatchOutput(7);
+                        break;
+
+                    case 8:
+                        Player8 = APIConnection.LiveMatchOutput(8);
+                        break;
+
+                    case 9:
+                        Player9 = APIConnection.LiveMatchOutput(9);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
             public static HomeInfo GetHomeInfo()
             {
                 var output = new HomeInfo() { };
                 try
                 {
                     APIConnection.LiveMatchSetup();
-                    Player0 = APIConnection.LiveMatchOutput(0);
-                    Player1 = APIConnection.LiveMatchOutput(1);
-                    Player2 = APIConnection.LiveMatchOutput(2);
-                    Player3 = APIConnection.LiveMatchOutput(3);
-                    Player4 = APIConnection.LiveMatchOutput(4);
-                    Player5 = APIConnection.LiveMatchOutput(5);
-                    Player6 = APIConnection.LiveMatchOutput(6);
-                    Player7 = APIConnection.LiveMatchOutput(7);
-                    Player8 = APIConnection.LiveMatchOutput(8);
-                    Player9 = APIConnection.LiveMatchOutput(9);
+                    Parallel.For(0, 10, i =>
+                    {
+                        SetPlayer(i);
+                    });
                 }
                 catch (System.Exception)
                 {
@@ -52,7 +96,6 @@ namespace WAIUA.Views
             InitializeComponent();
             CookieContainer cookie = new CookieContainer();
             DataContext = HomeInfo.GetHomeInfo();
-            
         }
 
         public void Window_Loaded(object sender, RoutedEventArgs e)

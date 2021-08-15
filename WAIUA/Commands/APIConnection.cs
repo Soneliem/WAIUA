@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace WAIUA.Commands
 {
@@ -43,6 +44,7 @@ namespace WAIUA.Commands
         public static string[] PGList { get; set; } = new string[10];
         public static string[] PPGList { get; set; } = new string[10];
         public static string[] PPPGList { get; set; } = new string[10];
+
         public static void Login(CookieContainer cookie, string username, string password)
         {
             try
@@ -116,39 +118,6 @@ namespace WAIUA.Commands
             return client.Execute(request).Content;
         }
 
-        //My attempt at re-authentication
-        //public static void Reauth(CookieContainer jar)
-        //{
-        //    RestClient client = new RestClient(new Uri("https://auth.riotgames.com/authorize?redirect_uri=https%3A%2F%2Fplayvalorant.com%2Fopt_in&client_id=play-valorant-web-prod&response_type=token%20id_token"));
-        //    client.CookieContainer = jar;
-
-        //    RestRequest request = new RestRequest();
-
-        //    var response = client.Get(request);
-        //    Uri responseUri = response.ResponseUri;
-        //    var errorMessage = response.ErrorMessage;
-        //    System.Diagnostics.Debug.WriteLine($"Response: {responseUri}");
-        //    System.Diagnostics.Debug.WriteLine($"errorCode: {errorMessage}");
-
-        //    AccessToken = responseUri.ToString();
-        //    string[] parts = AccessToken.Split(new char[] { '=', '&' });
-        //    AccessToken = parts[1];
-
-        //    RestClient client2 = new RestClient(new Uri("https://entitlements.auth.riotgames.com/api/token/v1"));
-        //    client2.CookieContainer = jar;
-        //    RestRequest request2 = new RestRequest();
-
-        //    request2.AddHeader("Authorization", $"Bearer {AccessToken}");
-        //    request2.AddJsonBody("{}");
-
-        //    var response2 = client2.Post(request2);
-        //    string content = client2.Execute(request2).Content;
-        //    var errorMessage2 = content;
-        //    System.Diagnostics.Debug.WriteLine($"errorCode2: {errorMessage2}");
-        //    var entitlement_token = JsonConvert.DeserializeObject(content);
-        //    JToken entitlement_tokenObj = JObject.FromObject(entitlement_token);
-        //    EntitlementToken = entitlement_tokenObj["entitlements_token"].Value<string>();
-        //}
         public static Boolean CheckLocal()
         {
             var lockfileLocation = $@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Riot Games\Riot Client\Config\lockfile";
@@ -295,8 +264,9 @@ namespace WAIUA.Commands
                 }
                 if (LiveMatchID(cookie))
                 {
-                    GetSeasons();
-                    GetLatestVersion();
+                    Parallel.Invoke(
+                        () => GetSeasons(),
+                        () => GetLatestVersion());
                     string url = $"https://glz-{Region}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
                     RestClient client = new RestClient(url);
                     RestRequest request = new RestRequest(Method.GET);
@@ -334,11 +304,12 @@ namespace WAIUA.Commands
         public static string[] LiveMatchOutput(int playerno)
         {
             CookieContainer cookie = new CookieContainer();
-            PlayerList[playerno] = GetIGUsername(cookie, PUUIDList[playerno]);
-            GetAgentInfo(AgentList[playerno], playerno);
-            GetCardInfo(CardList[playerno], playerno);
-            GetCompHistory(PUUIDList[playerno], playerno);
-            GetPlayerHistory(PUUIDList[playerno], playerno);
+            Parallel.Invoke(
+                () => PlayerList[playerno] = GetIGUsername(cookie, PUUIDList[playerno]),
+                () => GetAgentInfo(AgentList[playerno], playerno),
+                () => GetCardInfo(CardList[playerno], playerno),
+                () => GetCompHistory(PUUIDList[playerno], playerno),
+                () => GetPlayerHistory(PUUIDList[playerno], playerno));
 
             string[] output = new string[]{
                 PlayerList[playerno],
@@ -457,14 +428,14 @@ namespace WAIUA.Commands
                 string content = client.Execute(request).Content;
                 dynamic contentobj = JObject.Parse(content);
 
-                try
-                {
-                    rank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{CurrentSeason}"].CompetitiveTier;
-                }
+                /*try
+                {*/
+                rank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{CurrentSeason}"].CompetitiveTier;
+                /*}
                 catch (Exception)
                 {
                     rank = "0";
-                }
+                }*/
                 RankList[playerno] = GetLRankIcon(rank);
                 try
                 {

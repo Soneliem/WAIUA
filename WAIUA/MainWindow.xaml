@@ -203,7 +203,7 @@
                     FontSize="20"
                     Foreground="White"
                     Opacity="0.7"
-                    Text="Loads live match data if available. This takes 20-30 seconds to load."
+                    Text="Loads live match data if available. This takes around 10 seconds to load."
                     TextAlignment="Center"
                     TextWrapping="Wrap" />
             </StackPanel>
