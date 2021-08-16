@@ -175,6 +175,7 @@
                         Value="{Binding Path=Player0[8]}" />
                 </Grid>
             </Border>
+
             <Border
                 Grid.Row="1"
                 Margin="5,5,5,5"
