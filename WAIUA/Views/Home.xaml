@@ -24,6 +24,14 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
+            <Rectangle
+                Grid.Row="0"
+                Width="20"
+                Height="20"
+                Margin="6"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Fill="blue" />
             <Border
                 Grid.Row="0"
                 Margin="5,5,5,5"
@@ -175,6 +183,7 @@
                         Value="{Binding Path=Player0[8]}" />
                 </Grid>
             </Border>
+
             <Border
                 Grid.Row="1"
                 Margin="5,5,5,5"
