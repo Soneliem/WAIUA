@@ -45,6 +45,7 @@ namespace WAIUA.Commands
         public static string[] PGList { get; set; } = new string[10];
         public static string[] PPGList { get; set; } = new string[10];
         public static string[] PPPGList { get; set; } = new string[10];
+        public static string[] TitleList { get; set; } = new string[10];
         private static ConcurrentDictionary<string, string> url_to_body = new();
 
         public static string DoCachedRequest(Method method, String url, bool add_riot_auth, CookieContainer cookie_container = null, bool bypass_cache = false) // Thank you MitchC for this, I am always touched when random people go out of the way to help others even though they know that we would be clueless and need to ask alot of followup questions
@@ -315,6 +316,7 @@ namespace WAIUA.Commands
                     string[] agent = new string[10];
                     string[] card = new string[10];
                     string[] level = new string[10];
+                    string[] title = new string[10];
                     int index = 0;
                     foreach (var entry in matchinfo.Players)
                     {
@@ -323,6 +325,7 @@ namespace WAIUA.Commands
                         agent[index] = entry.CharacterID;
                         card[index] = entry.PlayerIdentity.PlayerCardID;
                         level[index] = entry.PlayerIdentity.AccountLevel;
+                        title[index] = entry.PlayerIdentity.PlayerTitleID;
                         index++;
                     }
                     PlayerNo = playerno;
@@ -330,6 +333,7 @@ namespace WAIUA.Commands
                     AgentList = agent;
                     CardList = card;
                     LevelList = level;
+                    TitleList = title;
                 }
             }
             catch (Exception)
@@ -344,6 +348,7 @@ namespace WAIUA.Commands
                 () => PlayerList[playerno] = GetIGUsername(cookie, PUUIDList[playerno]),
                 () => GetAgentInfo(AgentList[playerno], playerno),
                 () => GetCardInfo(CardList[playerno], playerno),
+                () => GetTitleInfo(TitleList[playerno], playerno),
                 () => GetCompHistory(PUUIDList[playerno], playerno),
                 () => GetPlayerHistory(PUUIDList[playerno], playerno));
 
@@ -360,7 +365,8 @@ namespace WAIUA.Commands
                 RankList[playerno],
                 PRankList[playerno],
                 PPRankList[playerno],
-                PPPRankList[playerno]
+                PPPRankList[playerno],
+                TitleList[playerno]
             };
             return output;
         }
@@ -389,6 +395,20 @@ namespace WAIUA.Commands
                 var agentinfo = JsonConvert.DeserializeObject(content);
                 JToken agentinfoObj = JObject.FromObject(agentinfo);
                 CardList[playerno] = agentinfoObj["data"]["smallArt"].Value<string>();
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
+        }
+        public static void GetTitleInfo(string title, int playerno)
+        {
+            try
+            {
+                string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/playertitles/{title}", false);
+                var agentinfo = JsonConvert.DeserializeObject(content);
+                JToken agentinfoObj = JObject.FromObject(agentinfo);
+                TitleList[playerno] = agentinfoObj["data"]["titleText"].Value<string>();
             }
             catch (Exception e)
             {
