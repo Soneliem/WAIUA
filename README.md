@@ -44,16 +44,10 @@ A simple(for you, not me) Windows GUI app that lets you see the ranks, recent ga
 
 ### Current Features
 Displays for each player:
-* Current Rank
-![rank](Screenshots/rank.png)
-* Past three ranks (from last 3 acts, not last 3 played acts)
-![rank](Screenshots/pranks.png)
-* W/L indicator for last three competitive games
-![rank](Screenshots/history.png)
-* Player card and Account Level
-![card](Screenshots/card.png)
-* In-game name, Agent and Title
-![name](Screenshots/name.png)
+|Current Rank|Past three ranks (from last 3 acts, not last 3 played acts)|W/L indicator for last three competitive games|Player card and Account Level|In-game name, Agent and Title|
+|:---:|:---:|:---:|:---:|:---:|
+|![rank](Screenshots/rank.png)|![rank](Screenshots/pranks.png)|![rank](Screenshots/history.png)|![card](Screenshots/card.png)|![name](Screenshots/name.png)|
+
 ### Built With
 * [WPF](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/?view=netdesktop-5.0)
 * [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
