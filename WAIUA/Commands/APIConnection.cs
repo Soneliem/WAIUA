@@ -197,7 +197,7 @@ namespace WAIUA.Commands
             RestClient client = new RestClient(new Uri($"https://127.0.0.1:{Port}/product-session/v1/external-sessions"));
             RestRequest request = new RestRequest(Method.GET);
             client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
-            request.AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{LPassword}"))}"); 
+            request.AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{LPassword}"))}");
             request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
             request.AddHeader("X-Riot-ClientVersion", $"{Version}");
             request.RequestFormat = RestSharp.DataFormat.Json;
@@ -558,7 +558,7 @@ namespace WAIUA.Commands
             return output;
         }
 
-        private static string GetRankIcon(string rank)
+        public static string GetRankIcon(string rank)
         {
             string content = DoCachedRequest(Method.GET, "https://valorant-api.com/v1/competitivetiers", false);
             dynamic agentinfo = JsonConvert.DeserializeObject(content);
