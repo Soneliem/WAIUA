@@ -6,9 +6,6 @@ using WAIUA.Commands;
 
 namespace WAIUA.Views
 {
-    /// <summary>
-    /// Interaction logic for Home.xaml
-    /// </summary>
     public partial class Home : UserControl
     {
         public class HomeInfo
@@ -18,10 +15,11 @@ namespace WAIUA.Views
                 public string[] data;
                 public static Player[] players;
                 public const int MAX_PLAYERS = 10;
+
                 static Player()
                 {
                     players = new Player[MAX_PLAYERS];
-                    for (var x = 0; x< MAX_PLAYERS; x++)
+                    for (var x = 0; x < MAX_PLAYERS; x++)
                     {
                         players[x] = new Player();
                     }

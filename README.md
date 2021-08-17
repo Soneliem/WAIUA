@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://github.com/Soneliem/WAIUA">
-    <img src="WAIUA/Assets/logo.ico" alt="Logo" width="80" height="80">
+    <img src="Screenshots/logo.png" alt="Logo" width="80" height="80">
   </a>
 </p>
 <h3 align="center">WAIUA</h3>
@@ -39,16 +39,21 @@
 
 
 ## About The Project
-![Screenshot](https://imgur.com/XGkE4k1.png)
+![Screenshot](Screenshots/main.png)
 A simple(for you, not me) Windows GUI app that lets you see the ranks, recent games and other info of players in a live Valorant match while you're still playing it. What you see above is what you get (for now).
 
 ### Current Features
 Displays for each player:
 * Current Rank
+![rank](Screenshots/rank.png)
 * Past three ranks (from last 3 acts, not last 3 played acts)
+![rank](Screenshots/pranks.png)
 * W/L indicator for last three competitive games
-* IGN, Agent, Card and Account Level
-
+![rank](Screenshots/history.png)
+* Player card and Account Level
+![card](Screenshots/card.png)
+* In-game name, Agent and Title
+![name](Screenshots/name.png)
 ### Built With
 * [WPF](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/?view=netdesktop-5.0)
 * [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
@@ -96,7 +101,7 @@ See the [project board](https://github.com/Soneliem/WAIUA/projects/1) for a list
 
 The main reason I made this was to detect smurfs. Being able to see an account that were bronze 1 last act and then miraculously became gold 3 this act while having an account level of 2 is a very clear indication of them being a smurf. I have chosen the set of available features carefully mainly to maintain the competitive integrity of the game. For example I could have given you access to player ranks while you're still choosing agents, but this will lead to people dodging because they don't want "bad" teammates. I could have also given you access to the enemy's last 90 games but that both breaches their privacy and could lead to bullying.
 
-Another reason to making this was that I wanted some experience with .NET and GUI apps. This application uses C# as the backend, WPF as the frontend and .NET as the framework. I knew none of these so this was a fun journey. Because of this, the code is very messy but it does the job. I probably should have made it all asynchronously but I am lazy and I wanted to slowly get into C#. But mainly I am lazy.
+Another reason to making this was that I wanted some experience with .NET and GUI apps. This application uses C# as the backend, WPF as the frontend and .NET as the framework. I knew none of these so this was a fun journey. Because of this, the code is very messy but it does the job. I probably should have made it all asynchronously but I am lazy and I wanted to slowly get into C#. But mainly because I am lazy.
 
 ## Contributing
 
@@ -104,7 +109,7 @@ I welcome any sort of contribution and am happy to take in any ~~hate/~~ feedbac
 
 ## License
 
-Distributed under the MIT License. See [LISCENSE](https://github.com/Soneliem/WAIUA/blob/master/LICENSE) for more information.
+Distributed under the MIT License. See the [liscense](https://github.com/Soneliem/WAIUA/blob/master/LICENSE) for more information.
 
 ## Contact
 
@@ -121,3 +126,4 @@ Project Link: [https://github.com/Soneliem/WAIUA](https://github.com/Soneliem/WA
 
 ## DISCLAIMER
 THIS PROJECT IS NOT ASSOCIATED OR ENDORSED BY RIOT GAMES. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
+By using this application, you agree that you, the individual, are knowingly accessing all information required to be displayed.

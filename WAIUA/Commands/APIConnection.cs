@@ -80,6 +80,7 @@ namespace WAIUA.Commands
                 url_to_body.TryAdd(url, cont);
             return cont;
         }
+
         public static void Login(CookieContainer cookie, string username, string password)
         {
             try
@@ -401,6 +402,7 @@ namespace WAIUA.Commands
                 System.Diagnostics.Debug.WriteLine(e);
             }
         }
+
         public static void GetTitleInfo(string title, int playerno)
         {
             try
