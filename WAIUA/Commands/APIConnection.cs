@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -44,6 +45,41 @@ namespace WAIUA.Commands
         public static string[] PGList { get; set; } = new string[10];
         public static string[] PPGList { get; set; } = new string[10];
         public static string[] PPPGList { get; set; } = new string[10];
+
+        private static ConcurrentDictionary<string, string> url_to_body = new();
+
+        public static string DoCachedRequest(Method method, String url, bool add_riot_auth, CookieContainer cookie_container = null, bool bypass_cache = false) // Thank you MitchC for this, I am always touched when random people go out of the way to help others even though they know that we would be clueless and need to ask alot of followup questions
+        {
+            var tsk = DoCachedRequestAsync(method, url, add_riot_auth, cookie_container, bypass_cache);
+            return tsk.Result;
+        }
+
+        public static async Task<string> DoCachedRequestAsync(Method method, String url, bool add_riot_auth, CookieContainer cookie_container = null, bool bypass_cache = false)
+        {
+            var attempt_cache = method == Method.GET && !bypass_cache;
+            if (attempt_cache)
+            {
+                if (url_to_body.TryGetValue(url, out var res))
+                {
+                    return res;
+                }
+            }
+            RestClient client = new RestClient(url);
+            if (cookie_container != null)
+                client.CookieContainer = cookie_container;
+            RestRequest request = new RestRequest(method);
+            if (add_riot_auth)
+            {
+                request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
+                request.AddHeader("Authorization", $"Bearer {AccessToken}");
+                request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
+                request.AddHeader("X-Riot-ClientVersion", $"{Version}");
+            }
+            var cont = (await client.ExecuteAsync(request)).Content;
+            if (attempt_cache)
+                url_to_body.TryAdd(url, cont);
+            return cont;
+        }
 
         public static void Login(CookieContainer cookie, string username, string password)
         {
@@ -161,7 +197,7 @@ namespace WAIUA.Commands
             RestClient client = new RestClient(new Uri($"https://127.0.0.1:{Port}/product-session/v1/external-sessions"));
             RestRequest request = new RestRequest(Method.GET);
             client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
-            request.AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{LPassword}"))}");
+            request.AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{LPassword}"))}"); 
             request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
             request.AddHeader("X-Riot-ClientVersion", $"{Version}");
             request.RequestFormat = RestSharp.DataFormat.Json;
@@ -333,12 +369,8 @@ namespace WAIUA.Commands
         {
             try
             {
-                string url = $"https://valorant-api.com/v1/agents/{agent}";
-                RestClient client = new RestClient(url);
-                RestRequest request = new RestRequest(Method.GET);
-
-                string response = client.Execute(request).Content;
-                var agentinfo = JsonConvert.DeserializeObject(response);
+                string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/agents/{agent}", false, null, false);
+                var agentinfo = JsonConvert.DeserializeObject(content);
                 JToken agentinfoObj = JObject.FromObject(agentinfo);
                 AgentPList[playerno] = agentinfoObj["data"]["killfeedPortrait"].Value<string>();
                 AgentList[playerno] = agentinfoObj["data"]["displayName"].Value<string>();
@@ -353,12 +385,8 @@ namespace WAIUA.Commands
         {
             try
             {
-                string url = $"https://valorant-api.com/v1/playercards/{card}";
-                RestClient client = new RestClient(url);
-                RestRequest request = new RestRequest(Method.GET);
-
-                string response = client.Execute(request).Content;
-                var agentinfo = JsonConvert.DeserializeObject(response);
+                string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/playercards/{card}", false, null, false);
+                var agentinfo = JsonConvert.DeserializeObject(content);
                 JToken agentinfoObj = JObject.FromObject(agentinfo);
                 CardList[playerno] = agentinfoObj["data"]["smallArt"].Value<string>();
             }
@@ -372,14 +400,8 @@ namespace WAIUA.Commands
         {
             try
             {
-                string url = $"https://pd.{Region}.a.pvp.net/mmr/v1/players/{puuid}/competitiveupdates?queue=competitive";
-                RestClient client = new RestClient(url);
-                RestRequest request = new RestRequest(Method.GET);
-                request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
-                request.AddHeader("Authorization", $"Bearer {AccessToken}");
-                request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
-                string response = client.Execute(request).Content;
-                var historyinfo = JsonConvert.DeserializeObject(response);
+                string content = DoCachedRequest(Method.GET, $"https://pd.{Region}.a.pvp.net/mmr/v1/players/{puuid}/competitiveupdates?queue=competitive", true, null, true);
+                var historyinfo = JsonConvert.DeserializeObject(content);
                 JToken historyinfoObj = JObject.FromObject(historyinfo);
                 RankProgList[playerno] = historyinfoObj["Matches"][0]["RankedRatingAfterUpdate"].Value<string>();
                 if (historyinfoObj["Matches"][0]["RankedRatingEarned"].Value<int>() >= 0)
@@ -418,14 +440,7 @@ namespace WAIUA.Commands
             try
             {
                 string rank, prank, pprank, ppprank = "";
-                string url = $"https://pd.{Region}.a.pvp.net/mmr/v1/players/{puuid}";
-                RestClient client = new RestClient(url);
-                RestRequest request = new RestRequest(Method.GET);
-                request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
-                request.AddHeader("Authorization", $"Bearer {AccessToken}");
-                request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
-                request.AddHeader("X-Riot-ClientVersion", $"{Version}");
-                string content = client.Execute(request).Content;
+                string content = DoCachedRequest(Method.GET, $"https://pd.{Region}.a.pvp.net/mmr/v1/players/{puuid}", true, null, true);
                 dynamic contentobj = JObject.Parse(content);
 
                 /*try
@@ -475,14 +490,7 @@ namespace WAIUA.Commands
         {
             try
             {
-                string url = $"https://shared.{Region}.a.pvp.net/content-service/v2/content";
-                RestClient client = new RestClient(url);
-                RestRequest request = new RestRequest(Method.GET);
-                request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
-                request.AddHeader("Authorization", $"Bearer {AccessToken}");
-                request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
-                request.AddHeader("X-Riot-ClientVersion", $"{Version}");
-                string response = client.Execute(request).Content;
+                string response = DoCachedRequest(Method.GET, $"https://shared.{Region}.a.pvp.net/content-service/v2/content", true);
                 dynamic content = JsonConvert.DeserializeObject(response);
 
                 int index = 0;
@@ -536,11 +544,8 @@ namespace WAIUA.Commands
 
         public static string GetLRankIcon(string rank)
         {
-            string url = $"https://valorant-api.com/v1/competitivetiers";
-            RestClient client = new RestClient(url);
-            RestRequest request = new RestRequest(Method.GET);
-            string response = client.Execute(request).Content;
-            dynamic agentinfo = JsonConvert.DeserializeObject(response);
+            string content = DoCachedRequest(Method.GET, "https://valorant-api.com/v1/competitivetiers", false);
+            dynamic agentinfo = JsonConvert.DeserializeObject(content);
             string output = "";
             foreach (var tiers in agentinfo.data[2].tiers)
             {
@@ -553,13 +558,10 @@ namespace WAIUA.Commands
             return output;
         }
 
-        public static string GetRankIcon(string rank)
+        private static string GetRankIcon(string rank)
         {
-            string url = $"https://valorant-api.com/v1/competitivetiers";
-            RestClient client = new RestClient(url);
-            RestRequest request = new RestRequest(Method.GET);
-            string response = client.Execute(request).Content;
-            dynamic agentinfo = JsonConvert.DeserializeObject(response);
+            string content = DoCachedRequest(Method.GET, "https://valorant-api.com/v1/competitivetiers", false);
+            dynamic agentinfo = JsonConvert.DeserializeObject(content);
             string output = "";
             foreach (var tiers in agentinfo.data[2].tiers)
             {
