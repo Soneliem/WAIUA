@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\arrow.png" />
     <None Remove="Assets\icon.ico" />
     <None Remove="Assets\rankdown.png" />
     <None Remove="Assets\rankup.png" />
@@ -16,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\arrow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\rankdown.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
