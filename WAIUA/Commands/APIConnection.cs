@@ -45,7 +45,7 @@ namespace WAIUA.Commands
         public static string[] PGList { get; set; } = new string[10];
         public static string[] PPGList { get; set; } = new string[10];
         public static string[] PPPGList { get; set; } = new string[10];
-
+        public static string[] TitleList { get; set; } = new string[10];
         private static ConcurrentDictionary<string, string> url_to_body = new();
 
         public static string DoCachedRequest(Method method, String url, bool add_riot_auth, CookieContainer cookie_container = null, bool bypass_cache = false) // Thank you MitchC for this, I am always touched when random people go out of the way to help others even though they know that we would be clueless and need to ask alot of followup questions
@@ -217,10 +217,10 @@ namespace WAIUA.Commands
             RestRequest request = new RestRequest(Method.GET);
             var response = client.Get(request);
             string content = response.Content;
+            //string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/version", false);
             var responsevar = JsonConvert.DeserializeObject(content);
             JToken responseObj = JObject.FromObject(responsevar);
-            string Lversion = responseObj["data"]["riotClientVersion"].Value<string>();
-            Version = Lversion;
+            Version = responseObj["data"]["riotClientVersion"].Value<string>();
         }
 
         public static string GetIGUsername(CookieContainer cookie, string puuid)
@@ -273,6 +273,7 @@ namespace WAIUA.Commands
                 request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
                 request.AddHeader("Authorization", $"Bearer {AccessToken}");
                 string response = client.Execute(request).Content;
+                //string response = DoCachedRequest(Method.GET, $"https://glz-{Region}-1.{Region}.a.pvp.net/core-game/v1/players/{PPUUID}", true, jar, true);
                 var matchinfo = JsonConvert.DeserializeObject(response);
                 JToken matchinfoObj = JObject.FromObject(matchinfo);
                 Matchid = matchinfoObj["MatchID"].Value<string>();
@@ -309,12 +310,14 @@ namespace WAIUA.Commands
                     request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
                     request.AddHeader("Authorization", $"Bearer {AccessToken}");
                     string content = client.Execute(request).Content;
+                    //string content = DoCachedRequest(Method.GET, $"https://glz-{Region}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}", true, null, true);
                     dynamic matchinfo = JsonConvert.DeserializeObject(content);
                     int[] playerno = new int[10];
                     string[] puuid = new string[10];
                     string[] agent = new string[10];
                     string[] card = new string[10];
                     string[] level = new string[10];
+                    string[] title = new string[10];
                     int index = 0;
                     foreach (var entry in matchinfo.Players)
                     {
@@ -323,6 +326,7 @@ namespace WAIUA.Commands
                         agent[index] = entry.CharacterID;
                         card[index] = entry.PlayerIdentity.PlayerCardID;
                         level[index] = entry.PlayerIdentity.AccountLevel;
+                        title[index] = entry.PlayerIdentity.PlayerTitleID;
                         index++;
                     }
                     PlayerNo = playerno;
@@ -330,6 +334,7 @@ namespace WAIUA.Commands
                     AgentList = agent;
                     CardList = card;
                     LevelList = level;
+                    TitleList = title;
                 }
             }
             catch (Exception)
@@ -344,6 +349,7 @@ namespace WAIUA.Commands
                 () => PlayerList[playerno] = GetIGUsername(cookie, PUUIDList[playerno]),
                 () => GetAgentInfo(AgentList[playerno], playerno),
                 () => GetCardInfo(CardList[playerno], playerno),
+                () => GetTitleInfo(TitleList[playerno], playerno),
                 () => GetCompHistory(PUUIDList[playerno], playerno),
                 () => GetPlayerHistory(PUUIDList[playerno], playerno));
 
@@ -360,7 +366,8 @@ namespace WAIUA.Commands
                 RankList[playerno],
                 PRankList[playerno],
                 PPRankList[playerno],
-                PPPRankList[playerno]
+                PPPRankList[playerno],
+                TitleList[playerno]
             };
             return output;
         }
@@ -369,7 +376,7 @@ namespace WAIUA.Commands
         {
             try
             {
-                string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/agents/{agent}", false, null, false);
+                string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/agents/{agent}", false);
                 var agentinfo = JsonConvert.DeserializeObject(content);
                 JToken agentinfoObj = JObject.FromObject(agentinfo);
                 AgentPList[playerno] = agentinfoObj["data"]["killfeedPortrait"].Value<string>();
@@ -385,10 +392,25 @@ namespace WAIUA.Commands
         {
             try
             {
-                string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/playercards/{card}", false, null, false);
+                string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/playercards/{card}", false);
                 var agentinfo = JsonConvert.DeserializeObject(content);
                 JToken agentinfoObj = JObject.FromObject(agentinfo);
                 CardList[playerno] = agentinfoObj["data"]["smallArt"].Value<string>();
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
+        }
+
+        public static void GetTitleInfo(string title, int playerno)
+        {
+            try
+            {
+                string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/playertitles/{title}", false);
+                var agentinfo = JsonConvert.DeserializeObject(content);
+                JToken agentinfoObj = JObject.FromObject(agentinfo);
+                TitleList[playerno] = agentinfoObj["data"]["titleText"].Value<string>();
             }
             catch (Exception e)
             {
@@ -490,9 +512,17 @@ namespace WAIUA.Commands
         {
             try
             {
-                string response = DoCachedRequest(Method.GET, $"https://shared.{Region}.a.pvp.net/content-service/v2/content", true);
+                string url = $"https://shared.{Region}.a.pvp.net/content-service/v2/content";
+                RestClient client = new RestClient(url);
+                RestRequest request = new RestRequest(Method.GET);
+                request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
+                request.AddHeader("Authorization", $"Bearer {AccessToken}");
+                request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
+                request.AddHeader("X-Riot-ClientVersion", $"{Version}");
+                string response = client.Execute(request).Content;
+                //string response = DoCachedRequest(Method.GET, $"https://shared.{Region}.a.pvp.net/content-service/v2/content", true);
+                //System.Diagnostics.Debug.WriteLine(response);
                 dynamic content = JsonConvert.DeserializeObject(response);
-
                 int index = 0;
                 int currentindex = 0;
 
