@@ -8,21 +8,18 @@ namespace WAIUA.Views
 {
     public partial class Home : UserControl
     {
-        public class HomeInfo
+        public class Player
         {
-            public class Player
-            {
-                public string[] data;
-                public static Player[] players;
-                public const int MAX_PLAYERS = 10;
+            public string[] data;
+            public static Player[] players;
+            public const int MAX_PLAYERS = 10;
 
-                static Player()
+            static Player()
+            {
+                players = new Player[MAX_PLAYERS];
+                for (var x = 0; x < MAX_PLAYERS; x++)
                 {
-                    players = new Player[MAX_PLAYERS];
-                    for (var x = 0; x < MAX_PLAYERS; x++)
-                    {
-                        players[x] = new Player();
-                    }
+                    players[x] = new Player();
                 }
             }
 
@@ -39,9 +36,9 @@ namespace WAIUA.Views
 
             private static void SetPlayer(int number) => Player.players[number].data = APIConnection.LiveMatchOutput(number);
 
-            public static HomeInfo GetHomeInfo()
+            public static Player GetPlayerInfo()
             {
-                var output = new HomeInfo() { };
+                var output = new Player() { };
                 try
                 {
                     APIConnection.LiveMatchSetup();
@@ -61,7 +58,7 @@ namespace WAIUA.Views
         {
             InitializeComponent();
             CookieContainer cookie = new CookieContainer();
-            DataContext = HomeInfo.GetHomeInfo();
+            DataContext = Player.GetPlayerInfo();
         }
 
         public void Window_Loaded(object sender, RoutedEventArgs e)
