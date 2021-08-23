@@ -357,9 +357,9 @@ namespace WAIUA.Commands
 
         public static string[] LiveMatchOutput(int playerno)
         {
-            CookieContainer cookie = new CookieContainer();
+            
             Parallel.Invoke(
-                () => PlayerList[playerno] = GetIGUsername(cookie, PUUIDList[playerno]),
+                () => GetIGCUsername(playerno),
                 () => GetAgentInfo(AgentList[playerno], playerno),
                 () => GetCardInfo(CardList[playerno], playerno),
                 () => GetTitleInfo(TitleList[playerno], playerno),
@@ -383,6 +383,19 @@ namespace WAIUA.Commands
                 TitleList[playerno]
             };
             return output;
+        }
+
+        public static void GetIGCUsername(int playerno)
+        {
+            CookieContainer cookie = new CookieContainer();
+            if (IsIncognito[playerno])
+            {
+                PlayerList[playerno] = "----";
+            }
+            else
+            {
+                PlayerList[playerno] = GetIGUsername(cookie, PUUIDList[playerno]);
+            }
         }
 
         public static void GetAgentInfo(string agent, int playerno)
