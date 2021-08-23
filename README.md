@@ -66,9 +66,9 @@ To get the app up and running follow these simple steps.
 
 ### Installation
 
-1. Download the latest .exe from the [Github releases page](https://github.com/Soneliem/WAIUA/releases)
+1. Download [the .exe](https://github.com/Soneliem/WAIUA/releases/latest/download/WAIUA.exe)
 2. Run the .exe
-3. It may require you to download and install the .NET desktop runtime, which you will require to use the app
+3. It may require you to download and install the .NET desktop runtime, which you will require to use the app or other apps build on .NET
 
 ## Usage
 
