@@ -46,6 +46,7 @@ namespace WAIUA.Commands
         public static string[] PPGList { get; set; } = new string[10];
         public static string[] PPPGList { get; set; } = new string[10];
         public static string[] TitleList { get; set; } = new string[10];
+        public static bool[] IsIncognito { get; set; } = new bool[10];
         private static ConcurrentDictionary<string, string> url_to_body = new();
 
         public static string DoCachedRequest(Method method, String url, bool add_riot_auth, CookieContainer cookie_container = null, bool bypass_cache = false) // Thank you MitchC for this, I am always touched when random people go out of the way to help others even though they know that we would be clueless and need to ask alot of followup questions
@@ -90,8 +91,8 @@ namespace WAIUA.Commands
                 JToken authObj = JObject.FromObject(authJson);
 
                 string authURL = authObj["response"]["parameters"]["uri"].Value<string>();
-                var access_tokenVar = Regex.Match(authURL, @"access_token=(.+?)&scope=").Groups[1].Value;
-                AccessToken = $"{access_tokenVar}";
+                var accessTokenVar = Regex.Match(authURL, @"access_token=(.+?)&scope=").Groups[1].Value;
+                AccessToken = $"{accessTokenVar}";
 
                 RestClient client = new RestClient(new Uri("https://entitlements.auth.riotgames.com/api/token/v1"));
                 RestRequest request = new RestRequest(Method.POST);
@@ -154,7 +155,7 @@ namespace WAIUA.Commands
             return client.Execute(request).Content;
         }
 
-        public static Boolean CheckLocal()
+        public static bool CheckLocal()
         {
             var lockfileLocation = $@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Riot Games\Riot Client\Config\lockfile";
 
@@ -318,16 +319,25 @@ namespace WAIUA.Commands
                     string[] card = new string[10];
                     string[] level = new string[10];
                     string[] title = new string[10];
+                    bool[] incognito = new bool[10];
                     int index = 0;
                     foreach (var entry in matchinfo.Players)
                     {
-                        playerno[index] = index;
-                        puuid[index] = entry.Subject;
-                        agent[index] = entry.CharacterID;
-                        card[index] = entry.PlayerIdentity.PlayerCardID;
-                        level[index] = entry.PlayerIdentity.AccountLevel;
-                        title[index] = entry.PlayerIdentity.PlayerTitleID;
-                        index++;
+                        if (entry.IsCoach == false)
+                        {
+                            playerno[index] = index;
+                            puuid[index] = entry.Subject;
+                            agent[index] = entry.CharacterID;
+                            card[index] = entry.PlayerIdentity.PlayerCardID;
+                            level[index] = entry.PlayerIdentity.AccountLevel;
+                            title[index] = entry.PlayerIdentity.PlayerTitleID;
+                            if (entry.PlayerIdentity.Incognito == true)
+                            {
+                                incognito[index] = true;
+                            }
+                            index++;
+                            if (index == 10){ break; }
+                        }
                     }
                     PlayerNo = playerno;
                     PUUIDList = puuid;
@@ -335,10 +345,13 @@ namespace WAIUA.Commands
                     CardList = card;
                     LevelList = level;
                     TitleList = title;
+                    IsIncognito = incognito;
+                    System.Diagnostics.Debug.WriteLine(IsIncognito);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e);
             }
         }
 
