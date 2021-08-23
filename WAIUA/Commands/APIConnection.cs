@@ -21,8 +21,6 @@ namespace WAIUA.Commands
         public static string PUUID { get; set; }
         public static string Matchid { get; set; }
         public static string IGN { get; set; }
-        public static string INusername { get; set; }
-        public static string INpassword { get; set; }
         public static string Port { get; set; }
         public static string LPassword { get; set; }
         public static string Protocol { get; set; }
@@ -336,7 +334,7 @@ namespace WAIUA.Commands
                                 incognito[index] = true;
                             }
                             index++;
-                            if (index == 10){ break; }
+                            if (index == 10) { break; }
                         }
                     }
                     PlayerNo = playerno;
@@ -346,7 +344,6 @@ namespace WAIUA.Commands
                     LevelList = level;
                     TitleList = title;
                     IsIncognito = incognito;
-                    System.Diagnostics.Debug.WriteLine(IsIncognito);
                 }
             }
             catch (Exception e)
@@ -357,7 +354,6 @@ namespace WAIUA.Commands
 
         public static string[] LiveMatchOutput(int playerno)
         {
-            
             Parallel.Invoke(
                 () => GetIGCUsername(playerno),
                 () => GetAgentInfo(AgentList[playerno], playerno),
