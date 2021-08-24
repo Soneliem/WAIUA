@@ -16,6 +16,11 @@ body, html {
 img{
     width: 25%;
 }
+h3{
+    color: white;
+    font-family: Verdana, sans-serif;
+    opacity: 50%;
+}
 
 #box {
     margin: 0;
