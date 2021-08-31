@@ -13,8 +13,8 @@
         <DataTemplate DataType="{x:Type viewmodels:AccountViewModel}">
             <views:Account />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:ProfileViewModel}">
-            <views:Profile />
+        <DataTemplate DataType="{x:Type viewmodels:InfoViewModel}">
+            <views:Info/>
         </DataTemplate>
     </Application.Resources>
 </Application>

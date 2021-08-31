@@ -13,7 +13,6 @@
     d:DesignHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Width}"
     Background="#2E3349"
-    Loaded="Window_Loaded"
     WindowState="Maximized"
     mc:Ignorable="d">
     <Grid>
@@ -127,7 +126,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Command="{Binding UpdateViewCommand}"
-                CommandParameter="Profile">
+                CommandParameter="Info">
 
                 <Image Margin="15" Source="/Assets/user.png" />
 
@@ -231,7 +230,7 @@
                 <TextBlock
                     FontSize="30"
                     Foreground="White"
-                    Text="Profile"
+                    Text="Info"
                     TextAlignment="Right" />
                 <TextBlock
                     FontSize="20"

@@ -50,7 +50,7 @@ namespace WAIUA.Views
                 else
                 {
                     authStatusBox.Text = "Authenticating...";
-                    APIConnection.Login(cookie, user, pass);
+                    Main.Login(cookie, user, pass);
                     CheckAuth(cookie);
                     break;
                 }
@@ -61,14 +61,14 @@ namespace WAIUA.Views
         {
             while (true)
             {
-                if (String.IsNullOrEmpty(APIConnection.GetIGUsername(cookie, APIConnection.PPUUID)))
+                if (String.IsNullOrEmpty(Main.GetIGUsername(cookie, Main.PPUUID)))
                 {
                     authStatusBox.Text = "Not Authenticated";
                     break;
                 }
                 else
                 {
-                    authStatusBox.Text = $"Authenticated as: {APIConnection.GetIGUsername(cookie, APIConnection.PPUUID)}";
+                    authStatusBox.Text = $"Authenticated as: {Main.GetIGUsername(cookie, Main.PPUUID)}";
                     break;
                 }
             }
@@ -83,10 +83,10 @@ namespace WAIUA.Views
         private void Button_Click3(object sender, System.Windows.RoutedEventArgs e)
         {
             CookieContainer cookie = new CookieContainer();
-            if (APIConnection.CheckLocal() == true)
+            if (Main.CheckLocal() == true)
             {
-                APIConnection.LocalLogin();
-                APIConnection.LocalRegion();
+                Main.LocalLogin();
+                Main.LocalRegion();
                 CheckAuth(cookie);
             }
             else
@@ -100,19 +100,19 @@ namespace WAIUA.Views
             switch (RegionList.SelectedIndex)
             {
                 case 0:
-                    APIConnection.Region = "na";
+                    Main.Region = "na";
                     break;
 
                 case 1:
-                    APIConnection.Region = "ap";
+                    Main.Region = "ap";
                     break;
 
                 case 2:
-                    APIConnection.Region = "eu";
+                    Main.Region = "eu";
                     break;
 
                 case 3:
-                    APIConnection.Region = "ko";
+                    Main.Region = "ko";
                     break;
 
                 default:

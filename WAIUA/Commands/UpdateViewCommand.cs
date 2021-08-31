@@ -30,9 +30,9 @@ namespace WAIUA.Commands
             {
                 viewModel.SelectedViewModel = new AccountViewModel();
             }
-            else if (parameter.ToString() == "Profile")
+            else if (parameter.ToString() == "Info")
             {
-                viewModel.SelectedViewModel = new ProfileViewModel();
+                viewModel.SelectedViewModel = new InfoViewModel();
             }
         }
     }

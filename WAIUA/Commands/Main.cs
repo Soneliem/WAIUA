@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace WAIUA.Commands
 {
-    public static class APIConnection
+    public static class Main
     {
         public static string AccessToken { get; set; }
         public static string EntitlementToken { get; set; }
@@ -39,6 +39,10 @@ namespace WAIUA.Commands
         public static string[] PRankList { get; set; } = new string[10];
         public static string[] PPRankList { get; set; } = new string[10];
         public static string[] PPPRankList { get; set; } = new string[10];
+        public static string[] RankNameList { get; set; } = new string[10];
+        public static string[] PRankNameList { get; set; } = new string[10];
+        public static string[] PpRankNameList { get; set; } = new string[10];
+        public static string[] PppRankNameList { get; set; } = new string[10];
         public static string[] RankProgList { get; set; } = new string[10];
         public static string[] PGList { get; set; } = new string[10];
         public static string[] PPGList { get; set; } = new string[10];
@@ -84,8 +88,8 @@ namespace WAIUA.Commands
         {
             try
             {
-                APIConnection.GetAuthorization(cookie);
-                var authJson = JsonConvert.DeserializeObject(APIConnection.Authenticate(cookie, username, password));
+                Main.GetAuthorization(cookie);
+                var authJson = JsonConvert.DeserializeObject(Main.Authenticate(cookie, username, password));
                 JToken authObj = JObject.FromObject(authJson);
 
                 string authURL = authObj["response"]["parameters"]["uri"].Value<string>();
@@ -290,7 +294,7 @@ namespace WAIUA.Commands
             try
             {
                 CookieContainer cookie = new CookieContainer();
-                if (String.IsNullOrEmpty(APIConnection.GetIGUsername(cookie, PPUUID)))
+                if (String.IsNullOrEmpty(Main.GetIGUsername(cookie, PPUUID)))
                 {
                     if (CheckLocal())
                     {
@@ -376,7 +380,11 @@ namespace WAIUA.Commands
                 PRankList[playerno],
                 PPRankList[playerno],
                 PPPRankList[playerno],
-                TitleList[playerno]
+                TitleList[playerno],
+                RankNameList[playerno],
+                PRankNameList[playerno],
+                PpRankNameList[playerno],
+                PppRankNameList[playerno]
             };
             return output;
         }
@@ -495,7 +503,6 @@ namespace WAIUA.Commands
                 {
                     rank = "0";
                 }*/
-                RankList[playerno] = GetLRankIcon(rank);
                 try
                 {
                     prank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{PSeason}"].CompetitiveTier;
@@ -504,7 +511,6 @@ namespace WAIUA.Commands
                 {
                     prank = "0";
                 }
-                PRankList[playerno] = GetRankIcon(prank);
                 try
                 {
                     pprank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{PPSeason}"].CompetitiveTier;
@@ -513,7 +519,6 @@ namespace WAIUA.Commands
                 {
                     pprank = "0";
                 }
-                PPRankList[playerno] = GetRankIcon(pprank);
                 try
                 {
                     ppprank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{PPPSeason}"].CompetitiveTier;
@@ -522,7 +527,16 @@ namespace WAIUA.Commands
                 {
                     ppprank = "0";
                 }
-                PPPRankList[playerno] = GetRankIcon(ppprank);
+
+                Parallel.Invoke(
+                    () => RankList[playerno] = GetLRankIcon(rank),
+                    () => PRankList[playerno] = GetRankIcon(prank),
+                    () => PPRankList[playerno] = GetRankIcon(pprank),
+                    () => PPPRankList[playerno] = GetRankIcon(ppprank),
+                    () => RankNameList[playerno] = GetRankName(rank),
+                    () => PRankNameList[playerno] = GetRankName(prank),
+                    () => PpRankNameList[playerno] = GetRankName(pprank),
+                    () => PppRankNameList[playerno] = GetRankName(ppprank));
             }
             catch (Exception e)
             {
@@ -623,6 +637,21 @@ namespace WAIUA.Commands
                 }
             }
             return output;
+        }
+        public static string GetRankName(string rank)
+        {
+            string content = DoCachedRequest(Method.GET, "https://valorant-api.com/v1/competitivetiers", false);
+            dynamic agentinfo = JsonConvert.DeserializeObject(content);
+            string name = "";
+            foreach (var tiers in agentinfo.data[2].tiers)
+            {
+                if (tiers.tier == rank)
+                {
+                    name = tiers.tierName;
+                    break;
+                }
+            }
+            return name;
         }
     }
 }

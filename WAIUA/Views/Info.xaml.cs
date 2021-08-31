@@ -3,11 +3,11 @@
 namespace WAIUA.Views
 {
     /// <summary>
-    /// Interaction logic for Profile.xaml
+    /// Interaction logic for Info.xaml
     /// </summary>
-    public partial class Profile : UserControl
+    public partial class Info : UserControl
     {
-        public Profile()
+        public Info()
         {
             InitializeComponent();
         }

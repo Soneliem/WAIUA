@@ -11,10 +11,12 @@
     Background="#2E3349"
     mc:Ignorable="d">
     <Grid>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
+
 
         <Grid Grid.Column="0" Margin="10,10,5,10">
             <Grid.RowDefinitions>
@@ -1606,5 +1608,12 @@
                 </Grid>
             </Border>
         </Grid>
+        <TextBlock
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="50"
+            Foreground="White"
+            Text="{Binding TestOutput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>

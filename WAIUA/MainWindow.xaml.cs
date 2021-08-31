@@ -10,9 +10,5 @@ namespace WAIUA
             InitializeComponent();
             DataContext = new MainViewModel();
         }
-
-        public void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
     }
 }
