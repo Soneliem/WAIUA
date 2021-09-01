@@ -1,9 +1,5 @@
-﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using WAIUA.Commands;
 
 namespace WAIUA.ViewModels
@@ -63,37 +59,30 @@ namespace WAIUA.ViewModels
             get { return _player0Prop; }
             set
             {
-                _player0Prop = value; 
+                _player0Prop = value;
 
                 OnPropertyChanged(nameof(Player0));
                 System.Diagnostics.Debug.WriteLine(_player0Prop.GetValue(1));
             }
         }
-
+        private string _testOutput;
+        public string TestOutput { get => _testOutput; set => SetProperty(ref _testOutput, value, nameof(TestOutput)); }
 
         public HomeViewModel()
         {
             Player.GetPlayerInfo();
-            _player0Prop = Player.Player0;
-            System.Diagnostics.Debug.WriteLine(Player0.GetValue(1));
-            _testOutput =  RandomNumberGenerator.GetInt32(0, 100).ToString();
-            //System.Diagnostics.Debug.WriteLine(_testOutput);
+            //_player0Prop = Player.Player0;
+            //System.Diagnostics.Debug.WriteLine(Player0.GetValue(1));
+            _testOutput = RandomNumberGenerator.GetInt32(0, 100).ToString();
+            System.Diagnostics.Debug.WriteLine(_testOutput);
         }
 
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        private void SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                OnPropertyChanged(propertyName);
-                return true;
-            }
-
-            return false;
+            field = newValue;
+            OnPropertyChanged(propertyName);
         }
 
-        private string _testOutput;
 
-        public string TestOutput { get => _testOutput; set => SetProperty(ref _testOutput, value, nameof(TestOutput)); }
     }
 }
