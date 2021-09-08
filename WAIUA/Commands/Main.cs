@@ -638,6 +638,7 @@ namespace WAIUA.Commands
             }
             return output;
         }
+
         public static string GetRankName(string rank)
         {
             string content = DoCachedRequest(Method.GET, "https://valorant-api.com/v1/competitivetiers", false);

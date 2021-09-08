@@ -5,7 +5,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>logo.ico</ApplicationIcon>
-    <Version>1.2.0.0</Version>
+    <Version>1.2.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,18 +17,31 @@
 
   <ItemGroup>
     <None Remove="Assets\arrow.png" />
+    <None Remove="Assets\discord.png" />
     <None Remove="Assets\icon.ico" />
     <None Remove="Assets\info.png" />
+    <None Remove="Assets\logo.ico" />
+    <None Remove="Assets\logo.png" />
     <None Remove="Assets\rankdown.png" />
     <None Remove="Assets\rankup.png" />
     <None Remove="Assets\sign-in.png" />
+    <None Remove="Assets\Soneliem.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Assets\arrow.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\discord.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\info.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\logo.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\rankdown.png">
@@ -38,6 +51,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\sign-in.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Soneliem.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -1,9 +1,9 @@
-﻿using System.Windows;
+﻿using AutoUpdaterDotNET;
 using MVVMEssentials.Services;
 using MVVMEssentials.Stores;
 using MVVMEssentials.ViewModels;
+using System.Windows;
 using WAIUA.ViewModels;
-using AutoUpdaterDotNET;
 
 namespace WAIUA
 {
@@ -42,6 +42,7 @@ namespace WAIUA
         {
             return new HomeViewModel(CreateHomeNavigationService(), CreateInfoNavigationService(), CreateAccountNavigationService());
         }
+
         private INavigationService CreateInfoNavigationService()
         {
             return new NavigationService<InfoViewModel>(_navigationStore, CreateInfoViewModel);
@@ -51,6 +52,7 @@ namespace WAIUA
         {
             return new InfoViewModel(CreateHomeNavigationService(), CreateInfoNavigationService(), CreateAccountNavigationService());
         }
+
         private INavigationService CreateAccountNavigationService()
         {
             return new NavigationService<AccountViewModel>(_navigationStore, CreateAccountViewModel);

@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using WAIUA.ViewModels;
 
 namespace WAIUA.Views
 {
@@ -9,6 +8,5 @@ namespace WAIUA.Views
         {
             InitializeComponent();
         }
-
     }
 }

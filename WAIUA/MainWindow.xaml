@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
     xmlns:views="clr-namespace:WAIUA.Views"
-    Name="myMainWindow"
+    Name="MyMainWindow"
     Title="WAIUA"
     Width="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Width}"
     Height="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}"

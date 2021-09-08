@@ -1,10 +1,9 @@
-﻿using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using MVVMEssentials.Commands;
+﻿using MVVMEssentials.Commands;
 using MVVMEssentials.Services;
 using MVVMEssentials.ViewModels;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using WAIUA.Commands;
 
 namespace WAIUA.ViewModels
@@ -115,7 +114,5 @@ namespace WAIUA.ViewModels
             field = newValue;
             OnPropertyChanged(propertyName);
         }
-
-
     }
 }
