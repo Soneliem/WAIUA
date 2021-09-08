@@ -119,7 +119,7 @@
                 Command="{Binding NavigateInfoCommand}"
                 CommandParameter="Info">
 
-                <Image Margin="15" Source="/Assets/user.png" />
+                <Image Margin="15" Source="/Assets/info.png" />
 
                 <Button.Style>
                     <Style TargetType="Button">

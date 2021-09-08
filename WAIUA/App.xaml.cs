@@ -3,6 +3,7 @@ using MVVMEssentials.Services;
 using MVVMEssentials.Stores;
 using MVVMEssentials.ViewModels;
 using WAIUA.ViewModels;
+using AutoUpdaterDotNET;
 
 namespace WAIUA
 {
@@ -29,6 +30,7 @@ namespace WAIUA
             MainWindow.Show();
 
             base.OnStartup(e);
+            AutoUpdater.Start("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xaml");
         }
 
         private INavigationService CreateHomeNavigationService()

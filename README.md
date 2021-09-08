@@ -62,13 +62,13 @@ To get the app up and running follow these simple steps.
 ### Prerequisites
 
 * Windows 64-bit
-* .NET (might already be installed)
+* .NET (Will install if not already)
 
 ### Installation
 
 1. Download [the .exe](https://github.com/Soneliem/WAIUA/releases/latest/download/WAIUA.exe)
-2. Run the .exe
-3. It may require you to download and install the .NET desktop runtime, which you will require to use the app or other apps build on .NET
+2. Run the .exe (If Windows Defender prevents you from running it, click "More Info" and then "Run Anyway")
+3. Follow the installation instructions, It's pretty explanatory
 
 ## Usage
 
@@ -85,7 +85,7 @@ If Valorant is not running:
 3. Press the big "WAIUA" button and wait about 10 seconds
 4. Profit slightly less
 
-Appologies about the long wait to load the information. I have to individually query each player's information from different APIs and then query another API to display images.
+Apologies about the long wait to load the information. I have to individually query each player's information from different APIs and then query another API to display images.
 
 ## Roadmap and Known Bugs
 
@@ -103,7 +103,7 @@ I welcome any sort of contribution and am happy to take in any ~~hate/~~ feedbac
 
 ## License
 
-Distributed under the MIT License. See the [liscense](https://github.com/Soneliem/WAIUA/blob/master/LICENSE) for more information.
+Distributed under the MIT License. See the [license](https://github.com/Soneliem/WAIUA/blob/master/LICENSE) for more information.
 
 ## Contact
 
