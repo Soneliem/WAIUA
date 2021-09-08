@@ -17,6 +17,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
             <RowDefinition Height="50" />
             <RowDefinition />
             <RowDefinition />
@@ -24,9 +25,139 @@
             <RowDefinition />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
+        <Grid Grid.ColumnSpan="3" Background="#181E34">
 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Command="{Binding NavigateAccountCommand}">
+
+                <Image Margin="15" Source="/Assets/sign-in.png" />
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Opacity="0" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#234d96" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Width="70"
+                            Height="70"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="0,20,20,0">
+
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Command="{Binding NavigateHomeCommand}">
+
+                <TextBlock
+                    Grid.Column="1"
+                    Height="35"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="Fonts/#RopaSans"
+                    FontSize="30"
+                    FontWeight="Medium"
+                    Foreground="#007EF9"
+                    Text="Click To Load Match Info" />
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Color="#181E34" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#234d96" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Width="400"
+                            Height="70"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="0,0,20,20">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button
+                Grid.Column="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Command="{Binding NavigateInfoCommand}"
+                CommandParameter="Info">
+
+                <Image Margin="15" Source="/Assets/user.png" />
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Opacity="0" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#234d96" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Width="70"
+                            Height="70"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="20,0,0,20">
+
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
         <Grid
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.RowSpan="4"
             Margin="40,20,20,20">
             <Grid.ColumnDefinitions>
@@ -136,7 +267,7 @@
         </Grid>
 
         <Grid
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.RowSpan="3"
             Grid.Column="1"
             Margin="50,60,50,60">
@@ -227,7 +358,7 @@
         </Grid>
 
         <Grid
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.RowSpan="2"
             Grid.Column="1"
             Margin="50,0,50,0">
@@ -282,7 +413,7 @@
                 TextWrapping="Wrap" />
         </Grid>
         <Grid
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.RowSpan="2"
             Grid.Column="2"
             Margin="20,0,50,0">
@@ -371,7 +502,7 @@
             </Button>
         </Grid>
         <Grid
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.RowSpan="3"
             Grid.Column="2"
             Margin="20,60,50,60">

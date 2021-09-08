@@ -3,18 +3,4 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
-    xmlns:views="clr-namespace:WAIUA.Views"
-    DispatcherUnhandledException="Application_DispatcherUnhandledException"
-    StartupUri="MainWindow.xaml">
-    <Application.Resources>
-        <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
-            <views:Home />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:AccountViewModel}">
-            <views:Account />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:InfoViewModel}">
-            <views:Info/>
-        </DataTemplate>
-    </Application.Resources>
-</Application>
+    xmlns:views="clr-namespace:WAIUA.Views" />
