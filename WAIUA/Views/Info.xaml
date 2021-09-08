@@ -204,6 +204,88 @@
                     TextAlignment="Center"
                     TextWrapping="Wrap" />
             </StackPanel>
+            <StackPanel
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                VerticalAlignment="Bottom">
+                <Button
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="30,0,30,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Click="Button_Click">
+
+                    <Viewbox>
+                        <TextBlock
+                            Grid.Column="1"
+                            Padding="5"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontWeight="Normal"
+                            Foreground="#007EF9"
+                            Text="Check for Updates" />
+                    </Viewbox>
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="#181E34" />
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#234d96" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="10,10,10,10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="20"
+                        Foreground="White"
+                        Opacity="0.7"
+                        Text="Latest Version: "
+                        TextAlignment="Left"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        x:Name="LatestVersion"
+                        FontSize="20"
+                        Foreground="White"
+                        Opacity="0.7"
+                        Text=""
+                        TextAlignment="Left"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="20"
+                        Foreground="White"
+                        Opacity="0.7"
+                        Text="Current Version: "
+                        TextAlignment="Left"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        x:Name="CurrentVersion"
+                        FontSize="20"
+                        Foreground="White"
+                        Opacity="0.7"
+                        Text=""
+                        TextAlignment="Left"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </StackPanel>
         </Grid>
         <Grid
             Grid.Row="1"

@@ -30,7 +30,7 @@ namespace WAIUA
             MainWindow.Show();
 
             base.OnStartup(e);
-            AutoUpdater.Start("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xaml");
+            AutoUpdater.Start("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xml");
         }
 
         private INavigationService CreateHomeNavigationService()
