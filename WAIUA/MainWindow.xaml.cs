@@ -8,7 +8,6 @@ namespace WAIUA
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }
     }
 }

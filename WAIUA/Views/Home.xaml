@@ -16,9 +16,145 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.ColumnSpan="3" Background="#181E34">
 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+            </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Margin="10,10,5,10">
+            <Button
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Command="{Binding NavigateAccountCommand}">
+
+                <Image Margin="15" Source="/Assets/sign-in.png" />
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Opacity="0" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#234d96" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Width="70"
+                            Height="70"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="0,20,20,0">
+
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Command="{Binding NavigateHomeCommand}">
+
+                <TextBlock
+                    Grid.Column="1"
+                    Height="35"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="Fonts/#RopaSans"
+                    FontSize="30"
+                    FontWeight="Medium"
+                    Foreground="#007EF9"
+                    Text="Click To Load Match Info" />
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Color="#181E34" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#234d96" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Width="400"
+                            Height="70"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="0,0,20,20">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button
+                Grid.Column="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Command="{Binding NavigateInfoCommand}"
+                CommandParameter="Info">
+
+                <Image Margin="15" Source="/Assets/user.png" />
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Opacity="0" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#234d96" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Width="70"
+                            Height="70"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="20,0,0,20">
+
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="10,10,5,10">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -157,9 +293,39 @@
                         VerticalAlignment="Bottom"
                         Stretch="Uniform">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player0[12]}" />
-                            <Image Source="{Binding Path=Player0[11]}" />
-                            <Image Source="{Binding Path=Player0[10]}" />
+                            <Image Source="{Binding Path=Player0[12]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player0[17]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player0[11]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player0[16]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player0[10]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player0[15]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
                         </StackPanel>
                     </Viewbox>
                     <Border
@@ -168,10 +334,20 @@
                         Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
                         Margin="10,0,0,5"
                         HorizontalAlignment="Right"
-                        CornerRadius="20">
+                        CornerRadius="20"
+                        ToolTipService.InitialShowDelay="0">
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding Path=Player0[9]}" />
                         </Border.Background>
+                        <Border.ToolTip>
+                            <ToolTip
+                                Padding="5"
+                                Background="#32e2b2"
+                                Content="{Binding Path=Player0[14]}"
+                                FontWeight="SemiBold"
+                                Foreground="Black"
+                                ToolTipService.InitialShowDelay="0" />
+                        </Border.ToolTip>
                     </Border>
                     <ProgressBar
                         Grid.Row="2"
@@ -314,9 +490,39 @@
                         VerticalAlignment="Bottom"
                         Stretch="Uniform">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player1[12]}" />
-                            <Image Source="{Binding Path=Player1[11]}" />
-                            <Image Source="{Binding Path=Player1[10]}" />
+                            <Image Source="{Binding Path=Player1[12]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player1[17]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player1[11]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player1[16]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player1[10]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player1[15]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
                         </StackPanel>
                     </Viewbox>
                     <Border
@@ -329,6 +535,15 @@
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding Path=Player1[9]}" />
                         </Border.Background>
+                        <Border.ToolTip>
+                            <ToolTip
+                                Padding="5"
+                                Background="#32e2b2"
+                                Content="{Binding Path=Player1[14]}"
+                                FontWeight="SemiBold"
+                                Foreground="Black"
+                                ToolTipService.InitialShowDelay="0" />
+                        </Border.ToolTip>
                     </Border>
                     <ProgressBar
                         Grid.Row="2"
@@ -471,9 +686,39 @@
                         VerticalAlignment="Bottom"
                         Stretch="Uniform">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player2[12]}" />
-                            <Image Source="{Binding Path=Player2[11]}" />
-                            <Image Source="{Binding Path=Player2[10]}" />
+                            <Image Source="{Binding Path=Player2[12]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player2[17]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player2[11]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player2[16]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player2[10]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player2[15]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
                         </StackPanel>
                     </Viewbox>
                     <Border
@@ -486,6 +731,15 @@
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding Path=Player2[9]}" />
                         </Border.Background>
+                        <Border.ToolTip>
+                            <ToolTip
+                                Padding="5"
+                                Background="#32e2b2"
+                                Content="{Binding Path=Player2[14]}"
+                                FontWeight="SemiBold"
+                                Foreground="Black"
+                                ToolTipService.InitialShowDelay="0" />
+                        </Border.ToolTip>
                     </Border>
                     <ProgressBar
                         Grid.Row="2"
@@ -628,9 +882,39 @@
                         VerticalAlignment="Bottom"
                         Stretch="Uniform">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player3[12]}" />
-                            <Image Source="{Binding Path=Player3[11]}" />
-                            <Image Source="{Binding Path=Player3[10]}" />
+                            <Image Source="{Binding Path=Player3[12]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player3[17]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player3[11]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player3[16]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player3[10]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player3[15]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
                         </StackPanel>
                     </Viewbox>
                     <Border
@@ -643,6 +927,15 @@
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding Path=Player3[9]}" />
                         </Border.Background>
+                        <Border.ToolTip>
+                            <ToolTip
+                                Padding="5"
+                                Background="#32e2b2"
+                                Content="{Binding Path=Player3[14]}"
+                                FontWeight="SemiBold"
+                                Foreground="Black"
+                                ToolTipService.InitialShowDelay="0" />
+                        </Border.ToolTip>
                     </Border>
                     <ProgressBar
                         Grid.Row="2"
@@ -785,9 +1078,39 @@
                         VerticalAlignment="Bottom"
                         Stretch="Uniform">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player4[12]}" />
-                            <Image Source="{Binding Path=Player4[11]}" />
-                            <Image Source="{Binding Path=Player4[10]}" />
+                            <Image Source="{Binding Path=Player4[12]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player4[17]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player4[11]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player4[16]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player4[10]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player4[15]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
                         </StackPanel>
                     </Viewbox>
                     <Border
@@ -800,6 +1123,15 @@
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding Path=Player4[9]}" />
                         </Border.Background>
+                        <Border.ToolTip>
+                            <ToolTip
+                                Padding="5"
+                                Background="#32e2b2"
+                                Content="{Binding Path=Player4[14]}"
+                                FontWeight="SemiBold"
+                                Foreground="Black"
+                                ToolTipService.InitialShowDelay="0" />
+                        </Border.ToolTip>
                     </Border>
                     <ProgressBar
                         Grid.Row="2"
@@ -813,7 +1145,10 @@
             </Border>
         </Grid>
 
-        <Grid Grid.Column="1" Margin="5,10,10,10">
+        <Grid
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="5,10,10,10">
 
             <Grid.RowDefinitions>
                 <RowDefinition />
@@ -953,9 +1288,39 @@
                         VerticalAlignment="Bottom"
                         Stretch="Uniform">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player5[12]}" />
-                            <Image Source="{Binding Path=Player5[11]}" />
-                            <Image Source="{Binding Path=Player5[10]}" />
+                            <Image Source="{Binding Path=Player5[12]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player5[17]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player5[11]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player5[16]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player5[10]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player5[15]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
                         </StackPanel>
                     </Viewbox>
                     <Border
@@ -968,6 +1333,15 @@
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding Path=Player5[9]}" />
                         </Border.Background>
+                        <Border.ToolTip>
+                            <ToolTip
+                                Padding="5"
+                                Background="#32e2b2"
+                                Content="{Binding Path=Player5[14]}"
+                                FontWeight="SemiBold"
+                                Foreground="Black"
+                                ToolTipService.InitialShowDelay="0" />
+                        </Border.ToolTip>
                     </Border>
                     <ProgressBar
                         Grid.Row="2"
@@ -1110,9 +1484,39 @@
                         VerticalAlignment="Bottom"
                         Stretch="Uniform">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player6[12]}" />
-                            <Image Source="{Binding Path=Player6[11]}" />
-                            <Image Source="{Binding Path=Player6[10]}" />
+                            <Image Source="{Binding Path=Player6[12]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player6[17]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player6[11]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player6[16]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player6[10]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player6[15]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
                         </StackPanel>
                     </Viewbox>
                     <Border
@@ -1125,6 +1529,15 @@
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding Path=Player6[9]}" />
                         </Border.Background>
+                        <Border.ToolTip>
+                            <ToolTip
+                                Padding="5"
+                                Background="#32e2b2"
+                                Content="{Binding Path=Player6[14]}"
+                                FontWeight="SemiBold"
+                                Foreground="Black"
+                                ToolTipService.InitialShowDelay="0" />
+                        </Border.ToolTip>
                     </Border>
                     <ProgressBar
                         Grid.Row="2"
@@ -1267,9 +1680,39 @@
                         VerticalAlignment="Bottom"
                         Stretch="Uniform">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player7[12]}" />
-                            <Image Source="{Binding Path=Player7[11]}" />
-                            <Image Source="{Binding Path=Player7[10]}" />
+                            <Image Source="{Binding Path=Player7[12]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player7[17]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player7[11]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player7[16]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player7[10]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player7[15]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
                         </StackPanel>
                     </Viewbox>
                     <Border
@@ -1282,6 +1725,15 @@
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding Path=Player7[9]}" />
                         </Border.Background>
+                        <Border.ToolTip>
+                            <ToolTip
+                                Padding="5"
+                                Background="#32e2b2"
+                                Content="{Binding Path=Player7[14]}"
+                                FontWeight="SemiBold"
+                                Foreground="Black"
+                                ToolTipService.InitialShowDelay="0" />
+                        </Border.ToolTip>
                     </Border>
                     <ProgressBar
                         Grid.Row="2"
@@ -1424,9 +1876,39 @@
                         VerticalAlignment="Bottom"
                         Stretch="Uniform">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player8[12]}" />
-                            <Image Source="{Binding Path=Player8[11]}" />
-                            <Image Source="{Binding Path=Player8[10]}" />
+                            <Image Source="{Binding Path=Player8[12]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player8[17]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player8[11]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player8[16]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player8[10]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player8[15]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
                         </StackPanel>
                     </Viewbox>
                     <Border
@@ -1439,6 +1921,15 @@
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding Path=Player8[9]}" />
                         </Border.Background>
+                        <Border.ToolTip>
+                            <ToolTip
+                                Padding="5"
+                                Background="#32e2b2"
+                                Content="{Binding Path=Player8[14]}"
+                                FontWeight="SemiBold"
+                                Foreground="Black"
+                                ToolTipService.InitialShowDelay="0" />
+                        </Border.ToolTip>
                     </Border>
                     <ProgressBar
                         Grid.Row="2"
@@ -1581,9 +2072,39 @@
                         VerticalAlignment="Bottom"
                         Stretch="Uniform">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player9[12]}" />
-                            <Image Source="{Binding Path=Player9[11]}" />
-                            <Image Source="{Binding Path=Player9[10]}" />
+                            <Image Source="{Binding Path=Player9[12]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player9[17]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player9[11]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player9[15]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
+                            <Image Source="{Binding Path=Player9[10]}">
+                                <Image.ToolTip>
+                                    <ToolTip
+                                        Padding="5"
+                                        Background="#32e2b2"
+                                        Content="{Binding Path=Player9[17]}"
+                                        FontWeight="SemiBold"
+                                        Foreground="Black"
+                                        ToolTipService.InitialShowDelay="0" />
+                                </Image.ToolTip>
+                            </Image>
                         </StackPanel>
                     </Viewbox>
                     <Border
@@ -1596,6 +2117,15 @@
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding Path=Player9[9]}" />
                         </Border.Background>
+                        <Border.ToolTip>
+                            <ToolTip
+                                Padding="5"
+                                Background="#32e2b2"
+                                Content="{Binding Path=Player9[14]}"
+                                FontWeight="SemiBold"
+                                Foreground="Black"
+                                ToolTipService.InitialShowDelay="0" />
+                        </Border.ToolTip>
                     </Border>
                     <ProgressBar
                         Grid.Row="2"
@@ -1608,12 +2138,5 @@
                 </Grid>
             </Border>
         </Grid>
-        <TextBlock
-            Grid.ColumnSpan="2"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="50"
-            Foreground="White"
-            Text="{Binding TestOutput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>

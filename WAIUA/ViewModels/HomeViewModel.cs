@@ -1,10 +1,15 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using MVVMEssentials.Commands;
+using MVVMEssentials.Services;
+using MVVMEssentials.ViewModels;
 using WAIUA.Commands;
 
 namespace WAIUA.ViewModels
 {
-    public class HomeViewModel : BaseViewModel
+    public class HomeViewModel : ViewModelBase
     {
         public class Player
         {
@@ -22,7 +27,7 @@ namespace WAIUA.ViewModels
             }
 
             public static string[] Player0 => Player.players[0].data;
-            /*public static string[] Player1 => Player.players[1].data;
+            public static string[] Player1 => Player.players[1].data;
             public static string[] Player2 => Player.players[2].data;
             public static string[] Player3 => Player.players[3].data;
             public static string[] Player4 => Player.players[4].data;
@@ -30,7 +35,7 @@ namespace WAIUA.ViewModels
             public static string[] Player6 => Player.players[6].data;
             public static string[] Player7 => Player.players[7].data;
             public static string[] Player8 => Player.players[8].data;
-            public static string[] Player9 => Player.players[9].data;*/
+            public static string[] Player9 => Player.players[9].data;
 
             private static void SetPlayer(int number) => Player.players[number].data = Main.LiveMatchOutput(number);
 
@@ -40,11 +45,10 @@ namespace WAIUA.ViewModels
                 try
                 {
                     Main.LiveMatchSetup();
-                    /*Parallel.For(0, 10, i =>
+                    Parallel.For(0, 10, i =>
                     {
                         SetPlayer(i);
-                    });*/
-                    SetPlayer(0);
+                    });
                 }
                 catch (System.Exception)
                 {
@@ -54,27 +58,56 @@ namespace WAIUA.ViewModels
         }
 
         private string[] _player0Prop;
-        public string[] Player0
-        {
-            get { return _player0Prop; }
-            set
-            {
-                _player0Prop = value;
+        public string[] Player0 { get => _player0Prop; set => SetProperty(ref _player0Prop, value, nameof(Player0)); }
 
-                OnPropertyChanged(nameof(Player0));
-                System.Diagnostics.Debug.WriteLine(_player0Prop.GetValue(1));
-            }
-        }
-        private string _testOutput;
-        public string TestOutput { get => _testOutput; set => SetProperty(ref _testOutput, value, nameof(TestOutput)); }
+        private string[] _player1Prop;
+        public string[] Player1 { get => _player1Prop; set => SetProperty(ref _player1Prop, value, nameof(Player1)); }
 
-        public HomeViewModel()
+        private string[] _player2Prop;
+        public string[] Player2 { get => _player2Prop; set => SetProperty(ref _player2Prop, value, nameof(Player2)); }
+
+        private string[] _player3Prop;
+        public string[] Player3 { get => _player3Prop; set => SetProperty(ref _player3Prop, value, nameof(Player3)); }
+
+        private string[] _player4Prop;
+        public string[] Player4 { get => _player4Prop; set => SetProperty(ref _player4Prop, value, nameof(Player4)); }
+
+        private string[] _player5Prop;
+        public string[] Player5 { get => _player5Prop; set => SetProperty(ref _player5Prop, value, nameof(Player5)); }
+
+        private string[] _player6Prop;
+        public string[] Player6 { get => _player6Prop; set => SetProperty(ref _player6Prop, value, nameof(Player6)); }
+
+        private string[] _player7Prop;
+        public string[] Player7 { get => _player7Prop; set => SetProperty(ref _player7Prop, value, nameof(Player7)); }
+
+        private string[] _player8Prop;
+        public string[] Player8 { get => _player8Prop; set => SetProperty(ref _player8Prop, value, nameof(Player8)); }
+
+        private string[] _player9Prop;
+        public string[] Player9 { get => _player9Prop; set => SetProperty(ref _player9Prop, value, nameof(Player9)); }
+
+        public ICommand NavigateHomeCommand { get; }
+        public ICommand NavigateInfoCommand { get; }
+        public ICommand NavigateAccountCommand { get; }
+
+        public HomeViewModel(INavigationService homeNavigationService, INavigationService infoNavigationService, INavigationService accountNavigationService)
         {
             Player.GetPlayerInfo();
-            //_player0Prop = Player.Player0;
-            //System.Diagnostics.Debug.WriteLine(Player0.GetValue(1));
-            _testOutput = RandomNumberGenerator.GetInt32(0, 100).ToString();
-            System.Diagnostics.Debug.WriteLine(_testOutput);
+            _player0Prop = Player.Player0;
+            _player1Prop = Player.Player1;
+            _player2Prop = Player.Player2;
+            _player3Prop = Player.Player3;
+            _player4Prop = Player.Player4;
+            _player5Prop = Player.Player5;
+            _player6Prop = Player.Player6;
+            _player7Prop = Player.Player7;
+            _player8Prop = Player.Player8;
+            _player9Prop = Player.Player9;
+
+            NavigateHomeCommand = new NavigateCommand(homeNavigationService);
+            NavigateInfoCommand = new NavigateCommand(infoNavigationService);
+            NavigateAccountCommand = new NavigateCommand(accountNavigationService);
         }
 
         private void SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
