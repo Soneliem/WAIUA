@@ -48,12 +48,6 @@ Displays for each player:
 |:---:|:---:|:---:|:---:|:---:|
 |![rank](Screenshots/rank.png)|![rank](Screenshots/pranks.png)|![rank](Screenshots/history.png)|![card](Screenshots/card.png)|![name](Screenshots/name.png)|
 
-### Built With
-* [WPF](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/?view=netdesktop-5.0)
-* [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
-* [.NET 5.0](https://dotnet.microsoft.com/)
-
-I knew none of these things before making this lol
 
 ## Getting Started
 
@@ -61,35 +55,47 @@ To get the app up and running follow these simple steps.
 
 ### Prerequisites
 
-* Windows 64-bit
-* .NET (Will install if not already)
+* Windows 64-bit (If you're able to run Valorant on it you'll be fine)
+* .NET (will be installed during installation)
 
 ### Installation
 
-1. Download [the .exe](https://github.com/Soneliem/WAIUA/releases/latest/download/WAIUA.exe)
-2. Run the .exe (If Windows Defender prevents you from running it, click "More Info" and then "Run Anyway")
-3. Follow the installation instructions, It's pretty explanatory
+1. Download [the latest installer](https://github.com/Soneliem/WAIUA/releases/latest/download/WAIUA.exe)
+2. Run the .exe (If a blue box saying "Windows protected your PC" shows up, click `More Info` and then `Run Anyway`)
+3. Follow the steps to install WAIUA
 
 ## Usage
 
 Please ensure you are in a match when you try to use it. I swear if you complain about it not working and you're not in a match...
 
 If Valorant is already running:
-1. Press the big "WAIUA" button and wait about 10 seconds
-2. Profit
+1. Ensure you are in a match (after selecting agents)
+2. Press the big "Click To Load Match Info" button and wait about 10 seconds
+3. Profit
 
 If Valorant is not running:
 1. Press the account button in the top left
 2. Use your Riot Account details to log in. Remember to select your region from the bottom left.
-3. Open Valorant LMAO
-3. Press the big "WAIUA" button and wait about 10 seconds
+3. Ensure you are in a match (after selecting agents). idk about you but wouldn't you need to have Valorant open for this?
+3. Press the big "Click To Load Match Info" button and wait about 10 seconds
 4. Profit slightly less
-
-Apologies about the long wait to load the information. I have to individually query each player's information from different APIs and then query another API to display images.
 
 ## Roadmap and Known Bugs
 
 See the [project board](https://github.com/Soneliem/WAIUA/projects/1) for a list of proposed features (and known verified bugs). Please check the [issues tab](https://github.com/Soneliem/WAIUA/issues) before making a new issue.
+
+## Built With
+* [WPF](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/?view=netdesktop-5.0)
+* [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
+* [.NET 5.0](https://dotnet.microsoft.com/)
+
+I knew none of these things before making this lol
+
+#### Packages that I used/ recommend:
+* [RestSharp](https://restsharp.dev/)
+* [JSON.NET](https://www.newtonsoft.com/json)
+* [MVVMEssentials](https://www.nuget.org/packages/MVVMEssentials.WPF) by [SingletonSean](https://www.youtube.com/channel/UC7X9mQ_XtTYWzr9Tf_NYcIg). His WPF tutorials were a lifesaver.
+* [AutoUpdater.NET](https://github.com/ravibpatel/AutoUpdater.NET)
 
 ## Why I Made This
 
