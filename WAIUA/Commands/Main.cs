@@ -8,6 +8,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace WAIUA.Commands
 {
@@ -289,71 +290,73 @@ namespace WAIUA.Commands
             }
         }
 
-        public static void LiveMatchSetup()
+        public static bool LiveMatchSetup()
         {
-            try
+            bool output = false;
+            CookieContainer cookie = new CookieContainer();
+            if (String.IsNullOrEmpty(Main.GetIGUsername(cookie, PPUUID)))
             {
-                CookieContainer cookie = new CookieContainer();
-                if (String.IsNullOrEmpty(Main.GetIGUsername(cookie, PPUUID)))
+                if (CheckLocal())
                 {
-                    if (CheckLocal())
-                    {
-                        LocalLogin();
-                        LocalRegion();
-                    }
+                    LocalLogin();
+                    LocalRegion();
+                    output = true;
                 }
-                if (LiveMatchID(cookie))
+                else
                 {
-                    Parallel.Invoke(
-                        () => GetSeasons(),
-                        () => GetLatestVersion());
-                    string url = $"https://glz-{Region}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
-                    RestClient client = new RestClient(url);
-                    RestRequest request = new RestRequest(Method.GET);
-                    request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
-                    request.AddHeader("Authorization", $"Bearer {AccessToken}");
-                    string content = client.Execute(request).Content;
-                    //string content = DoCachedRequest(Method.GET, $"https://glz-{Region}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}", true, null, true);
-                    dynamic matchinfo = JsonConvert.DeserializeObject(content);
-                    int[] playerno = new int[10];
-                    string[] puuid = new string[10];
-                    string[] agent = new string[10];
-                    string[] card = new string[10];
-                    string[] level = new string[10];
-                    string[] title = new string[10];
-                    bool[] incognito = new bool[10];
-                    int index = 0;
-                    foreach (var entry in matchinfo.Players)
+                    output =  false;
+                }
+            }
+            if (LiveMatchID(cookie))
+            {
+                Parallel.Invoke(
+                    () => GetSeasons(),
+                    () => GetLatestVersion());
+                string url = $"https://glz-{Region}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
+                RestClient client = new RestClient(url);
+                RestRequest request = new RestRequest(Method.GET);
+                request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
+                request.AddHeader("Authorization", $"Bearer {AccessToken}");
+                string content = client.Execute(request).Content;
+                //string content = DoCachedRequest(Method.GET, $"https://glz-{Region}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}", true, null, true);
+                dynamic matchinfo = JsonConvert.DeserializeObject(content);
+                int[] playerno = new int[10];
+                string[] puuid = new string[10];
+                string[] agent = new string[10];
+                string[] card = new string[10];
+                string[] level = new string[10];
+                string[] title = new string[10];
+                bool[] incognito = new bool[10];
+                int index = 0;
+                foreach (var entry in matchinfo.Players)
+                {
+                    if (entry.IsCoach == false)
                     {
-                        if (entry.IsCoach == false)
+                        playerno[index] = index;
+                        puuid[index] = entry.Subject;
+                        agent[index] = entry.CharacterID;
+                        card[index] = entry.PlayerIdentity.PlayerCardID;
+                        level[index] = entry.PlayerIdentity.AccountLevel;
+                        title[index] = entry.PlayerIdentity.PlayerTitleID;
+                        if (entry.PlayerIdentity.Incognito == true)
                         {
-                            playerno[index] = index;
-                            puuid[index] = entry.Subject;
-                            agent[index] = entry.CharacterID;
-                            card[index] = entry.PlayerIdentity.PlayerCardID;
-                            level[index] = entry.PlayerIdentity.AccountLevel;
-                            title[index] = entry.PlayerIdentity.PlayerTitleID;
-                            if (entry.PlayerIdentity.Incognito == true)
-                            {
-                                incognito[index] = true;
-                            }
-                            index++;
-                            if (index == 10) { break; }
+                            incognito[index] = true;
                         }
+                        index++;
+                        if (index == 10) { break; }
                     }
-                    PlayerNo = playerno;
-                    PUUIDList = puuid;
-                    AgentList = agent;
-                    CardList = card;
-                    LevelList = level;
-                    TitleList = title;
-                    IsIncognito = incognito;
                 }
+                PlayerNo = playerno;
+                PUUIDList = puuid;
+                AgentList = agent;
+                CardList = card;
+                LevelList = level;
+                TitleList = title;
+                IsIncognito = incognito;
+                output = true;
             }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine(e);
-            }
+
+            return output;
         }
 
         public static string[] LiveMatchOutput(int playerno)
@@ -653,6 +656,13 @@ namespace WAIUA.Commands
                 }
             }
             return name;
+        }
+
+        public static string TrackerUrl(string username)
+        {
+            string output = null;
+            output = HttpUtility.UrlEncode(username);
+            return output;
         }
     }
 }

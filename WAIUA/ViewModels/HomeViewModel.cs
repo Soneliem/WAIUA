@@ -3,6 +3,7 @@ using MVVMEssentials.Services;
 using MVVMEssentials.ViewModels;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using WAIUA.Commands;
 
@@ -43,11 +44,19 @@ namespace WAIUA.ViewModels
                 var output = new Player() { };
                 try
                 {
-                    Main.LiveMatchSetup();
-                    Parallel.For(0, 10, i =>
+                    if (Main.LiveMatchSetup())
                     {
-                        SetPlayer(i);
-                    });
+                        Parallel.For(0, 10, i =>
+                        {
+                            SetPlayer(i);
+                        });
+                        
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please Open Valorant First", "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+                    }
+                    
                 }
                 catch (System.Exception)
                 {

@@ -1,5 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Reflection;
+using System.Text.RegularExpressions;
+using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
