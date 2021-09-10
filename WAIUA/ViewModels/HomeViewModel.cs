@@ -1,6 +1,7 @@
 ﻿using MVVMEssentials.Commands;
 using MVVMEssentials.Services;
 using MVVMEssentials.ViewModels;
+using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -50,13 +51,11 @@ namespace WAIUA.ViewModels
                         {
                             SetPlayer(i);
                         });
-                        
                     }
                     else
                     {
                         MessageBox.Show("Please Open Valorant First", "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
                     }
-                    
                 }
                 catch (System.Exception)
                 {
@@ -95,9 +94,21 @@ namespace WAIUA.ViewModels
         private string[] _player9Prop;
         public string[] Player9 { get => _player9Prop; set => SetProperty(ref _player9Prop, value, nameof(Player9)); }
 
+        private void OnOpenTrackerCommand()
+        {
+            try
+            {
+            }
+            catch (Exception)
+            {
+                // TODO: Error.
+            }
+        }
+
         public ICommand NavigateHomeCommand { get; }
         public ICommand NavigateInfoCommand { get; }
         public ICommand NavigateAccountCommand { get; }
+        public ICommand OpenTrackerCommand { get; }
 
         public HomeViewModel(INavigationService homeNavigationService, INavigationService infoNavigationService, INavigationService accountNavigationService)
         {
@@ -112,7 +123,7 @@ namespace WAIUA.ViewModels
             _player7Prop = Player.Player7;
             _player8Prop = Player.Player8;
             _player9Prop = Player.Player9;
-
+            //this.OpenTrackerCommand = new RoutedCommand(this.OnOpenTrackerCommand);
             NavigateHomeCommand = new NavigateCommand(homeNavigationService);
             NavigateInfoCommand = new NavigateCommand(infoNavigationService);
             NavigateAccountCommand = new NavigateCommand(accountNavigationService);

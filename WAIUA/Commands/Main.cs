@@ -8,7 +8,6 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace WAIUA.Commands
 {
@@ -304,7 +303,7 @@ namespace WAIUA.Commands
                 }
                 else
                 {
-                    output =  false;
+                    output = false;
                 }
             }
             if (LiveMatchID(cookie))
@@ -498,14 +497,14 @@ namespace WAIUA.Commands
                 string content = DoCachedRequest(Method.GET, $"https://pd.{Region}.a.pvp.net/mmr/v1/players/{puuid}", true, null, true);
                 dynamic contentobj = JObject.Parse(content);
 
-                /*try
-                {*/
-                rank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{CurrentSeason}"].CompetitiveTier;
-                /*}
+                try
+                {
+                    rank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{CurrentSeason}"].CompetitiveTier;
+                }
                 catch (Exception)
                 {
                     rank = "0";
-                }*/
+                }
                 try
                 {
                     prank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{PSeason}"].CompetitiveTier;
@@ -661,7 +660,19 @@ namespace WAIUA.Commands
         public static string TrackerUrl(string username)
         {
             string output = null;
-            output = HttpUtility.UrlEncode(username);
+            string encodedUsername = Uri.EscapeDataString(username);
+            string url = "https://tracker.gg/valorant/profile/riot/" + encodedUsername;
+
+            RestClient client = new RestClient(url);
+            RestRequest request = new RestRequest();
+            var response = client.Execute(request);
+            HttpStatusCode statusCode = response.StatusCode;
+            int numericStatusCode = (int)statusCode;
+
+            if (numericStatusCode == 200)
+            {
+                output = url;
+            }
             return output;
         }
     }

@@ -380,7 +380,7 @@
                 FontSize="25"
                 FontWeight="DemiBold"
                 Foreground="#32e2b2">
-                Who Am I Up Againt?
+                Who Am I Up Against?
             </TextBlock>
         </StackPanel>
     </Grid>

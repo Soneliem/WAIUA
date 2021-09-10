@@ -1,8 +1,5 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -10,9 +7,6 @@ using System.Xml;
 
 namespace WAIUA.Views
 {
-    /// <summary>
-    /// Interaction logic for Info.xaml
-    /// </summary>
     public partial class Info : UserControl
     {
         public Info()
