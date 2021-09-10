@@ -16,6 +16,7 @@ namespace WAIUA.Commands
         public static string AccessToken { get; set; }
         public static string EntitlementToken { get; set; }
         public static string Region { get; set; }
+        public static string Shard { get; set; }
         public static string Version { get; set; }
         public static string PPUUID { get; set; }
         public static string PUUID { get; set; }
@@ -88,8 +89,8 @@ namespace WAIUA.Commands
         {
             try
             {
-                Main.GetAuthorization(cookie);
-                var authJson = JsonConvert.DeserializeObject(Main.Authenticate(cookie, username, password));
+                GetAuthorization(cookie);
+                var authJson = JsonConvert.DeserializeObject(Authenticate(cookie, username, password));
                 JToken authObj = JObject.FromObject(authJson);
 
                 string authURL = authObj["response"]["parameters"]["uri"].Value<string>();
@@ -185,7 +186,7 @@ namespace WAIUA.Commands
             request.AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{LPassword}"))}");
             request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
             request.AddHeader("X-Riot-ClientVersion", $"{Version}");
-            request.RequestFormat = RestSharp.DataFormat.Json;
+            request.RequestFormat = DataFormat.Json;
             var response = client.Get(request);
             string content = client.Execute(request).Content;
             var responsevar = JsonConvert.DeserializeObject(content);
@@ -203,7 +204,7 @@ namespace WAIUA.Commands
             request.AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{LPassword}"))}");
             request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
             request.AddHeader("X-Riot-ClientVersion", $"{Version}");
-            request.RequestFormat = RestSharp.DataFormat.Json;
+            request.RequestFormat = DataFormat.Json;
             var response = client.Get(request);
             string content = client.Execute(request).Content;
             JObject root = JObject.Parse(content);
@@ -211,7 +212,21 @@ namespace WAIUA.Commands
             var fullstring = (property.Value["launchConfiguration"]["arguments"][3]);
             string[] parts = fullstring.ToString().Split(new char[] { '=', '&' });
             string output = parts[1];
-            Region = output;
+            if (output == "latam")
+            {
+                Region = "na";
+                Shard = "latam";
+            }
+            else if (output == "br")
+            {
+                Region = "na";
+                Shard = "br";
+            }
+            else
+            {
+                Region = output;
+                Shard = output;
+            }
         }
 
         public static void GetLatestVersion()
@@ -237,7 +252,7 @@ namespace WAIUA.Commands
                 client.CookieContainer = cookie;
                 RestRequest request = new RestRequest(Method.PUT);
 
-                request.RequestFormat = RestSharp.DataFormat.Json;
+                request.RequestFormat = DataFormat.Json;
                 request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
                 request.AddHeader("Authorization", $"Bearer {AccessToken}");
 
@@ -269,14 +284,14 @@ namespace WAIUA.Commands
         {
             try
             {
-                string url = $"https://glz-{Region}-1.{Region}.a.pvp.net/core-game/v1/players/{PPUUID}";
+                string url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/players/{PPUUID}";
                 RestClient client = new RestClient(url);
                 client.CookieContainer = jar;
                 RestRequest request = new RestRequest(Method.GET);
                 request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
                 request.AddHeader("Authorization", $"Bearer {AccessToken}");
                 string response = client.Execute(request).Content;
-                //string response = DoCachedRequest(Method.GET, $"https://glz-{Region}-1.{Region}.a.pvp.net/core-game/v1/players/{PPUUID}", true, jar, true);
+                //string response = DoCachedRequest(Method.GET, $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/players/{PPUUID}", true, jar, true);
                 var matchinfo = JsonConvert.DeserializeObject(response);
                 JToken matchinfoObj = JObject.FromObject(matchinfo);
                 Matchid = matchinfoObj["MatchID"].Value<string>();
@@ -293,7 +308,7 @@ namespace WAIUA.Commands
         {
             bool output = false;
             CookieContainer cookie = new CookieContainer();
-            if (String.IsNullOrEmpty(Main.GetIGUsername(cookie, PPUUID)))
+            if (String.IsNullOrEmpty(GetIGUsername(cookie, PPUUID)))
             {
                 if (CheckLocal())
                 {
@@ -311,13 +326,13 @@ namespace WAIUA.Commands
                 Parallel.Invoke(
                     () => GetSeasons(),
                     () => GetLatestVersion());
-                string url = $"https://glz-{Region}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
+                string url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
                 RestClient client = new RestClient(url);
                 RestRequest request = new RestRequest(Method.GET);
                 request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
                 request.AddHeader("Authorization", $"Bearer {AccessToken}");
                 string content = client.Execute(request).Content;
-                //string content = DoCachedRequest(Method.GET, $"https://glz-{Region}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}", true, null, true);
+                //string content = DoCachedRequest(Method.GET, $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}", true, null, true);
                 dynamic matchinfo = JsonConvert.DeserializeObject(content);
                 int[] playerno = new int[10];
                 string[] puuid = new string[10];

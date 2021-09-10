@@ -42,7 +42,7 @@ namespace WAIUA.ViewModels
 
             public static Player GetPlayerInfo()
             {
-                var output = new Player() { };
+                var output = new Player();
                 try
                 {
                     if (Main.LiveMatchSetup())
@@ -57,7 +57,7 @@ namespace WAIUA.ViewModels
                         MessageBox.Show("Please Open Valorant First", "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
                     }
                 }
-                catch (System.Exception)
+                catch (Exception)
                 {
                 }
                 return output;

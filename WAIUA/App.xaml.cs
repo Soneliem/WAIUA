@@ -33,6 +33,11 @@ namespace WAIUA
             AutoUpdater.Start("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xml");
         }
 
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            WAIUA.Properties.Settings.Default.Save();
+        }
+
         private INavigationService CreateHomeNavigationService()
         {
             return new NavigationService<HomeViewModel>(_navigationStore, CreateHomeViewModel);

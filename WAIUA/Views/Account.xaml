@@ -558,6 +558,14 @@
                     Content="Korea"
                     Foreground="White"
                     Opacity="0.7" />
+                <ListBoxItem
+                    Content="Brazil"
+                    Foreground="White"
+                    Opacity="0.7" />
+                <ListBoxItem
+                    Content="Latin America"
+                    Foreground="White"
+                    Opacity="0.7" />
             </ListBox>
             <TextBlock
                 Grid.Row="2"

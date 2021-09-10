@@ -83,7 +83,7 @@ namespace WAIUA.Views
         private void Button_Click3(object sender, System.Windows.RoutedEventArgs e)
         {
             CookieContainer cookie = new CookieContainer();
-            if (Main.CheckLocal() == true)
+            if (Main.CheckLocal())
             {
                 Main.LocalLogin();
                 Main.LocalRegion();
@@ -101,21 +101,33 @@ namespace WAIUA.Views
             {
                 case 0:
                     Main.Region = "na";
+                    Main.Shard = "na";
                     break;
 
                 case 1:
                     Main.Region = "ap";
+                    Main.Shard = "ap";
                     break;
 
                 case 2:
                     Main.Region = "eu";
+                    Main.Shard = "eu";
+
                     break;
 
                 case 3:
                     Main.Region = "ko";
+                    Main.Shard = "ko";
                     break;
 
-                default:
+                case 4:
+                    Main.Region = "na";
+                    Main.Shard = "br";
+                    break;
+
+                case 5:
+                    Main.Region = "na";
+                    Main.Shard = "latam";
                     break;
             }
         }
