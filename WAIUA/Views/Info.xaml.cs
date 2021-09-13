@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using AutoUpdaterDotNET;
+using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +19,7 @@ namespace WAIUA.Views
         {
             CurrentVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             LatestVersion.Text = GetLatestVerion();
+            AutoUpdater.Start("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xml");
         }
 
         private string GetLatestVerion()

@@ -40,6 +40,8 @@
 
 ## About The Project
 ![Screenshot](Screenshots/main.png)
+
+**WAIUA** - Pronounced: Why? Whaaa??
 A simple(for you, not me) Windows GUI app that lets you see the ranks, recent games and other info of players in a live Valorant match while you're still playing it. What you see above is what you get (for now).
 
 ### Current Features
@@ -82,7 +84,7 @@ If Valorant is not running:
 
 ## Roadmap and Known Bugs
 
-See the [project board](https://github.com/Soneliem/WAIUA/projects/1) for a list of proposed features (and known verified bugs). Please check the [issues tab](https://github.com/Soneliem/WAIUA/issues) before making a new issue.
+Please check the [issues tab](https://github.com/Soneliem/WAIUA/issues) before making a new issue. My [Discord Server]() has a list of known bugs and upcoming features.
 
 ## Built With
 * [WPF](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/?view=netdesktop-5.0)

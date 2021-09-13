@@ -9,7 +9,6 @@
     d:DesignHeight="754"
     d:DesignWidth="1536"
     Background="#2E3349"
-    UseLayoutRounding="True"
     mc:Ignorable="d">
     <Grid>
 

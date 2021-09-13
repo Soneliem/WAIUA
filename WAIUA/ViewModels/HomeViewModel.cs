@@ -4,7 +4,6 @@ using MVVMEssentials.ViewModels;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using WAIUA.Commands;
 
@@ -14,53 +13,51 @@ namespace WAIUA.ViewModels
     {
         public class Player
         {
-            public string[] data;
-            public static Player[] players;
-            public const int MAX_PLAYERS = 10;
+            public string[] data = null;
+            public static Player[] players = null;
+            public const sbyte MAX_PLAYERS = 10;
 
             static Player()
             {
                 players = new Player[MAX_PLAYERS];
-                for (var x = 0; x < MAX_PLAYERS; x++)
+                for (sbyte x = 0; x < MAX_PLAYERS; x++)
                 {
                     players[x] = new Player();
                 }
             }
 
-            public static string[] Player0 => Player.players[0].data;
-            public static string[] Player1 => Player.players[1].data;
-            public static string[] Player2 => Player.players[2].data;
-            public static string[] Player3 => Player.players[3].data;
-            public static string[] Player4 => Player.players[4].data;
-            public static string[] Player5 => Player.players[5].data;
-            public static string[] Player6 => Player.players[6].data;
-            public static string[] Player7 => Player.players[7].data;
-            public static string[] Player8 => Player.players[8].data;
-            public static string[] Player9 => Player.players[9].data;
+            public static string[] Player0 => players[0].data;
+            public static string[] Player1 => players[1].data;
+            public static string[] Player2 => players[2].data;
+            public static string[] Player3 => players[3].data;
+            public static string[] Player4 => players[4].data;
+            public static string[] Player5 => players[5].data;
+            public static string[] Player6 => players[6].data;
+            public static string[] Player7 => players[7].data;
+            public static string[] Player8 => players[8].data;
+            public static string[] Player9 => players[9].data;
+        }
 
-            private static void SetPlayer(int number) => Player.players[number].data = Main.LiveMatchOutput(number);
+        private void GetPlayerInfo()
+        {
+            Main NewMatch = new Main();
 
-            public static Player GetPlayerInfo()
+            Parallel.For(0, 10, i =>
             {
-                var output = new Player();
-                try
+                Player.players[i].data = null;
+            });
+            try
+            {
+                if (Main.LiveMatchSetup())
                 {
-                    if (Main.LiveMatchSetup())
+                    Parallel.For(0, 10, i =>
                     {
-                        Parallel.For(0, 10, i =>
-                        {
-                            SetPlayer(i);
-                        });
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please Open Valorant First", "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
-                    }
+                        Player.players[i].data = NewMatch.LiveMatchOutput((sbyte)i);
+                    });
                 }
-                catch (Exception)
-                {
-                }
-                return output;
+            }
+            catch (Exception)
+            {
             }
         }
 
@@ -98,6 +95,7 @@ namespace WAIUA.ViewModels
         {
             try
             {
+                // TODO: Open link
             }
             catch (Exception)
             {
@@ -112,7 +110,8 @@ namespace WAIUA.ViewModels
 
         public HomeViewModel(INavigationService homeNavigationService, INavigationService infoNavigationService, INavigationService accountNavigationService)
         {
-            Player.GetPlayerInfo();
+            //BindingOperations.ClearAllBindings();
+            GetPlayerInfo();
             _player0Prop = Player.Player0;
             _player1Prop = Player.Player1;
             _player2Prop = Player.Player2;

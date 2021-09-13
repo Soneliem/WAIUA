@@ -14,5 +14,8 @@
     <Setting Name="Height" Type="System.Double" Scope="User">
       <Value Profile="(Default)">754</Value>
     </Setting>
+    <Setting Name="WindowState" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Maximized</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

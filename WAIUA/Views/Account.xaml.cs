@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Windows.Controls;
-using WAIUA.Commands;
+using static WAIUA.Commands.Main;
 
 namespace WAIUA.Views
 {
@@ -50,7 +50,7 @@ namespace WAIUA.Views
                 else
                 {
                     authStatusBox.Text = "Authenticating...";
-                    Main.Login(cookie, user, pass);
+                    Login(cookie, user, pass);
                     CheckAuth(cookie);
                     break;
                 }
@@ -61,14 +61,14 @@ namespace WAIUA.Views
         {
             while (true)
             {
-                if (String.IsNullOrEmpty(Main.GetIGUsername(cookie, Main.PPUUID)))
+                if (String.IsNullOrEmpty(GetIGUsername(cookie, PPUUID)))
                 {
                     authStatusBox.Text = "Not Authenticated";
                     break;
                 }
                 else
                 {
-                    authStatusBox.Text = $"Authenticated as: {Main.GetIGUsername(cookie, Main.PPUUID)}";
+                    authStatusBox.Text = $"Authenticated as: {GetIGUsername(cookie, PPUUID)}";
                     break;
                 }
             }
@@ -83,10 +83,10 @@ namespace WAIUA.Views
         private void Button_Click3(object sender, System.Windows.RoutedEventArgs e)
         {
             CookieContainer cookie = new CookieContainer();
-            if (Main.CheckLocal())
+            if (CheckLocal())
             {
-                Main.LocalLogin();
-                Main.LocalRegion();
+                LocalLogin();
+                LocalRegion();
                 CheckAuth(cookie);
             }
             else
@@ -100,34 +100,34 @@ namespace WAIUA.Views
             switch (RegionList.SelectedIndex)
             {
                 case 0:
-                    Main.Region = "na";
-                    Main.Shard = "na";
+                    Region = "na";
+                    Shard = "na";
                     break;
 
                 case 1:
-                    Main.Region = "ap";
-                    Main.Shard = "ap";
+                    Region = "ap";
+                    Shard = "ap";
                     break;
 
                 case 2:
-                    Main.Region = "eu";
-                    Main.Shard = "eu";
+                    Region = "eu";
+                    Shard = "eu";
 
                     break;
 
                 case 3:
-                    Main.Region = "ko";
-                    Main.Shard = "ko";
+                    Region = "ko";
+                    Shard = "ko";
                     break;
 
                 case 4:
-                    Main.Region = "na";
-                    Main.Shard = "br";
+                    Region = "na";
+                    Shard = "br";
                     break;
 
                 case 5:
-                    Main.Region = "na";
-                    Main.Shard = "latam";
+                    Region = "na";
+                    Shard = "latam";
                     break;
             }
         }
