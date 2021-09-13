@@ -48,7 +48,7 @@ namespace WAIUA.ViewModels
             });
             try
             {
-                if (Main.LiveMatchSetup())
+                if (NewMatch.LiveMatchSetup())
                 {
                     Parallel.For(0, 10, i =>
                     {

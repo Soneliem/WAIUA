@@ -310,7 +310,7 @@ namespace WAIUA.Commands
             }
         }
 
-        public static bool LiveMatchSetup()
+        public bool LiveMatchSetup()
         {
             bool output = false;
             CookieContainer cookie = new CookieContainer();
