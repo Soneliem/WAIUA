@@ -110,7 +110,6 @@ namespace WAIUA.ViewModels
 
         public HomeViewModel(INavigationService homeNavigationService, INavigationService infoNavigationService, INavigationService accountNavigationService)
         {
-            //BindingOperations.ClearAllBindings();
             GetPlayerInfo();
             _player0Prop = Player.Player0;
             _player1Prop = Player.Player1;
