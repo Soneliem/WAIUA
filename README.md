@@ -9,10 +9,14 @@
   <p align="center">
     A Windows application to view player ranks in a live Valorant Match</p>
     <p align="center">
-    <img alt="Discord" src="https://img.shields.io/discord/881790284613185546?color=blue&label=discord">
+    <a href="https://discord.gg/X7CYCeZSRK">
+      <img alt="Discord" src="https://img.shields.io/discord/881790284613185546?color=blue&label=discord">
+    </a>
     <img alt="GitHub" src="https://img.shields.io/github/license/Soneliem/WAIUA?color=blue">
     <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/Soneliem/WAIUA/total?color=blue">
-    <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Soneliem/WAIUA">
+    <a href="https://github.com/Soneliem/WAIUA/releases/latest/download/WAIUA.exe">
+      <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Soneliem/WAIUA">
+    </a>
     </p>
 
   <br />
@@ -127,7 +131,8 @@ Distributed under the MIT License. See the [license](https://github.com/Soneliem
 Discord: Soneliem#4194  
 Project Link: [https://github.com/Soneliem/WAIUA](https://github.com/Soneliem/WAIUA)
 Discord Server:
-![Discord Banner 2](https://discordapp.com/api/guilds/881790284613185546/widget.png?style=banner2)
+
+[![Discord Banner 2](https://discordapp.com/api/guilds/881790284613185546/widget.png?style=banner2)](https://discord.gg/X7CYCeZSRK)
 
 
 ## Acknowledgements
