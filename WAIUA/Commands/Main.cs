@@ -175,10 +175,13 @@ namespace WAIUA.Commands
                     Port = parts[2];
                     LPassword = parts[3];
                     Protocol = parts[4];
-                    return true;
                 }
+                return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
 
         public static void LocalLogin()
@@ -312,14 +315,15 @@ namespace WAIUA.Commands
 
         public bool LiveMatchSetup()
         {
-            bool output = false;
+            bool output = true;
             CookieContainer cookie = new CookieContainer();
-            if (String.IsNullOrEmpty(GetIGUsername(cookie, PPUUID))) //if can't get username
+            if (String.IsNullOrEmpty(GetIGUsername(cookie, PPUUID)))
             {
-                if (CheckLocal()) //check if valorant open
+                if (CheckLocal())
                 {
-                    LocalLogin(); //attempt local login
+                    LocalLogin();
                     LocalRegion();
+                    output = true;
                 }
                 else
                 {
@@ -327,11 +331,9 @@ namespace WAIUA.Commands
                     output = false;
                 }
             }
-            if (LiveMatchID(cookie))
+            if (LiveMatchID(cookie) && output == true)
             {
-                Parallel.Invoke(
-                    () => GetSeasons(),
-                    () => GetLatestVersion());
+                Parallel.Invoke(GetSeasons, GetLatestVersion);
                 string url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
                 RestClient client = new RestClient(url);
                 RestRequest request = new RestRequest(Method.GET);
@@ -496,27 +498,27 @@ namespace WAIUA.Commands
                     RankProgList[playerno] = historyinfoObj["Matches"][0]["RankedRatingAfterUpdate"].Value<string>();
                     if (historyinfoObj["Matches"][0]["RankedRatingEarned"].Value<int>() >= 0)
                     {
-                        PGList[playerno] = "/Assets/rankup.png";
+                        PGList[playerno] = "/Assets/win.png";
                     }
                     else
                     {
-                        PGList[playerno] = "/Assets/rankdown.png";
+                        PGList[playerno] = "/Assets/loss.png";
                     }
                     if (historyinfoObj["Matches"][1]["RankedRatingEarned"].Value<int>() >= 0)
                     {
-                        PPGList[playerno] = "/Assets/rankup.png";
+                        PPGList[playerno] = "/Assets/win.png";
                     }
                     else
                     {
-                        PPGList[playerno] = "/Assets/rankdown.png";
+                        PPGList[playerno] = "/Assets/loss.png";
                     }
                     if (historyinfoObj["Matches"][2]["RankedRatingEarned"].Value<int>() >= 0)
                     {
-                        PPPGList[playerno] = "/Assets/rankup.png";
+                        PPPGList[playerno] = "/Assets/win.png";
                     }
                     else
                     {
-                        PPPGList[playerno] = "/Assets/rankdown.png";
+                        PPPGList[playerno] = "/Assets/loss.png";
                     }
                 }
                 else
@@ -696,6 +698,7 @@ namespace WAIUA.Commands
                 if (tiers.tier == rank)
                 {
                     output = tiers.smallIcon;
+                    break;
                 }
             }
             return output;

@@ -5,7 +5,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>logo.ico</ApplicationIcon>
-    <Version>1.2.1.2</Version>
+    <Version>1.2.1.3</Version>
     <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
     <StartupObject>WAIUA.App</StartupObject>
   </PropertyGroup>
@@ -33,10 +33,10 @@
     <None Remove="Assets\info.png" />
     <None Remove="Assets\logo.ico" />
     <None Remove="Assets\logo.png" />
-    <None Remove="Assets\rankdown.png" />
-    <None Remove="Assets\rankup.png" />
+    <None Remove="Assets\loss.png" />
     <None Remove="Assets\sign-in.png" />
     <None Remove="Assets\Soneliem.png" />
+    <None Remove="Assets\win.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,10 +55,10 @@
     <Resource Include="Assets\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\rankdown.png">
+    <Resource Include="Assets\loss.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\rankup.png">
+    <Resource Include="Assets\win.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\sign-in.png">

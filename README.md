@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://github.com/Soneliem/WAIUA">
+  <a href="https://github.com/Soneliem/WAIUA">
     <img src="Screenshots/logo.png" alt="Logo" width="80" height="80">
   </a>
 </p>
@@ -7,8 +7,15 @@
 <h5 align="center">Who Am I Up Against?</h5>
 
   <p align="center">
-    A Windows application to view player ranks in a live Valorant Match
-    <br />
+    A Windows application to view player ranks in a live Valorant Match</p>
+    <p align="center">
+    <img alt="Discord" src="https://img.shields.io/discord/881790284613185546?color=blue&label=discord">
+    <img alt="GitHub" src="https://img.shields.io/github/license/Soneliem/WAIUA?color=blue">
+    <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/Soneliem/WAIUA/total?color=blue">
+    <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Soneliem/WAIUA">
+    </p>
+
+  <br />
 
 
 <details open="open">
@@ -42,6 +49,8 @@
 ![Screenshot](Screenshots/main.png)
 
 **WAIUA** - Pronounced: Why? Whaaa??
+
+
 A simple(for you, not me) Windows GUI app that lets you see the ranks, recent games and other info of players in a live Valorant match while you're still playing it. What you see above is what you get (for now).
 
 ### Current Features
@@ -117,6 +126,9 @@ Distributed under the MIT License. See the [license](https://github.com/Soneliem
 
 Discord: Soneliem#4194  
 Project Link: [https://github.com/Soneliem/WAIUA](https://github.com/Soneliem/WAIUA)
+Discord Server:
+![Discord Banner 2](https://discordapp.com/api/guilds/881790284613185546/widget.png?style=banner2)
+
 
 ## Acknowledgements
 
