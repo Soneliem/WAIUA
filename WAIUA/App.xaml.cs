@@ -1,4 +1,5 @@
-﻿using AutoUpdaterDotNET;
+﻿using System.Globalization;
+using AutoUpdaterDotNET;
 using MVVMEssentials.Services;
 using MVVMEssentials.Stores;
 using MVVMEssentials.ViewModels;
@@ -16,6 +17,7 @@ namespace WAIUA
         {
             _navigationStore = new NavigationStore();
             _modalNavigationStore = new ModalNavigationStore();
+            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InstalledUICulture;
         }
 
         protected override void OnStartup(StartupEventArgs e)

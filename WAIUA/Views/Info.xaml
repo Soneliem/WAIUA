@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:WAIUA.Properties"
     d:DesignHeight="754"
     d:DesignWidth="1536"
     Background="#2E3349"
@@ -82,7 +83,7 @@
                     FontSize="30"
                     FontWeight="Medium"
                     Foreground="#007EF9"
-                    Text="Click To Load Match Info" />
+                    Text="{x:Static p:Resources.RefreshMatch}" />
 
                 <Button.Style>
                     <Style TargetType="Button">
@@ -168,12 +169,12 @@
                 <TextBlock
                     FontSize="30"
                     Foreground="White"
-                    Text="Account" />
+                    Text="{x:Static p:Resources.AccountTitle}" />
                 <TextBlock
                     FontSize="20"
                     Foreground="White"
                     Opacity="0.7"
-                    Text="ONLY log into your Riot account if there are issues with the app or if Valorant is not running"
+                    Text="{x:Static p:Resources.AccountExplanation}"
                     TextWrapping="Wrap" />
             </StackPanel>
             <Viewbox Grid.Column="0" VerticalAlignment="Bottom">
@@ -187,13 +188,17 @@
                         FontSize="30"
                         Foreground="White"
                         TextAlignment="Center">
-                        <Hyperlink NavigateUri="https://discord.gg/X7CYCeZSRK" RequestNavigate="HandleLinkClick">Join my Discord</Hyperlink>
+                        <Hyperlink NavigateUri="https://discord.gg/X7CYCeZSRK" RequestNavigate="HandleLinkClick">
+                            <Hyperlink.Inlines>
+                                <Run Text="{x:Static p:Resources.JoinDiscord}" />
+                            </Hyperlink.Inlines>
+                        </Hyperlink>
                     </TextBlock>
                     <TextBlock
                         FontSize="20"
                         Foreground="White"
                         Opacity="0.7"
-                        Text="For support, etc."
+                        Text="{x:Static p:Resources.JoinDiscordSub}"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
                 </StackPanel>
@@ -217,13 +222,13 @@
                 <TextBlock
                     FontSize="30"
                     Foreground="White"
-                    Text="Load Match"
+                    Text="{x:Static p:Resources.LoadMatchTitle}"
                     TextAlignment="Center" />
                 <TextBlock
                     FontSize="20"
                     Foreground="White"
                     Opacity="0.7"
-                    Text="Loads live match data if available. Should take less than 10 seconds to load"
+                    Text="{x:Static p:Resources.LoadMatchExplanation}"
                     TextAlignment="Center"
                     TextWrapping="Wrap" />
             </StackPanel>
@@ -245,7 +250,7 @@
                                 VerticalAlignment="Center"
                                 FontWeight="Normal"
                                 Foreground="#007EF9"
-                                Text="Check for Updates" />
+                                Text="{x:Static p:Resources.CheckUpdates}" />
                         </Viewbox>
 
                         <Button.Style>
@@ -277,7 +282,7 @@
                             FontSize="20"
                             Foreground="White"
                             Opacity="0.7"
-                            Text="Latest Version: "
+                            Text="{x:Static p:Resources.Latestversion}"
                             TextAlignment="Left"
                             TextWrapping="Wrap" />
                         <TextBlock
@@ -294,7 +299,7 @@
                             FontSize="20"
                             Foreground="White"
                             Opacity="0.7"
-                            Text="Current Version: "
+                            Text="{x:Static p:Resources.CurrentVersion}"
                             TextAlignment="Left"
                             TextWrapping="Wrap" />
                         <TextBlock
@@ -325,13 +330,13 @@
                 <TextBlock
                     FontSize="30"
                     Foreground="White"
-                    Text="Info"
+                    Text="{x:Static p:Resources.InfoTitle}"
                     TextAlignment="Right" />
                 <TextBlock
                     FontSize="20"
                     Foreground="White"
                     Opacity="0.7"
-                    Text="You're on this page idot"
+                    Text="{x:Static p:Resources.InfoExplanation}"
                     TextAlignment="Right"
                     TextWrapping="Wrap" />
             </StackPanel>
@@ -345,13 +350,17 @@
                         FontSize="30"
                         Foreground="White"
                         TextAlignment="Center">
-                        <Hyperlink NavigateUri="https://github.com/Soneliem" RequestNavigate="HandleLinkClick">Made By Soneliem</Hyperlink>
+                        <Hyperlink NavigateUri="https://github.com/Soneliem" RequestNavigate="HandleLinkClick">
+                            <Hyperlink.Inlines>
+                                <Run Text="{x:Static p:Resources.Author}" />
+                            </Hyperlink.Inlines>
+                        </Hyperlink>
                     </TextBlock>
                     <TextBlock
                         FontSize="20"
                         Foreground="White"
                         Opacity="0.7"
-                        Text="With love and hate"
+                        Text="{x:Static p:Resources.RefreshMatch}"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
                 </StackPanel>
@@ -379,9 +388,8 @@
                 HorizontalAlignment="Center"
                 FontSize="25"
                 FontWeight="DemiBold"
-                Foreground="#32e2b2">
-                Who Am I Up Against?
-            </TextBlock>
+                Foreground="#32e2b2"
+                Text="{x:Static p:Resources.WAIUAFull}" />
         </StackPanel>
     </Grid>
 </UserControl>

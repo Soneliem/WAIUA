@@ -1,9 +1,10 @@
 ﻿<UserControl
     x:Class="WAIUA.Views.Account"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:WAIUA.Properties"
     xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:AccountViewModel}"
     d:DesignHeight="754"
@@ -86,7 +87,7 @@
                     FontSize="30"
                     FontWeight="Medium"
                     Foreground="#007EF9"
-                    Text="Click To Load Match Info" />
+                    Text="{x:Static p:Resources.RefreshMatch}" />
 
                 <Button.Style>
                     <Style TargetType="Button">
@@ -186,7 +187,7 @@
                 FontSize="45"
                 FontWeight="DemiBold"
                 Foreground="White"
-                Text="Riot Login" />
+                Text="{x:Static p:Resources.RiotLogin}" />
             <TextBox
                 Name="usernameBox"
                 Grid.Row="1"
@@ -236,7 +237,7 @@
                         VerticalAlignment="Center"
                         FontWeight="Normal"
                         Foreground="#007EF9"
-                        Text="Login" />
+                        Text="{x:Static p:Resources.Login}" />
                 </Viewbox>
 
                 <Button.Style>
@@ -296,7 +297,7 @@
                 FontSize="30"
                 FontWeight="DemiBold"
                 Foreground="White"
-                Text="Authentication Status"
+                Text="{x:Static p:Resources.AuthStatusTitle}"
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
             <TextBlock
@@ -310,7 +311,7 @@
                 FontWeight="Normal"
                 Foreground="#32e2b2"
                 Opacity="0.7"
-                Text="Click below to update"
+                Text="{x:Static p:Resources.AuthStatusDefault}"
                 TextWrapping="Wrap" />
             <Button
                 Grid.Row="2"
@@ -328,7 +329,7 @@
                         VerticalAlignment="Center"
                         FontWeight="Normal"
                         Foreground="#007EF9"
-                        Text="Check Authentication" />
+                        Text="{x:Static p:Resources.AuthStatusButton}" />
                 </Viewbox>
 
                 <Button.Style>
@@ -387,7 +388,7 @@
                 FontSize="30"
                 FontWeight="DemiBold"
                 Foreground="White"
-                Text="Info" />
+                Text="{x:Static p:Resources.InfoTitle}" />
             <TextBlock
                 Grid.Row="1"
                 Grid.Column="1"
@@ -397,7 +398,7 @@
                 FontWeight="Light"
                 Foreground="White"
                 Opacity="0.7"
-                Text="Log in with either you Riot Account details or automatically log in if you have Valorant open. Ensure you have selected the correct region."
+                Text="{x:Static p:Resources.AccountInfoExplanation1}"
                 TextWrapping="Wrap" />
 
             <TextBlock
@@ -409,7 +410,7 @@
                 FontWeight="Normal"
                 Foreground="White"
                 Opacity="0.2"
-                Text="All communication regarding your credentials is done directly with Riot servers with no storage of passwords being done locally or online."
+                Text="{x:Static p:Resources.AccountInfoExplanation2}"
                 TextWrapping="Wrap" />
         </Grid>
         <Grid
@@ -442,7 +443,7 @@
                 FontSize="30"
                 FontWeight="DemiBold"
                 Foreground="White"
-                Text="Auto Login"
+                Text="{x:Static p:Resources.AutoLoginTitle}"
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
             <TextBlock
@@ -455,7 +456,7 @@
                 FontWeight="Normal"
                 Foreground="White"
                 Opacity="0.7"
-                Text="Note: Valorant needs to be running for this to work"
+                Text="{x:Static p:Resources.AutoLoginExplanation}"
                 TextWrapping="Wrap" />
             <Button
                 Grid.Row="1"
@@ -473,7 +474,7 @@
                         VerticalAlignment="Center"
                         FontWeight="Normal"
                         Foreground="#007EF9"
-                        Text="Login" />
+                        Text="{x:Static p:Resources.Login}" />
                 </Viewbox>
 
                 <Button.Style>
@@ -531,7 +532,7 @@
                 FontSize="30"
                 FontWeight="DemiBold"
                 Foreground="White"
-                Text="Select Region"
+                Text="{x:Static p:Resources.SelRegionTitle}"
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
             <ListBox
@@ -543,27 +544,27 @@
                 BorderThickness="0"
                 SelectionChanged="ListBox_Selected">
                 <ListBoxItem
-                    Content="North America"
+                    Content="{x:Static p:Resources.NA}"
                     Foreground="White"
                     Opacity="0.7" />
                 <ListBoxItem
-                    Content="Asia Pacific"
+                    Content="{x:Static p:Resources.AP}"
                     Foreground="White"
                     Opacity="0.7" />
                 <ListBoxItem
-                    Content="Europe"
+                    Content="{x:Static p:Resources.EU}"
                     Foreground="White"
                     Opacity="0.7" />
                 <ListBoxItem
-                    Content="Korea"
+                    Content="{x:Static p:Resources.KO}"
                     Foreground="White"
                     Opacity="0.7" />
                 <ListBoxItem
-                    Content="Brazil"
+                    Content="{x:Static p:Resources.BR}"
                     Foreground="White"
                     Opacity="0.7" />
                 <ListBoxItem
-                    Content="Latin America"
+                    Content="{x:Static p:Resources.LATAM}"
                     Foreground="White"
                     Opacity="0.7" />
             </ListBox>
@@ -577,9 +578,8 @@
                 FontWeight="Normal"
                 Foreground="White"
                 Opacity="0.7"
-                TextWrapping="Wrap">
-                Play around with each region if you are not sure which one you are in
-            </TextBlock>
+                Text="{x:Static p:Resources.SelRegionExplanation}"
+                TextWrapping="Wrap" />
         </Grid>
     </Grid>
 </UserControl>

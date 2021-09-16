@@ -250,7 +250,7 @@ namespace WAIUA.Commands
 
         public static string GetIGUsername(CookieContainer cookie, string puuid)
         {
-            string IGN = "";
+            string IGN = null;
             try
             {
                 if (!String.IsNullOrEmpty(puuid))
@@ -282,9 +282,9 @@ namespace WAIUA.Commands
                     IGN = gameName + "#" + gameTag;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                System.Diagnostics.Debug.WriteLine(e);
+                IGN = null;
             }
             return IGN;
         }
@@ -300,90 +300,95 @@ namespace WAIUA.Commands
                 request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
                 request.AddHeader("Authorization", $"Bearer {AccessToken}");
                 string response = client.Execute(request).Content;
-                //string response = DoCachedRequest(Method.GET, $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/players/{PPUUID}", true, jar, true);
+                //string response = DoCachedRequest(Method.GET, $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/players/{PUUID}", true, jar, true);
                 var matchinfo = JsonConvert.DeserializeObject(response);
                 JToken matchinfoObj = JObject.FromObject(matchinfo);
                 Matchid = matchinfoObj["MatchID"].Value<string>();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                System.Diagnostics.Debug.WriteLine(e);
                 return false;
             }
         }
 
-        public bool LiveMatchSetup()
+        public bool LiveMatchChecks()
         {
-            bool output = true;
+            bool output = false;
             CookieContainer cookie = new CookieContainer();
-            if (String.IsNullOrEmpty(GetIGUsername(cookie, PPUUID)))
+            if (!String.IsNullOrEmpty(GetIGUsername(cookie, PPUUID)))
+            {
+                if (LiveMatchID(cookie))
+                {
+                    LiveMatchSetup();
+                    output = true;
+                }
+                else
+                {
+                    MessageBox.Show("No Match Detected", "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+                }
+            }
+            else
             {
                 if (CheckLocal())
                 {
                     LocalLogin();
                     LocalRegion();
+                    LiveMatchSetup();
                     output = true;
                 }
                 else
                 {
-                    MessageBox.Show("Please Open Valorant First", "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
-                    output = false;
+                    MessageBox.Show("Please Open Valorant First", "Error", MessageBoxButton.OK,
+                        MessageBoxImage.Question, MessageBoxResult.OK);
                 }
             }
-            if (LiveMatchID(cookie) && output == true)
-            {
-                Parallel.Invoke(GetSeasons, GetLatestVersion);
-                string url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
-                RestClient client = new RestClient(url);
-                RestRequest request = new RestRequest(Method.GET);
-                request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
-                request.AddHeader("Authorization", $"Bearer {AccessToken}");
-                string content = client.Execute(request).Content;
-                //string content = DoCachedRequest(Method.GET, $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}", true, null, true);
-                dynamic matchinfo = JsonConvert.DeserializeObject(content);
-                sbyte[] playerno = new sbyte[10];
-                string[] puuid = new string[10];
-                string[] agent = new string[10];
-                string[] card = new string[10];
-                string[] level = new string[10];
-                string[] title = new string[10];
-                bool[] incognito = new bool[10];
-                sbyte index = 0;
-                foreach (var entry in matchinfo.Players)
-                {
-                    if (entry.IsCoach == false)
-                    {
-                        playerno[index] = index;
-                        puuid[index] = entry.Subject;
-                        agent[index] = entry.CharacterID;
-                        card[index] = entry.PlayerIdentity.PlayerCardID;
-                        level[index] = entry.PlayerIdentity.AccountLevel;
-                        title[index] = entry.PlayerIdentity.PlayerTitleID;
-                        if (entry.PlayerIdentity.Incognito == true)
-                        {
-                            incognito[index] = true;
-                        }
-                        index++;
-                        if (index == 10) { break; }
-                    }
-                }
-                PlayerNo = playerno;
-                PUUIDList = puuid;
-                AgentList = agent;
-                CardList = card;
-                LevelList = level;
-                TitleList = title;
-                IsIncognito = incognito;
-                output = true;
-            }
-            else
-            {
-                MessageBox.Show("No Match Detected", "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
-                output = false;
-            }
-
             return output;
+        }
+
+        public void LiveMatchSetup()
+        {
+            Parallel.Invoke(GetSeasons, GetLatestVersion);
+            string url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
+            RestClient client = new RestClient(url);
+            RestRequest request = new RestRequest(Method.GET);
+            request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
+            request.AddHeader("Authorization", $"Bearer {AccessToken}");
+            string content = client.Execute(request).Content;
+            dynamic matchinfo = JsonConvert.DeserializeObject(content);
+            sbyte[] playerno = new sbyte[10];
+            string[] puuid = new string[10];
+            string[] agent = new string[10];
+            string[] card = new string[10];
+            string[] level = new string[10];
+            string[] title = new string[10];
+            bool[] incognito = new bool[10];
+            sbyte index = 0;
+            foreach (var entry in matchinfo.Players)
+            {
+                if (entry.IsCoach == false)
+                {
+                    playerno[index] = index;
+                    puuid[index] = entry.Subject;
+                    agent[index] = entry.CharacterID;
+                    card[index] = entry.PlayerIdentity.PlayerCardID;
+                    level[index] = entry.PlayerIdentity.AccountLevel;
+                    title[index] = entry.PlayerIdentity.PlayerTitleID;
+                    if (entry.PlayerIdentity.Incognito == true)
+                    {
+                        incognito[index] = true;
+                    }
+                    index++;
+                    if (index == 10) { break; }
+                }
+            }
+            PlayerNo = playerno;
+            PUUIDList = puuid;
+            AgentList = agent;
+            CardList = card;
+            LevelList = level;
+            TitleList = title;
+            IsIncognito = incognito;
         }
 
         public string[] LiveMatchOutput(sbyte playerno)
