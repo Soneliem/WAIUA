@@ -47,8 +47,8 @@ namespace WAIUA.Commands
         public static string[] PPPRankList { get; set; } = new string[10];
         public static string[] RankNameList { get; set; } = new string[10];
         public static string[] PRankNameList { get; set; } = new string[10];
-        public static string[] PpRankNameList { get; set; } = new string[10];
-        public static string[] PppRankNameList { get; set; } = new string[10];
+        public static string[] PPRankNameList { get; set; } = new string[10];
+        public static string[] PPPRankNameList { get; set; } = new string[10];
         public static string[] RankProgList { get; set; } = new string[10];
         public static string[] PGList { get; set; } = new string[10];
         public static string[] PPGList { get; set; } = new string[10];
@@ -253,9 +253,7 @@ namespace WAIUA.Commands
             string IGN = null;
             try
             {
-                if (!String.IsNullOrEmpty(puuid))
-                {
-                    string gameName = "";
+                string gameName = "";
                     string gameTag = "";
                     string url = $"https://pd.{Region}.a.pvp.net/name-service/v2/players";
                     RestClient client = new RestClient(url);
@@ -280,7 +278,6 @@ namespace WAIUA.Commands
                     gameName = uinfoObj["GameName"].Value<string>();
                     gameTag = uinfoObj["TagLine"].Value<string>();
                     IGN = gameName + "#" + gameTag;
-                }
             }
             catch (Exception)
             {
@@ -316,6 +313,7 @@ namespace WAIUA.Commands
         {
             bool output = false;
             CookieContainer cookie = new CookieContainer();
+            
             if (!String.IsNullOrEmpty(GetIGUsername(cookie, PPUUID)))
             {
                 if (LiveMatchID(cookie))
@@ -326,6 +324,7 @@ namespace WAIUA.Commands
                 else
                 {
                     MessageBox.Show("No Match Detected", "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+                    output = false;
                 }
             }
             else
@@ -334,6 +333,7 @@ namespace WAIUA.Commands
                 {
                     LocalLogin();
                     LocalRegion();
+                    LiveMatchID(cookie);
                     LiveMatchSetup();
                     output = true;
                 }
@@ -341,6 +341,7 @@ namespace WAIUA.Commands
                 {
                     MessageBox.Show("Please Open Valorant First", "Error", MessageBoxButton.OK,
                         MessageBoxImage.Question, MessageBoxResult.OK);
+                    output = false;
                 }
             }
             return output;
@@ -402,24 +403,24 @@ namespace WAIUA.Commands
                 () => GetPlayerHistory(PUUIDList[playerno], playerno));
 
             string[] output = {
-                PlayerList[playerno],
+                TitleList[playerno],
                 AgentList[playerno],
                 AgentPList[playerno],
                 CardList[playerno],
+                PlayerList[playerno],
                 LevelList[playerno],
                 PGList[playerno],
                 PPGList[playerno],
                 PPPGList[playerno],
-                RankProgList[playerno],
-                RankList[playerno],
-                PRankList[playerno],
-                PPRankList[playerno],
                 PPPRankList[playerno],
-                TitleList[playerno],
-                RankNameList[playerno],
+                PPPRankNameList[playerno],
+                PPRankList[playerno],
+                PPRankNameList[playerno],
+                PRankList[playerno],
                 PRankNameList[playerno],
-                PpRankNameList[playerno],
-                PppRankNameList[playerno]
+                RankList[playerno],
+                RankNameList[playerno],
+                RankProgList[playerno]
             };
             return output;
         }
@@ -590,8 +591,8 @@ namespace WAIUA.Commands
                         () => PPPRankList[playerno] = GetRankIcon(ppprank),
                         () => RankNameList[playerno] = GetRankName(rank),
                         () => PRankNameList[playerno] = GetRankName(prank),
-                        () => PpRankNameList[playerno] = GetRankName(pprank),
-                        () => PppRankNameList[playerno] = GetRankName(ppprank));
+                        () => PPRankNameList[playerno] = GetRankName(pprank),
+                        () => PPPRankNameList[playerno] = GetRankName(ppprank));
                 }
                 else
                 {
@@ -602,8 +603,8 @@ namespace WAIUA.Commands
                         () => PPPRankList[playerno] = null,
                         () => RankNameList[playerno] = null,
                         () => PRankNameList[playerno] = null,
-                        () => PpRankNameList[playerno] = null,
-                        () => PppRankNameList[playerno] = null);
+                        () => PPRankNameList[playerno] = null,
+                        () => PPPRankNameList[playerno] = null);
                 }
             }
             catch (Exception e)

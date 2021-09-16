@@ -38,27 +38,40 @@ namespace WAIUA.ViewModels
             public static string[] Player9 => players[9].data;
         }
 
-        private void GetPlayerInfo()
+        private bool GetPlayerInfo()
         {
-            Main NewMatch = new Main();
-
-            Parallel.For(0, 10, i =>
-            {
-                Player.players[i].data = null;
-            });
+            bool output = false;
             try
             {
+                Main NewMatch = new Main();
+                Parallel.For(0, 10, i =>
+                {
+                    Player.players[i].data = null;
+                });
+
                 if (NewMatch.LiveMatchChecks())
                 {
-                    Parallel.For(0, 10, i =>
+                    try
                     {
-                        Player.players[i].data = NewMatch.LiveMatchOutput((sbyte)i);
-                    });
+                        Parallel.For(0, 10, i =>
+                                    {
+                                        Player.players[i].data = NewMatch.LiveMatchOutput((sbyte)i);
+                                    });
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    output = true;
+                }
+                else
+                {
+                    output = false;
                 }
             }
             catch (Exception)
             {
             }
+            return output;
         }
 
         private string[] _player0Prop;
@@ -110,17 +123,19 @@ namespace WAIUA.ViewModels
 
         public HomeViewModel(INavigationService homeNavigationService, INavigationService infoNavigationService, INavigationService accountNavigationService)
         {
-            GetPlayerInfo();
-            _player0Prop = Player.Player0;
-            _player1Prop = Player.Player1;
-            _player2Prop = Player.Player2;
-            _player3Prop = Player.Player3;
-            _player4Prop = Player.Player4;
-            _player5Prop = Player.Player5;
-            _player6Prop = Player.Player6;
-            _player7Prop = Player.Player7;
-            _player8Prop = Player.Player8;
-            _player9Prop = Player.Player9;
+            if (GetPlayerInfo())
+            {
+                _player0Prop = Player.Player0;
+                _player1Prop = Player.Player1;
+                _player2Prop = Player.Player2;
+                _player3Prop = Player.Player3;
+                _player4Prop = Player.Player4;
+                _player5Prop = Player.Player5;
+                _player6Prop = Player.Player6;
+                _player7Prop = Player.Player7;
+                _player8Prop = Player.Player8;
+                _player9Prop = Player.Player9;
+            }
             //this.OpenTrackerCommand = new RoutedCommand(this.OnOpenTrackerCommand);
             NavigateHomeCommand = new NavigateCommand(homeNavigationService);
             NavigateInfoCommand = new NavigateCommand(infoNavigationService);

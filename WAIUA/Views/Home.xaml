@@ -2,6 +2,7 @@
     x:Class="WAIUA.Views.Home"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:WAIUA.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:WAIUA.Properties"
@@ -163,987 +164,106 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Border
+            <c:NormalPlayerCell
+                Title="{Binding Path=Player0[0]}"
                 Grid.Row="0"
-                Margin="5,5,5,5"
-                Background="#252A40"
-                BorderThickness="1"
-                CornerRadius="20">
-                <Grid Margin="15,15,15,15" Background="#252A40">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                    </Grid.RowDefinitions>
-
-                    <Border
-                        Grid.RowSpan="3"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="0,0,10,0"
-                        CornerRadius="10">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player0[3]}" />
-                        </Border.Background>
-                    </Border>
-                    <Grid Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="{Binding Path=Player0[2]}" />
-                        <Viewbox Grid.Column="1" HorizontalAlignment="Left">
-                            <TextBox
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Bold"
-                                Foreground="#32e2b2"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player0[1]}" />
-                        </Viewbox>
-                        <Viewbox
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Stretch="Uniform">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player0[7]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player0[6]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player0[5]}" />
-                            </StackPanel>
-                        </Viewbox>
-                    </Grid>
-                    <Viewbox
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="0,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Stretch="Uniform">
-                        <TextBox
-                            Background="Transparent"
-                            BorderThickness="0"
-                            FontWeight="Normal"
-                            Foreground="#9f97b0"
-                            IsReadOnly="True"
-                            Text="{Binding Path=Player0[0]}" />
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <Border Background="#32e2b2" CornerRadius="5">
-                            <TextBox
-                                Padding="2"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Normal"
-                                Foreground="Black"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player0[4]}" />
-                        </Border>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="0,5,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Normal"
-                                Foreground="White"
-                                Opacity="0.7"
-                                Text="{Binding Path=Player0[13]}" />
-                            <!--<TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player0[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" Winrate, " />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player0[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" K/D" />-->
-                        </StackPanel>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player0[12]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player0[17]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player0[11]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player0[16]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player0[10]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player0[15]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                        </StackPanel>
-                    </Viewbox>
-                    <Border
-                        Grid.RowSpan="3"
-                        Grid.Column="2"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="10,0,0,5"
-                        HorizontalAlignment="Right"
-                        CornerRadius="20"
-                        ToolTipService.InitialShowDelay="0">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player0[9]}" />
-                        </Border.Background>
-                        <Border.ToolTip>
-                            <ToolTip
-                                Padding="5"
-                                Background="#32e2b2"
-                                Content="{Binding Path=Player0[14]}"
-                                FontWeight="SemiBold"
-                                Foreground="Black"
-                                ToolTipService.InitialShowDelay="0" />
-                        </Border.ToolTip>
-                    </Border>
-                    <ProgressBar
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Bottom"
-                        Maximum="100"
-                        Minimum="0"
-                        Value="{Binding Path=Player0[8]}" />
-                </Grid>
-            </Border>
-            <Border
+                Agent="{Binding Path=Player0[1]}"
+                AgentPicture="{Binding Path=Player0[2]}"
+                Card="{Binding Path=Player0[3]}"
+                IGN="{Binding Path=Player0[4]}"
+                Level="{Binding Path=Player0[5]}"
+                PMatch="{Binding Path=Player0[6]}"
+                PPMatch="{Binding Path=Player0[7]}"
+                PPPMatch="{Binding Path=Player0[8]}"
+                PPPRank="{Binding Path=Player0[9]}"
+                PPPRankName="{Binding Path=Player0[10]}"
+                PPRank="{Binding Path=Player0[11]}"
+                PPRankName="{Binding Path=Player0[12]}"
+                PRank="{Binding Path=Player0[13]}"
+                PRankName="{Binding Path=Player0[14]}"
+                Rank="{Binding Path=Player0[15]}"
+                RankName="{Binding Path=Player0[16]}"
+                RankProgress="{Binding Path=Player0[17]}" />
+            <c:NormalPlayerCell
+                Title="{Binding Path=Player1[0]}"
                 Grid.Row="1"
-                Margin="5,5,5,5"
-                Background="#252A40"
-                BorderThickness="1"
-                CornerRadius="20">
-                <Grid Margin="15,15,15,15" Background="#252A40">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                    </Grid.RowDefinitions>
-
-                    <Border
-                        Grid.RowSpan="3"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="0,0,10,0"
-                        CornerRadius="10">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player1[3]}" />
-                        </Border.Background>
-                    </Border>
-                    <Grid Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="{Binding Path=Player1[2]}" />
-                        <Viewbox Grid.Column="1" HorizontalAlignment="Left">
-                            <TextBox
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Bold"
-                                Foreground="#32e2b2"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player1[1]}" />
-                        </Viewbox>
-                        <Viewbox
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Stretch="Uniform">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player1[7]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player1[6]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player1[5]}" />
-                            </StackPanel>
-                        </Viewbox>
-                    </Grid>
-                    <Viewbox
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="0,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Stretch="Uniform">
-                        <TextBox
-                            Background="Transparent"
-                            BorderThickness="0"
-                            FontWeight="Normal"
-                            Foreground="#9f97b0"
-                            IsReadOnly="True"
-                            Text="{Binding Path=Player1[0]}" />
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <Border Background="#32e2b2" CornerRadius="5">
-                            <TextBox
-                                Padding="2"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Normal"
-                                Foreground="Black"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player1[4]}" />
-                        </Border>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="0,5,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Normal"
-                                Foreground="White"
-                                Opacity="0.7"
-                                Text="{Binding Path=Player1[13]}" />
-                            <!--<TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player1[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" Winrate, " />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player1[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" K/D" />-->
-                        </StackPanel>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player1[12]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player1[17]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player1[11]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player1[16]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player1[10]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player1[15]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                        </StackPanel>
-                    </Viewbox>
-                    <Border
-                        Grid.RowSpan="3"
-                        Grid.Column="2"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="10,0,0,5"
-                        HorizontalAlignment="Right"
-                        CornerRadius="20">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player1[9]}" />
-                        </Border.Background>
-                        <Border.ToolTip>
-                            <ToolTip
-                                Padding="5"
-                                Background="#32e2b2"
-                                Content="{Binding Path=Player1[14]}"
-                                FontWeight="SemiBold"
-                                Foreground="Black"
-                                ToolTipService.InitialShowDelay="0" />
-                        </Border.ToolTip>
-                    </Border>
-                    <ProgressBar
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Bottom"
-                        Maximum="100"
-                        Minimum="0"
-                        Value="{Binding Path=Player1[8]}" />
-                </Grid>
-            </Border>
-            <Border
+                Agent="{Binding Path=Player1[1]}"
+                AgentPicture="{Binding Path=Player1[2]}"
+                Card="{Binding Path=Player1[3]}"
+                IGN="{Binding Path=Player1[4]}"
+                Level="{Binding Path=Player1[5]}"
+                PMatch="{Binding Path=Player1[6]}"
+                PPMatch="{Binding Path=Player1[7]}"
+                PPPMatch="{Binding Path=Player1[8]}"
+                PPPRank="{Binding Path=Player1[9]}"
+                PPPRankName="{Binding Path=Player1[10]}"
+                PPRank="{Binding Path=Player1[11]}"
+                PPRankName="{Binding Path=Player1[12]}"
+                PRank="{Binding Path=Player1[13]}"
+                PRankName="{Binding Path=Player1[14]}"
+                Rank="{Binding Path=Player1[15]}"
+                RankName="{Binding Path=Player1[16]}"
+                RankProgress="{Binding Path=Player1[17]}" />
+            <c:NormalPlayerCell
+                Title="{Binding Path=Player2[0]}"
                 Grid.Row="2"
-                Margin="5,5,5,5"
-                Background="#252A40"
-                BorderThickness="1"
-                CornerRadius="20">
-                <Grid Margin="15,15,15,15" Background="#252A40">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                    </Grid.RowDefinitions>
-
-                    <Border
-                        Grid.RowSpan="3"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="0,0,10,0"
-                        CornerRadius="10">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player2[3]}" />
-                        </Border.Background>
-                    </Border>
-                    <Grid Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="{Binding Path=Player2[2]}" />
-                        <Viewbox Grid.Column="1" HorizontalAlignment="Left">
-                            <TextBox
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Bold"
-                                Foreground="#32e2b2"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player2[1]}" />
-                        </Viewbox>
-                        <Viewbox
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Stretch="Uniform">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player2[7]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player2[6]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player2[5]}" />
-                            </StackPanel>
-                        </Viewbox>
-                    </Grid>
-                    <Viewbox
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="0,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Stretch="Uniform">
-                        <TextBox
-                            Background="Transparent"
-                            BorderThickness="0"
-                            FontWeight="Normal"
-                            Foreground="#9f97b0"
-                            IsReadOnly="True"
-                            Text="{Binding Path=Player2[0]}" />
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <Border Background="#32e2b2" CornerRadius="5">
-                            <TextBox
-                                Padding="2"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Normal"
-                                Foreground="Black"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player2[4]}" />
-                        </Border>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="0,5,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Normal"
-                                Foreground="White"
-                                Opacity="0.7"
-                                Text="{Binding Path=Player2[13]}" />
-                            <!--<TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player1[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" Winrate, " />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player1[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" K/D" />-->
-                        </StackPanel>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player2[12]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player2[17]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player2[11]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player2[16]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player2[10]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player2[15]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                        </StackPanel>
-                    </Viewbox>
-                    <Border
-                        Grid.RowSpan="3"
-                        Grid.Column="2"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="10,0,0,5"
-                        HorizontalAlignment="Right"
-                        CornerRadius="20">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player2[9]}" />
-                        </Border.Background>
-                        <Border.ToolTip>
-                            <ToolTip
-                                Padding="5"
-                                Background="#32e2b2"
-                                Content="{Binding Path=Player2[14]}"
-                                FontWeight="SemiBold"
-                                Foreground="Black"
-                                ToolTipService.InitialShowDelay="0" />
-                        </Border.ToolTip>
-                    </Border>
-                    <ProgressBar
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Bottom"
-                        Maximum="100"
-                        Minimum="0"
-                        Value="{Binding Path=Player2[8]}" />
-                </Grid>
-            </Border>
-            <Border
+                Agent="{Binding Path=Player2[1]}"
+                AgentPicture="{Binding Path=Player2[2]}"
+                Card="{Binding Path=Player2[3]}"
+                IGN="{Binding Path=Player2[4]}"
+                Level="{Binding Path=Player2[5]}"
+                PMatch="{Binding Path=Player2[6]}"
+                PPMatch="{Binding Path=Player2[7]}"
+                PPPMatch="{Binding Path=Player2[8]}"
+                PPPRank="{Binding Path=Player2[9]}"
+                PPPRankName="{Binding Path=Player2[10]}"
+                PPRank="{Binding Path=Player2[11]}"
+                PPRankName="{Binding Path=Player2[12]}"
+                PRank="{Binding Path=Player2[13]}"
+                PRankName="{Binding Path=Player2[14]}"
+                Rank="{Binding Path=Player2[15]}"
+                RankName="{Binding Path=Player2[16]}"
+                RankProgress="{Binding Path=Player2[17]}" />
+            <c:NormalPlayerCell
+                Title="{Binding Path=Player3[0]}"
                 Grid.Row="3"
-                Margin="5,5,5,5"
-                Background="#252A40"
-                BorderThickness="1"
-                CornerRadius="20">
-                <Grid Margin="15,15,15,15" Background="#252A40">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                    </Grid.RowDefinitions>
-
-                    <Border
-                        Grid.RowSpan="3"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="0,0,10,0"
-                        CornerRadius="10">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player3[3]}" />
-                        </Border.Background>
-                    </Border>
-                    <Grid Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="{Binding Path=Player3[2]}" />
-                        <Viewbox Grid.Column="1" HorizontalAlignment="Left">
-                            <TextBox
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Bold"
-                                Foreground="#32e2b2"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player3[1]}" />
-                        </Viewbox>
-                        <Viewbox
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Stretch="Uniform">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player3[7]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player3[6]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player3[5]}" />
-                            </StackPanel>
-                        </Viewbox>
-                    </Grid>
-                    <Viewbox
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="0,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Stretch="Uniform">
-                        <TextBox
-                            Background="Transparent"
-                            BorderThickness="0"
-                            FontWeight="Normal"
-                            Foreground="#9f97b0"
-                            IsReadOnly="True"
-                            Text="{Binding Path=Player3[0]}" />
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <Border Background="#32e2b2" CornerRadius="5">
-                            <TextBox
-                                Padding="2"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Normal"
-                                Foreground="Black"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player3[4]}" />
-                        </Border>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="0,5,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Normal"
-                                Foreground="White"
-                                Opacity="0.7"
-                                Text="{Binding Path=Player3[13]}" />
-                            <!--<TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player1[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" Winrate, " />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player1[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" K/D" />-->
-                        </StackPanel>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player3[12]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player3[17]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player3[11]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player3[16]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player3[10]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player3[15]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                        </StackPanel>
-                    </Viewbox>
-                    <Border
-                        Grid.RowSpan="3"
-                        Grid.Column="2"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="10,0,0,5"
-                        HorizontalAlignment="Right"
-                        CornerRadius="20">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player3[9]}" />
-                        </Border.Background>
-                        <Border.ToolTip>
-                            <ToolTip
-                                Padding="5"
-                                Background="#32e2b2"
-                                Content="{Binding Path=Player3[14]}"
-                                FontWeight="SemiBold"
-                                Foreground="Black"
-                                ToolTipService.InitialShowDelay="0" />
-                        </Border.ToolTip>
-                    </Border>
-                    <ProgressBar
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Bottom"
-                        Maximum="100"
-                        Minimum="0"
-                        Value="{Binding Path=Player3[8]}" />
-                </Grid>
-            </Border>
-            <Border
+                Agent="{Binding Path=Player3[1]}"
+                AgentPicture="{Binding Path=Player3[2]}"
+                Card="{Binding Path=Player3[3]}"
+                IGN="{Binding Path=Player3[4]}"
+                Level="{Binding Path=Player3[5]}"
+                PMatch="{Binding Path=Player3[6]}"
+                PPMatch="{Binding Path=Player3[7]}"
+                PPPMatch="{Binding Path=Player3[8]}"
+                PPPRank="{Binding Path=Player3[9]}"
+                PPPRankName="{Binding Path=Player3[10]}"
+                PPRank="{Binding Path=Player3[11]}"
+                PPRankName="{Binding Path=Player3[12]}"
+                PRank="{Binding Path=Player3[13]}"
+                PRankName="{Binding Path=Player3[14]}"
+                Rank="{Binding Path=Player3[15]}"
+                RankName="{Binding Path=Player3[16]}"
+                RankProgress="{Binding Path=Player3[17]}" />
+            <c:NormalPlayerCell
+                Title="{Binding Path=Player4[0]}"
                 Grid.Row="4"
-                Margin="5,5,5,5"
-                Background="#252A40"
-                BorderThickness="1"
-                CornerRadius="20">
-                <Grid Margin="15,15,15,15" Background="#252A40">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                    </Grid.RowDefinitions>
-
-                    <Border
-                        Grid.RowSpan="3"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="0,0,10,0"
-                        CornerRadius="10">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player4[3]}" />
-                        </Border.Background>
-                    </Border>
-                    <Grid Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="{Binding Path=Player4[2]}" />
-                        <Viewbox Grid.Column="1" HorizontalAlignment="Left">
-                            <TextBox
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Bold"
-                                Foreground="#32e2b2"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player4[1]}" />
-                        </Viewbox>
-                        <Viewbox
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Stretch="Uniform">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player4[7]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player4[6]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player4[5]}" />
-                            </StackPanel>
-                        </Viewbox>
-                    </Grid>
-                    <Viewbox
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="0,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Stretch="Uniform">
-                        <TextBox
-                            Background="Transparent"
-                            BorderThickness="0"
-                            FontWeight="Normal"
-                            Foreground="#9f97b0"
-                            IsReadOnly="True"
-                            Text="{Binding Path=Player4[0]}" />
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <Border Background="#32e2b2" CornerRadius="5">
-                            <TextBox
-                                Padding="2"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Normal"
-                                Foreground="Black"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player4[4]}" />
-                        </Border>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="0,5,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Normal"
-                                Foreground="White"
-                                Opacity="0.7"
-                                Text="{Binding Path=Player4[13]}" />
-                            <!--<TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player1[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" Winrate, " />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player1[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" K/D" />-->
-                        </StackPanel>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player4[12]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player4[17]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player4[11]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player4[16]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player4[10]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player4[15]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                        </StackPanel>
-                    </Viewbox>
-                    <Border
-                        Grid.RowSpan="3"
-                        Grid.Column="2"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="10,0,0,5"
-                        HorizontalAlignment="Right"
-                        CornerRadius="20">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player4[9]}" />
-                        </Border.Background>
-                        <Border.ToolTip>
-                            <ToolTip
-                                Padding="5"
-                                Background="#32e2b2"
-                                Content="{Binding Path=Player4[14]}"
-                                FontWeight="SemiBold"
-                                Foreground="Black"
-                                ToolTipService.InitialShowDelay="0" />
-                        </Border.ToolTip>
-                    </Border>
-                    <ProgressBar
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Bottom"
-                        Maximum="100"
-                        Minimum="0"
-                        Value="{Binding Path=Player4[8]}" />
-                </Grid>
-            </Border>
+                Agent="{Binding Path=Player4[1]}"
+                AgentPicture="{Binding Path=Player4[2]}"
+                Card="{Binding Path=Player4[3]}"
+                IGN="{Binding Path=Player4[4]}"
+                Level="{Binding Path=Player4[5]}"
+                PMatch="{Binding Path=Player4[6]}"
+                PPMatch="{Binding Path=Player4[7]}"
+                PPPMatch="{Binding Path=Player4[8]}"
+                PPPRank="{Binding Path=Player4[9]}"
+                PPPRankName="{Binding Path=Player4[10]}"
+                PPRank="{Binding Path=Player4[11]}"
+                PPRankName="{Binding Path=Player4[12]}"
+                PRank="{Binding Path=Player4[13]}"
+                PRankName="{Binding Path=Player4[14]}"
+                Rank="{Binding Path=Player4[15]}"
+                RankName="{Binding Path=Player4[16]}"
+                RankProgress="{Binding Path=Player4[17]}" />
         </Grid>
 
         <Grid
@@ -1158,986 +278,107 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Border
+
+            <c:NormalPlayerCell
+                Title="{Binding Path=Player5[0]}"
                 Grid.Row="0"
-                Margin="5,5,5,5"
-                Background="#252A40"
-                BorderThickness="1"
-                CornerRadius="20">
-                <Grid Margin="15,15,15,15" Background="#252A40">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                    </Grid.RowDefinitions>
-
-                    <Border
-                        Grid.RowSpan="3"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="0,0,10,0"
-                        CornerRadius="10">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player5[3]}" />
-                        </Border.Background>
-                    </Border>
-                    <Grid Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="{Binding Path=Player5[2]}" />
-                        <Viewbox Grid.Column="1" HorizontalAlignment="Left">
-                            <TextBox
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Bold"
-                                Foreground="#32e2b2"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player5[1]}" />
-                        </Viewbox>
-                        <Viewbox
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Stretch="Uniform">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player5[7]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player5[6]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player5[5]}" />
-                            </StackPanel>
-                        </Viewbox>
-                    </Grid>
-                    <Viewbox
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="0,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Stretch="Uniform">
-                        <TextBox
-                            Background="Transparent"
-                            BorderThickness="0"
-                            FontWeight="Normal"
-                            Foreground="#9f97b0"
-                            IsReadOnly="True"
-                            Text="{Binding Path=Player5[0]}" />
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <Border Background="#32e2b2" CornerRadius="5">
-                            <TextBox
-                                Padding="2"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Normal"
-                                Foreground="Black"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player5[4]}" />
-                        </Border>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="0,5,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Normal"
-                                Foreground="White"
-                                Opacity="0.7"
-                                Text="{Binding Path=Player5[13]}" />
-                            <!--<TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player1[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" Winrate, " />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player1[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" K/D" />-->
-                        </StackPanel>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player5[12]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player5[17]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player5[11]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player5[16]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player5[10]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player5[15]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                        </StackPanel>
-                    </Viewbox>
-                    <Border
-                        Grid.RowSpan="3"
-                        Grid.Column="2"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="10,0,0,5"
-                        HorizontalAlignment="Right"
-                        CornerRadius="20">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player5[9]}" />
-                        </Border.Background>
-                        <Border.ToolTip>
-                            <ToolTip
-                                Padding="5"
-                                Background="#32e2b2"
-                                Content="{Binding Path=Player5[14]}"
-                                FontWeight="SemiBold"
-                                Foreground="Black"
-                                ToolTipService.InitialShowDelay="0" />
-                        </Border.ToolTip>
-                    </Border>
-                    <ProgressBar
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Bottom"
-                        Maximum="100"
-                        Minimum="0"
-                        Value="{Binding Path=Player5[8]}" />
-                </Grid>
-            </Border>
-            <Border
+                Agent="{Binding Path=Player5[1]}"
+                AgentPicture="{Binding Path=Player5[2]}"
+                Card="{Binding Path=Player5[3]}"
+                IGN="{Binding Path=Player5[4]}"
+                Level="{Binding Path=Player5[5]}"
+                PMatch="{Binding Path=Player5[6]}"
+                PPMatch="{Binding Path=Player5[7]}"
+                PPPMatch="{Binding Path=Player5[8]}"
+                PPPRank="{Binding Path=Player5[9]}"
+                PPPRankName="{Binding Path=Player5[10]}"
+                PPRank="{Binding Path=Player5[11]}"
+                PPRankName="{Binding Path=Player5[12]}"
+                PRank="{Binding Path=Player5[13]}"
+                PRankName="{Binding Path=Player5[14]}"
+                Rank="{Binding Path=Player5[15]}"
+                RankName="{Binding Path=Player5[16]}"
+                RankProgress="{Binding Path=Player5[17]}" />
+            <c:NormalPlayerCell
+                Title="{Binding Path=Player6[0]}"
                 Grid.Row="1"
-                Margin="5,5,5,5"
-                Background="#252A40"
-                BorderThickness="1"
-                CornerRadius="20">
-                <Grid Margin="15,15,15,15" Background="#252A40">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                    </Grid.RowDefinitions>
-
-                    <Border
-                        Grid.RowSpan="3"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="0,0,10,0"
-                        CornerRadius="10">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player6[3]}" />
-                        </Border.Background>
-                    </Border>
-                    <Grid Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="{Binding Path=Player6[2]}" />
-                        <Viewbox Grid.Column="1" HorizontalAlignment="Left">
-                            <TextBox
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Bold"
-                                Foreground="#32e2b2"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player6[1]}" />
-                        </Viewbox>
-                        <Viewbox
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Stretch="Uniform">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player6[7]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player6[6]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player6[5]}" />
-                            </StackPanel>
-                        </Viewbox>
-                    </Grid>
-                    <Viewbox
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="0,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Stretch="Uniform">
-                        <TextBox
-                            Background="Transparent"
-                            BorderThickness="0"
-                            FontWeight="Normal"
-                            Foreground="#9f97b0"
-                            IsReadOnly="True"
-                            Text="{Binding Path=Player6[0]}" />
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <Border Background="#32e2b2" CornerRadius="5">
-                            <TextBox
-                                Padding="2"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Normal"
-                                Foreground="Black"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player6[4]}" />
-                        </Border>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="0,5,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Normal"
-                                Foreground="White"
-                                Opacity="0.7"
-                                Text="{Binding Path=Player6[13]}" />
-                            <!--<TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player1[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" Winrate, " />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player1[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" K/D" />-->
-                        </StackPanel>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player6[12]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player6[17]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player6[11]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player6[16]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player6[10]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player6[15]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                        </StackPanel>
-                    </Viewbox>
-                    <Border
-                        Grid.RowSpan="3"
-                        Grid.Column="2"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="10,0,0,5"
-                        HorizontalAlignment="Right"
-                        CornerRadius="20">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player6[9]}" />
-                        </Border.Background>
-                        <Border.ToolTip>
-                            <ToolTip
-                                Padding="5"
-                                Background="#32e2b2"
-                                Content="{Binding Path=Player6[14]}"
-                                FontWeight="SemiBold"
-                                Foreground="Black"
-                                ToolTipService.InitialShowDelay="0" />
-                        </Border.ToolTip>
-                    </Border>
-                    <ProgressBar
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Bottom"
-                        Maximum="100"
-                        Minimum="0"
-                        Value="{Binding Path=Player6[8]}" />
-                </Grid>
-            </Border>
-            <Border
+                Agent="{Binding Path=Player6[1]}"
+                AgentPicture="{Binding Path=Player6[2]}"
+                Card="{Binding Path=Player6[3]}"
+                IGN="{Binding Path=Player6[4]}"
+                Level="{Binding Path=Player6[5]}"
+                PMatch="{Binding Path=Player6[6]}"
+                PPMatch="{Binding Path=Player6[7]}"
+                PPPMatch="{Binding Path=Player6[8]}"
+                PPPRank="{Binding Path=Player6[9]}"
+                PPPRankName="{Binding Path=Player6[10]}"
+                PPRank="{Binding Path=Player6[11]}"
+                PPRankName="{Binding Path=Player6[12]}"
+                PRank="{Binding Path=Player6[13]}"
+                PRankName="{Binding Path=Player6[14]}"
+                Rank="{Binding Path=Player6[15]}"
+                RankName="{Binding Path=Player6[16]}"
+                RankProgress="{Binding Path=Player6[17]}" />
+            <c:NormalPlayerCell
+                Title="{Binding Path=Player7[0]}"
                 Grid.Row="2"
-                Margin="5,5,5,5"
-                Background="#252A40"
-                BorderThickness="1"
-                CornerRadius="20">
-                <Grid Margin="15,15,15,15" Background="#252A40">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                    </Grid.RowDefinitions>
-
-                    <Border
-                        Grid.RowSpan="3"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="0,0,10,0"
-                        CornerRadius="10">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player7[3]}" />
-                        </Border.Background>
-                    </Border>
-                    <Grid Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="{Binding Path=Player7[2]}" />
-                        <Viewbox Grid.Column="1" HorizontalAlignment="Left">
-                            <TextBox
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Bold"
-                                Foreground="#32e2b2"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player7[1]}" />
-                        </Viewbox>
-                        <Viewbox
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Stretch="Uniform">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player7[7]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player7[6]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player7[5]}" />
-                            </StackPanel>
-                        </Viewbox>
-                    </Grid>
-                    <Viewbox
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="0,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Stretch="Uniform">
-                        <TextBox
-                            Background="Transparent"
-                            BorderThickness="0"
-                            FontWeight="Normal"
-                            Foreground="#9f97b0"
-                            IsReadOnly="True"
-                            Text="{Binding Path=Player7[0]}" />
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <Border Background="#32e2b2" CornerRadius="5">
-                            <TextBox
-                                Padding="2"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Normal"
-                                Foreground="Black"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player7[4]}" />
-                        </Border>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="0,5,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Normal"
-                                Foreground="White"
-                                Opacity="0.7"
-                                Text="{Binding Path=Player7[13]}" />
-                            <!--<TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player1[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" Winrate, " />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player1[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" K/D" />-->
-                        </StackPanel>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player7[12]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player7[17]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player7[11]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player7[16]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player7[10]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player7[15]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                        </StackPanel>
-                    </Viewbox>
-                    <Border
-                        Grid.RowSpan="3"
-                        Grid.Column="2"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="10,0,0,5"
-                        HorizontalAlignment="Right"
-                        CornerRadius="20">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player7[9]}" />
-                        </Border.Background>
-                        <Border.ToolTip>
-                            <ToolTip
-                                Padding="5"
-                                Background="#32e2b2"
-                                Content="{Binding Path=Player7[14]}"
-                                FontWeight="SemiBold"
-                                Foreground="Black"
-                                ToolTipService.InitialShowDelay="0" />
-                        </Border.ToolTip>
-                    </Border>
-                    <ProgressBar
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Bottom"
-                        Maximum="100"
-                        Minimum="0"
-                        Value="{Binding Path=Player7[8]}" />
-                </Grid>
-            </Border>
-            <Border
+                Agent="{Binding Path=Player7[1]}"
+                AgentPicture="{Binding Path=Player7[2]}"
+                Card="{Binding Path=Player7[3]}"
+                IGN="{Binding Path=Player7[4]}"
+                Level="{Binding Path=Player7[5]}"
+                PMatch="{Binding Path=Player7[6]}"
+                PPMatch="{Binding Path=Player7[7]}"
+                PPPMatch="{Binding Path=Player7[8]}"
+                PPPRank="{Binding Path=Player7[9]}"
+                PPPRankName="{Binding Path=Player7[10]}"
+                PPRank="{Binding Path=Player7[11]}"
+                PPRankName="{Binding Path=Player7[12]}"
+                PRank="{Binding Path=Player7[13]}"
+                PRankName="{Binding Path=Player7[14]}"
+                Rank="{Binding Path=Player7[15]}"
+                RankName="{Binding Path=Player7[16]}"
+                RankProgress="{Binding Path=Player7[17]}" />
+            <c:NormalPlayerCell
+                Title="{Binding Path=Player8[0]}"
                 Grid.Row="3"
-                Margin="5,5,5,5"
-                Background="#252A40"
-                BorderThickness="1"
-                CornerRadius="20">
-                <Grid Margin="15,15,15,15" Background="#252A40">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                    </Grid.RowDefinitions>
-
-                    <Border
-                        Grid.RowSpan="3"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="0,0,10,0"
-                        CornerRadius="10">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player8[3]}" />
-                        </Border.Background>
-                    </Border>
-                    <Grid Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="{Binding Path=Player8[2]}" />
-                        <Viewbox Grid.Column="1" HorizontalAlignment="Left">
-                            <TextBox
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Bold"
-                                Foreground="#32e2b2"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player8[1]}" />
-                        </Viewbox>
-                        <Viewbox
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Stretch="Uniform">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player8[7]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player8[6]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player8[5]}" />
-                            </StackPanel>
-                        </Viewbox>
-                    </Grid>
-                    <Viewbox
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="0,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Stretch="Uniform">
-                        <TextBox
-                            Background="Transparent"
-                            BorderThickness="0"
-                            FontWeight="Normal"
-                            Foreground="#9f97b0"
-                            IsReadOnly="True"
-                            Text="{Binding Path=Player8[0]}" />
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <Border Background="#32e2b2" CornerRadius="5">
-                            <TextBox
-                                Padding="2"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Normal"
-                                Foreground="Black"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player8[4]}" />
-                        </Border>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="0,5,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Normal"
-                                Foreground="White"
-                                Opacity="0.7"
-                                Text="{Binding Path=Player8[13]}" />
-                            <!--<TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player8[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" Winrate, " />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player8[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" K/D" />-->
-                        </StackPanel>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player8[12]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player8[17]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player8[11]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player8[16]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player8[10]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player8[15]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                        </StackPanel>
-                    </Viewbox>
-                    <Border
-                        Grid.RowSpan="3"
-                        Grid.Column="2"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="10,0,0,5"
-                        HorizontalAlignment="Right"
-                        CornerRadius="20">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player8[9]}" />
-                        </Border.Background>
-                        <Border.ToolTip>
-                            <ToolTip
-                                Padding="5"
-                                Background="#32e2b2"
-                                Content="{Binding Path=Player8[14]}"
-                                FontWeight="SemiBold"
-                                Foreground="Black"
-                                ToolTipService.InitialShowDelay="0" />
-                        </Border.ToolTip>
-                    </Border>
-                    <ProgressBar
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Bottom"
-                        Maximum="100"
-                        Minimum="0"
-                        Value="{Binding Path=Player8[8]}" />
-                </Grid>
-            </Border>
-            <Border
+                Agent="{Binding Path=Player8[1]}"
+                AgentPicture="{Binding Path=Player8[2]}"
+                Card="{Binding Path=Player8[3]}"
+                IGN="{Binding Path=Player8[4]}"
+                Level="{Binding Path=Player8[5]}"
+                PMatch="{Binding Path=Player8[6]}"
+                PPMatch="{Binding Path=Player8[7]}"
+                PPPMatch="{Binding Path=Player8[8]}"
+                PPPRank="{Binding Path=Player8[9]}"
+                PPPRankName="{Binding Path=Player8[10]}"
+                PPRank="{Binding Path=Player8[11]}"
+                PPRankName="{Binding Path=Player8[12]}"
+                PRank="{Binding Path=Player8[13]}"
+                PRankName="{Binding Path=Player8[14]}"
+                Rank="{Binding Path=Player8[15]}"
+                RankName="{Binding Path=Player8[16]}"
+                RankProgress="{Binding Path=Player8[17]}" />
+            <c:NormalPlayerCell
+                Title="{Binding Path=Player9[0]}"
                 Grid.Row="4"
-                Margin="5,5,5,5"
-                Background="#252A40"
-                BorderThickness="1"
-                CornerRadius="20">
-                <Grid Margin="15,15,15,15" Background="#252A40">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                        <RowDefinition SharedSizeGroup="A" />
-                    </Grid.RowDefinitions>
-
-                    <Border
-                        Grid.RowSpan="3"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="0,0,10,0"
-                        CornerRadius="10">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player9[3]}" />
-                        </Border.Background>
-                    </Border>
-                    <Grid Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="{Binding Path=Player9[2]}" />
-                        <Viewbox Grid.Column="1" HorizontalAlignment="Left">
-                            <TextBox
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Bold"
-                                Foreground="#32e2b2"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player9[1]}" />
-                        </Viewbox>
-                        <Viewbox
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Stretch="Uniform">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player9[7]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player9[6]}" />
-                                <Image Margin="30,30,30,30" Source="{Binding Path=Player9[5]}" />
-                            </StackPanel>
-                        </Viewbox>
-                    </Grid>
-                    <Viewbox
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="0,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Stretch="Uniform">
-                        <TextBox
-                            Background="Transparent"
-                            BorderThickness="0"
-                            FontWeight="Normal"
-                            Foreground="#9f97b0"
-                            IsReadOnly="True"
-                            Text="{Binding Path=Player9[0]}" />
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <Border Background="#32e2b2" CornerRadius="5">
-                            <TextBox
-                                Padding="2"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Normal"
-                                Foreground="Black"
-                                IsReadOnly="True"
-                                Text="{Binding Path=Player9[4]}" />
-                        </Border>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="0,5,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Normal"
-                                Foreground="White"
-                                Opacity="0.7"
-                                Text="{Binding Path=Player9[13]}" />
-                            <!--<TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player1[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" Winrate, " />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Bold"
-                                Foreground="#9ea1b2"
-                                Text="{Binding Path=Player1[1]}" />
-                            <TextBlock
-                                Background="Transparent"
-                                FontWeight="Light"
-                                Foreground="#9ea1b2"
-                                Text=" K/D" />-->
-                        </StackPanel>
-                    </Viewbox>
-                    <Viewbox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Stretch="Uniform">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path=Player9[12]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player9[17]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player9[11]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player9[15]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                            <Image Source="{Binding Path=Player9[10]}">
-                                <Image.ToolTip>
-                                    <ToolTip
-                                        Padding="5"
-                                        Background="#32e2b2"
-                                        Content="{Binding Path=Player9[17]}"
-                                        FontWeight="SemiBold"
-                                        Foreground="Black"
-                                        ToolTipService.InitialShowDelay="0" />
-                                </Image.ToolTip>
-                            </Image>
-                        </StackPanel>
-                    </Viewbox>
-                    <Border
-                        Grid.RowSpan="3"
-                        Grid.Column="2"
-                        Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                        Margin="10,0,0,5"
-                        HorizontalAlignment="Right"
-                        CornerRadius="20">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Path=Player9[9]}" />
-                        </Border.Background>
-                        <Border.ToolTip>
-                            <ToolTip
-                                Padding="5"
-                                Background="#32e2b2"
-                                Content="{Binding Path=Player9[14]}"
-                                FontWeight="SemiBold"
-                                Foreground="Black"
-                                ToolTipService.InitialShowDelay="0" />
-                        </Border.ToolTip>
-                    </Border>
-                    <ProgressBar
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Bottom"
-                        Maximum="100"
-                        Minimum="0"
-                        Value="{Binding Path=Player9[8]}" />
-                </Grid>
-            </Border>
+                Agent="{Binding Path=Player9[1]}"
+                AgentPicture="{Binding Path=Player9[2]}"
+                Card="{Binding Path=Player9[3]}"
+                IGN="{Binding Path=Player9[4]}"
+                Level="{Binding Path=Player9[5]}"
+                PMatch="{Binding Path=Player9[6]}"
+                PPMatch="{Binding Path=Player9[7]}"
+                PPPMatch="{Binding Path=Player9[8]}"
+                PPPRank="{Binding Path=Player9[9]}"
+                PPPRankName="{Binding Path=Player9[10]}"
+                PPRank="{Binding Path=Player9[11]}"
+                PPRankName="{Binding Path=Player9[12]}"
+                PRank="{Binding Path=Player9[13]}"
+                PRankName="{Binding Path=Player9[14]}"
+                Rank="{Binding Path=Player9[15]}"
+                RankName="{Binding Path=Player9[16]}"
+                RankProgress="{Binding Path=Player9[17]}" />
         </Grid>
     </Grid>
 </UserControl>
