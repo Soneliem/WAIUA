@@ -1,14 +1,28 @@
 ﻿<UserControl
     x:Class="WAIUA.Controls.NormalPlayerCell"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="self"
+    xmlns:p="clr-namespace:WAIUA.Properties"
+    x:Name="Self"
     d:DesignHeight="450"
     d:DesignWidth="1700"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <Style x:Key="HyperlinkStyledButton" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock
+                            Cursor="Hand"
+                            Foreground="DodgerBlue"
+                            Text="{TemplateBinding Content}"
+                            TextDecorations="Underline" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style TargetType="ToolTip">
             <Setter Property="Background" Value="#32e2b2" />
             <Setter Property="FontWeight" Value="SemiBold" />
@@ -39,7 +53,7 @@
                 Margin="0,0,10,0"
                 CornerRadius="10">
                 <Border.Background>
-                    <ImageBrush ImageSource="{Binding Card, ElementName=self}" />
+                    <ImageBrush ImageSource="{Binding Card, ElementName=Self}" />
                 </Border.Background>
             </Border>
             <Grid Grid.Row="0" Grid.Column="1">
@@ -47,7 +61,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Image Grid.Column="0" Source="{Binding AgentPicture, ElementName=self}" />
+                <Image Grid.Column="0" Source="{Binding AgentPicture, ElementName=Self}" />
                 <Viewbox Grid.Column="1" HorizontalAlignment="Left">
                     <TextBox
                         Background="Transparent"
@@ -55,7 +69,7 @@
                         FontWeight="Bold"
                         Foreground="#32e2b2"
                         IsReadOnly="True"
-                        Text="{Binding Agent, ElementName=self}" />
+                        Text="{Binding Agent, ElementName=Self}" />
                 </Viewbox>
                 <Viewbox
                     Grid.Row="0"
@@ -64,9 +78,9 @@
                     VerticalAlignment="Bottom"
                     Stretch="Uniform">
                     <StackPanel Orientation="Horizontal">
-                        <Image Margin="30,30,30,30" Source="{Binding PPPMatch, ElementName=self}" />
-                        <Image Margin="30,30,30,30" Source="{Binding PPMatch, ElementName=self}" />
-                        <Image Margin="30,30,30,30" Source="{Binding PMatch, ElementName=self}" />
+                        <Image Margin="30,30,30,30" Source="{Binding PPPMatch, ElementName=Self}" />
+                        <Image Margin="30,30,30,30" Source="{Binding PPMatch, ElementName=Self}" />
+                        <Image Margin="30,30,30,30" Source="{Binding PMatch, ElementName=Self}" />
                     </StackPanel>
                 </Viewbox>
             </Grid>
@@ -77,13 +91,27 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Stretch="Uniform">
-                <TextBox
-                    Background="Transparent"
-                    BorderThickness="0"
-                    FontWeight="Normal"
-                    Foreground="#9f97b0"
-                    IsReadOnly="True"
-                    Text="{Binding IGN, ElementName=self}" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBox
+                        Background="Transparent"
+                        BorderThickness="0"
+                        FontWeight="Normal"
+                        Foreground="#9f97b0"
+                        IsReadOnly="True"
+                        Text="{Binding IGN, ElementName=Self}"
+                        Visibility="{Binding TrackerDisabled, ElementName=Self}" />
+                    <TextBlock
+                        FontWeight="Normal"
+                        Foreground="#9f97b0"
+                        Visibility="{Binding TrackerEnabled, ElementName=Self}">
+                        <Hyperlink NavigateUri="{Binding TrackerUrl, ElementName=Self}" RequestNavigate="HandleLinkClick">
+                            <Hyperlink.Inlines>
+                                <Run Text="{Binding IGN, ElementName=Self}" />
+                            </Hyperlink.Inlines>
+                        </Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+
             </Viewbox>
             <Viewbox
                 Grid.Row="2"
@@ -100,7 +128,7 @@
                         FontWeight="Normal"
                         Foreground="Black"
                         IsReadOnly="True"
-                        Text="{Binding Path=Level, ElementName=self}" />
+                        Text="{Binding Path=Level, ElementName=Self}" />
                 </Border>
             </Viewbox>
             <Viewbox
@@ -116,7 +144,7 @@
                         FontWeight="Normal"
                         Foreground="White"
                         Opacity="0.7"
-                        Text="{Binding Title, ElementName=self}" />
+                        Text="{Binding Title, ElementName=Self}" />
                 </StackPanel>
             </Viewbox>
             <Viewbox
@@ -126,9 +154,9 @@
                 VerticalAlignment="Bottom"
                 Stretch="Uniform">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="{Binding PPPRank, ElementName=self}" ToolTip="{Binding PPPRankName, ElementName=self}" />
-                    <Image Source="{Binding PPRank, ElementName=self}" ToolTip="{Binding PPRankName, ElementName=self}" />
-                    <Image Source="{Binding PRank, ElementName=self}" ToolTip="{Binding PRankName, ElementName=self}" />
+                    <Image Source="{Binding PPPRank, ElementName=Self}" ToolTip="{Binding PPPRankName, ElementName=Self}" />
+                    <Image Source="{Binding PPRank, ElementName=Self}" ToolTip="{Binding PPRankName, ElementName=Self}" />
+                    <Image Source="{Binding PRank, ElementName=Self}" ToolTip="{Binding PRankName, ElementName=Self}" />
                 </StackPanel>
             </Viewbox>
             <Border
@@ -139,9 +167,9 @@
                 Margin="10,0,0,5"
                 HorizontalAlignment="Right"
                 CornerRadius="20"
-                ToolTip="{Binding RankName, ElementName=self}">
+                ToolTip="{Binding RankName, ElementName=Self}">
                 <Border.Background>
-                    <ImageBrush ImageSource="{Binding Rank, ElementName=self}" />
+                    <ImageBrush ImageSource="{Binding Rank, ElementName=Self}" />
                 </Border.Background>
             </Border>
             <ProgressBar
@@ -149,10 +177,10 @@
                 Grid.Column="2"
                 Margin="10,0,0,0"
                 VerticalAlignment="Bottom"
-                Maximum="{Binding MaxRR, ElementName=self}"
+                Maximum="{Binding MaxRR, ElementName=Self}"
                 Minimum="0"
-                ToolTip="{Binding RankProgress, ElementName=self}"
-                Value="{Binding RankProgress, ElementName=self}" />
+                ToolTip="{Binding RankProgress, ElementName=Self}"
+                Value="{Binding RankProgress, ElementName=Self}" />
         </Grid>
     </Border>
 </UserControl>

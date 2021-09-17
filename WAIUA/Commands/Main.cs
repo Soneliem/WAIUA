@@ -56,7 +56,9 @@ namespace WAIUA.Commands
         public static string[] PPPGList { get; set; } = new string[10];
         public static string[] TitleList { get; set; } = new string[10];
         public static bool[] IsIncognito { get; set; } = new bool[10];
-        public static string[] TrackerUrl { get; set; } = new string[10];
+        public static string[] TrackerUrlList { get; set; } = new string[10];
+        public static string[] TrackerEnabledList { get; set; } = new string[10];
+        public static string[] TrackerDisabledList { get; set; } = new string[10];
 
         public static string DoCachedRequest(Method method, String url, bool add_riot_auth, CookieContainer cookie_container = null, bool bypass_cache = false) // Thank you MitchC for this, I am always touched when random people go out of the way to help others even though they know that we would be clueless and need to ask alot of followup questions
         {
@@ -74,10 +76,10 @@ namespace WAIUA.Commands
                     return res;
                 }
             }
-            RestClient client = new RestClient(url);
+            RestClient client = new(url);
             if (cookie_container != null)
                 client.CookieContainer = cookie_container;
-            RestRequest request = new RestRequest(method);
+            RestRequest request = new(method);
             if (add_riot_auth)
             {
                 request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
@@ -102,8 +104,8 @@ namespace WAIUA.Commands
                 var accessTokenVar = Regex.Match(authURL, @"access_token=(.+?)&scope=").Groups[1].Value;
                 AccessToken = $"{accessTokenVar}";
 
-                RestClient client = new RestClient(new Uri("https://entitlements.auth.riotgames.com/api/token/v1"));
-                RestRequest request = new RestRequest(Method.POST);
+                RestClient client = new(new Uri("https://entitlements.auth.riotgames.com/api/token/v1"));
+                RestRequest request = new(Method.POST);
 
                 request.AddHeader("Authorization", $"Bearer {AccessToken}");
                 request.AddJsonBody("{}");
@@ -124,8 +126,8 @@ namespace WAIUA.Commands
 
         public static void GetPPUUID()
         {
-            RestClient client = new RestClient(new Uri("https://auth.riotgames.com/userinfo"));
-            RestRequest request = new RestRequest(Method.POST);
+            RestClient client = new(new Uri("https://auth.riotgames.com/userinfo"));
+            RestRequest request = new(Method.POST);
 
             request.AddHeader("Authorization", $"Bearer {AccessToken}");
             request.AddJsonBody("{}");
@@ -139,11 +141,12 @@ namespace WAIUA.Commands
         public static void GetAuthorization(CookieContainer jar)
         {
             string url = "https://auth.riotgames.com/api/v1/authorization";
-            RestClient client = new RestClient(url);
+            RestClient client = new(url)
+            {
+                CookieContainer = jar
+            };
 
-            client.CookieContainer = jar;
-
-            RestRequest request = new RestRequest(Method.POST);
+            RestRequest request = new(Method.POST);
             string body = "{\"client_id\":\"play-valorant-web-prod\",\"nonce\":\"1\",\"redirect_uri\":\"https://playvalorant.com/opt_in" + "\",\"response_type\":\"token id_token\",\"scope\":\"account openid\"}";
             request.AddJsonBody(body);
             client.Execute(request);
@@ -152,11 +155,12 @@ namespace WAIUA.Commands
         public static string Authenticate(CookieContainer cookie, string user, string pass)
         {
             string url = "https://auth.riotgames.com/api/v1/authorization";
-            RestClient client = new RestClient(url);
+            RestClient client = new(url)
+            {
+                CookieContainer = cookie
+            };
 
-            client.CookieContainer = cookie;
-
-            RestRequest request = new RestRequest(Method.PUT);
+            RestRequest request = new(Method.PUT);
             string body = "{\"type\":\"auth\",\"username\":\"" + user + "\",\"password\":\"" + pass + "\",\"remember\": true, \"language\": \"en_US\"}";
             request.AddJsonBody(body);
 
@@ -169,8 +173,8 @@ namespace WAIUA.Commands
 
             if (File.Exists(lockfileLocation))
             {
-                using (FileStream fileStream = new FileStream(lockfileLocation, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
-                using (StreamReader sr = new StreamReader(fileStream))
+                using (FileStream fileStream = new(lockfileLocation, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+                using (StreamReader sr = new(fileStream))
                 {
                     string[] parts = sr.ReadToEnd().Split(":");
                     Port = parts[2];
@@ -188,8 +192,8 @@ namespace WAIUA.Commands
         public static void LocalLogin()
         {
             GetLatestVersion();
-            RestClient client = new RestClient(new Uri($"https://127.0.0.1:{Port}/entitlements/v1/token"));
-            RestRequest request = new RestRequest(Method.GET);
+            RestClient client = new(new Uri($"https://127.0.0.1:{Port}/entitlements/v1/token"));
+            RestRequest request = new(Method.GET);
             client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
             request.AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{LPassword}"))}");
             request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
@@ -206,8 +210,8 @@ namespace WAIUA.Commands
 
         public static void LocalRegion()
         {
-            RestClient client = new RestClient(new Uri($"https://127.0.0.1:{Port}/product-session/v1/external-sessions"));
-            RestRequest request = new RestRequest(Method.GET);
+            RestClient client = new(new Uri($"https://127.0.0.1:{Port}/product-session/v1/external-sessions"));
+            RestRequest request = new(Method.GET);
             client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
             request.AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{LPassword}"))}");
             request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
@@ -239,8 +243,8 @@ namespace WAIUA.Commands
 
         public static void GetLatestVersion()
         {
-            RestClient client = new RestClient(new Uri("https://valorant-api.com/v1/version"));
-            RestRequest request = new RestRequest(Method.GET);
+            RestClient client = new(new Uri("https://valorant-api.com/v1/version"));
+            RestRequest request = new(Method.GET);
             var response = client.Get(request);
             string content = response.Content;
             //string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/version", false);
@@ -257,11 +261,15 @@ namespace WAIUA.Commands
                 string gameName = "";
                 string gameTag = "";
                 string url = $"https://pd.{Region}.a.pvp.net/name-service/v2/players";
-                RestClient client = new RestClient(url);
-                client.CookieContainer = cookie;
-                RestRequest request = new RestRequest(Method.PUT);
+                RestClient client = new(url)
+                {
+                    CookieContainer = cookie
+                };
+                RestRequest request = new(Method.PUT)
+                {
+                    RequestFormat = DataFormat.Json
+                };
 
-                request.RequestFormat = DataFormat.Json;
                 request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
                 request.AddHeader("Authorization", $"Bearer {AccessToken}");
 
@@ -287,14 +295,16 @@ namespace WAIUA.Commands
             return IGN;
         }
 
-        public static Boolean LiveMatchID(CookieContainer jar)
+        public static bool LiveMatchID(CookieContainer jar)
         {
             try
             {
                 string url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/players/{PPUUID}";
-                RestClient client = new RestClient(url);
-                client.CookieContainer = jar;
-                RestRequest request = new RestRequest(Method.GET);
+                RestClient client = new(url)
+                {
+                    CookieContainer = jar
+                };
+                RestRequest request = new(Method.GET);
                 request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
                 request.AddHeader("Authorization", $"Bearer {AccessToken}");
                 string response = client.Execute(request).Content;
@@ -313,7 +323,7 @@ namespace WAIUA.Commands
         public bool LiveMatchChecks()
         {
             bool output;
-            CookieContainer cookie = new CookieContainer();
+            CookieContainer cookie = new();
 
             if (!String.IsNullOrEmpty(GetIGUsername(cookie, PPUUID)))
             {
@@ -352,8 +362,8 @@ namespace WAIUA.Commands
         {
             Parallel.Invoke(GetSeasons, GetLatestVersion);
             string url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
-            RestClient client = new RestClient(url);
-            RestRequest request = new RestRequest(Method.GET);
+            RestClient client = new(url);
+            RestRequest request = new(Method.GET);
             request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
             request.AddHeader("Authorization", $"Bearer {AccessToken}");
             string content = client.Execute(request).Content;
@@ -422,21 +432,36 @@ namespace WAIUA.Commands
                 RankList[playerno],
                 RankNameList[playerno],
                 RankProgList[playerno],
-                MaxRRList[playerno]
+                MaxRRList[playerno],
+                TrackerUrlList[playerno],
+                TrackerEnabledList[playerno],
+                TrackerDisabledList[playerno]
             };
             return output;
         }
 
         public static void GetIGCUsername(sbyte playerno)
         {
-            CookieContainer cookie = new CookieContainer();
+            CookieContainer cookie = new();
             if (IsIncognito[playerno])
             {
                 PlayerList[playerno] = "----";
+                TrackerEnabledList[playerno] = "Hidden";
+                TrackerDisabledList[playerno] = "Visible";
             }
             else
             {
                 PlayerList[playerno] = GetIGUsername(cookie, PUUIDList[playerno]);
+                if (Tracker(PlayerList[playerno], playerno))
+                {
+                    TrackerEnabledList[playerno] = "Visible";
+                    TrackerDisabledList[playerno] = "Collapsed";
+                }
+                else
+                {
+                    TrackerEnabledList[playerno] = "Hidden";
+                    TrackerDisabledList[playerno] = "Visible";
+                }
             }
         }
 
@@ -644,8 +669,8 @@ namespace WAIUA.Commands
             try
             {
                 string url = $"https://shared.{Region}.a.pvp.net/content-service/v2/content";
-                RestClient client = new RestClient(url);
-                RestRequest request = new RestRequest(Method.GET);
+                RestClient client = new(url);
+                RestRequest request = new(Method.GET);
                 request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
                 request.AddHeader("Authorization", $"Bearer {AccessToken}");
                 request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
@@ -752,21 +777,28 @@ namespace WAIUA.Commands
             return name;
         }
 
-        public static string Tracker(string username)
+        public static bool Tracker(string username, sbyte playerno)
         {
-            string output = null;
-            string encodedUsername = Uri.EscapeDataString(username);
-            string url = "https://tracker.gg/valorant/profile/riot/" + encodedUsername;
-
-            RestClient client = new RestClient(url);
-            RestRequest request = new RestRequest();
-            var response = client.Execute(request);
-            HttpStatusCode statusCode = response.StatusCode;
-            short numericStatusCode = (short)statusCode;
-
-            if (numericStatusCode == 200)
+            bool output = false;
+            try
             {
-                output = url;
+                string encodedUsername = Uri.EscapeDataString(username);
+                string url = "https://tracker.gg/valorant/profile/riot/" + encodedUsername;
+
+                RestClient client = new(url);
+                RestRequest request = new();
+                var response = client.Execute(request);
+                HttpStatusCode statusCode = response.StatusCode;
+                short numericStatusCode = (short)statusCode;
+
+                if (numericStatusCode == 200)
+                {
+                    TrackerUrlList[playerno] = url;
+                    output = true;
+                }
+            }
+            catch (Exception)
+            {
             }
             return output;
         }

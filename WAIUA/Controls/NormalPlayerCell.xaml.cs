@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Navigation;
 
 namespace WAIUA.Controls
 {
@@ -12,7 +15,7 @@ namespace WAIUA.Controls
 
         public string Card
         {
-            get { return (string)GetValue(CardProperty); }
+            get { return (string) GetValue(CardProperty); }
             set { SetValue(CardProperty, value); }
         }
 
@@ -21,7 +24,7 @@ namespace WAIUA.Controls
 
         public string Level
         {
-            get { return (string)GetValue(LevelProperty); }
+            get { return (string) GetValue(LevelProperty); }
             set { SetValue(LevelProperty, value); }
         }
 
@@ -30,16 +33,17 @@ namespace WAIUA.Controls
 
         public string AgentPicture
         {
-            get { return (string)GetValue(AgentPictureProperty); }
+            get { return (string) GetValue(AgentPictureProperty); }
             set { SetValue(AgentPictureProperty, value); }
         }
 
         public static readonly DependencyProperty AgentPictureProperty =
-            DependencyProperty.Register("AgentPicture", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+            DependencyProperty.Register("AgentPicture", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata(null));
 
         public string Agent
         {
-            get { return (string)GetValue(AgentProperty); }
+            get { return (string) GetValue(AgentProperty); }
             set { SetValue(AgentProperty, value); }
         }
 
@@ -48,7 +52,7 @@ namespace WAIUA.Controls
 
         public string IGN
         {
-            get { return (string)GetValue(IGNProperty); }
+            get { return (string) GetValue(IGNProperty); }
             set { SetValue(IGNProperty, value); }
         }
 
@@ -57,7 +61,7 @@ namespace WAIUA.Controls
 
         public string Title
         {
-            get { return (string)GetValue(TitleProperty); }
+            get { return (string) GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
         }
 
@@ -66,7 +70,7 @@ namespace WAIUA.Controls
 
         public string PMatch
         {
-            get { return (string)GetValue(PMatchProperty); }
+            get { return (string) GetValue(PMatchProperty); }
             set { SetValue(PMatchProperty, value); }
         }
 
@@ -75,61 +79,67 @@ namespace WAIUA.Controls
 
         public string PPMatch
         {
-            get { return (string)GetValue(PPMatchProperty); }
+            get { return (string) GetValue(PPMatchProperty); }
             set { SetValue(PPMatchProperty, value); }
         }
 
         public static readonly DependencyProperty PPMatchProperty =
-            DependencyProperty.Register("PPMatch", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+            DependencyProperty.Register("PPMatch", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata(null));
 
         public string PPPMatch
         {
-            get { return (string)GetValue(PPPMatchProperty); }
+            get { return (string) GetValue(PPPMatchProperty); }
             set { SetValue(PPPMatchProperty, value); }
         }
 
         public static readonly DependencyProperty PPPMatchProperty =
-            DependencyProperty.Register("PPPMatch", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+            DependencyProperty.Register("PPPMatch", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata(null));
 
         public string PRankName
         {
-            get { return (string)GetValue(PRankNameProperty); }
+            get { return (string) GetValue(PRankNameProperty); }
             set { SetValue(PRankNameProperty, value); }
         }
 
         public static readonly DependencyProperty PRankNameProperty =
-            DependencyProperty.Register("PRankName", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+            DependencyProperty.Register("PRankName", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata(null));
 
         public string PPRankName
         {
-            get { return (string)GetValue(PPRankNameProperty); }
+            get { return (string) GetValue(PPRankNameProperty); }
             set { SetValue(PPRankNameProperty, value); }
         }
 
         public static readonly DependencyProperty PPRankNameProperty =
-            DependencyProperty.Register("PPRankName", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+            DependencyProperty.Register("PPRankName", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata(null));
 
         public string PPPRankName
         {
-            get { return (string)GetValue(PPPRankNameProperty); }
+            get { return (string) GetValue(PPPRankNameProperty); }
             set { SetValue(PPPRankNameProperty, value); }
         }
 
         public static readonly DependencyProperty PPPRankNameProperty =
-            DependencyProperty.Register("PPPRankName", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+            DependencyProperty.Register("PPPRankName", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata(null));
 
         public string RankName
         {
-            get { return (string)GetValue(RankNameProperty); }
+            get { return (string) GetValue(RankNameProperty); }
             set { SetValue(RankNameProperty, value); }
         }
 
         public static readonly DependencyProperty RankNameProperty =
-            DependencyProperty.Register("RankName", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+            DependencyProperty.Register("RankName", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata(null));
 
         public string PRank
         {
-            get { return (string)GetValue(PRankProperty); }
+            get { return (string) GetValue(PRankProperty); }
             set { SetValue(PRankProperty, value); }
         }
 
@@ -138,7 +148,7 @@ namespace WAIUA.Controls
 
         public string PPRank
         {
-            get { return (string)GetValue(PPRankProperty); }
+            get { return (string) GetValue(PPRankProperty); }
             set { SetValue(PPRankProperty, value); }
         }
 
@@ -147,16 +157,17 @@ namespace WAIUA.Controls
 
         public string PPPRank
         {
-            get { return (string)GetValue(PPPRankProperty); }
+            get { return (string) GetValue(PPPRankProperty); }
             set { SetValue(PPPRankProperty, value); }
         }
 
         public static readonly DependencyProperty PPPRankProperty =
-            DependencyProperty.Register("PPPRank", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+            DependencyProperty.Register("PPPRank", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata(null));
 
         public string Rank
         {
-            get { return (string)GetValue(RankProperty); }
+            get { return (string) GetValue(RankProperty); }
             set { SetValue(RankProperty, value); }
         }
 
@@ -165,20 +176,62 @@ namespace WAIUA.Controls
 
         public string RankProgress
         {
-            get { return (string)GetValue(RankProgressProperty); }
+            get { return (string) GetValue(RankProgressProperty); }
             set { SetValue(RankProgressProperty, value); }
         }
 
         public static readonly DependencyProperty RankProgressProperty =
-            DependencyProperty.Register("RankProgress", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+            DependencyProperty.Register("RankProgress", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata(null));
 
         public string MaxRR
         {
-            get { return (string)GetValue(MaxRRProperty); }
+            get { return (string) GetValue(MaxRRProperty); }
             set { SetValue(MaxRRProperty, value); }
         }
 
         public static readonly DependencyProperty MaxRRProperty =
             DependencyProperty.Register("MaxRR", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+
+        public string TrackerUrl
+        {
+            get { return (string) GetValue(TrackerUrlProperty); }
+            set { SetValue(TrackerUrlProperty, value); }
+        }
+
+        public static readonly DependencyProperty TrackerUrlProperty =
+            DependencyProperty.Register("TrackerUrl", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata(null));
+
+        public string TrackerEnabled
+        {
+            get { return (string) GetValue(TrackerEnabledProperty); }
+            set { SetValue(TrackerEnabledProperty, value); }
+        }
+
+        public static readonly DependencyProperty TrackerEnabledProperty =
+            DependencyProperty.Register("TrackerEnabled", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata(null));
+
+        public string TrackerDisabled
+        {
+            get { return (string) GetValue(TrackerDisabledProperty); }
+            set { SetValue(TrackerDisabledProperty, value); }
+        }
+
+        public static readonly DependencyProperty TrackerDisabledProperty =
+            DependencyProperty.Register("TrackerDisabled", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata(null));
+
+        private void HandleLinkClick(object sender, RequestNavigateEventArgs e)
+        {
+
+            Hyperlink hl = (Hyperlink)sender;
+            string navigateUri = hl.NavigateUri.ToString();
+            System.Diagnostics.Debug.WriteLine($"Hyperlink Clicked: {navigateUri}");
+            Process.Start(new ProcessStartInfo(navigateUri) { UseShellExecute = true });
+            e.Handled = true;
+        }
+
     }
 }
