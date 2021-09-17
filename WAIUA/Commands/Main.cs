@@ -42,6 +42,7 @@ namespace WAIUA.Commands
         public static string[] CardList { get; set; } = new string[10];
         public static string[] LevelList { get; set; } = new string[10];
         public static string[] RankList { get; set; } = new string[10];
+        public static string[] MaxRRList { get; set; } = new string[10];
         public static string[] PRankList { get; set; } = new string[10];
         public static string[] PPRankList { get; set; } = new string[10];
         public static string[] PPPRankList { get; set; } = new string[10];
@@ -254,30 +255,30 @@ namespace WAIUA.Commands
             try
             {
                 string gameName = "";
-                    string gameTag = "";
-                    string url = $"https://pd.{Region}.a.pvp.net/name-service/v2/players";
-                    RestClient client = new RestClient(url);
-                    client.CookieContainer = cookie;
-                    RestRequest request = new RestRequest(Method.PUT);
+                string gameTag = "";
+                string url = $"https://pd.{Region}.a.pvp.net/name-service/v2/players";
+                RestClient client = new RestClient(url);
+                client.CookieContainer = cookie;
+                RestRequest request = new RestRequest(Method.PUT);
 
-                    request.RequestFormat = DataFormat.Json;
-                    request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
-                    request.AddHeader("Authorization", $"Bearer {AccessToken}");
+                request.RequestFormat = DataFormat.Json;
+                request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
+                request.AddHeader("Authorization", $"Bearer {AccessToken}");
 
-                    string[] body = new String[1] { puuid };
-                    request.AddJsonBody(body);
+                string[] body = new String[] { puuid };
+                request.AddJsonBody(body);
 
-                    var response = client.Put(request);
-                    string content = client.Execute(request).Content;
+                var response = client.Put(request);
+                string content = client.Execute(request).Content;
 
-                    content = content.Replace("[", "");
-                    content = content.Replace("]", "");
+                content = content.Replace("[", "");
+                content = content.Replace("]", "");
 
-                    var uinfo = JsonConvert.DeserializeObject(content);
-                    JToken uinfoObj = JObject.FromObject(uinfo);
-                    gameName = uinfoObj["GameName"].Value<string>();
-                    gameTag = uinfoObj["TagLine"].Value<string>();
-                    IGN = gameName + "#" + gameTag;
+                var uinfo = JsonConvert.DeserializeObject(content);
+                JToken uinfoObj = JObject.FromObject(uinfo);
+                gameName = uinfoObj["GameName"].Value<string>();
+                gameTag = uinfoObj["TagLine"].Value<string>();
+                IGN = gameName + "#" + gameTag;
             }
             catch (Exception)
             {
@@ -311,9 +312,9 @@ namespace WAIUA.Commands
 
         public bool LiveMatchChecks()
         {
-            bool output = false;
+            bool output;
             CookieContainer cookie = new CookieContainer();
-            
+
             if (!String.IsNullOrEmpty(GetIGUsername(cookie, PPUUID)))
             {
                 if (LiveMatchID(cookie))
@@ -420,7 +421,8 @@ namespace WAIUA.Commands
                 PRankNameList[playerno],
                 RankList[playerno],
                 RankNameList[playerno],
-                RankProgList[playerno]
+                RankProgList[playerno],
+                MaxRRList[playerno]
             };
             return output;
         }
@@ -547,7 +549,7 @@ namespace WAIUA.Commands
             {
                 if (!String.IsNullOrEmpty(puuid))
                 {
-                    string rank, prank, pprank, ppprank = "";
+                    string rank, prank, pprank, ppprank;
                     string content = DoCachedRequest(Method.GET, $"https://pd.{Region}.a.pvp.net/mmr/v1/players/{puuid}", true, null, true);
                     dynamic contentobj = JObject.Parse(content);
 
@@ -582,6 +584,30 @@ namespace WAIUA.Commands
                     catch (Exception)
                     {
                         ppprank = "0";
+                    }
+
+                    if (rank is "21" or "22" or "23")
+                    {
+                        string content2 = DoCachedRequest(Method.GET, $"https://pd.{Shard}.a.pvp.net/mmr/v1/leaderboards/affinity/{Region}/queue/competitive/season/{CurrentSeason}?startIndex=0&size=0", true, null);
+                        dynamic contentobj2 = JObject.Parse(content2);
+                        switch (rank)
+                        {
+                            case "21":
+                                MaxRRList[playerno] = contentobj2.tierDetails[22].rankedRatingThreshold;
+                                break;
+
+                            case "22":
+                                MaxRRList[playerno] = contentobj2.tierDetails[23].rankedRatingThreshold;
+                                break;
+
+                            case "23":
+                                MaxRRList[playerno] = contentobj2.tierDetails[24].rankedRatingThreshold;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        MaxRRList[playerno] = "100";
                     }
 
                     Parallel.Invoke(

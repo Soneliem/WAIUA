@@ -1,8 +1,8 @@
-﻿using System.Globalization;
-using AutoUpdaterDotNET;
+﻿using AutoUpdaterDotNET;
 using MVVMEssentials.Services;
 using MVVMEssentials.Stores;
 using MVVMEssentials.ViewModels;
+using System.Globalization;
 using System.Windows;
 using WAIUA.ViewModels;
 

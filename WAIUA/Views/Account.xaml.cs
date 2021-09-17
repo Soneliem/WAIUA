@@ -28,28 +28,28 @@ namespace WAIUA.Views
         public void LogIn()
         {
             CookieContainer cookie = new CookieContainer();
-            string user = usernameBox.Text;
-            string pass = passwordBox.Password;
+            string user = UsernameBox.Text;
+            string pass = PasswordBox.Password;
             while (true)
             {
                 if (String.IsNullOrEmpty(user))
                 {
-                    authStatusBox.Text = "Please enter your credentials";
+                    AuthStatusBox.Text = "Please enter your credentials";
                     break;
                 }
                 else if (String.IsNullOrEmpty(pass))
                 {
-                    authStatusBox.Text = "Please enter your credentials";
+                    AuthStatusBox.Text = "Please enter your credentials";
                     break;
                 }
                 else if (this.RegionList.SelectedIndex == -1)
                 {
-                    authStatusBox.Text = "Please select a region";
+                    AuthStatusBox.Text = "Please select a region";
                     break;
                 }
                 else
                 {
-                    authStatusBox.Text = "Authenticating...";
+                    AuthStatusBox.Text = "Authenticating...";
                     Login(cookie, user, pass);
                     CheckAuth(cookie);
                     break;
@@ -63,12 +63,12 @@ namespace WAIUA.Views
             {
                 if (String.IsNullOrEmpty(GetIGUsername(cookie, PPUUID)))
                 {
-                    authStatusBox.Text = "Not Authenticated";
+                    AuthStatusBox.Text = "Not Authenticated";
                     break;
                 }
                 else
                 {
-                    authStatusBox.Text = $"Authenticated as: {GetIGUsername(cookie, PPUUID)}";
+                    AuthStatusBox.Text = $"Authenticated as: {GetIGUsername(cookie, PPUUID)}";
                     break;
                 }
             }
@@ -91,7 +91,7 @@ namespace WAIUA.Views
             }
             else
             {
-                authStatusBox.Text = "Valorant need to be running for auto signin";
+                AuthStatusBox.Text = "Valorant need to be running for auto signin";
             }
         }
 
