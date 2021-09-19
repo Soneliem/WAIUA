@@ -53,8 +53,10 @@
     <None Remove="Assets\logo.ico" />
     <None Remove="Assets\logo.png" />
     <None Remove="Assets\loss.png" />
+    <None Remove="Assets\phantom.png" />
     <None Remove="Assets\sign-in.png" />
     <None Remove="Assets\Soneliem.png" />
+    <None Remove="Assets\vandal.png" />
     <None Remove="Assets\win.png" />
   </ItemGroup>
 
@@ -75,6 +77,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\loss.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\phantom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\vandal.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\win.png">

@@ -54,11 +54,14 @@ namespace WAIUA.Commands
         public static string[] PGList { get; set; } = new string[10];
         public static string[] PPGList { get; set; } = new string[10];
         public static string[] PPPGList { get; set; } = new string[10];
-        public static string[] TitleList { get; set; } = new string[10];
         public static bool[] IsIncognito { get; set; } = new bool[10];
         public static string[] TrackerUrlList { get; set; } = new string[10];
         public static string[] TrackerEnabledList { get; set; } = new string[10];
         public static string[] TrackerDisabledList { get; set; } = new string[10];
+        public static string[] VandalList { get; set; } = new string[10];
+        public static string[] PhantomList { get; set; } = new string[10];
+        public static string[] VandalNameList { get; set; } = new string[10];
+        public static string[] PhantomNameList { get; set; } = new string[10];
 
         public static string DoCachedRequest(Method method, String url, bool add_riot_auth, CookieContainer cookie_container = null, bool bypass_cache = false) // Thank you MitchC for this, I am always touched when random people go out of the way to help others even though they know that we would be clueless and need to ask alot of followup questions
         {
@@ -124,18 +127,33 @@ namespace WAIUA.Commands
             }
         }
 
-        public static void GetPPUUID()
+        public static bool GetPPUUID()
         {
-            RestClient client = new(new Uri("https://auth.riotgames.com/userinfo"));
-            RestRequest request = new(Method.POST);
+            bool output = false;
+            try
+            {
+                RestClient client = new(new Uri("https://auth.riotgames.com/userinfo"));
+                RestRequest request = new(Method.POST);
 
-            request.AddHeader("Authorization", $"Bearer {AccessToken}");
-            request.AddJsonBody("{}");
+                request.AddHeader("Authorization", $"Bearer {AccessToken}");
+                request.AddJsonBody("{}");
 
-            string response = client.Execute(request).Content;
-            var PlayerInfo = JsonConvert.DeserializeObject(response);
-            JToken PUUIDObj = JObject.FromObject(PlayerInfo);
-            PPUUID = PUUIDObj["sub"].Value<string>();
+                var response = client.Execute(request);
+                HttpStatusCode statusCode = response.StatusCode;
+                short numericStatusCode = (short)statusCode;
+                if (numericStatusCode == 200)
+                {
+                    output = true;
+                }
+                string content = response.Content;
+                var PlayerInfo = JsonConvert.DeserializeObject(content);
+                JToken PUUIDObj = JObject.FromObject(PlayerInfo);
+                PPUUID = PUUIDObj["sub"].Value<string>();
+            }
+            catch (Exception)
+            {
+            }
+            return output;
         }
 
         public static void GetAuthorization(CookieContainer jar)
@@ -270,9 +288,6 @@ namespace WAIUA.Commands
                     RequestFormat = DataFormat.Json
                 };
 
-                request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
-                request.AddHeader("Authorization", $"Bearer {AccessToken}");
-
                 string[] body = new String[] { puuid };
                 request.AddJsonBody(body);
 
@@ -322,10 +337,10 @@ namespace WAIUA.Commands
 
         public bool LiveMatchChecks()
         {
-            bool output;
+            bool output = false;
             CookieContainer cookie = new();
 
-            if (!String.IsNullOrEmpty(GetIGUsername(cookie, PPUUID)))
+            if (GetPPUUID())
             {
                 if (LiveMatchID(cookie))
                 {
@@ -344,9 +359,17 @@ namespace WAIUA.Commands
                 {
                     LocalLogin();
                     LocalRegion();
-                    LiveMatchID(cookie);
-                    LiveMatchSetup();
-                    output = true;
+
+                    if (LiveMatchID(cookie))
+                    {
+                        LiveMatchSetup();
+                        output = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No Match Detected", "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+                        output = false;
+                    }
                 }
                 else
                 {
@@ -373,7 +396,6 @@ namespace WAIUA.Commands
             string[] agent = new string[10];
             string[] card = new string[10];
             string[] level = new string[10];
-            string[] title = new string[10];
             bool[] incognito = new bool[10];
             sbyte index = 0;
             foreach (var entry in matchinfo.Players)
@@ -385,7 +407,6 @@ namespace WAIUA.Commands
                     agent[index] = entry.CharacterID;
                     card[index] = entry.PlayerIdentity.PlayerCardID;
                     level[index] = entry.PlayerIdentity.AccountLevel;
-                    title[index] = entry.PlayerIdentity.PlayerTitleID;
                     if (entry.PlayerIdentity.Incognito == true)
                     {
                         incognito[index] = true;
@@ -399,7 +420,6 @@ namespace WAIUA.Commands
             AgentList = agent;
             CardList = card;
             LevelList = level;
-            TitleList = title;
             IsIncognito = incognito;
         }
 
@@ -409,17 +429,17 @@ namespace WAIUA.Commands
                 () => GetIGCUsername(playerno),
                 () => GetAgentInfo(AgentList[playerno], playerno),
                 () => GetCardInfo(CardList[playerno], playerno),
-                () => GetTitleInfo(TitleList[playerno], playerno),
+                () => GetSkinInfo(PUUIDList[playerno], playerno),
                 () => GetCompHistory(PUUIDList[playerno], playerno),
                 () => GetPlayerHistory(PUUIDList[playerno], playerno));
 
             string[] output = {
-                TitleList[playerno],
                 AgentList[playerno],
                 AgentPList[playerno],
                 CardList[playerno],
                 PlayerList[playerno],
                 LevelList[playerno],
+                MaxRRList[playerno],
                 PGList[playerno],
                 PPGList[playerno],
                 PPPGList[playerno],
@@ -429,13 +449,16 @@ namespace WAIUA.Commands
                 PPRankNameList[playerno],
                 PRankList[playerno],
                 PRankNameList[playerno],
+                PhantomList[playerno],
+                PhantomNameList[playerno],
                 RankList[playerno],
                 RankNameList[playerno],
                 RankProgList[playerno],
-                MaxRRList[playerno],
-                TrackerUrlList[playerno],
+                TrackerDisabledList[playerno],
                 TrackerEnabledList[playerno],
-                TrackerDisabledList[playerno]
+                TrackerUrlList[playerno],
+                VandalList[playerno],
+                VandalNameList[playerno]
             };
             return output;
         }
@@ -504,14 +527,55 @@ namespace WAIUA.Commands
             }
         }
 
-        public static void GetTitleInfo(string title, sbyte playerno)
+        public static void GetSkinInfo(string puuid, sbyte playerno)
         {
             try
             {
-                string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/playertitles/{title}", false);
-                var agentinfo = JsonConvert.DeserializeObject(content);
-                JToken agentinfoObj = JObject.FromObject(agentinfo);
-                TitleList[playerno] = agentinfoObj["data"]["titleText"].Value<string>();
+                bool vfound = false, pfound= false;
+                string response = DoCachedRequest(Method.GET, $"https://pd.{Region}.a.pvp.net/personalization/v2/players/{puuid}/playerloadout", true);
+                dynamic content = JsonConvert.DeserializeObject(response);
+                
+                    while (vfound == false && pfound == false)
+                    {
+                        foreach (var gun in content.Guns)
+                        {
+                        if (gun.ID == "9c82e19d-4575-0200-1a81-3eacf00cf872")
+                        {
+                            if (gun.ChromaID == "idkyet")
+                            {
+                                VandalList[playerno] = "/Assets/vandal.png";
+                                VandalNameList[playerno] = "Default Vandal"; 
+                            }
+                            else
+                            {
+                                string vandalcontent = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/weapons/skinchromas/{gun.ChromaID}", false);
+                                var vandalinfo = JsonConvert.DeserializeObject(vandalcontent);
+                                JToken vandalinfoObj = JObject.FromObject(vandalinfo);
+                                VandalList[playerno] = vandalinfoObj["data"]["displayIcon"].Value<string>();
+                                VandalNameList[playerno] = vandalinfoObj["data"]["displayName"].Value<string>(); 
+                            }
+                            vfound = true;
+                        }
+                        if (gun.ID == "ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a")
+                        {
+                            if (gun.ChromaID == "52221ba2-4e4c-ec76-8c81-3483506d5242")
+                            {
+                                PhantomList[playerno] = "/Assets/phantom.png";
+                                PhantomNameList[playerno] = "Default Phantom"; 
+                            }
+                            else
+                            {
+                                string phantomcontent = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/weapons/skinchromas/{gun.ChromaID}", false);
+                                var phantominfo = JsonConvert.DeserializeObject(phantomcontent);
+                                JToken phantominfoObj = JObject.FromObject(phantominfo);
+                                PhantomList[playerno] = phantominfoObj["data"]["displayIcon"].Value<string>();
+                                PhantomNameList[playerno] = phantominfoObj["data"]["displayName"].Value<string>();
+                            }
+                            pfound = true;
+                        }
+                    }
+                    break;
+                }
             }
             catch (Exception e)
             {
@@ -765,7 +829,7 @@ namespace WAIUA.Commands
         {
             string content = DoCachedRequest(Method.GET, "https://valorant-api.com/v1/competitivetiers", false);
             dynamic agentinfo = JsonConvert.DeserializeObject(content);
-            string name = "";
+            string name = null;
             foreach (var tiers in agentinfo.data[2].tiers)
             {
                 if (tiers.tier == rank)

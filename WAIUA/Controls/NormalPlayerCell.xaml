@@ -103,6 +103,7 @@
                     <TextBlock
                         FontWeight="Normal"
                         Foreground="#9f97b0"
+                        ToolTip="Open Tracker.gg Profile"
                         Visibility="{Binding TrackerEnabled, ElementName=Self}">
                         <Hyperlink NavigateUri="{Binding TrackerUrl, ElementName=Self}" RequestNavigate="HandleLinkClick">
                             <Hyperlink.Inlines>
@@ -139,12 +140,11 @@
                 VerticalAlignment="Bottom"
                 Stretch="Uniform">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock
-                        Background="Transparent"
-                        FontWeight="Normal"
-                        Foreground="White"
-                        Opacity="0.7"
-                        Text="{Binding Title, ElementName=Self}" />
+                    <Image
+                        Margin="0,0,50,0"
+                        Source="{Binding VandalSkin, ElementName=Self}"
+                        ToolTip="{Binding VandalSkinName, ElementName=Self}" />
+                    <Image Source="{Binding PhantomSkin, ElementName=Self}" ToolTip="{Binding PhantomSkinName, ElementName=Self}" />
                 </StackPanel>
             </Viewbox>
             <Viewbox

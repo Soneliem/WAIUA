@@ -61,7 +61,7 @@ namespace WAIUA.Views
         {
             while (true)
             {
-                if (String.IsNullOrEmpty(GetIGUsername(cookie, PPUUID)))
+                if (!GetPPUUID())
                 {
                     AuthStatusBox.Text = "Not Authenticated";
                     break;

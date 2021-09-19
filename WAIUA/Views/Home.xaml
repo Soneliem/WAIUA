@@ -113,14 +113,13 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <c:NormalPlayerCell
-                Title="{Binding Path=Player0[0]}"
                 Grid.Row="0"
-                Agent="{Binding Path=Player0[1]}"
-                AgentPicture="{Binding Path=Player0[2]}"
-                Card="{Binding Path=Player0[3]}"
-                IGN="{Binding Path=Player0[4]}"
-                Level="{Binding Path=Player0[5]}"
-                MaxRR="{Binding Path=Player0[18]}"
+                Agent="{Binding Path=Player0[0]}"
+                AgentPicture="{Binding Path=Player0[1]}"
+                Card="{Binding Path=Player0[2]}"
+                IGN="{Binding Path=Player0[3]}"
+                Level="{Binding Path=Player0[4]}"
+                MaxRR="{Binding Path=Player0[5]}"
                 PMatch="{Binding Path=Player0[6]}"
                 PPMatch="{Binding Path=Player0[7]}"
                 PPPMatch="{Binding Path=Player0[8]}"
@@ -130,14 +129,17 @@
                 PPRankName="{Binding Path=Player0[12]}"
                 PRank="{Binding Path=Player0[13]}"
                 PRankName="{Binding Path=Player0[14]}"
-                Rank="{Binding Path=Player0[15]}"
-                RankName="{Binding Path=Player0[16]}"
-                RankProgress="{Binding Path=Player0[17]}"
-                TrackerDisabled="{Binding Path=Player0[21]}"
-                TrackerEnabled="{Binding Path=Player0[20]}"
-                TrackerUrl="{Binding Path=Player0[19]}" />
+                PhantomSkin="{Binding Path=Player0[15]}"
+                PhantomSkinName="{Binding Path=Player0[16]}"
+                Rank="{Binding Path=Player0[17]}"
+                RankName="{Binding Path=Player0[18]}"
+                RankProgress="{Binding Path=Player0[19]}"
+                TrackerDisabled="{Binding Path=Player0[20]}"
+                TrackerEnabled="{Binding Path=Player0[21]}"
+                TrackerUrl="{Binding Path=Player0[22]}"
+                VandalSkin="{Binding Path=Player0[23]}"
+                VandalSkinName="{Binding Path=Player0[24]}" />
             <c:NormalPlayerCell
-                Title="{Binding Path=Player1[0]}"
                 Grid.Row="1"
                 Agent="{Binding Path=Player1[1]}"
                 AgentPicture="{Binding Path=Player1[2]}"
@@ -159,9 +161,9 @@
                 RankProgress="{Binding Path=Player1[17]}"
                 TrackerDisabled="{Binding Path=Player1[21]}"
                 TrackerEnabled="{Binding Path=Player1[20]}"
-                TrackerUrl="{Binding Path=Player1[19]}" />
+                TrackerUrl="{Binding Path=Player1[19]}"
+                VandalSkin="{Binding Path=Player1[0]}" />
             <c:NormalPlayerCell
-                Title="{Binding Path=Player2[0]}"
                 Grid.Row="2"
                 Agent="{Binding Path=Player2[1]}"
                 AgentPicture="{Binding Path=Player2[2]}"
@@ -183,9 +185,9 @@
                 RankProgress="{Binding Path=Player2[17]}"
                 TrackerDisabled="{Binding Path=Player2[21]}"
                 TrackerEnabled="{Binding Path=Player2[20]}"
-                TrackerUrl="{Binding Path=Player2[19]}" />
+                TrackerUrl="{Binding Path=Player2[19]}"
+                VandalSkin="{Binding Path=Player2[0]}" />
             <c:NormalPlayerCell
-                Title="{Binding Path=Player3[0]}"
                 Grid.Row="3"
                 Agent="{Binding Path=Player3[1]}"
                 AgentPicture="{Binding Path=Player3[2]}"
@@ -207,9 +209,9 @@
                 RankProgress="{Binding Path=Player3[17]}"
                 TrackerDisabled="{Binding Path=Player3[21]}"
                 TrackerEnabled="{Binding Path=Player3[20]}"
-                TrackerUrl="{Binding Path=Player3[19]}" />
+                TrackerUrl="{Binding Path=Player3[19]}"
+                VandalSkin="{Binding Path=Player3[0]}" />
             <c:NormalPlayerCell
-                Title="{Binding Path=Player4[0]}"
                 Grid.Row="4"
                 Agent="{Binding Path=Player4[1]}"
                 AgentPicture="{Binding Path=Player4[2]}"
@@ -231,7 +233,8 @@
                 RankProgress="{Binding Path=Player4[17]}"
                 TrackerDisabled="{Binding Path=Player4[21]}"
                 TrackerEnabled="{Binding Path=Player4[20]}"
-                TrackerUrl="{Binding Path=Player4[19]}" />
+                TrackerUrl="{Binding Path=Player4[19]}"
+                VandalSkin="{Binding Path=Player4[0]}" />
         </Grid>
 
         <Grid
@@ -248,7 +251,6 @@
             </Grid.RowDefinitions>
 
             <c:NormalPlayerCell
-                Title="{Binding Path=Player5[0]}"
                 Grid.Row="0"
                 Agent="{Binding Path=Player5[1]}"
                 AgentPicture="{Binding Path=Player5[2]}"
@@ -270,9 +272,9 @@
                 RankProgress="{Binding Path=Player5[17]}"
                 TrackerDisabled="{Binding Path=Player5[21]}"
                 TrackerEnabled="{Binding Path=Player5[20]}"
-                TrackerUrl="{Binding Path=Player5[19]}" />
+                TrackerUrl="{Binding Path=Player5[19]}"
+                VandalSkin="{Binding Path=Player5[0]}" />
             <c:NormalPlayerCell
-                Title="{Binding Path=Player6[0]}"
                 Grid.Row="1"
                 Agent="{Binding Path=Player6[1]}"
                 AgentPicture="{Binding Path=Player6[2]}"
@@ -294,9 +296,9 @@
                 RankProgress="{Binding Path=Player6[17]}"
                 TrackerDisabled="{Binding Path=Player6[21]}"
                 TrackerEnabled="{Binding Path=Player6[20]}"
-                TrackerUrl="{Binding Path=Player6[19]}" />
+                TrackerUrl="{Binding Path=Player6[19]}"
+                VandalSkin="{Binding Path=Player6[0]}" />
             <c:NormalPlayerCell
-                Title="{Binding Path=Player7[0]}"
                 Grid.Row="2"
                 Agent="{Binding Path=Player7[1]}"
                 AgentPicture="{Binding Path=Player7[2]}"
@@ -318,9 +320,9 @@
                 RankProgress="{Binding Path=Player7[17]}"
                 TrackerDisabled="{Binding Path=Player7[21]}"
                 TrackerEnabled="{Binding Path=Player7[20]}"
-                TrackerUrl="{Binding Path=Player7[19]}" />
+                TrackerUrl="{Binding Path=Player7[19]}"
+                VandalSkin="{Binding Path=Player7[0]}" />
             <c:NormalPlayerCell
-                Title="{Binding Path=Player8[0]}"
                 Grid.Row="3"
                 Agent="{Binding Path=Player8[1]}"
                 AgentPicture="{Binding Path=Player8[2]}"
@@ -342,9 +344,9 @@
                 RankProgress="{Binding Path=Player8[17]}"
                 TrackerDisabled="{Binding Path=Player8[21]}"
                 TrackerEnabled="{Binding Path=Player8[20]}"
-                TrackerUrl="{Binding Path=Player8[19]}" />
+                TrackerUrl="{Binding Path=Player8[19]}"
+                VandalSkin="{Binding Path=Player8[0]}" />
             <c:NormalPlayerCell
-                Title="{Binding Path=Player9[0]}"
                 Grid.Row="4"
                 Agent="{Binding Path=Player9[1]}"
                 AgentPicture="{Binding Path=Player9[2]}"
@@ -366,7 +368,8 @@
                 RankProgress="{Binding Path=Player9[17]}"
                 TrackerDisabled="{Binding Path=Player9[21]}"
                 TrackerEnabled="{Binding Path=Player9[20]}"
-                TrackerUrl="{Binding Path=Player9[19]}" />
+                TrackerUrl="{Binding Path=Player9[19]}"
+                VandalSkin="{Binding Path=Player9[0]}" />
         </Grid>
     </Grid>
 </UserControl>

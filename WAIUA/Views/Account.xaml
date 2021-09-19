@@ -11,6 +11,175 @@
     d:DesignWidth="1536"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Border
+                    x:Name="Border"
+                    Grid.ColumnSpan="2"
+                    Background="#4a4f63"
+                    BorderBrush="#4a4f63"
+                    BorderThickness="1"
+                    CornerRadius="0" />
+                <Border
+                    Grid.Column="0"
+                    Margin="1"
+                    Background="#4a4f63"
+                    BorderBrush="#4a4f63"
+                    BorderThickness="0,0,1,0"
+                    CornerRadius="0" />
+                <Path
+                    x:Name="Arrow"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
+                    Fill="White" />
+            </Grid>
+            <!--<ControlTemplate.Triggers>
+            <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="#808080" />
+            </Trigger>
+            <Trigger Property="ToggleButton.IsChecked" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="#E0E0E0" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Border" Property="Background" Value="#EEEEEE" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="#AAAAAA" />
+                <Setter Property="Foreground" Value="#888888"/>
+                <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
+            </Trigger>
+        </ControlTemplate.Triggers>-->
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+            <Border
+                x:Name="PART_ContentHost"
+                Background="{TemplateBinding Background}"
+                Focusable="False" />
+        </ControlTemplate>
+
+        <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+            <Setter Property="MinWidth" Value="120" />
+            <Setter Property="MinHeight" Value="20" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <ToggleButton
+                                Name="ToggleButton"
+                                Grid.Column="2"
+                                ClickMode="Press"
+                                Focusable="false"
+                                IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                Template="{StaticResource ComboBoxToggleButton}" />
+                            <ContentPresenter
+                                Name="ContentSite"
+                                Margin="3,3,23,3"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding SelectionBoxItem}"
+                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                IsHitTestVisible="False" />
+                            <TextBox
+                                x:Name="PART_EditableTextBox"
+                                Margin="3,3,23,3"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Background="#FF3F3F3F"
+                                Focusable="True"
+                                Foreground="Green"
+                                IsReadOnly="{TemplateBinding IsReadOnly}"
+                                Style="{x:Null}"
+                                Template="{StaticResource ComboBoxTextBox}"
+                                Visibility="Hidden" />
+                            <Popup
+                                Name="Popup"
+                                AllowsTransparency="True"
+                                Focusable="False"
+                                IsOpen="{TemplateBinding IsDropDownOpen}"
+                                Placement="Bottom"
+                                PopupAnimation="Slide">
+
+                                <Grid
+                                    Name="DropDown"
+                                    MinWidth="{TemplateBinding ActualWidth}"
+                                    MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                    SnapsToDevicePixels="True">
+                                    <Border
+                                        x:Name="DropDownBorder"
+                                        Background="#4a4f63"
+                                        BorderBrush="#4a4f63"
+                                        BorderThickness="2"
+                                        CornerRadius="10" />
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#888888" />
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0" />
+                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0" />
+                            </Trigger>
+                            <Trigger Property="IsEditable" Value="true">
+                                <Setter Property="IsTabStop" Value="false" />
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers />
+        </Style>
+
+        <!--  SimpleStyles: ComboBoxItem  -->
+        <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border
+                            Name="Border"
+                            Padding="2"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#FF4F4F4F" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#888888" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
             <Border Name="RootElement" CornerRadius="10">
                 <Border.Background>
@@ -391,9 +560,9 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
                 <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Border
                 Grid.RowSpan="4"
@@ -412,39 +581,46 @@
                 Text="{x:Static p:Resources.SelRegionTitle}"
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
-            <ListBox
-                Name="RegionList"
+
+            <Border
                 Grid.Row="1"
                 Grid.Column="1"
-                HorizontalContentAlignment="Center"
-                Background="Transparent"
-                BorderThickness="0"
-                SelectionChanged="ListBox_Selected">
-                <ListBoxItem
-                    Content="{x:Static p:Resources.NA}"
-                    Foreground="White"
-                    Opacity="0.7" />
-                <ListBoxItem
-                    Content="{x:Static p:Resources.AP}"
-                    Foreground="White"
-                    Opacity="0.7" />
-                <ListBoxItem
-                    Content="{x:Static p:Resources.EU}"
-                    Foreground="White"
-                    Opacity="0.7" />
-                <ListBoxItem
-                    Content="{x:Static p:Resources.KO}"
-                    Foreground="White"
-                    Opacity="0.7" />
-                <ListBoxItem
-                    Content="{x:Static p:Resources.BR}"
-                    Foreground="White"
-                    Opacity="0.7" />
-                <ListBoxItem
-                    Content="{x:Static p:Resources.LATAM}"
-                    Foreground="White"
-                    Opacity="0.7" />
-            </ListBox>
+                Height="50"
+                Padding="3"
+                Background="#4a4f63"
+                CornerRadius="10">
+                <ComboBox
+                    Name="RegionList"
+                    HorizontalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    SelectionChanged="ListBox_Selected">
+                    <ComboBoxItem
+                        Content="{x:Static p:Resources.NA}"
+                        Foreground="White"
+                        Opacity="0.7" />
+                    <ComboBoxItem
+                        Content="{x:Static p:Resources.AP}"
+                        Foreground="White"
+                        Opacity="0.7" />
+                    <ComboBoxItem
+                        Content="{x:Static p:Resources.EU}"
+                        Foreground="White"
+                        Opacity="0.7" />
+                    <ComboBoxItem
+                        Content="{x:Static p:Resources.KO}"
+                        Foreground="White"
+                        Opacity="0.7" />
+                    <ComboBoxItem
+                        Content="{x:Static p:Resources.BR}"
+                        Foreground="White"
+                        Opacity="0.7" />
+                    <ComboBoxItem
+                        Content="{x:Static p:Resources.LATAM}"
+                        Foreground="White"
+                        Opacity="0.7" />
+                </ComboBox>
+            </Border>
             <TextBlock
                 Grid.Row="2"
                 Grid.Column="1"

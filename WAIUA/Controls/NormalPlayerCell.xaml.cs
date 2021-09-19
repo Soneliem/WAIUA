@@ -59,14 +59,41 @@ namespace WAIUA.Controls
         public static readonly DependencyProperty IGNProperty =
             DependencyProperty.Register("IGN", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
 
-        public string Title
+        public string VandalSkin
         {
-            get { return (string) GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
+            get { return (string) GetValue(VandalSkinProperty); }
+            set { SetValue(VandalSkinProperty, value); }
         }
 
-        public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+        public static readonly DependencyProperty VandalSkinProperty =
+            DependencyProperty.Register("VandalSkin", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+        
+        public string PhantomSkin
+        {
+            get { return (string) GetValue(PhantomSkinProperty); }
+            set { SetValue(PhantomSkinProperty, value); }
+        }
+
+        public static readonly DependencyProperty PhantomSkinProperty =
+            DependencyProperty.Register("PhantomSkin", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+
+        public string VandalSkinName
+        {
+            get { return (string) GetValue(VandalSkinNameProperty); }
+            set { SetValue(VandalSkinNameProperty, value); }
+        }
+
+        public static readonly DependencyProperty VandalSkinNameProperty =
+            DependencyProperty.Register("VandalSkinName", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+        
+        public string PhantomSkinName
+        {
+            get { return (string) GetValue(PhantomSkinNameProperty); }
+            set { SetValue(PhantomSkinNameProperty, value); }
+        }
+
+        public static readonly DependencyProperty PhantomSkinNameProperty =
+            DependencyProperty.Register("PhantomSkinName", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
 
         public string PMatch
         {
