@@ -119,7 +119,7 @@ namespace WAIUA.Commands
 
                 EntitlementToken = entitlement_tokenObj["entitlements_token"].Value<string>();
 
-                GetPPUUID();
+                GetSetPPUUID();
             }
             catch (Exception e)
             {
@@ -127,7 +127,7 @@ namespace WAIUA.Commands
             }
         }
 
-        public static bool GetPPUUID()
+        public static bool GetSetPPUUID()
         {
             bool output = false;
             try
@@ -156,7 +156,7 @@ namespace WAIUA.Commands
             return output;
         }
 
-        public static void GetAuthorization(CookieContainer jar)
+        private static void GetAuthorization(CookieContainer jar)
         {
             string url = "https://auth.riotgames.com/api/v1/authorization";
             RestClient client = new(url)
@@ -170,7 +170,7 @@ namespace WAIUA.Commands
             client.Execute(request);
         }
 
-        public static string Authenticate(CookieContainer cookie, string user, string pass)
+        private static string Authenticate(CookieContainer cookie, string user, string pass)
         {
             string url = "https://auth.riotgames.com/api/v1/authorization";
             RestClient client = new(url)
@@ -223,7 +223,6 @@ namespace WAIUA.Commands
             JToken responseObj = JObject.FromObject(responsevar);
             AccessToken = responseObj["accessToken"].Value<string>();
             EntitlementToken = responseObj["token"].Value<string>();
-            GetPPUUID();
         }
 
         public static void LocalRegion()
@@ -259,7 +258,7 @@ namespace WAIUA.Commands
             }
         }
 
-        public static void GetLatestVersion()
+        private static void GetLatestVersion()
         {
             RestClient client = new(new Uri("https://valorant-api.com/v1/version"));
             RestRequest request = new(Method.GET);
@@ -310,7 +309,7 @@ namespace WAIUA.Commands
             return IGN;
         }
 
-        public static bool LiveMatchID(CookieContainer jar)
+        private static bool LiveMatchID(CookieContainer jar)
         {
             try
             {
@@ -340,7 +339,7 @@ namespace WAIUA.Commands
             bool output = false;
             CookieContainer cookie = new();
 
-            if (GetPPUUID())
+            if (GetSetPPUUID())
             {
                 if (LiveMatchID(cookie))
                 {
@@ -358,6 +357,7 @@ namespace WAIUA.Commands
                 if (CheckLocal())
                 {
                     LocalLogin();
+                    GetSetPPUUID();
                     LocalRegion();
 
                     if (LiveMatchID(cookie))
@@ -381,7 +381,7 @@ namespace WAIUA.Commands
             return output;
         }
 
-        public void LiveMatchSetup()
+        private void LiveMatchSetup()
         {
             Parallel.Invoke(GetSeasons, GetLatestVersion);
             string url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
@@ -429,7 +429,7 @@ namespace WAIUA.Commands
                 () => GetIGCUsername(playerno),
                 () => GetAgentInfo(AgentList[playerno], playerno),
                 () => GetCardInfo(CardList[playerno], playerno),
-                () => GetSkinInfo(PUUIDList[playerno], playerno),
+                () => GetSkinInfo(playerno),
                 () => GetCompHistory(PUUIDList[playerno], playerno),
                 () => GetPlayerHistory(PUUIDList[playerno], playerno));
 
@@ -463,7 +463,7 @@ namespace WAIUA.Commands
             return output;
         }
 
-        public static void GetIGCUsername(sbyte playerno)
+        private static void GetIGCUsername(sbyte playerno)
         {
             CookieContainer cookie = new();
             if (IsIncognito[playerno])
@@ -488,7 +488,7 @@ namespace WAIUA.Commands
             }
         }
 
-        public static void GetAgentInfo(string agent, sbyte playerno)
+        private static void GetAgentInfo(string agent, sbyte playerno)
         {
             try
             {
@@ -512,7 +512,7 @@ namespace WAIUA.Commands
             }
         }
 
-        public static void GetCardInfo(string card, sbyte playerno)
+        private static void GetCardInfo(string card, sbyte playerno)
         {
             try
             {
@@ -527,54 +527,43 @@ namespace WAIUA.Commands
             }
         }
 
-        public static void GetSkinInfo(string puuid, sbyte playerno)
+        private static void GetSkinInfo(sbyte playerno)
         {
             try
             {
-                bool vfound = false, pfound= false;
-                string response = DoCachedRequest(Method.GET, $"https://pd.{Region}.a.pvp.net/personalization/v2/players/{puuid}/playerloadout", true);
-                dynamic content = JsonConvert.DeserializeObject(response);
-                
-                    while (vfound == false && pfound == false)
+                if (!String.IsNullOrEmpty(PUUIDList[playerno]))
+                {
+                    string response = DoCachedRequest(Method.GET, $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}/loadouts", true);
+                    dynamic content = JsonConvert.DeserializeObject(response);
+                    string vandalchroma = content.Loadouts[playerno].Loadout.Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"].Item.ID;
+                    string phantomchroma = content.Loadouts[playerno].Loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"].Item.ID;
+
+                    if (vandalchroma == "19629ae1-4996-ae98-7742-24a240d41f99")
                     {
-                        foreach (var gun in content.Guns)
-                        {
-                        if (gun.ID == "9c82e19d-4575-0200-1a81-3eacf00cf872")
-                        {
-                            if (gun.ChromaID == "idkyet")
-                            {
-                                VandalList[playerno] = "/Assets/vandal.png";
-                                VandalNameList[playerno] = "Default Vandal"; 
-                            }
-                            else
-                            {
-                                string vandalcontent = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/weapons/skinchromas/{gun.ChromaID}", false);
-                                var vandalinfo = JsonConvert.DeserializeObject(vandalcontent);
-                                JToken vandalinfoObj = JObject.FromObject(vandalinfo);
-                                VandalList[playerno] = vandalinfoObj["data"]["displayIcon"].Value<string>();
-                                VandalNameList[playerno] = vandalinfoObj["data"]["displayName"].Value<string>(); 
-                            }
-                            vfound = true;
-                        }
-                        if (gun.ID == "ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a")
-                        {
-                            if (gun.ChromaID == "52221ba2-4e4c-ec76-8c81-3483506d5242")
-                            {
-                                PhantomList[playerno] = "/Assets/phantom.png";
-                                PhantomNameList[playerno] = "Default Phantom"; 
-                            }
-                            else
-                            {
-                                string phantomcontent = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/weapons/skinchromas/{gun.ChromaID}", false);
-                                var phantominfo = JsonConvert.DeserializeObject(phantomcontent);
-                                JToken phantominfoObj = JObject.FromObject(phantominfo);
-                                PhantomList[playerno] = phantominfoObj["data"]["displayIcon"].Value<string>();
-                                PhantomNameList[playerno] = phantominfoObj["data"]["displayName"].Value<string>();
-                            }
-                            pfound = true;
-                        }
+                        VandalList[playerno] = "/Assets/vandal.png";
+                        VandalNameList[playerno] = "Default Vandal";
                     }
-                    break;
+                    else
+                    {
+                        string vandalcontent = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/weapons/skinchromas/{vandalchroma}", false);
+                        var vandalinfo = JsonConvert.DeserializeObject(vandalcontent);
+                        JToken vandalinfoObj = JObject.FromObject(vandalinfo);
+                        VandalList[playerno] = vandalinfoObj["data"]["displayIcon"].Value<string>();
+                        VandalNameList[playerno] = vandalinfoObj["data"]["displayName"].Value<string>();
+                    }
+                    if (phantomchroma == "52221ba2-4e4c-ec76-8c81-3483506d5242")
+                    {
+                        PhantomList[playerno] = "/Assets/phantom.png";
+                        PhantomNameList[playerno] = "Default Phantom";
+                    }
+                    else
+                    {
+                        string phantomcontent = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/weapons/skinchromas/{phantomchroma}", false);
+                        var phantominfo = JsonConvert.DeserializeObject(phantomcontent);
+                        JToken phantominfoObj = JObject.FromObject(phantominfo);
+                        PhantomList[playerno] = phantominfoObj["data"]["displayIcon"].Value<string>();
+                        PhantomNameList[playerno] = phantominfoObj["data"]["displayName"].Value<string>();
+                    } 
                 }
             }
             catch (Exception e)
@@ -583,7 +572,7 @@ namespace WAIUA.Commands
             }
         }
 
-        public static void GetCompHistory(string puuid, sbyte playerno)
+        private static void GetCompHistory(string puuid, sbyte playerno)
         {
             try
             {
@@ -632,7 +621,7 @@ namespace WAIUA.Commands
             }
         }
 
-        public static void GetPlayerHistory(string puuid, sbyte playerno)
+        private static void GetPlayerHistory(string puuid, sbyte playerno)
         {
             try
             {
@@ -846,19 +835,26 @@ namespace WAIUA.Commands
             bool output = false;
             try
             {
-                string encodedUsername = Uri.EscapeDataString(username);
-                string url = "https://tracker.gg/valorant/profile/riot/" + encodedUsername;
-
-                RestClient client = new(url);
-                RestRequest request = new();
-                var response = client.Execute(request);
-                HttpStatusCode statusCode = response.StatusCode;
-                short numericStatusCode = (short)statusCode;
-
-                if (numericStatusCode == 200)
+                if (!String.IsNullOrEmpty(username))
                 {
-                    TrackerUrlList[playerno] = url;
-                    output = true;
+                    string encodedUsername = Uri.EscapeDataString(username);
+                    string url = "https://tracker.gg/valorant/profile/riot/" + encodedUsername;
+
+                    RestClient client = new(url);
+                    RestRequest request = new();
+                    var response = client.Execute(request);
+                    HttpStatusCode statusCode = response.StatusCode;
+                    short numericStatusCode = (short)statusCode;
+
+                    if (numericStatusCode == 200)
+                    {
+                        TrackerUrlList[playerno] = url;
+                        output = true;
+                    } 
+                }
+                else
+                {
+                    TrackerUrlList[playerno] = null;
                 }
             }
             catch (Exception)

@@ -1,6 +1,7 @@
 ﻿using AutoUpdaterDotNET;
 using System.Diagnostics;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -15,10 +16,10 @@ namespace WAIUA.Views
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             CurrentVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            LatestVersion.Text = GetLatestVerion();
+            LatestVersion.Text = await Task.Run(GetLatestVerion);
             AutoUpdater.Start("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xml");
         }
 

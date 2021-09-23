@@ -78,9 +78,9 @@
                     VerticalAlignment="Bottom"
                     Stretch="Uniform">
                     <StackPanel Orientation="Horizontal">
-                        <Image Margin="30,30,30,30" Source="{Binding PPPMatch, ElementName=Self}" />
-                        <Image Margin="30,30,30,30" Source="{Binding PPMatch, ElementName=Self}" />
-                        <Image Margin="30,30,30,30" Source="{Binding PMatch, ElementName=Self}" />
+                        <Image Margin="0,20,0,20" Source="{Binding PPPMatch, ElementName=Self}" />
+                        <Image Margin="50,20,50,20" Source="{Binding PPMatch, ElementName=Self}" />
+                        <Image Margin="0,20,20,20" Source="{Binding PMatch, ElementName=Self}" />
                     </StackPanel>
                 </Viewbox>
             </Grid>
@@ -105,7 +105,10 @@
                         Foreground="#9f97b0"
                         ToolTip="Open Tracker.gg Profile"
                         Visibility="{Binding TrackerEnabled, ElementName=Self}">
-                        <Hyperlink NavigateUri="{Binding TrackerUrl, ElementName=Self}" RequestNavigate="HandleLinkClick">
+                        <Hyperlink
+                            NavigateUri="{Binding TrackerUrl, ElementName=Self}"
+                            RequestNavigate="HandleLinkClick"
+                            TextDecorations="">
                             <Hyperlink.Inlines>
                                 <Run Text="{Binding IGN, ElementName=Self}" />
                             </Hyperlink.Inlines>
@@ -155,7 +158,10 @@
                 Stretch="Uniform">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{Binding PPPRank, ElementName=Self}" ToolTip="{Binding PPPRankName, ElementName=Self}" />
-                    <Image Source="{Binding PPRank, ElementName=Self}" ToolTip="{Binding PPRankName, ElementName=Self}" />
+                    <Image
+                        Margin="5,0,5,0"
+                        Source="{Binding PPRank, ElementName=Self}"
+                        ToolTip="{Binding PPRankName, ElementName=Self}" />
                     <Image Source="{Binding PRank, ElementName=Self}" ToolTip="{Binding PRankName, ElementName=Self}" />
                 </StackPanel>
             </Viewbox>

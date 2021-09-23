@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using static WAIUA.Commands.Main;
 
@@ -25,7 +27,7 @@ namespace WAIUA.Views
             LogIn();
         }
 
-        public void LogIn()
+        private void LogIn()
         {
             CookieContainer cookie = new CookieContainer();
             string user = UsernameBox.Text;
@@ -57,21 +59,13 @@ namespace WAIUA.Views
             }
         }
 
-        public void CheckAuth(CookieContainer cookie)
+        private void CheckAuth(CookieContainer cookie)
         {
-            while (true)
-            {
-                if (!GetPPUUID())
-                {
-                    AuthStatusBox.Text = "Not Authenticated";
-                    break;
-                }
-                else
-                {
-                    AuthStatusBox.Text = $"Authenticated as: {GetIGUsername(cookie, PPUUID)}";
-                    break;
-                }
-            }
+            AuthStatusBox.Text = "Refreshing...";
+            if (!GetSetPPUUID())
+                 AuthStatusBox.Text = "Not Authenticated";
+            else AuthStatusBox.Text = $"Authenticated as: {GetIGUsername(cookie, PPUUID)}";
+            
         }
 
         private void Button_Click2(object sender, System.Windows.RoutedEventArgs e)
