@@ -42,20 +42,26 @@ namespace WAIUA.Commands
         public static string[] CardList { get; set; } = new string[10];
         public static string[] LevelList { get; set; } = new string[10];
         public static string[] RankList { get; set; } = new string[10];
+        public static string[] MaxRRList { get; set; } = new string[10];
         public static string[] PRankList { get; set; } = new string[10];
         public static string[] PPRankList { get; set; } = new string[10];
         public static string[] PPPRankList { get; set; } = new string[10];
         public static string[] RankNameList { get; set; } = new string[10];
         public static string[] PRankNameList { get; set; } = new string[10];
-        public static string[] PpRankNameList { get; set; } = new string[10];
-        public static string[] PppRankNameList { get; set; } = new string[10];
+        public static string[] PPRankNameList { get; set; } = new string[10];
+        public static string[] PPPRankNameList { get; set; } = new string[10];
         public static string[] RankProgList { get; set; } = new string[10];
         public static string[] PGList { get; set; } = new string[10];
         public static string[] PPGList { get; set; } = new string[10];
         public static string[] PPPGList { get; set; } = new string[10];
-        public static string[] TitleList { get; set; } = new string[10];
         public static bool[] IsIncognito { get; set; } = new bool[10];
-        public static string[] TrackerUrl { get; set; } = new string[10];
+        public static string[] TrackerUrlList { get; set; } = new string[10];
+        public static string[] TrackerEnabledList { get; set; } = new string[10];
+        public static string[] TrackerDisabledList { get; set; } = new string[10];
+        public static string[] VandalList { get; set; } = new string[10];
+        public static string[] PhantomList { get; set; } = new string[10];
+        public static string[] VandalNameList { get; set; } = new string[10];
+        public static string[] PhantomNameList { get; set; } = new string[10];
 
         public static string DoCachedRequest(Method method, String url, bool add_riot_auth, CookieContainer cookie_container = null, bool bypass_cache = false) // Thank you MitchC for this, I am always touched when random people go out of the way to help others even though they know that we would be clueless and need to ask alot of followup questions
         {
@@ -73,10 +79,10 @@ namespace WAIUA.Commands
                     return res;
                 }
             }
-            RestClient client = new RestClient(url);
+            RestClient client = new(url);
             if (cookie_container != null)
                 client.CookieContainer = cookie_container;
-            RestRequest request = new RestRequest(method);
+            RestRequest request = new(method);
             if (add_riot_auth)
             {
                 request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
@@ -101,8 +107,8 @@ namespace WAIUA.Commands
                 var accessTokenVar = Regex.Match(authURL, @"access_token=(.+?)&scope=").Groups[1].Value;
                 AccessToken = $"{accessTokenVar}";
 
-                RestClient client = new RestClient(new Uri("https://entitlements.auth.riotgames.com/api/token/v1"));
-                RestRequest request = new RestRequest(Method.POST);
+                RestClient client = new(new Uri("https://entitlements.auth.riotgames.com/api/token/v1"));
+                RestRequest request = new(Method.POST);
 
                 request.AddHeader("Authorization", $"Bearer {AccessToken}");
                 request.AddJsonBody("{}");
@@ -113,7 +119,7 @@ namespace WAIUA.Commands
 
                 EntitlementToken = entitlement_tokenObj["entitlements_token"].Value<string>();
 
-                GetPPUUID();
+                GetSetPPUUID();
             }
             catch (Exception e)
             {
@@ -121,41 +127,58 @@ namespace WAIUA.Commands
             }
         }
 
-        public static void GetPPUUID()
+        public static bool GetSetPPUUID()
         {
-            RestClient client = new RestClient(new Uri("https://auth.riotgames.com/userinfo"));
-            RestRequest request = new RestRequest(Method.POST);
+            bool output = false;
+            try
+            {
+                RestClient client = new(new Uri("https://auth.riotgames.com/userinfo"));
+                RestRequest request = new(Method.POST);
 
-            request.AddHeader("Authorization", $"Bearer {AccessToken}");
-            request.AddJsonBody("{}");
+                request.AddHeader("Authorization", $"Bearer {AccessToken}");
+                request.AddJsonBody("{}");
 
-            string response = client.Execute(request).Content;
-            var PlayerInfo = JsonConvert.DeserializeObject(response);
-            JToken PUUIDObj = JObject.FromObject(PlayerInfo);
-            PPUUID = PUUIDObj["sub"].Value<string>();
+                var response = client.Execute(request);
+                HttpStatusCode statusCode = response.StatusCode;
+                short numericStatusCode = (short)statusCode;
+                if (numericStatusCode == 200)
+                {
+                    output = true;
+                }
+                string content = response.Content;
+                var PlayerInfo = JsonConvert.DeserializeObject(content);
+                JToken PUUIDObj = JObject.FromObject(PlayerInfo);
+                PPUUID = PUUIDObj["sub"].Value<string>();
+            }
+            catch (Exception)
+            {
+            }
+            return output;
         }
 
-        public static void GetAuthorization(CookieContainer jar)
+        private static void GetAuthorization(CookieContainer jar)
         {
             string url = "https://auth.riotgames.com/api/v1/authorization";
-            RestClient client = new RestClient(url);
+            RestClient client = new(url)
+            {
+                CookieContainer = jar
+            };
 
-            client.CookieContainer = jar;
-
-            RestRequest request = new RestRequest(Method.POST);
+            RestRequest request = new(Method.POST);
             string body = "{\"client_id\":\"play-valorant-web-prod\",\"nonce\":\"1\",\"redirect_uri\":\"https://playvalorant.com/opt_in" + "\",\"response_type\":\"token id_token\",\"scope\":\"account openid\"}";
             request.AddJsonBody(body);
             client.Execute(request);
         }
 
-        public static string Authenticate(CookieContainer cookie, string user, string pass)
+        private static string Authenticate(CookieContainer cookie, string user, string pass)
         {
             string url = "https://auth.riotgames.com/api/v1/authorization";
-            RestClient client = new RestClient(url);
+            RestClient client = new(url)
+            {
+                CookieContainer = cookie
+            };
 
-            client.CookieContainer = cookie;
-
-            RestRequest request = new RestRequest(Method.PUT);
+            RestRequest request = new(Method.PUT);
             string body = "{\"type\":\"auth\",\"username\":\"" + user + "\",\"password\":\"" + pass + "\",\"remember\": true, \"language\": \"en_US\"}";
             request.AddJsonBody(body);
 
@@ -168,8 +191,8 @@ namespace WAIUA.Commands
 
             if (File.Exists(lockfileLocation))
             {
-                using (FileStream fileStream = new FileStream(lockfileLocation, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
-                using (StreamReader sr = new StreamReader(fileStream))
+                using (FileStream fileStream = new(lockfileLocation, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+                using (StreamReader sr = new(fileStream))
                 {
                     string[] parts = sr.ReadToEnd().Split(":");
                     Port = parts[2];
@@ -187,8 +210,8 @@ namespace WAIUA.Commands
         public static void LocalLogin()
         {
             GetLatestVersion();
-            RestClient client = new RestClient(new Uri($"https://127.0.0.1:{Port}/entitlements/v1/token"));
-            RestRequest request = new RestRequest(Method.GET);
+            RestClient client = new(new Uri($"https://127.0.0.1:{Port}/entitlements/v1/token"));
+            RestRequest request = new(Method.GET);
             client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
             request.AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{LPassword}"))}");
             request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
@@ -200,13 +223,12 @@ namespace WAIUA.Commands
             JToken responseObj = JObject.FromObject(responsevar);
             AccessToken = responseObj["accessToken"].Value<string>();
             EntitlementToken = responseObj["token"].Value<string>();
-            GetPPUUID();
         }
 
         public static void LocalRegion()
         {
-            RestClient client = new RestClient(new Uri($"https://127.0.0.1:{Port}/product-session/v1/external-sessions"));
-            RestRequest request = new RestRequest(Method.GET);
+            RestClient client = new(new Uri($"https://127.0.0.1:{Port}/product-session/v1/external-sessions"));
+            RestRequest request = new(Method.GET);
             client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
             request.AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{LPassword}"))}");
             request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
@@ -236,10 +258,10 @@ namespace WAIUA.Commands
             }
         }
 
-        public static void GetLatestVersion()
+        private static void GetLatestVersion()
         {
-            RestClient client = new RestClient(new Uri("https://valorant-api.com/v1/version"));
-            RestRequest request = new RestRequest(Method.GET);
+            RestClient client = new(new Uri("https://valorant-api.com/v1/version"));
+            RestRequest request = new(Method.GET);
             var response = client.Get(request);
             string content = response.Content;
             //string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/version", false);
@@ -250,140 +272,155 @@ namespace WAIUA.Commands
 
         public static string GetIGUsername(CookieContainer cookie, string puuid)
         {
-            string IGN = "";
+            string IGN = null;
             try
             {
-                if (!String.IsNullOrEmpty(puuid))
+                string gameName = "";
+                string gameTag = "";
+                string url = $"https://pd.{Region}.a.pvp.net/name-service/v2/players";
+                RestClient client = new(url)
                 {
-                    string gameName = "";
-                    string gameTag = "";
-                    string url = $"https://pd.{Region}.a.pvp.net/name-service/v2/players";
-                    RestClient client = new RestClient(url);
-                    client.CookieContainer = cookie;
-                    RestRequest request = new RestRequest(Method.PUT);
+                    CookieContainer = cookie
+                };
+                RestRequest request = new(Method.PUT)
+                {
+                    RequestFormat = DataFormat.Json
+                };
 
-                    request.RequestFormat = DataFormat.Json;
-                    request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
-                    request.AddHeader("Authorization", $"Bearer {AccessToken}");
+                string[] body = new String[] { puuid };
+                request.AddJsonBody(body);
 
-                    string[] body = new String[1] { puuid };
-                    request.AddJsonBody(body);
+                var response = client.Put(request);
+                string content = client.Execute(request).Content;
 
-                    var response = client.Put(request);
-                    string content = client.Execute(request).Content;
+                content = content.Replace("[", "");
+                content = content.Replace("]", "");
 
-                    content = content.Replace("[", "");
-                    content = content.Replace("]", "");
-
-                    var uinfo = JsonConvert.DeserializeObject(content);
-                    JToken uinfoObj = JObject.FromObject(uinfo);
-                    gameName = uinfoObj["GameName"].Value<string>();
-                    gameTag = uinfoObj["TagLine"].Value<string>();
-                    IGN = gameName + "#" + gameTag;
-                }
+                var uinfo = JsonConvert.DeserializeObject(content);
+                JToken uinfoObj = JObject.FromObject(uinfo);
+                gameName = uinfoObj["GameName"].Value<string>();
+                gameTag = uinfoObj["TagLine"].Value<string>();
+                IGN = gameName + "#" + gameTag;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                System.Diagnostics.Debug.WriteLine(e);
+                IGN = null;
             }
             return IGN;
         }
 
-        public static Boolean LiveMatchID(CookieContainer jar)
+        private static bool LiveMatchID(CookieContainer jar)
         {
             try
             {
                 string url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/players/{PPUUID}";
-                RestClient client = new RestClient(url);
-                client.CookieContainer = jar;
-                RestRequest request = new RestRequest(Method.GET);
+                RestClient client = new(url)
+                {
+                    CookieContainer = jar
+                };
+                RestRequest request = new(Method.GET);
                 request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
                 request.AddHeader("Authorization", $"Bearer {AccessToken}");
                 string response = client.Execute(request).Content;
-                //string response = DoCachedRequest(Method.GET, $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/players/{PPUUID}", true, jar, true);
+                //string response = DoCachedRequest(Method.GET, $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/players/{PUUID}", true, jar, true);
                 var matchinfo = JsonConvert.DeserializeObject(response);
                 JToken matchinfoObj = JObject.FromObject(matchinfo);
                 Matchid = matchinfoObj["MatchID"].Value<string>();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                System.Diagnostics.Debug.WriteLine(e);
                 return false;
             }
         }
 
-        public bool LiveMatchSetup()
+        public bool LiveMatchChecks()
         {
-            bool output = true;
-            CookieContainer cookie = new CookieContainer();
-            if (String.IsNullOrEmpty(GetIGUsername(cookie, PPUUID)))
+            bool output = false;
+            CookieContainer cookie = new();
+
+            if (GetSetPPUUID())
             {
-                if (CheckLocal())
+                if (LiveMatchID(cookie))
                 {
-                    LocalLogin();
-                    LocalRegion();
+                    LiveMatchSetup();
                     output = true;
                 }
                 else
                 {
-                    MessageBox.Show("Please Open Valorant First", "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+                    MessageBox.Show("No Match Detected", "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
                     output = false;
                 }
             }
-            if (LiveMatchID(cookie) && output == true)
-            {
-                Parallel.Invoke(GetSeasons, GetLatestVersion);
-                string url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
-                RestClient client = new RestClient(url);
-                RestRequest request = new RestRequest(Method.GET);
-                request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
-                request.AddHeader("Authorization", $"Bearer {AccessToken}");
-                string content = client.Execute(request).Content;
-                //string content = DoCachedRequest(Method.GET, $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}", true, null, true);
-                dynamic matchinfo = JsonConvert.DeserializeObject(content);
-                sbyte[] playerno = new sbyte[10];
-                string[] puuid = new string[10];
-                string[] agent = new string[10];
-                string[] card = new string[10];
-                string[] level = new string[10];
-                string[] title = new string[10];
-                bool[] incognito = new bool[10];
-                sbyte index = 0;
-                foreach (var entry in matchinfo.Players)
-                {
-                    if (entry.IsCoach == false)
-                    {
-                        playerno[index] = index;
-                        puuid[index] = entry.Subject;
-                        agent[index] = entry.CharacterID;
-                        card[index] = entry.PlayerIdentity.PlayerCardID;
-                        level[index] = entry.PlayerIdentity.AccountLevel;
-                        title[index] = entry.PlayerIdentity.PlayerTitleID;
-                        if (entry.PlayerIdentity.Incognito == true)
-                        {
-                            incognito[index] = true;
-                        }
-                        index++;
-                        if (index == 10) { break; }
-                    }
-                }
-                PlayerNo = playerno;
-                PUUIDList = puuid;
-                AgentList = agent;
-                CardList = card;
-                LevelList = level;
-                TitleList = title;
-                IsIncognito = incognito;
-                output = true;
-            }
             else
             {
-                MessageBox.Show("No Match Detected", "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
-                output = false;
-            }
+                if (CheckLocal())
+                {
+                    LocalLogin();
+                    GetSetPPUUID();
+                    LocalRegion();
 
+                    if (LiveMatchID(cookie))
+                    {
+                        LiveMatchSetup();
+                        output = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No Match Detected", "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+                        output = false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please Open Valorant First", "Error", MessageBoxButton.OK,
+                        MessageBoxImage.Question, MessageBoxResult.OK);
+                    output = false;
+                }
+            }
             return output;
+        }
+
+        private void LiveMatchSetup()
+        {
+            Parallel.Invoke(GetSeasons, GetLatestVersion);
+            string url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
+            RestClient client = new(url);
+            RestRequest request = new(Method.GET);
+            request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
+            request.AddHeader("Authorization", $"Bearer {AccessToken}");
+            string content = client.Execute(request).Content;
+            dynamic matchinfo = JsonConvert.DeserializeObject(content);
+            sbyte[] playerno = new sbyte[10];
+            string[] puuid = new string[10];
+            string[] agent = new string[10];
+            string[] card = new string[10];
+            string[] level = new string[10];
+            bool[] incognito = new bool[10];
+            sbyte index = 0;
+            foreach (var entry in matchinfo.Players)
+            {
+                if (entry.IsCoach == false)
+                {
+                    playerno[index] = index;
+                    puuid[index] = entry.Subject;
+                    agent[index] = entry.CharacterID;
+                    card[index] = entry.PlayerIdentity.PlayerCardID;
+                    level[index] = entry.PlayerIdentity.AccountLevel;
+                    if (entry.PlayerIdentity.Incognito == true)
+                    {
+                        incognito[index] = true;
+                    }
+                    index++;
+                    if (index == 10) { break; }
+                }
+            }
+            PlayerNo = playerno;
+            PUUIDList = puuid;
+            AgentList = agent;
+            CardList = card;
+            LevelList = level;
+            IsIncognito = incognito;
         }
 
         public string[] LiveMatchOutput(sbyte playerno)
@@ -392,47 +429,66 @@ namespace WAIUA.Commands
                 () => GetIGCUsername(playerno),
                 () => GetAgentInfo(AgentList[playerno], playerno),
                 () => GetCardInfo(CardList[playerno], playerno),
-                () => GetTitleInfo(TitleList[playerno], playerno),
+                () => GetSkinInfo(playerno),
                 () => GetCompHistory(PUUIDList[playerno], playerno),
                 () => GetPlayerHistory(PUUIDList[playerno], playerno));
 
             string[] output = {
-                PlayerList[playerno],
                 AgentList[playerno],
                 AgentPList[playerno],
                 CardList[playerno],
+                PlayerList[playerno],
                 LevelList[playerno],
+                MaxRRList[playerno],
                 PGList[playerno],
                 PPGList[playerno],
                 PPPGList[playerno],
-                RankProgList[playerno],
-                RankList[playerno],
-                PRankList[playerno],
-                PPRankList[playerno],
                 PPPRankList[playerno],
-                TitleList[playerno],
-                RankNameList[playerno],
+                PPPRankNameList[playerno],
+                PPRankList[playerno],
+                PPRankNameList[playerno],
+                PRankList[playerno],
                 PRankNameList[playerno],
-                PpRankNameList[playerno],
-                PppRankNameList[playerno]
+                PhantomList[playerno],
+                PhantomNameList[playerno],
+                RankList[playerno],
+                RankNameList[playerno],
+                RankProgList[playerno],
+                TrackerDisabledList[playerno],
+                TrackerEnabledList[playerno],
+                TrackerUrlList[playerno],
+                VandalList[playerno],
+                VandalNameList[playerno]
             };
             return output;
         }
 
-        public static void GetIGCUsername(sbyte playerno)
+        private static void GetIGCUsername(sbyte playerno)
         {
-            CookieContainer cookie = new CookieContainer();
+            CookieContainer cookie = new();
             if (IsIncognito[playerno])
             {
                 PlayerList[playerno] = "----";
+                TrackerEnabledList[playerno] = "Hidden";
+                TrackerDisabledList[playerno] = "Visible";
             }
             else
             {
                 PlayerList[playerno] = GetIGUsername(cookie, PUUIDList[playerno]);
+                if (Tracker(PlayerList[playerno], playerno))
+                {
+                    TrackerEnabledList[playerno] = "Visible";
+                    TrackerDisabledList[playerno] = "Collapsed";
+                }
+                else
+                {
+                    TrackerEnabledList[playerno] = "Hidden";
+                    TrackerDisabledList[playerno] = "Visible";
+                }
             }
         }
 
-        public static void GetAgentInfo(string agent, sbyte playerno)
+        private static void GetAgentInfo(string agent, sbyte playerno)
         {
             try
             {
@@ -456,7 +512,7 @@ namespace WAIUA.Commands
             }
         }
 
-        public static void GetCardInfo(string card, sbyte playerno)
+        private static void GetCardInfo(string card, sbyte playerno)
         {
             try
             {
@@ -471,14 +527,44 @@ namespace WAIUA.Commands
             }
         }
 
-        public static void GetTitleInfo(string title, sbyte playerno)
+        private static void GetSkinInfo(sbyte playerno)
         {
             try
             {
-                string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/playertitles/{title}", false);
-                var agentinfo = JsonConvert.DeserializeObject(content);
-                JToken agentinfoObj = JObject.FromObject(agentinfo);
-                TitleList[playerno] = agentinfoObj["data"]["titleText"].Value<string>();
+                if (!String.IsNullOrEmpty(PUUIDList[playerno]))
+                {
+                    string response = DoCachedRequest(Method.GET, $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}/loadouts", true);
+                    dynamic content = JsonConvert.DeserializeObject(response);
+                    string vandalchroma = content.Loadouts[playerno].Loadout.Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"].Item.ID;
+                    string phantomchroma = content.Loadouts[playerno].Loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"].Item.ID;
+
+                    if (vandalchroma == "19629ae1-4996-ae98-7742-24a240d41f99")
+                    {
+                        VandalList[playerno] = "/Assets/vandal.png";
+                        VandalNameList[playerno] = "Default Vandal";
+                    }
+                    else
+                    {
+                        string vandalcontent = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/weapons/skinchromas/{vandalchroma}", false);
+                        var vandalinfo = JsonConvert.DeserializeObject(vandalcontent);
+                        JToken vandalinfoObj = JObject.FromObject(vandalinfo);
+                        VandalList[playerno] = vandalinfoObj["data"]["displayIcon"].Value<string>();
+                        VandalNameList[playerno] = vandalinfoObj["data"]["displayName"].Value<string>();
+                    }
+                    if (phantomchroma == "52221ba2-4e4c-ec76-8c81-3483506d5242")
+                    {
+                        PhantomList[playerno] = "/Assets/phantom.png";
+                        PhantomNameList[playerno] = "Default Phantom";
+                    }
+                    else
+                    {
+                        string phantomcontent = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/weapons/skinchromas/{phantomchroma}", false);
+                        var phantominfo = JsonConvert.DeserializeObject(phantomcontent);
+                        JToken phantominfoObj = JObject.FromObject(phantominfo);
+                        PhantomList[playerno] = phantominfoObj["data"]["displayIcon"].Value<string>();
+                        PhantomNameList[playerno] = phantominfoObj["data"]["displayName"].Value<string>();
+                    } 
+                }
             }
             catch (Exception e)
             {
@@ -486,7 +572,7 @@ namespace WAIUA.Commands
             }
         }
 
-        public static void GetCompHistory(string puuid, sbyte playerno)
+        private static void GetCompHistory(string puuid, sbyte playerno)
         {
             try
             {
@@ -535,13 +621,13 @@ namespace WAIUA.Commands
             }
         }
 
-        public static void GetPlayerHistory(string puuid, sbyte playerno)
+        private static void GetPlayerHistory(string puuid, sbyte playerno)
         {
             try
             {
                 if (!String.IsNullOrEmpty(puuid))
                 {
-                    string rank, prank, pprank, ppprank = "";
+                    string rank, prank, pprank, ppprank;
                     string content = DoCachedRequest(Method.GET, $"https://pd.{Region}.a.pvp.net/mmr/v1/players/{puuid}", true, null, true);
                     dynamic contentobj = JObject.Parse(content);
 
@@ -578,6 +664,30 @@ namespace WAIUA.Commands
                         ppprank = "0";
                     }
 
+                    if (rank is "21" or "22" or "23")
+                    {
+                        string content2 = DoCachedRequest(Method.GET, $"https://pd.{Shard}.a.pvp.net/mmr/v1/leaderboards/affinity/{Region}/queue/competitive/season/{CurrentSeason}?startIndex=0&size=0", true, null);
+                        dynamic contentobj2 = JObject.Parse(content2);
+                        switch (rank)
+                        {
+                            case "21":
+                                MaxRRList[playerno] = contentobj2.tierDetails[22].rankedRatingThreshold;
+                                break;
+
+                            case "22":
+                                MaxRRList[playerno] = contentobj2.tierDetails[23].rankedRatingThreshold;
+                                break;
+
+                            case "23":
+                                MaxRRList[playerno] = contentobj2.tierDetails[24].rankedRatingThreshold;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        MaxRRList[playerno] = "100";
+                    }
+
                     Parallel.Invoke(
                         () => RankList[playerno] = GetLRankIcon(rank),
                         () => PRankList[playerno] = GetRankIcon(prank),
@@ -585,8 +695,8 @@ namespace WAIUA.Commands
                         () => PPPRankList[playerno] = GetRankIcon(ppprank),
                         () => RankNameList[playerno] = GetRankName(rank),
                         () => PRankNameList[playerno] = GetRankName(prank),
-                        () => PpRankNameList[playerno] = GetRankName(pprank),
-                        () => PppRankNameList[playerno] = GetRankName(ppprank));
+                        () => PPRankNameList[playerno] = GetRankName(pprank),
+                        () => PPPRankNameList[playerno] = GetRankName(ppprank));
                 }
                 else
                 {
@@ -597,8 +707,8 @@ namespace WAIUA.Commands
                         () => PPPRankList[playerno] = null,
                         () => RankNameList[playerno] = null,
                         () => PRankNameList[playerno] = null,
-                        () => PpRankNameList[playerno] = null,
-                        () => PppRankNameList[playerno] = null);
+                        () => PPRankNameList[playerno] = null,
+                        () => PPPRankNameList[playerno] = null);
                 }
             }
             catch (Exception e)
@@ -612,8 +722,8 @@ namespace WAIUA.Commands
             try
             {
                 string url = $"https://shared.{Region}.a.pvp.net/content-service/v2/content";
-                RestClient client = new RestClient(url);
-                RestRequest request = new RestRequest(Method.GET);
+                RestClient client = new(url);
+                RestRequest request = new(Method.GET);
                 request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
                 request.AddHeader("Authorization", $"Bearer {AccessToken}");
                 request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
@@ -708,7 +818,7 @@ namespace WAIUA.Commands
         {
             string content = DoCachedRequest(Method.GET, "https://valorant-api.com/v1/competitivetiers", false);
             dynamic agentinfo = JsonConvert.DeserializeObject(content);
-            string name = "";
+            string name = null;
             foreach (var tiers in agentinfo.data[2].tiers)
             {
                 if (tiers.tier == rank)
@@ -720,21 +830,35 @@ namespace WAIUA.Commands
             return name;
         }
 
-        public static string Tracker(string username)
+        public static bool Tracker(string username, sbyte playerno)
         {
-            string output = null;
-            string encodedUsername = Uri.EscapeDataString(username);
-            string url = "https://tracker.gg/valorant/profile/riot/" + encodedUsername;
-
-            RestClient client = new RestClient(url);
-            RestRequest request = new RestRequest();
-            var response = client.Execute(request);
-            HttpStatusCode statusCode = response.StatusCode;
-            short numericStatusCode = (short)statusCode;
-
-            if (numericStatusCode == 200)
+            bool output = false;
+            try
             {
-                output = url;
+                if (!String.IsNullOrEmpty(username))
+                {
+                    string encodedUsername = Uri.EscapeDataString(username);
+                    string url = "https://tracker.gg/valorant/profile/riot/" + encodedUsername;
+
+                    RestClient client = new(url);
+                    RestRequest request = new();
+                    var response = client.Execute(request);
+                    HttpStatusCode statusCode = response.StatusCode;
+                    short numericStatusCode = (short)statusCode;
+
+                    if (numericStatusCode == 200)
+                    {
+                        TrackerUrlList[playerno] = url;
+                        output = true;
+                    } 
+                }
+                else
+                {
+                    TrackerUrlList[playerno] = null;
+                }
+            }
+            catch (Exception)
+            {
             }
             return output;
         }

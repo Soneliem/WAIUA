@@ -8,6 +8,13 @@
     <Version>1.2.1.3</Version>
     <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
     <StartupObject>WAIUA.App</StartupObject>
+    <Description>A Windows app to view player ranks and stats in a live Valorant Match</Description>
+    <Copyright>Soneliem</Copyright>
+    <PackageProjectUrl>https://soneliem.github.io/WAIUA</PackageProjectUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/Soneliem/WAIUA</RepositoryUrl>
+    <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -24,6 +31,18 @@
     <EmbeddedResource Remove="Models\**" />
     <None Remove="Models\**" />
     <Page Remove="Models\**" />
+    <EmbeddedResource Update="Properties\Resources.fr.resx">
+      <DependentUpon>Resources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -34,8 +53,10 @@
     <None Remove="Assets\logo.ico" />
     <None Remove="Assets\logo.png" />
     <None Remove="Assets\loss.png" />
+    <None Remove="Assets\phantom.png" />
     <None Remove="Assets\sign-in.png" />
     <None Remove="Assets\Soneliem.png" />
+    <None Remove="Assets\vandal.png" />
     <None Remove="Assets\win.png" />
   </ItemGroup>
 
@@ -56,6 +77,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\loss.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\phantom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\vandal.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\win.png">

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using static WAIUA.Commands.Main;
 
@@ -25,31 +27,31 @@ namespace WAIUA.Views
             LogIn();
         }
 
-        public void LogIn()
+        private void LogIn()
         {
             CookieContainer cookie = new CookieContainer();
-            string user = usernameBox.Text;
-            string pass = passwordBox.Password;
+            string user = UsernameBox.Text;
+            string pass = PasswordBox.Password;
             while (true)
             {
                 if (String.IsNullOrEmpty(user))
                 {
-                    authStatusBox.Text = "Please enter your credentials";
+                    AuthStatusBox.Text = "Please enter your credentials";
                     break;
                 }
                 else if (String.IsNullOrEmpty(pass))
                 {
-                    authStatusBox.Text = "Please enter your credentials";
+                    AuthStatusBox.Text = "Please enter your credentials";
                     break;
                 }
                 else if (this.RegionList.SelectedIndex == -1)
                 {
-                    authStatusBox.Text = "Please select a region";
+                    AuthStatusBox.Text = "Please select a region";
                     break;
                 }
                 else
                 {
-                    authStatusBox.Text = "Authenticating...";
+                    AuthStatusBox.Text = "Authenticating...";
                     Login(cookie, user, pass);
                     CheckAuth(cookie);
                     break;
@@ -57,21 +59,13 @@ namespace WAIUA.Views
             }
         }
 
-        public void CheckAuth(CookieContainer cookie)
+        private void CheckAuth(CookieContainer cookie)
         {
-            while (true)
-            {
-                if (String.IsNullOrEmpty(GetIGUsername(cookie, PPUUID)))
-                {
-                    authStatusBox.Text = "Not Authenticated";
-                    break;
-                }
-                else
-                {
-                    authStatusBox.Text = $"Authenticated as: {GetIGUsername(cookie, PPUUID)}";
-                    break;
-                }
-            }
+            AuthStatusBox.Text = "Refreshing...";
+            if (!GetSetPPUUID())
+                 AuthStatusBox.Text = "Not Authenticated";
+            else AuthStatusBox.Text = $"Authenticated as: {GetIGUsername(cookie, PPUUID)}";
+            
         }
 
         private void Button_Click2(object sender, System.Windows.RoutedEventArgs e)
@@ -91,7 +85,7 @@ namespace WAIUA.Views
             }
             else
             {
-                authStatusBox.Text = "Valorant need to be running for auto signin";
+                AuthStatusBox.Text = "Valorant need to be running for auto signin";
             }
         }
 
