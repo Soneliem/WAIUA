@@ -59,9 +59,9 @@ A simple(for you, not me) Windows GUI app that lets you see the ranks, recent ga
 
 ### Current Features
 Displays for each player:
-|Current Rank|Past three ranks (from last 3 acts, not last 3 played acts)|W/L indicator for last three competitive games|Player card and Account Level|In-game name, Agent and Title|
-|:---:|:---:|:---:|:---:|:---:|
-|![rank](Screenshots/rank.png)|![rank](Screenshots/pranks.png)|![rank](Screenshots/history.png)|![card](Screenshots/card.png)|![name](Screenshots/name.png)|
+|Current Rank|Past three ranks (from last 3 acts, not last 3 played acts)|W/L indicator for last three competitive games|Player card and Account Level|In-game name, Agent and Title|Vandal And Phantom Skin|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|![rank](Screenshots/rank.png)|![rank](Screenshots/pranks.png)|![rank](Screenshots/history.png)|![card](Screenshots/card.png)|![name](Screenshots/name.png)|![skin](Screenshots/skin.png)|
 
 
 ## Getting Started
@@ -85,19 +85,19 @@ Please ensure you are in a match when you try to use it. I swear if you complain
 
 If Valorant is already running:
 1. Ensure you are in a match (after selecting agents)
-2. Press the big "Click To Load Match Info" button and wait about 10 seconds
+2. Press the big "Click To Load Match Info" button and wait about 7 seconds
 3. Profit
 
 If Valorant is not running:
 1. Press the account button in the top left
 2. Use your Riot Account details to log in. Remember to select your region from the bottom left.
 3. Ensure you are in a match (after selecting agents). idk about you but wouldn't you need to have Valorant open for this?
-3. Press the big "Click To Load Match Info" button and wait about 10 seconds
+3. Press the big "Click To Load Match Info" button and wait about 7 seconds
 4. Profit slightly less
 
 ## Roadmap and Known Bugs
 
-Please check the [issues tab](https://github.com/Soneliem/WAIUA/issues) before making a new issue. My [Discord Server]() has a list of known bugs and upcoming features.
+Please check the [issues tab](https://github.com/Soneliem/WAIUA/issues) before making a new issue. My [Discord Server](https://discord.gg/X7CYCeZSRK) has a list of known bugs and upcoming features.
 
 ## Built With
 * [WPF](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/?view=netdesktop-5.0)
@@ -122,6 +122,10 @@ Another reason to making this was that I wanted some experience with .NET and GU
 
 I welcome any sort of contribution and am happy to take in any ~~hate/~~ feedback. Open source means open heart :)
 
+## Translations
+
+WAIUA Supports full localization and instructions to help with translations can be found in [Localization](https://github.com/Soneliem/WAIUA/blob/master/Localization.md)
+
 ## License
 
 Distributed under the MIT License. See the [license](https://github.com/Soneliem/WAIUA/blob/master/LICENSE) for more information.
@@ -139,7 +143,7 @@ Discord Server:
 
 * [techchrism for work on documenting Valorant endpoints](https://github.com/techchrism/valorant-api-docs)
 * [RumbleMike for base C# authentication flow](https://github.com/RumbleMike/ValorantClientAPI)
-* [Valorant-API.com](https://valorant-api.com/)
+* [Valorant-API.com for all images, etc](https://valorant-api.com/)
 * [The guys on the Valorant App Developers Discord Server](https://discord.gg/a9yzrw3KAm)
 * This project uses Riot's unofficial-private-notforpublicuse API for most of the information. Riot pls no kil
 

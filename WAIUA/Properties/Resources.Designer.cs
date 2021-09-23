@@ -313,7 +313,7 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to With love and hate.
+        ///   Looks up a localized string similar to Click To Refresh Match.
         /// </summary>
         public static string RefreshMatch {
             get {

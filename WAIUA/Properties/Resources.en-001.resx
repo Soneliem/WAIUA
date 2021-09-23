@@ -133,7 +133,7 @@
     <value>Info</value>
   </data>
   <data name="InfoExplanation" xml:space="preserve">
-    <value>You&apos;re on this page idiot</value>
+    <value>You're on this page idiot</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>Join my Discord</value>
@@ -145,7 +145,7 @@
     <value>Made By Soneliem</value>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
-	  <value>Click To Refresh Match</value>
+    <value>Click To Refresh Match</value>
   </data>
   <data name="WAIUAFull" xml:space="preserve">
     <value>Who Am I Up Against?</value>
@@ -217,7 +217,6 @@
     <value>Not Authenticated</value>
   </data>
   <data name="Translator" xml:space="preserve">
-	  <value>Translated into English By Soneliem</value>
-	  <comment>Fuzzy</comment>
+    <value>Translated into English By Soneliem</value>
   </data>
 </root>
