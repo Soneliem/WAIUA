@@ -356,14 +356,5 @@ namespace WAIUA.Properties {
                 return ResourceManager.GetString("Translator", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Who Am I Up Against?.
-        /// </summary>
-        public static string WAIUAFull {
-            get {
-                return ResourceManager.GetString("WAIUAFull", resourceCulture);
-            }
-        }
     }
 }

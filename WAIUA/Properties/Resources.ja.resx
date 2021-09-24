@@ -118,105 +118,105 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountExplanation" xml:space="preserve">
-    <value></value>
+    <value>アプリケーションに問題がある、もしくはValorantを起動していないときにだけRiotGamesアカウントにログインしてください。</value>
   </data>
   <data name="AccountTitle" xml:space="preserve">
-    <value></value>
+    <value>アカウント</value>
   </data>
   <data name="LoadMatchTitle" xml:space="preserve">
-    <value></value>
+    <value>試合をロード</value>
   </data>
   <data name="LoadMatchExplanation" xml:space="preserve">
-    <value></value>
+    <value>可能であれば試合のデータをロードします。10秒以内には終わるはずです。</value>
   </data>
   <data name="InfoTitle" xml:space="preserve">
-    <value></value>
+    <value>情報</value>
   </data>
   <data name="InfoExplanation" xml:space="preserve">
-    <value></value>
+    <value>このページだよバーカ</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
-    <value></value>
+    <value>ディスコードに参加</value>
   </data>
   <data name="JoinDiscordSub" xml:space="preserve">
-    <value></value>
+    <value>サポート類はここ</value>
   </data>
   <data name="Author" xml:space="preserve">
-    <value></value>
+    <value>Soneliemによって作成</value>
   </data>
   <data name="WAIUAFull" xml:space="preserve">
-    <value></value>
+    <value>Who Am I Up Against?</value>
   </data>
   <data name="Latestversion" xml:space="preserve">
-    <value></value>
+    <value>最新のバージョン: </value>
   </data>
   <data name="CurrentVersion" xml:space="preserve">
-    <value></value>
+    <value>現在のバージョン: </value>
   </data>
   <data name="CheckUpdates" xml:space="preserve">
-    <value></value>
+    <value>アップデートのチェック</value>
   </data>
   <data name="RiotLogin" xml:space="preserve">
-    <value></value>
+    <value>Roitにログイン</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value></value>
+    <value>ログイン</value>
   </data>
   <data name="AccountInfoExplanation1" xml:space="preserve">
-    <value></value>
+    <value>Riotアカウントでログイン、またはValorantが起動していれば自動でログインされます。正しい地域が選択されていることを確認してください。</value>
   </data>
   <data name="AccountInfoExplanation2" xml:space="preserve">
-    <value></value>
+    <value>アカウントに関する全ての情報はRiotのサーバーで直接処理されており、ローカルもしくはオンラインでもパスワードは保管されていません。</value>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
-    <value></value>
+    <value>認証ステータス</value>
   </data>
   <data name="AuthStatusDefault" xml:space="preserve">
-    <value></value>
+    <value>下をクリックしてアップデート</value>
   </data>
   <data name="AuthStatusButton" xml:space="preserve">
-    <value></value>
+    <value>認証の確認</value>
   </data>
   <data name="AuthStatusAuthAs" xml:space="preserve">
-    <value></value>
+    <value>認証済み: </value>
   </data>
   <data name="AutoLoginTitle" xml:space="preserve">
-    <value></value>
+    <value>自動ログイン</value>
   </data>
   <data name="AutoLoginExplanation" xml:space="preserve">
-    <value></value>
+    <value>注意: これを行うにはValorantを起動しておく必要があります</value>
   </data>
   <data name="SelRegionTitle" xml:space="preserve">
-    <value></value>
+    <value>地域の選択</value>
   </data>
   <data name="SelRegionExplanation" xml:space="preserve">
-    <value></value>
+    <value>どの地域を選べばいいかわからない場合適当に押して試してみてください</value>
   </data>
   <data name="NA" xml:space="preserve">
-    <value></value>
+    <value>北アメリカ</value>
   </data>
   <data name="AP" xml:space="preserve">
-    <value></value>
+    <value>アジア太平洋</value>
   </data>
   <data name="EU" xml:space="preserve">
-    <value></value>
+    <value>ヨーロッパ</value>
   </data>
   <data name="KO" xml:space="preserve">
-    <value></value>
+    <value>韓国</value>
   </data>
   <data name="BR" xml:space="preserve">
-    <value></value>
+    <value>ブラジル</value>
   </data>
   <data name="LATAM" xml:space="preserve">
-    <value></value>
+    <value>ラテンアメリカ</value>
   </data>
   <data name="AuthStatusFail" xml:space="preserve">
-    <value></value>
+    <value>未認証</value>
   </data>
   <data name="Translator" xml:space="preserve">
-    <value></value>
+    <value>Aronにより日本語に翻訳</value>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
-    <value></value>
+    <value>クリックで試合を更新</value>
   </data>
 </root>

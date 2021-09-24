@@ -118,102 +118,110 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountExplanation" xml:space="preserve">
-    <value>ONLY log into your Riot account if there are issues with the app or if Valorant is not running</value>
+    <value> ادخل في حسابك اذا عندك مشاكل مع التطبيق او فالورانت ليست ليست فعّالة</value>
   </data>
   <data name="AccountTitle" xml:space="preserve">
-    <value>Account</value>
+    <value>حساب</value>
   </data>
   <data name="LoadMatchTitle" xml:space="preserve">
-    <value>Load Match</value>
+    <value>حمِّل المُباراة</value>
   </data>
   <data name="LoadMatchExplanation" xml:space="preserve">
-    <value>Loads live match data if available. This should take less than 10 seconds</value>
+    <value>من المفترض ان يحمل بِأقل من  عشر ثواني</value>
   </data>
   <data name="InfoTitle" xml:space="preserve">
-    <value>Info</value>
+    <value>معلومات</value>
   </data>
   <data name="InfoExplanation" xml:space="preserve">
-    <value>You're on this page idiot</value>
+    <value>انت على هذه الصفحة غبي…</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
-    <value>Join my Discord</value>
+    <value>ادخل على الديسكورد سيرفر</value>
   </data>
   <data name="JoinDiscordSub" xml:space="preserve">
-    <value>For support, etc.</value>
+    <value>للمساعدة</value>
   </data>
   <data name="Author" xml:space="preserve">
-    <value>Made By Soneliem</value>
+    <value>مصنوع من Soneliem</value>
   </data>
-  <data name="RefreshMatch" xml:space="preserve">
-    <value>Click To Refresh Match</value>
+  <data name="WAIUAFull" xml:space="preserve">
+    <value>Who Am I Up Against?</value>
   </data>
   <data name="Latestversion" xml:space="preserve">
-    <value>Latest Version: </value>
+    <value>احدث اصدار: </value>
   </data>
   <data name="CurrentVersion" xml:space="preserve">
-    <value>Current Version: </value>
+    <value>الاصدار الحالي: </value>
   </data>
   <data name="CheckUpdates" xml:space="preserve">
-    <value>Check for Updates</value>
+    <value>تأكد لاصدارات حديثة</value>
   </data>
   <data name="RiotLogin" xml:space="preserve">
-    <value>Riot Login</value>
+    <value>تسجيل الدخول رَيُت</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Login</value>
+    <value>تسجيل الدخول</value>
   </data>
   <data name="AccountInfoExplanation1" xml:space="preserve">
-    <value>Log in with either you Riot Account details or automatically log in if you have Valorant open. Ensure you have selected the correct region.</value>
+    <value>ادخل مع حسابك الريُت او ادخل اوتوماتيكي اذا فالورانت مفتوحة</value>
   </data>
   <data name="AccountInfoExplanation2" xml:space="preserve">
-    <value>All communication regarding your credentials is done directly with Riot servers with no storage of passwords being done locally or online.</value>
+    <value>تتم جميع الاتصالات المتعلقة ببيانات الاعتماد الخاصة بك مباشرةً مع خوادم ريُت دون تخزين كلمات المرور محليًا أو عبر الإنترنت</value>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
-    <value>Authentication Status</value>
+    <value>حالة المصادقة</value>
   </data>
   <data name="AuthStatusDefault" xml:space="preserve">
-    <value>Click below to update</value>
+    <value>ادغط تحت لتّحديث</value>
   </data>
   <data name="AuthStatusButton" xml:space="preserve">
-    <value>Check Authentication</value>
+    <value>
+تحقق من المصادقة</value>
   </data>
   <data name="AuthStatusAuthAs" xml:space="preserve">
-    <value>Authenticated as:</value>
+    <value>مُسَدق ك:</value>
   </data>
   <data name="AutoLoginTitle" xml:space="preserve">
-    <value>Auto Login</value>
+    <value>الدخول الاوتوماتيكي</value>
   </data>
   <data name="AutoLoginExplanation" xml:space="preserve">
-    <value>Note: Valorant needs to be running for this to work</value>
+    <value>ملاحظة: فالورانت يجب ان تكون مفتوحة لِكي يشتغل</value>
   </data>
   <data name="SelRegionTitle" xml:space="preserve">
-    <value>Select Region</value>
+    <value>اختر المنتقة</value>
   </data>
   <data name="SelRegionExplanation" xml:space="preserve">
-    <value>Play around with each region if you are not sure which one you are in</value>
+    <value>جرب كل شيئ اذا انت لست متأكدًا من المنتقة</value>
   </data>
   <data name="NA" xml:space="preserve">
-    <value>North America</value>
+    <value>
+أمريكا الشمالية</value>
   </data>
   <data name="AP" xml:space="preserve">
-    <value>Asia Pacific</value>
+    <value>
+آسيا والمحيط الهادئ</value>
   </data>
   <data name="EU" xml:space="preserve">
-    <value>Europe</value>
+    <value>
+أوروبا</value>
   </data>
   <data name="KO" xml:space="preserve">
-    <value>Korea</value>
+    <value>
+كوريا</value>
   </data>
   <data name="BR" xml:space="preserve">
-    <value>Brazil</value>
+    <value>برازيل</value>
   </data>
   <data name="LATAM" xml:space="preserve">
-    <value>Latin America</value>
+    <value>أمريكا اللاتينية</value>
   </data>
   <data name="AuthStatusFail" xml:space="preserve">
-    <value>Not Authenticated</value>
+    <value>ليسَ موثوق</value>
   </data>
   <data name="Translator" xml:space="preserve">
-    <value>Translated into English By Soneliem</value>
+    <value>مترجم لللغة العربية من Chica#8321</value>
+  </data>
+  <data name="RefreshMatch" xml:space="preserve">
+    <value>ادغط لتحديث المباراة</value>
   </data>
 </root>

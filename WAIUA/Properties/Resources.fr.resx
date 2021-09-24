@@ -118,102 +118,105 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountExplanation" xml:space="preserve">
-    <value>ONLY log into your Riot account if there are issues with the app or if Valorant is not running</value>
+    <value>Ne vous connectez à votre compte Riot UNIQUEMENT si il y a des problèmes avec l&apos;appli ou si Valorant n&apos;est pas en cours d&apos;exécution</value>
   </data>
   <data name="AccountTitle" xml:space="preserve">
-    <value>Account</value>
+    <value>Compte</value>
   </data>
   <data name="LoadMatchTitle" xml:space="preserve">
-    <value>Load Match</value>
+    <value>Charger Match</value>
   </data>
   <data name="LoadMatchExplanation" xml:space="preserve">
-    <value>Loads live match data if available. This should take less than 10 seconds</value>
+    <value>Charge les données du match actuel si disponible. Cela devrait prendre moins de 10 secondes</value>
   </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>Info</value>
   </data>
   <data name="InfoExplanation" xml:space="preserve">
-    <value>You're on this page idiot</value>
+    <value>Vous êtes sur cette page idiot</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
-    <value>Join my Discord</value>
+    <value>Rejoignez notre Discord</value>
   </data>
   <data name="JoinDiscordSub" xml:space="preserve">
-    <value>For support, etc.</value>
+    <value>Pour du support, etc.</value>
   </data>
   <data name="Author" xml:space="preserve">
-    <value>Made By Soneliem</value>
+    <value>Fait par Soneliem</value>
   </data>
-  <data name="RefreshMatch" xml:space="preserve">
-    <value>Click To Refresh Match</value>
+  <data name="WAIUAFull" xml:space="preserve">
+    <value>Who Am I Up Against?</value>
   </data>
   <data name="Latestversion" xml:space="preserve">
-    <value>Latest Version: </value>
+    <value>Dernière Version: </value>
   </data>
   <data name="CurrentVersion" xml:space="preserve">
-    <value>Current Version: </value>
+    <value>Version Actuelle: </value>
   </data>
   <data name="CheckUpdates" xml:space="preserve">
-    <value>Check for Updates</value>
+    <value>Rechercher des Mises à Jour</value>
   </data>
   <data name="RiotLogin" xml:space="preserve">
-    <value>Riot Login</value>
+    <value>Connexion Riot</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Login</value>
+    <value>Connexion</value>
   </data>
   <data name="AccountInfoExplanation1" xml:space="preserve">
-    <value>Log in with either you Riot Account details or automatically log in if you have Valorant open. Ensure you have selected the correct region.</value>
+    <value>Connectez-vous avec soit votre Compte Riot ou une connexion automatique si Valorant est ouvert. Vérifiez que vous avez selectionné la bonne région.</value>
   </data>
   <data name="AccountInfoExplanation2" xml:space="preserve">
-    <value>All communication regarding your credentials is done directly with Riot servers with no storage of passwords being done locally or online.</value>
+    <value>Toute communication de vos identifiants sont faits directement avec les serveurs Riot sans aucun stockage de mots de passe localement ou en ligne.</value>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
-    <value>Authentication Status</value>
+    <value>Statut Authentification</value>
   </data>
   <data name="AuthStatusDefault" xml:space="preserve">
-    <value>Click below to update</value>
+    <value>Cliquer ci-dessous pour mettre à jour</value>
   </data>
   <data name="AuthStatusButton" xml:space="preserve">
-    <value>Check Authentication</value>
+    <value>Vérifier Authentification</value>
   </data>
   <data name="AuthStatusAuthAs" xml:space="preserve">
-    <value>Authenticated as:</value>
+    <value>Authentifié comme:</value>
   </data>
   <data name="AutoLoginTitle" xml:space="preserve">
-    <value>Auto Login</value>
+    <value>Auto Connexion</value>
   </data>
   <data name="AutoLoginExplanation" xml:space="preserve">
-    <value>Note: Valorant needs to be running for this to work</value>
+    <value>Note: Valorant doit être en cours d&apos;exécution pour que cela marche</value>
   </data>
   <data name="SelRegionTitle" xml:space="preserve">
-    <value>Select Region</value>
+    <value>Selection Région</value>
   </data>
   <data name="SelRegionExplanation" xml:space="preserve">
-    <value>Play around with each region if you are not sure which one you are in</value>
+    <value>Jouez avec chaque région si vous n&apos;êtes pas sûr(e) de laquelle vous résidez</value>
   </data>
   <data name="NA" xml:space="preserve">
-    <value>North America</value>
+    <value>Amérique du Nord</value>
   </data>
   <data name="AP" xml:space="preserve">
-    <value>Asia Pacific</value>
+    <value>Asie Pacifique</value>
   </data>
   <data name="EU" xml:space="preserve">
     <value>Europe</value>
   </data>
   <data name="KO" xml:space="preserve">
-    <value>Korea</value>
+    <value>Corée</value>
   </data>
   <data name="BR" xml:space="preserve">
-    <value>Brazil</value>
+    <value>Brézil</value>
   </data>
   <data name="LATAM" xml:space="preserve">
-    <value>Latin America</value>
+    <value>Amérique Latine</value>
   </data>
   <data name="AuthStatusFail" xml:space="preserve">
-    <value>Not Authenticated</value>
+    <value>Non Authentifié</value>
   </data>
   <data name="Translator" xml:space="preserve">
-    <value>Translated into English By Soneliem</value>
+    <value>Translated into French By Rayjacker</value>
+  </data>
+  <data name="RefreshMatch" xml:space="preserve">
+    <value>Cliquer Pour Rafraîchir le Match</value>
   </data>
 </root>

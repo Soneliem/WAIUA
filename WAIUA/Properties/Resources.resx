@@ -147,9 +147,6 @@
   <data name="RefreshMatch" xml:space="preserve">
 	  <value>Click To Refresh Match</value>
   </data>
-  <data name="WAIUAFull" xml:space="preserve">
-    <value>Who Am I Up Against?</value>
-  </data>
   <data name="Latestversion" xml:space="preserve">
     <value>Latest Version: </value>
   </data>
