@@ -170,9 +170,8 @@
                 Grid.RowSpan="3"
                 Grid.Column="2"
                 Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
-                Margin="10,0,0,5"
+                Margin="10,0,0,10"
                 HorizontalAlignment="Right"
-                CornerRadius="20"
                 ToolTip="{Binding RankName, ElementName=Self}">
                 <Border.Background>
                     <ImageBrush ImageSource="{Binding Rank, ElementName=Self}" />
@@ -181,8 +180,12 @@
             <ProgressBar
                 Grid.Row="2"
                 Grid.Column="2"
+                Height="4"
                 Margin="10,0,0,0"
                 VerticalAlignment="Bottom"
+                Background="Transparent"
+                BorderThickness="0.5"
+                Foreground="#32e2b2"
                 Maximum="{Binding MaxRR, ElementName=Self}"
                 Minimum="0"
                 ToolTip="{Binding RankProgress, ElementName=Self}"

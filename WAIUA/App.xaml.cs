@@ -17,6 +17,7 @@ namespace WAIUA
         {
             _navigationStore = new NavigationStore();
             _modalNavigationStore = new ModalNavigationStore();
+            WAIUA.Properties.Settings.Default.Language = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName;
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InstalledUICulture;
         }
 

@@ -255,7 +255,6 @@ namespace WAIUA.Controls
 
             Hyperlink hl = (Hyperlink)sender;
             string navigateUri = hl.NavigateUri.ToString();
-            System.Diagnostics.Debug.WriteLine($"Hyperlink Clicked: {navigateUri}");
             Process.Start(new ProcessStartInfo(navigateUri) { UseShellExecute = true });
             e.Handled = true;
         }

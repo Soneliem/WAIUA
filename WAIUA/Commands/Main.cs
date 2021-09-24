@@ -20,7 +20,7 @@ namespace WAIUA.Commands
 
     public class Main
     {
-        public static string AccessToken { get; set; }
+        public static string AccessToken { get; set; }  // To be moved to OOP
         public static string EntitlementToken { get; set; }
         public static string Region { get; set; }
         public static string Shard { get; set; }
@@ -68,6 +68,8 @@ namespace WAIUA.Commands
             var tsk = DoCachedRequestAsync(method, url, add_riot_auth, cookie_container, bypass_cache);
             return tsk.Result;
         }
+
+        // TODO: Add dictonary for locales
 
         public static async Task<string> DoCachedRequestAsync(Method method, String url, bool add_riot_auth, CookieContainer cookie_container = null, bool bypass_cache = false)
         {
@@ -564,6 +566,13 @@ namespace WAIUA.Commands
                         PhantomList[playerno] = phantominfoObj["data"]["displayIcon"].Value<string>();
                         PhantomNameList[playerno] = phantominfoObj["data"]["displayName"].Value<string>();
                     } 
+                }
+                else
+                {
+                    VandalList[playerno] = null;
+                    VandalNameList[playerno] = null;
+                    PhantomList[playerno] = null;
+                    PhantomNameList[playerno] = null;
                 }
             }
             catch (Exception e)

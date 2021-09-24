@@ -33,3 +33,8 @@ WPF apps like WAIUA use .resx (Microsoft .NET Managed Resource) files to handle 
 - Change the ".en-001." to the corresponding Language tag in the table [here](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c?redirectedfrom=MSDN).
 - Edit the file with your translations and ensure it is in the [correct folder](https://github.com/Soneliem/WAIUA/tree/master/WAIUA/Properties)
 - Create a pull request with the added file(s)
+
+## Credits:
+**German:**
+- CemsA
+- NNebus
