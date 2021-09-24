@@ -164,15 +164,19 @@
   </data>
   <data name="AccountInfoExplanation1" xml:space="preserve">
     <value>Melde dich entweder mit deinem Riot-Account an oder werde automatisch angemeldet, wenn du Valorant geöffnet hast. Prüfe, ob die richtige Region ausgewählt ist.</value>
+    <comment>&quot;Melde dich entweder mit deinem Riot-Account an oder werde automatisch angemeldet, wenn du Valorant geöffnet hast. Prüfe, ob die richtige Region ausgewählt ist!&quot;</comment>
   </data>
   <data name="AccountInfoExplanation2" xml:space="preserve">
     <value>Es werden keine Anmeldedaten gespeichert. Die Zugangsdaten werden für die direkte Kommunikation mit den Riot-Servern verwendet.</value>
+    <comment>&quot;Es werden keine Anmeldedaten gespeichert. Die Zugangsdaten werden für die direkte Kommunikation mit den Riot-Servern verwendet.&quot;</comment>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
     <value>Anmelde Status</value>
+    <comment>&quot;Anmeldestatus&quot;</comment>
   </data>
   <data name="AuthStatusDefault" xml:space="preserve">
     <value>Zum Aktualisieren unten klicken</value>
+    <comment>Zum Aktualisieren unten klicken</comment>
   </data>
   <data name="AuthStatusButton" xml:space="preserve">
     <value>Überprüfe Anmeldung</value>
@@ -206,6 +210,7 @@
   </data>
   <data name="BR" xml:space="preserve">
     <value>Brasilien</value>
+    <comment>&quot;Brasilien&quot;</comment>
   </data>
   <data name="LATAM" xml:space="preserve">
     <value>Latein Amerika</value>
@@ -214,9 +219,11 @@
     <value>Nicht angemeldet</value>
   </data>
   <data name="Translator" xml:space="preserve">
-    <value>Ins Deutsche Übersetzt von CemsA und NNebus</value>
+    <value>Ins Deutsche Übersetzt von lolostill und NNebus</value>
+    <comment>Fuzzy</comment>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Hier klicken, um Matchdaten neu zu laden</value>
+    <comment>&quot;Hier klicken, um Matchdaten neu zu laden&quot;</comment>
   </data>
 </root>
