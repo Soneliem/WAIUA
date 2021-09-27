@@ -95,33 +95,25 @@ namespace WAIUA.Commands
             return cont;
         }
 
+        
         public static bool GetSetPPUUID()
         {
-            bool output = false;
-            try
+            RestClient client = new(new Uri("https://auth.riotgames.com/userinfo"));
+            RestRequest request = new(Method.POST);
+            request.AddHeader("Authorization", $"Bearer {AccessToken}");
+            request.AddJsonBody("{}");
+            var response = client.Execute(request);
+            HttpStatusCode statusCode = response.StatusCode;
+            short numericStatusCode = (short)statusCode;
+            if (numericStatusCode != 200)
             {
-                RestClient client = new(new Uri("https://auth.riotgames.com/userinfo"));
-                RestRequest request = new(Method.POST);
-
-                request.AddHeader("Authorization", $"Bearer {AccessToken}");
-                request.AddJsonBody("{}");
-
-                var response = client.Execute(request);
-                HttpStatusCode statusCode = response.StatusCode;
-                short numericStatusCode = (short)statusCode;
-                if (numericStatusCode == 200)
-                {
-                    output = true;
-                }
-                string content = response.Content;
-                var PlayerInfo = JsonConvert.DeserializeObject(content);
-                JToken PUUIDObj = JObject.FromObject(PlayerInfo);
-                PPUUID = PUUIDObj["sub"].Value<string>();
+                return false;
             }
-            catch (Exception)
-            {
-            }
-            return output;
+            string content = response.Content;
+            var PlayerInfo = JsonConvert.DeserializeObject(content);
+            JToken PUUIDObj = JObject.FromObject(PlayerInfo);
+            PPUUID = PUUIDObj["sub"].Value<string>();
+            return true;
         }
 
         public static bool CheckLocal()

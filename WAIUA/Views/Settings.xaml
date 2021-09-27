@@ -275,7 +275,7 @@
         </Grid>
 
         <Border
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.RowSpan="2"
             Grid.Column="0"
             Margin="25"
@@ -366,7 +366,7 @@
         </Border>
 
         <Border
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.RowSpan="2"
             Grid.Column="2"
             Margin="25"
