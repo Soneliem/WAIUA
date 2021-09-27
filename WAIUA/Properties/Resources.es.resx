@@ -192,4 +192,19 @@
   <data name="SelLanguageTitle" xml:space="preserve">
     <value>Seleccione el Idioma</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Refreshing" xml:space="preserve">
+    <value>Actualizando...</value>
+  </data>
+  <data name="NoMatch" xml:space="preserve">
+    <value>No ha se detectado ningúna partida</value>
+  </data>
+  <data name="NoValGame" xml:space="preserve">
+    <value>Por Favor, Inicie Valorant Primero</value>
+  </data>
+  <data name="TrackerToolTip" xml:space="preserve">
+    <value>Abrir perfil Tracker.gg</value>
+  </data>
 </root>
