@@ -136,7 +136,7 @@
     <value>Pour du support, etc.</value>
   </data>
   <data name="Author" xml:space="preserve">
-    <value>Fait par Soneliem</value>
+    <value>Made By Soneliem</value>
   </data>
   <data name="Latestversion" xml:space="preserve">
     <value>Dernière Version: </value>
@@ -149,6 +149,9 @@
   </data>
   <data name="Login" xml:space="preserve">
     <value>Connexion</value>
+  </data>
+  <data name="SettingsInfoExplanation2" xml:space="preserve">
+    <value>Toute communication de vos identifiants sont faits directement avec les serveurs Riot sans aucun stockage de mots de passe localement ou en ligne.</value>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
     <value>Statut Authentification</value>
@@ -163,18 +166,45 @@
     <value>Authentifié comme:</value>
   </data>
   <data name="AutoLoginTitle" xml:space="preserve">
-    <value>Auto Connexion</value>
+    <value>Connexion automatique</value>
   </data>
   <data name="AutoLoginExplanation" xml:space="preserve">
-    <value>Note: Valorant doit être en cours d&apos;exécution pour que cela marche</value>
+    <value>Note: Valorant doit être en cours d&apos;exécution pour que cela fonctionne</value>
   </data>
   <data name="AuthStatusFail" xml:space="preserve">
     <value>Non Authentifié</value>
   </data>
   <data name="Translator" xml:space="preserve">
-    <value>Translated into French By Rayjacker</value>
+    <value>Traduit en Français Par Rayjacker</value>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Cliquer Pour Rafraîchir le Match</value>
+  </data>
+  <data name="SettingsExplanation" xml:space="preserve">
+    <value>Trouvez les paramètres de l&apos;application et de compte ici</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="SettingsInfoExplanation1" xml:space="preserve">
+    <value>Cette page vous permet de vous connecter, changer la langue de l&apos;appli, etc.</value>
+  </data>
+  <data name="SelLanguageTitle" xml:space="preserve">
+    <value>Selectio</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="Refreshing" xml:space="preserve">
+    <value>Rafraîchissement...</value>
+  </data>
+  <data name="NoMatch" xml:space="preserve">
+    <value>Aucun Match Détecté</value>
+  </data>
+  <data name="NoValGame" xml:space="preserve">
+    <value>Merci d&apos;ouvrir Valorant d&apos;abord</value>
+  </data>
+  <data name="TrackerToolTip" xml:space="preserve">
+    <value>Ouvrir le Profil Tracker.gg</value>
   </data>
 </root>
