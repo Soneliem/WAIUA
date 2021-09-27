@@ -136,8 +136,7 @@
     <value>На всякий случай, если вам понадобится поддержка</value>
   </data>
   <data name="Author" xml:space="preserve">
-    <value>Создано Сонелием</value>
-    <comment>Not sure if you want your name transcribed or left in latin.</comment>
+    <value>Создано Soneliem</value>
   </data>
   <data name="Latestversion" xml:space="preserve">
     <value>Последняя Версия: </value>
@@ -192,5 +191,20 @@
   </data>
   <data name="SelLanguageTitle" xml:space="preserve">
     <value>Выберите язык</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Refreshing" xml:space="preserve">
+    <value>Обновление страницы...</value>
+  </data>
+  <data name="NoMatch" xml:space="preserve">
+    <value>Матч не обнаружено</value>
+  </data>
+  <data name="NoValGame" xml:space="preserve">
+    <value>Пожалуйста, сначала запустите Валорант</value>
+  </data>
+  <data name="TrackerToolTip" xml:space="preserve">
+    <value>Открыть профиль Tracker.gg</value>
   </data>
 </root>
