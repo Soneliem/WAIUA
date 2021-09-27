@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccountExplanation" xml:space="preserve">
-    <value> ادخل في حسابك اذا عندك مشاكل مع التطبيق او فالورانت ليست ليست فعّالة</value>
-  </data>
-  <data name="AccountTitle" xml:space="preserve">
-    <value>حساب</value>
-  </data>
   <data name="LoadMatchTitle" xml:space="preserve">
     <value>حمِّل المُباراة</value>
   </data>
@@ -144,9 +138,6 @@
   <data name="Author" xml:space="preserve">
     <value>مصنوع من Soneliem</value>
   </data>
-  <data name="WAIUAFull" xml:space="preserve">
-    <value>Who Am I Up Against?</value>
-  </data>
   <data name="Latestversion" xml:space="preserve">
     <value>احدث اصدار: </value>
   </data>
@@ -156,17 +147,8 @@
   <data name="CheckUpdates" xml:space="preserve">
     <value>تأكد لاصدارات حديثة</value>
   </data>
-  <data name="RiotLogin" xml:space="preserve">
-    <value>تسجيل الدخول رَيُت</value>
-  </data>
   <data name="Login" xml:space="preserve">
     <value>تسجيل الدخول</value>
-  </data>
-  <data name="AccountInfoExplanation1" xml:space="preserve">
-    <value>ادخل مع حسابك الريُت او ادخل اوتوماتيكي اذا فالورانت مفتوحة</value>
-  </data>
-  <data name="AccountInfoExplanation2" xml:space="preserve">
-    <value>تتم جميع الاتصالات المتعلقة ببيانات الاعتماد الخاصة بك مباشرةً مع خوادم ريُت دون تخزين كلمات المرور محليًا أو عبر الإنترنت</value>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
     <value>حالة المصادقة</value>
@@ -187,34 +169,6 @@
   <data name="AutoLoginExplanation" xml:space="preserve">
     <value>ملاحظة: فالورانت يجب ان تكون مفتوحة لِكي يشتغل</value>
   </data>
-  <data name="SelRegionTitle" xml:space="preserve">
-    <value>اختر المنتقة</value>
-  </data>
-  <data name="SelRegionExplanation" xml:space="preserve">
-    <value>جرب كل شيئ اذا انت لست متأكدًا من المنتقة</value>
-  </data>
-  <data name="NA" xml:space="preserve">
-    <value>
-أمريكا الشمالية</value>
-  </data>
-  <data name="AP" xml:space="preserve">
-    <value>
-آسيا والمحيط الهادئ</value>
-  </data>
-  <data name="EU" xml:space="preserve">
-    <value>
-أوروبا</value>
-  </data>
-  <data name="KO" xml:space="preserve">
-    <value>
-كوريا</value>
-  </data>
-  <data name="BR" xml:space="preserve">
-    <value>برازيل</value>
-  </data>
-  <data name="LATAM" xml:space="preserve">
-    <value>أمريكا اللاتينية</value>
-  </data>
   <data name="AuthStatusFail" xml:space="preserve">
     <value>ليسَ موثوق</value>
   </data>
@@ -223,5 +177,8 @@
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>ادغط لتحديث المباراة</value>
+  </data>
+  <data name="SettingsInfoExplanation2" xml:space="preserve">
+	  <value>تتم جميع الاتصالات المتعلقة ببيانات الاعتماد الخاصة بك مباشرةً مع خوادم ريُت دون تخزين كلمات المرور محليًا أو عبر الإنترنت</value>
   </data>
 </root>

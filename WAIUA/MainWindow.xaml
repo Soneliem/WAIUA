@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
     xmlns:views="clr-namespace:WAIUA.Views"
-    Name="MyMainWindow"
     Title="WAIUA"
     Width="{commands:SettingBinding Width}"
     Height="{commands:SettingBinding Height}"
@@ -26,8 +25,8 @@
             <DataTemplate DataType="{x:Type viewmodels:InfoViewModel}">
                 <views:Info />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:AccountViewModel}">
-                <views:Account />
+            <DataTemplate DataType="{x:Type viewmodels:SettingsViewModel}">
+                <views:Settings />
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>

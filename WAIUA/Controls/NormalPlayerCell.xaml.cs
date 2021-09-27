@@ -2,7 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Navigation;
+using WAIUA.Commands;
 
 namespace WAIUA.Controls
 {
@@ -66,8 +68,9 @@ namespace WAIUA.Controls
         }
 
         public static readonly DependencyProperty VandalSkinProperty =
-            DependencyProperty.Register("VandalSkin", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
-        
+            DependencyProperty.Register("VandalSkin", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata(null));
+
         public string PhantomSkin
         {
             get { return (string) GetValue(PhantomSkinProperty); }
@@ -75,7 +78,8 @@ namespace WAIUA.Controls
         }
 
         public static readonly DependencyProperty PhantomSkinProperty =
-            DependencyProperty.Register("PhantomSkin", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+            DependencyProperty.Register("PhantomSkin", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata(null));
 
         public string VandalSkinName
         {
@@ -84,8 +88,9 @@ namespace WAIUA.Controls
         }
 
         public static readonly DependencyProperty VandalSkinNameProperty =
-            DependencyProperty.Register("VandalSkinName", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
-        
+            DependencyProperty.Register("VandalSkinName", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata(null));
+
         public string PhantomSkinName
         {
             get { return (string) GetValue(PhantomSkinNameProperty); }
@@ -93,7 +98,8 @@ namespace WAIUA.Controls
         }
 
         public static readonly DependencyProperty PhantomSkinNameProperty =
-            DependencyProperty.Register("PhantomSkinName", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+            DependencyProperty.Register("PhantomSkinName", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata(null));
 
         public string PMatch
         {
@@ -252,12 +258,11 @@ namespace WAIUA.Controls
 
         private void HandleLinkClick(object sender, RequestNavigateEventArgs e)
         {
-
-            Hyperlink hl = (Hyperlink)sender;
+            Hyperlink hl = (Hyperlink) sender;
             string navigateUri = hl.NavigateUri.ToString();
-            Process.Start(new ProcessStartInfo(navigateUri) { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo(navigateUri) {UseShellExecute = true});
             e.Handled = true;
         }
-
     }
+
 }

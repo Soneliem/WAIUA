@@ -68,10 +68,10 @@
             <Button
                 Grid.Column="0"
                 Margin="7"
-                Command="{Binding NavigateAccountCommand}"
+                Command="{Binding NavigateSettingsCommand}"
                 Template="{StaticResource ButtonTemplate}">
 
-                <Image Margin="10" Source="/Assets/sign-in.png" />
+                <Image Margin="10" Source="/Assets/settings.png" />
             </Button>
 
             <Button
@@ -118,12 +118,12 @@
                 <TextBlock
                     FontSize="30"
                     Foreground="White"
-                    Text="{x:Static p:Resources.AccountTitle}" />
+                    Text="{x:Static p:Resources.SettingsTitle}" />
                 <TextBlock
                     FontSize="20"
                     Foreground="White"
                     Opacity="0.7"
-                    Text="{x:Static p:Resources.AccountExplanation}"
+                    Text="{x:Static p:Resources.SettingsExplanation}"
                     TextWrapping="Wrap" />
             </StackPanel>
             <Viewbox Grid.Column="0" VerticalAlignment="Bottom">

@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccountExplanation" xml:space="preserve">
-    <value>Logge dich nur mit mit deinem Riot-Konto an, wenn die App ein Problem aufweist oder Valorant nicht gestartet ist</value>
-  </data>
-  <data name="AccountTitle" xml:space="preserve">
-    <value>Account</value>
-  </data>
   <data name="LoadMatchTitle" xml:space="preserve">
     <value>Lade Match</value>
   </data>
@@ -153,19 +147,8 @@
   <data name="CheckUpdates" xml:space="preserve">
     <value>Suche Nach Updates</value>
   </data>
-  <data name="RiotLogin" xml:space="preserve">
-    <value>Riot Login</value>
-  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
-  </data>
-  <data name="AccountInfoExplanation1" xml:space="preserve">
-    <value>Melde dich entweder mit deinem Riot-Account an oder werde automatisch angemeldet, wenn du Valorant geöffnet hast. Prüfe, ob die richtige Region ausgewählt ist.</value>
-    <comment>&quot;Melde dich entweder mit deinem Riot-Account an oder werde automatisch angemeldet, wenn du Valorant geöffnet hast. Prüfe, ob die richtige Region ausgewählt ist!&quot;</comment>
-  </data>
-  <data name="AccountInfoExplanation2" xml:space="preserve">
-    <value>Es werden keine Anmeldedaten gespeichert. Die Zugangsdaten werden für die direkte Kommunikation mit den Riot-Servern verwendet.</value>
-    <comment>&quot;Es werden keine Anmeldedaten gespeichert. Die Zugangsdaten werden für die direkte Kommunikation mit den Riot-Servern verwendet.&quot;</comment>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
     <value>Anmelde Status</value>
@@ -187,31 +170,6 @@
   <data name="AutoLoginExplanation" xml:space="preserve">
     <value>Hinweis: Valorant muss hierfür gestartet sein</value>
   </data>
-  <data name="SelRegionTitle" xml:space="preserve">
-    <value>Ausgewählte Region</value>
-  </data>
-  <data name="SelRegionExplanation" xml:space="preserve">
-    <value>Versuche jede Region wenn du dir nicht sicher bist, wo du dich befindest</value>
-  </data>
-  <data name="NA" xml:space="preserve">
-    <value>Nord Amerika</value>
-  </data>
-  <data name="AP" xml:space="preserve">
-    <value>Asiatischer Ozean</value>
-  </data>
-  <data name="EU" xml:space="preserve">
-    <value>Europa</value>
-  </data>
-  <data name="KO" xml:space="preserve">
-    <value>Korea</value>
-  </data>
-  <data name="BR" xml:space="preserve">
-    <value>Brasilien</value>
-    <comment>&quot;Brasilien&quot;</comment>
-  </data>
-  <data name="LATAM" xml:space="preserve">
-    <value>Latein Amerika</value>
-  </data>
   <data name="AuthStatusFail" xml:space="preserve">
     <value>Nicht angemeldet</value>
   </data>
@@ -222,5 +180,11 @@
   <data name="RefreshMatch" xml:space="preserve">
     <value>Hier klicken, um Matchdaten neu zu laden</value>
     <comment>&quot;Hier klicken, um Matchdaten neu zu laden&quot;</comment>
+  </data>
+  <data name="SettingsInfoExplanation2" xml:space="preserve">
+	  <value>Es werden keine Anmeldedaten gespeichert. Die Zugangsdaten werden für die direkte Kommunikation mit den Riot-Servern verwendet.</value>
+  </data>
+  <data name="Refreshing" xml:space="preserve">
+	  <value>Refreshing...</value>
   </data>
 </root>

@@ -102,9 +102,9 @@ namespace WAIUA.ViewModels
 
         public ICommand NavigateHomeCommand { get; }
         public ICommand NavigateInfoCommand { get; }
-        public ICommand NavigateAccountCommand { get; }
+        public ICommand NavigateSettingsCommand { get; }
 
-        public HomeViewModel(INavigationService homeNavigationService, INavigationService infoNavigationService, INavigationService accountNavigationService)
+        public HomeViewModel(INavigationService homeNavigationService, INavigationService infoNavigationService, INavigationService settingsNavigationService)
         {
             if (GetPlayerInfo())
             {
@@ -121,7 +121,7 @@ namespace WAIUA.ViewModels
             }
             NavigateHomeCommand = new NavigateCommand(homeNavigationService);
             NavigateInfoCommand = new NavigateCommand(infoNavigationService);
-            NavigateAccountCommand = new NavigateCommand(accountNavigationService);
+            NavigateSettingsCommand = new NavigateCommand(settingsNavigationService);
         }
 
         private void SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)

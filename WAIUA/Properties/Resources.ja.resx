@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccountExplanation" xml:space="preserve">
-    <value>アプリケーションに問題がある、もしくはValorantを起動していないときにだけRiotGamesアカウントにログインしてください。</value>
-  </data>
-  <data name="AccountTitle" xml:space="preserve">
-    <value>アカウント</value>
-  </data>
   <data name="LoadMatchTitle" xml:space="preserve">
     <value>試合をロード</value>
   </data>
@@ -144,9 +138,6 @@
   <data name="Author" xml:space="preserve">
     <value>Soneliemによって作成</value>
   </data>
-  <data name="WAIUAFull" xml:space="preserve">
-    <value>Who Am I Up Against?</value>
-  </data>
   <data name="Latestversion" xml:space="preserve">
     <value>最新のバージョン: </value>
   </data>
@@ -156,17 +147,8 @@
   <data name="CheckUpdates" xml:space="preserve">
     <value>アップデートのチェック</value>
   </data>
-  <data name="RiotLogin" xml:space="preserve">
-    <value>Roitにログイン</value>
-  </data>
   <data name="Login" xml:space="preserve">
     <value>ログイン</value>
-  </data>
-  <data name="AccountInfoExplanation1" xml:space="preserve">
-    <value>Riotアカウントでログイン、またはValorantが起動していれば自動でログインされます。正しい地域が選択されていることを確認してください。</value>
-  </data>
-  <data name="AccountInfoExplanation2" xml:space="preserve">
-    <value>アカウントに関する全ての情報はRiotのサーバーで直接処理されており、ローカルもしくはオンラインでもパスワードは保管されていません。</value>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
     <value>認証ステータス</value>
@@ -186,30 +168,6 @@
   <data name="AutoLoginExplanation" xml:space="preserve">
     <value>注意: これを行うにはValorantを起動しておく必要があります</value>
   </data>
-  <data name="SelRegionTitle" xml:space="preserve">
-    <value>地域の選択</value>
-  </data>
-  <data name="SelRegionExplanation" xml:space="preserve">
-    <value>どの地域を選べばいいかわからない場合適当に押して試してみてください</value>
-  </data>
-  <data name="NA" xml:space="preserve">
-    <value>北アメリカ</value>
-  </data>
-  <data name="AP" xml:space="preserve">
-    <value>アジア太平洋</value>
-  </data>
-  <data name="EU" xml:space="preserve">
-    <value>ヨーロッパ</value>
-  </data>
-  <data name="KO" xml:space="preserve">
-    <value>韓国</value>
-  </data>
-  <data name="BR" xml:space="preserve">
-    <value>ブラジル</value>
-  </data>
-  <data name="LATAM" xml:space="preserve">
-    <value>ラテンアメリカ</value>
-  </data>
   <data name="AuthStatusFail" xml:space="preserve">
     <value>未認証</value>
   </data>
@@ -218,5 +176,8 @@
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>クリックで試合を更新</value>
+  </data>
+  <data name="SettingsInfoExplanation2" xml:space="preserve">
+	  <value>アカウントに関する全ての情報はRiotのサーバーで直接処理されており、ローカルもしくはオンラインでもパスワードは保管されていません。</value>
   </data>
 </root>

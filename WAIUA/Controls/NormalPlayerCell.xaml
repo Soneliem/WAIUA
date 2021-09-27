@@ -2,6 +2,7 @@
     x:Class="WAIUA.Controls.NormalPlayerCell"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:commands="clr-namespace:WAIUA.Commands"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:WAIUA.Properties"
@@ -27,7 +28,9 @@
             <Setter Property="Background" Value="#32e2b2" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderThickness" Value="0" />
             <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
+            <Setter Property="HasDropShadow" Value="False" />
         </Style>
     </UserControl.Resources>
     <Border
@@ -103,7 +106,7 @@
                     <TextBlock
                         FontWeight="Normal"
                         Foreground="#9f97b0"
-                        ToolTip="Open Tracker.gg Profile"
+                        ToolTip="{x:Static p:Resources.TrackerToolTip}"
                         Visibility="{Binding TrackerEnabled, ElementName=Self}">
                         <Hyperlink
                             NavigateUri="{Binding TrackerUrl, ElementName=Self}"
@@ -115,7 +118,6 @@
                         </Hyperlink>
                     </TextBlock>
                 </StackPanel>
-
             </Viewbox>
             <Viewbox
                 Grid.Row="2"
@@ -177,11 +179,11 @@
                     <ImageBrush ImageSource="{Binding Rank, ElementName=Self}" />
                 </Border.Background>
             </Border>
+
             <ProgressBar
                 Grid.Row="2"
                 Grid.Column="2"
-                Height="4"
-                Margin="10,0,0,0"
+                Height="5"
                 VerticalAlignment="Bottom"
                 Background="Transparent"
                 BorderThickness="0.5"
@@ -190,6 +192,7 @@
                 Minimum="0"
                 ToolTip="{Binding RankProgress, ElementName=Self}"
                 Value="{Binding RankProgress, ElementName=Self}" />
+
         </Grid>
     </Border>
 </UserControl>

@@ -117,103 +117,80 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccountExplanation" xml:space="preserve">
-    <value>ONLY log into your Riot account if there are issues with the app or if Valorant is not running</value>
-  </data>
-  <data name="AccountTitle" xml:space="preserve">
-    <value>Account</value>
-  </data>
   <data name="LoadMatchTitle" xml:space="preserve">
-    <value>Load Match</value>
+    <value>Загрузите матче</value>
   </data>
   <data name="LoadMatchExplanation" xml:space="preserve">
-    <value>Loads live match data if available. This should take less than 10 seconds</value>
+    <value>Загружает данные о матчах в реальном времени, если таковые имеются. Это должно занять менее 10 секунд.</value>
   </data>
   <data name="InfoTitle" xml:space="preserve">
-    <value>Info</value>
+    <value>Информация</value>
   </data>
   <data name="InfoExplanation" xml:space="preserve">
-    <value>You're on this page idiot</value>
+    <value>Ты уже на этой странице идиот</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
-    <value>Join my Discord</value>
+    <value>Присоединяйтесь к моему дискорд серверу</value>
   </data>
   <data name="JoinDiscordSub" xml:space="preserve">
-    <value>For support, etc.</value>
+    <value>На всякий случай, если вам понадобится поддержка</value>
   </data>
   <data name="Author" xml:space="preserve">
-    <value>Made By Soneliem</value>
-  </data>
-  <data name="RefreshMatch" xml:space="preserve">
-    <value>Click To Refresh Match</value>
+    <value>Создано Сонелием</value>
+    <comment>Not sure if you want your name transcribed or left in latin.</comment>
   </data>
   <data name="Latestversion" xml:space="preserve">
-    <value>Latest Version: </value>
+    <value>Последняя Версия: </value>
   </data>
   <data name="CurrentVersion" xml:space="preserve">
-    <value>Current Version: </value>
+    <value>Текущая Версия: </value>
   </data>
   <data name="CheckUpdates" xml:space="preserve">
-    <value>Check for Updates</value>
-  </data>
-  <data name="RiotLogin" xml:space="preserve">
-    <value>Riot Login</value>
+    <value>Проверьте наличие обновлений</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Login</value>
+    <value>Вход</value>
   </data>
-  <data name="AccountInfoExplanation1" xml:space="preserve">
-    <value>Log in with either you Riot Account details or automatically log in if you have Valorant open. Ensure you have selected the correct region.</value>
-  </data>
-  <data name="AccountInfoExplanation2" xml:space="preserve">
-    <value>All communication regarding your credentials is done directly with Riot servers with no storage of passwords being done locally or online.</value>
+  <data name="SettingsInfoExplanation2" xml:space="preserve">
+    <value>Все коммуникации, касающиеся ваших учетных данных, осуществляются напрямую с серверами RIOT, при этом пароли не хранятся ни локально, ни в Интернете.</value>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
-    <value>Authentication Status</value>
+    <value>Статус аутентификации</value>
   </data>
   <data name="AuthStatusDefault" xml:space="preserve">
-    <value>Click below to update</value>
+    <value>Нажмите ниже, чтобы обновить</value>
   </data>
   <data name="AuthStatusButton" xml:space="preserve">
-    <value>Check Authentication</value>
+    <value>Проверка аутентификации</value>
   </data>
   <data name="AuthStatusAuthAs" xml:space="preserve">
-    <value>Authenticated as:</value>
+    <value>Аутентифицирован как:</value>
   </data>
   <data name="AutoLoginTitle" xml:space="preserve">
-    <value>Auto Login</value>
+    <value>Автоматический вход</value>
   </data>
   <data name="AutoLoginExplanation" xml:space="preserve">
-    <value>Note: Valorant needs to be running for this to work</value>
-  </data>
-  <data name="SelRegionTitle" xml:space="preserve">
-    <value>Select Region</value>
-  </data>
-  <data name="SelRegionExplanation" xml:space="preserve">
-    <value>Play around with each region if you are not sure which one you are in</value>
-  </data>
-  <data name="NA" xml:space="preserve">
-    <value>North America</value>
-  </data>
-  <data name="AP" xml:space="preserve">
-    <value>Asia Pacific</value>
-  </data>
-  <data name="EU" xml:space="preserve">
-    <value>Europe</value>
-  </data>
-  <data name="KO" xml:space="preserve">
-    <value>Korea</value>
-  </data>
-  <data name="BR" xml:space="preserve">
-    <value>Brazil</value>
-  </data>
-  <data name="LATAM" xml:space="preserve">
-    <value>Latin America</value>
+    <value>Примечание: Валорант должен быть запущен, чтобы это работало</value>
   </data>
   <data name="AuthStatusFail" xml:space="preserve">
-    <value>Not Authenticated</value>
+    <value>Не аутентифицирован</value>
   </data>
   <data name="Translator" xml:space="preserve">
-    <value>Translated into English By Soneliem</value>
+    <value>Переведено на русский Язык ZzyzxFox</value>
+  </data>
+  <data name="RefreshMatch" xml:space="preserve">
+    <value>Нажмите, чтобы обновить матч</value>
+  </data>
+  <data name="SettingsExplanation" xml:space="preserve">
+    <value>Настройки приложения и учетной записи можно найти здесь</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="SettingsInfoExplanation1" xml:space="preserve">
+    <value>На этой странице можно вручную войти в систему, изменить язык приложения и так далее</value>
+  </data>
+  <data name="SelLanguageTitle" xml:space="preserve">
+    <value>Выберите язык</value>
   </data>
 </root>
