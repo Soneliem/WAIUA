@@ -150,6 +150,10 @@
   <data name="Login" xml:space="preserve">
     <value>تسجيل الدخول</value>
   </data>
+  <data name="SettingsInfoExplanation2" xml:space="preserve">
+    <value>تتم جميع الاتصالات المتعلقة ببيانات الاعتماد الخاصة بك مباشرةً مع خوادم ريُت دون تخزين كلمات المرور محليًا أو عبر الإنترنت</value>
+    <comment>Fuzzy</comment>
+  </data>
   <data name="AuthStatusTitle" xml:space="preserve">
     <value>حالة المصادقة</value>
   </data>
@@ -178,7 +182,31 @@
   <data name="RefreshMatch" xml:space="preserve">
     <value>ادغط لتحديث المباراة</value>
   </data>
-  <data name="SettingsInfoExplanation2" xml:space="preserve">
-	  <value>تتم جميع الاتصالات المتعلقة ببيانات الاعتماد الخاصة بك مباشرةً مع خوادم ريُت دون تخزين كلمات المرور محليًا أو عبر الإنترنت</value>
+  <data name="SettingsExplanation" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SettingsInfoExplanation1" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SelLanguageTitle" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Refreshing" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="NoMatch" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="NoValGame" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="TrackerToolTip" xml:space="preserve">
+    <value></value>
   </data>
 </root>
