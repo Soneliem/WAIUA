@@ -61,51 +61,6 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ONLY log into your Riot account if there are issues with the app or if Valorant is not running.
-        /// </summary>
-        public static string AccountExplanation {
-            get {
-                return ResourceManager.GetString("AccountExplanation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log in with either you Riot Account details or automatically log in if you have Valorant open. Ensure you have selected the correct region..
-        /// </summary>
-        public static string AccountInfoExplanation1 {
-            get {
-                return ResourceManager.GetString("AccountInfoExplanation1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to All communication regarding your credentials is done directly with Riot servers with no storage of passwords being done locally or online..
-        /// </summary>
-        public static string AccountInfoExplanation2 {
-            get {
-                return ResourceManager.GetString("AccountInfoExplanation2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Account.
-        /// </summary>
-        public static string AccountTitle {
-            get {
-                return ResourceManager.GetString("AccountTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Asia Pacific.
-        /// </summary>
-        public static string AP {
-            get {
-                return ResourceManager.GetString("AP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Made By Soneliem.
         /// </summary>
         public static string Author {
@@ -178,15 +133,6 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Brazil.
-        /// </summary>
-        public static string BR {
-            get {
-                return ResourceManager.GetString("BR", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Check for Updates.
         /// </summary>
         public static string CheckUpdates {
@@ -201,15 +147,6 @@ namespace WAIUA.Properties {
         public static string CurrentVersion {
             get {
                 return ResourceManager.GetString("CurrentVersion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Europe.
-        /// </summary>
-        public static string EU {
-            get {
-                return ResourceManager.GetString("EU", resourceCulture);
             }
         }
         
@@ -250,24 +187,6 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Korea.
-        /// </summary>
-        public static string KO {
-            get {
-                return ResourceManager.GetString("KO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Latin America.
-        /// </summary>
-        public static string LATAM {
-            get {
-                return ResourceManager.GetString("LATAM", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Latest Version: .
         /// </summary>
         public static string Latestversion {
@@ -304,11 +223,29 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to North America.
+        ///   Looks up a localized string similar to No Match Detected.
         /// </summary>
-        public static string NA {
+        public static string NoMatch {
             get {
-                return ResourceManager.GetString("NA", resourceCulture);
+                return ResourceManager.GetString("NoMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please Open Valorant First.
+        /// </summary>
+        public static string NoValGame {
+            get {
+                return ResourceManager.GetString("NoValGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refreshing....
+        /// </summary>
+        public static string Refreshing {
+            get {
+                return ResourceManager.GetString("Refreshing", resourceCulture);
             }
         }
         
@@ -322,29 +259,56 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Riot Login.
+        ///   Looks up a localized string similar to Select Language.
         /// </summary>
-        public static string RiotLogin {
+        public static string SelLanguageTitle {
             get {
-                return ResourceManager.GetString("RiotLogin", resourceCulture);
+                return ResourceManager.GetString("SelLanguageTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Play around with each region if you are not sure which one you are in.
+        ///   Looks up a localized string similar to Find app and account settings here.
         /// </summary>
-        public static string SelRegionExplanation {
+        public static string SettingsExplanation {
             get {
-                return ResourceManager.GetString("SelRegionExplanation", resourceCulture);
+                return ResourceManager.GetString("SettingsExplanation", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select Region.
+        ///   Looks up a localized string similar to This page let&apos;s you manually sign in, change the app language, etc..
         /// </summary>
-        public static string SelRegionTitle {
+        public static string SettingsInfoExplanation1 {
             get {
-                return ResourceManager.GetString("SelRegionTitle", resourceCulture);
+                return ResourceManager.GetString("SettingsInfoExplanation1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All communication regarding your credentials is done directly with Riot servers with no storage of passwords being done locally or online..
+        /// </summary>
+        public static string SettingsInfoExplanation2 {
+            get {
+                return ResourceManager.GetString("SettingsInfoExplanation2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string SettingsTitle {
+            get {
+                return ResourceManager.GetString("SettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TrackerToolTip {
+            get {
+                return ResourceManager.GetString("TrackerToolTip", resourceCulture);
             }
         }
         

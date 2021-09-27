@@ -15,7 +15,7 @@ namespace WAIUA.Controls
 
         public string Card
         {
-            get { return (string) GetValue(CardProperty); }
+            get { return (string)GetValue(CardProperty); }
             set { SetValue(CardProperty, value); }
         }
 
@@ -24,7 +24,7 @@ namespace WAIUA.Controls
 
         public string Level
         {
-            get { return (string) GetValue(LevelProperty); }
+            get { return (string)GetValue(LevelProperty); }
             set { SetValue(LevelProperty, value); }
         }
 
@@ -33,7 +33,7 @@ namespace WAIUA.Controls
 
         public string AgentPicture
         {
-            get { return (string) GetValue(AgentPictureProperty); }
+            get { return (string)GetValue(AgentPictureProperty); }
             set { SetValue(AgentPictureProperty, value); }
         }
 
@@ -43,7 +43,7 @@ namespace WAIUA.Controls
 
         public string Agent
         {
-            get { return (string) GetValue(AgentProperty); }
+            get { return (string)GetValue(AgentProperty); }
             set { SetValue(AgentProperty, value); }
         }
 
@@ -52,7 +52,7 @@ namespace WAIUA.Controls
 
         public string IGN
         {
-            get { return (string) GetValue(IGNProperty); }
+            get { return (string)GetValue(IGNProperty); }
             set { SetValue(IGNProperty, value); }
         }
 
@@ -61,16 +61,16 @@ namespace WAIUA.Controls
 
         public string VandalSkin
         {
-            get { return (string) GetValue(VandalSkinProperty); }
+            get { return (string)GetValue(VandalSkinProperty); }
             set { SetValue(VandalSkinProperty, value); }
         }
 
         public static readonly DependencyProperty VandalSkinProperty =
             DependencyProperty.Register("VandalSkin", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
-        
+
         public string PhantomSkin
         {
-            get { return (string) GetValue(PhantomSkinProperty); }
+            get { return (string)GetValue(PhantomSkinProperty); }
             set { SetValue(PhantomSkinProperty, value); }
         }
 
@@ -79,16 +79,16 @@ namespace WAIUA.Controls
 
         public string VandalSkinName
         {
-            get { return (string) GetValue(VandalSkinNameProperty); }
+            get { return (string)GetValue(VandalSkinNameProperty); }
             set { SetValue(VandalSkinNameProperty, value); }
         }
 
         public static readonly DependencyProperty VandalSkinNameProperty =
             DependencyProperty.Register("VandalSkinName", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
-        
+
         public string PhantomSkinName
         {
-            get { return (string) GetValue(PhantomSkinNameProperty); }
+            get { return (string)GetValue(PhantomSkinNameProperty); }
             set { SetValue(PhantomSkinNameProperty, value); }
         }
 
@@ -97,7 +97,7 @@ namespace WAIUA.Controls
 
         public string PMatch
         {
-            get { return (string) GetValue(PMatchProperty); }
+            get { return (string)GetValue(PMatchProperty); }
             set { SetValue(PMatchProperty, value); }
         }
 
@@ -106,7 +106,7 @@ namespace WAIUA.Controls
 
         public string PPMatch
         {
-            get { return (string) GetValue(PPMatchProperty); }
+            get { return (string)GetValue(PPMatchProperty); }
             set { SetValue(PPMatchProperty, value); }
         }
 
@@ -116,7 +116,7 @@ namespace WAIUA.Controls
 
         public string PPPMatch
         {
-            get { return (string) GetValue(PPPMatchProperty); }
+            get { return (string)GetValue(PPPMatchProperty); }
             set { SetValue(PPPMatchProperty, value); }
         }
 
@@ -126,7 +126,7 @@ namespace WAIUA.Controls
 
         public string PRankName
         {
-            get { return (string) GetValue(PRankNameProperty); }
+            get { return (string)GetValue(PRankNameProperty); }
             set { SetValue(PRankNameProperty, value); }
         }
 
@@ -136,7 +136,7 @@ namespace WAIUA.Controls
 
         public string PPRankName
         {
-            get { return (string) GetValue(PPRankNameProperty); }
+            get { return (string)GetValue(PPRankNameProperty); }
             set { SetValue(PPRankNameProperty, value); }
         }
 
@@ -146,7 +146,7 @@ namespace WAIUA.Controls
 
         public string PPPRankName
         {
-            get { return (string) GetValue(PPPRankNameProperty); }
+            get { return (string)GetValue(PPPRankNameProperty); }
             set { SetValue(PPPRankNameProperty, value); }
         }
 
@@ -156,7 +156,7 @@ namespace WAIUA.Controls
 
         public string RankName
         {
-            get { return (string) GetValue(RankNameProperty); }
+            get { return (string)GetValue(RankNameProperty); }
             set { SetValue(RankNameProperty, value); }
         }
 
@@ -166,7 +166,7 @@ namespace WAIUA.Controls
 
         public string PRank
         {
-            get { return (string) GetValue(PRankProperty); }
+            get { return (string)GetValue(PRankProperty); }
             set { SetValue(PRankProperty, value); }
         }
 
@@ -175,7 +175,7 @@ namespace WAIUA.Controls
 
         public string PPRank
         {
-            get { return (string) GetValue(PPRankProperty); }
+            get { return (string)GetValue(PPRankProperty); }
             set { SetValue(PPRankProperty, value); }
         }
 
@@ -184,7 +184,7 @@ namespace WAIUA.Controls
 
         public string PPPRank
         {
-            get { return (string) GetValue(PPPRankProperty); }
+            get { return (string)GetValue(PPPRankProperty); }
             set { SetValue(PPPRankProperty, value); }
         }
 
@@ -194,7 +194,7 @@ namespace WAIUA.Controls
 
         public string Rank
         {
-            get { return (string) GetValue(RankProperty); }
+            get { return (string)GetValue(RankProperty); }
             set { SetValue(RankProperty, value); }
         }
 
@@ -203,7 +203,7 @@ namespace WAIUA.Controls
 
         public string RankProgress
         {
-            get { return (string) GetValue(RankProgressProperty); }
+            get { return (string)GetValue(RankProgressProperty); }
             set { SetValue(RankProgressProperty, value); }
         }
 
@@ -213,7 +213,7 @@ namespace WAIUA.Controls
 
         public string MaxRR
         {
-            get { return (string) GetValue(MaxRRProperty); }
+            get { return (string)GetValue(MaxRRProperty); }
             set { SetValue(MaxRRProperty, value); }
         }
 
@@ -222,7 +222,7 @@ namespace WAIUA.Controls
 
         public string TrackerUrl
         {
-            get { return (string) GetValue(TrackerUrlProperty); }
+            get { return (string)GetValue(TrackerUrlProperty); }
             set { SetValue(TrackerUrlProperty, value); }
         }
 
@@ -232,7 +232,7 @@ namespace WAIUA.Controls
 
         public string TrackerEnabled
         {
-            get { return (string) GetValue(TrackerEnabledProperty); }
+            get { return (string)GetValue(TrackerEnabledProperty); }
             set { SetValue(TrackerEnabledProperty, value); }
         }
 
@@ -242,7 +242,7 @@ namespace WAIUA.Controls
 
         public string TrackerDisabled
         {
-            get { return (string) GetValue(TrackerDisabledProperty); }
+            get { return (string)GetValue(TrackerDisabledProperty); }
             set { SetValue(TrackerDisabledProperty, value); }
         }
 
@@ -252,12 +252,10 @@ namespace WAIUA.Controls
 
         private void HandleLinkClick(object sender, RequestNavigateEventArgs e)
         {
-
             Hyperlink hl = (Hyperlink)sender;
             string navigateUri = hl.NavigateUri.ToString();
             Process.Start(new ProcessStartInfo(navigateUri) { UseShellExecute = true });
             e.Handled = true;
         }
-
     }
 }

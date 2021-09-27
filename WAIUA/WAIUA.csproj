@@ -31,8 +31,8 @@
     <EmbeddedResource Remove="Models\**" />
     <None Remove="Models\**" />
     <Page Remove="Models\**" />
-    <EmbeddedResource Update="Properties\Resources.en-001.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+    <EmbeddedResource Update="Properties\Resources.en.resx">
+      <DependentUpon>Resources.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.fr.resx">
       <DependentUpon>Resources.resx</DependentUpon>
@@ -57,7 +57,7 @@
     <None Remove="Assets\logo.png" />
     <None Remove="Assets\loss.png" />
     <None Remove="Assets\phantom.png" />
-    <None Remove="Assets\sign-in.png" />
+    <None Remove="Assets\settings.png" />
     <None Remove="Assets\Soneliem.png" />
     <None Remove="Assets\vandal.png" />
     <None Remove="Assets\win.png" />
@@ -91,7 +91,7 @@
     <Resource Include="Assets\win.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\sign-in.png">
+    <Resource Include="Assets\settings.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Soneliem.png">

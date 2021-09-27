@@ -1,0 +1,101 @@
+﻿<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>1.3</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="Author" xml:space="preserve">
+		<value>Made By Soneliem</value>
+	</data>
+	<data name="AuthStatusAuthAs" xml:space="preserve">
+		<value>Authenticated as:</value>
+	</data>
+	<data name="AuthStatusButton" xml:space="preserve">
+		<value>Check Authentication</value>
+	</data>
+	<data name="AuthStatusDefault" xml:space="preserve">
+		<value>Click below to update</value>
+	</data>
+	<data name="AuthStatusFail" xml:space="preserve">
+		<value>Not Authenticated</value>
+	</data>
+	<data name="AuthStatusTitle" xml:space="preserve">
+		<value>Authentication Status</value>
+	</data>
+	<data name="AutoLoginExplanation" xml:space="preserve">
+		<value>Note: Valorant needs to be running for this to work</value>
+	</data>
+	<data name="AutoLoginTitle" xml:space="preserve">
+		<value>Auto Login</value>
+	</data>
+	<data name="CheckUpdates" xml:space="preserve">
+		<value>Check for Updates</value>
+	</data>
+	<data name="CurrentVersion" xml:space="preserve">
+		<value>Current Version: </value>
+	</data>
+	<data name="InfoExplanation" xml:space="preserve">
+		<value>You're on this page idiot</value>
+	</data>
+	<data name="InfoTitle" xml:space="preserve">
+		<value>Info</value>
+	</data>
+	<data name="JoinDiscord" xml:space="preserve">
+		<value>Join my Discord</value>
+	</data>
+	<data name="JoinDiscordSub" xml:space="preserve">
+		<value>For support, etc.</value>
+	</data>
+	<data name="Latestversion" xml:space="preserve">
+		<value>Latest Version: </value>
+	</data>
+	<data name="LoadMatchExplanation" xml:space="preserve">
+		<value>Loads live match data if available. This should take less than 10 seconds</value>
+	</data>
+	<data name="LoadMatchTitle" xml:space="preserve">
+		<value>Load Match</value>
+	</data>
+	<data name="Login" xml:space="preserve">
+		<value>Login</value>
+	</data>
+	<data name="RefreshMatch" xml:space="preserve">
+		<value>Click To Refresh Match</value>
+	</data>
+	<data name="SelLanguageTitle" xml:space="preserve">
+		<value>Select Language</value>
+	</data>
+	<data name="SettingsExplanation" xml:space="preserve">
+		<value>Find app and account settings here</value>
+	</data>
+	<data name="SettingsInfoExplanation1" xml:space="preserve">
+		<value>This page let's you manually sign in, change the app language, etc.</value>
+	</data>
+	<data name="SettingsInfoExplanation2" xml:space="preserve">
+		<value>All communication regarding your credentials is done directly with Riot servers with no storage of passwords being done locally or online.</value>
+	</data>
+	<data name="SettingsTitle" xml:space="preserve">
+		<value>Settings</value>
+	</data>
+	<data name="Translator" xml:space="preserve">
+		<value>Translated into English By Soneliem</value>
+	</data>
+	<data name="Refreshing" xml:space="preserve">
+		<value>Refreshing...</value>
+	</data>
+	<data name="NoMatch" xml:space="preserve">
+		<value>No Match Detected</value>
+	</data>
+	<data name="NoValGame" xml:space="preserve">
+		<value>Please Open Valorant First</value>
+	</data>
+	<data name="TrackerToolTip" xml:space="preserve">
+		<value>Open Tracker.gg Profile</value>
+	</data>
+</root>

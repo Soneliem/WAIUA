@@ -3,6 +3,7 @@ using MVVMEssentials.Services;
 using MVVMEssentials.Stores;
 using MVVMEssentials.ViewModels;
 using System.Globalization;
+using System.Threading;
 using System.Windows;
 using WAIUA.ViewModels;
 
@@ -17,8 +18,16 @@ namespace WAIUA
         {
             _navigationStore = new NavigationStore();
             _modalNavigationStore = new ModalNavigationStore();
-            //WAIUA.Properties.Settings.Default.Language = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InstalledUICulture;
+            if (string.IsNullOrEmpty(WAIUA.Properties.Settings.Default.Language))
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.InstalledUICulture;
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.InstalledUICulture;
+            }
+            else
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo(WAIUA.Properties.Settings.Default.Language);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(WAIUA.Properties.Settings.Default.Language);
+            }
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -48,7 +57,7 @@ namespace WAIUA
 
         private HomeViewModel CreateHomeViewModel()
         {
-            return new HomeViewModel(CreateHomeNavigationService(), CreateInfoNavigationService(), CreateAccountNavigationService());
+            return new HomeViewModel(CreateHomeNavigationService(), CreateInfoNavigationService(), CreateSettingsNavigationService());
         }
 
         private INavigationService CreateInfoNavigationService()
@@ -58,17 +67,17 @@ namespace WAIUA
 
         private InfoViewModel CreateInfoViewModel()
         {
-            return new InfoViewModel(CreateHomeNavigationService(), CreateInfoNavigationService(), CreateAccountNavigationService());
+            return new InfoViewModel(CreateHomeNavigationService(), CreateInfoNavigationService(), CreateSettingsNavigationService());
         }
 
-        private INavigationService CreateAccountNavigationService()
+        private INavigationService CreateSettingsNavigationService()
         {
-            return new NavigationService<AccountViewModel>(_navigationStore, CreateAccountViewModel);
+            return new NavigationService<SettingsViewModel>(_navigationStore, CreateSettingsViewModel);
         }
 
-        private AccountViewModel CreateAccountViewModel()
+        private SettingsViewModel CreateSettingsViewModel()
         {
-            return new AccountViewModel(CreateHomeNavigationService(), CreateInfoNavigationService(), CreateAccountNavigationService());
+            return new SettingsViewModel(CreateHomeNavigationService(), CreateInfoNavigationService(), CreateSettingsNavigationService());
         }
     }
 }

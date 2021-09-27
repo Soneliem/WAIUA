@@ -6,7 +6,6 @@ using System.Collections.Concurrent;
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using DataFormat = RestSharp.DataFormat;
@@ -63,15 +62,16 @@ namespace WAIUA.Commands
         public static string[] VandalNameList { get; set; } = new string[10];
         public static string[] PhantomNameList { get; set; } = new string[10];
 
-        public static string DoCachedRequest(Method method, String url, bool add_riot_auth, CookieContainer cookie_container = null, bool bypass_cache = false) // Thank you MitchC for this, I am always touched when random people go out of the way to help others even though they know that we would be clueless and need to ask alot of followup questions
+        public static string DoCachedRequest(Method method, string url, bool add_riot_auth, bool bypass_cache = false) // Thank you MitchC for this, I am always touched when random people go out of the way to help others even though they know that we would be clueless and need to ask alot of followup questions
         {
-            var tsk = DoCachedRequestAsync(method, url, add_riot_auth, cookie_container, bypass_cache);
+            var tsk = DoCachedRequestAsync(method, url, add_riot_auth, bypass_cache);
             return tsk.Result;
         }
 
         // TODO: Add dictonary for locales
 
-        public static async Task<string> DoCachedRequestAsync(Method method, String url, bool add_riot_auth, CookieContainer cookie_container = null, bool bypass_cache = false)
+        public static async Task<string> DoCachedRequestAsync(Method method, string url, bool add_riot_auth,
+            bool bypass_cache = false)
         {
             var attempt_cache = method == Method.GET && !bypass_cache;
             if (attempt_cache)
@@ -82,8 +82,6 @@ namespace WAIUA.Commands
                 }
             }
             RestClient client = new(url);
-            if (cookie_container != null)
-                client.CookieContainer = cookie_container;
             RestRequest request = new(method);
             if (add_riot_auth)
             {
@@ -95,38 +93,6 @@ namespace WAIUA.Commands
             var cont = (await client.ExecuteAsync(request)).Content;
             if (attempt_cache) Dictionary.url_to_body.TryAdd(url, cont);
             return cont;
-        }
-
-        public static void Login(CookieContainer cookie, string username, string password)
-        {
-            try
-            {
-                GetAuthorization(cookie);
-                var authJson = JsonConvert.DeserializeObject(Authenticate(cookie, username, password));
-                JToken authObj = JObject.FromObject(authJson);
-
-                string authURL = authObj["response"]["parameters"]["uri"].Value<string>();
-                var accessTokenVar = Regex.Match(authURL, @"access_token=(.+?)&scope=").Groups[1].Value;
-                AccessToken = $"{accessTokenVar}";
-
-                RestClient client = new(new Uri("https://entitlements.auth.riotgames.com/api/token/v1"));
-                RestRequest request = new(Method.POST);
-
-                request.AddHeader("Authorization", $"Bearer {AccessToken}");
-                request.AddJsonBody("{}");
-
-                string response = client.Execute(request).Content;
-                var entitlement_token = JsonConvert.DeserializeObject(response);
-                JToken entitlement_tokenObj = JObject.FromObject(entitlement_token);
-
-                EntitlementToken = entitlement_tokenObj["entitlements_token"].Value<string>();
-
-                GetSetPPUUID();
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine(e);
-            }
         }
 
         public static bool GetSetPPUUID()
@@ -156,35 +122,6 @@ namespace WAIUA.Commands
             {
             }
             return output;
-        }
-
-        private static void GetAuthorization(CookieContainer jar)
-        {
-            string url = "https://auth.riotgames.com/api/v1/authorization";
-            RestClient client = new(url)
-            {
-                CookieContainer = jar
-            };
-
-            RestRequest request = new(Method.POST);
-            string body = "{\"client_id\":\"play-valorant-web-prod\",\"nonce\":\"1\",\"redirect_uri\":\"https://playvalorant.com/opt_in" + "\",\"response_type\":\"token id_token\",\"scope\":\"account openid\"}";
-            request.AddJsonBody(body);
-            client.Execute(request);
-        }
-
-        private static string Authenticate(CookieContainer cookie, string user, string pass)
-        {
-            string url = "https://auth.riotgames.com/api/v1/authorization";
-            RestClient client = new(url)
-            {
-                CookieContainer = cookie
-            };
-
-            RestRequest request = new(Method.PUT);
-            string body = "{\"type\":\"auth\",\"username\":\"" + user + "\",\"password\":\"" + pass + "\",\"remember\": true, \"language\": \"en_US\"}";
-            request.AddJsonBody(body);
-
-            return client.Execute(request).Content;
         }
 
         public static bool CheckLocal()
@@ -272,7 +209,7 @@ namespace WAIUA.Commands
             Version = responseObj["data"]["riotClientVersion"].Value<string>();
         }
 
-        public static string GetIGUsername(CookieContainer cookie, string puuid)
+        public static string GetIGUsername(string puuid)
         {
             string IGN = null;
             try
@@ -280,10 +217,7 @@ namespace WAIUA.Commands
                 string gameName = "";
                 string gameTag = "";
                 string url = $"https://pd.{Region}.a.pvp.net/name-service/v2/players";
-                RestClient client = new(url)
-                {
-                    CookieContainer = cookie
-                };
+                RestClient client = new(url);
                 RestRequest request = new(Method.PUT)
                 {
                     RequestFormat = DataFormat.Json
@@ -311,15 +245,12 @@ namespace WAIUA.Commands
             return IGN;
         }
 
-        private static bool LiveMatchID(CookieContainer jar)
+        private static bool LiveMatchID()
         {
             try
             {
                 string url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/players/{PPUUID}";
-                RestClient client = new(url)
-                {
-                    CookieContainer = jar
-                };
+                RestClient client = new(url);
                 RestRequest request = new(Method.GET);
                 request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
                 request.AddHeader("Authorization", $"Bearer {AccessToken}");
@@ -338,19 +269,18 @@ namespace WAIUA.Commands
 
         public bool LiveMatchChecks()
         {
-            bool output = false;
-            CookieContainer cookie = new();
+            bool output;
 
             if (GetSetPPUUID())
             {
-                if (LiveMatchID(cookie))
+                if (LiveMatchID())
                 {
                     LiveMatchSetup();
                     output = true;
                 }
                 else
                 {
-                    MessageBox.Show("No Match Detected", "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+                    MessageBox.Show(Properties.Resources.NoMatch, "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
                     output = false;
                 }
             }
@@ -362,20 +292,20 @@ namespace WAIUA.Commands
                     GetSetPPUUID();
                     LocalRegion();
 
-                    if (LiveMatchID(cookie))
+                    if (LiveMatchID())
                     {
                         LiveMatchSetup();
                         output = true;
                     }
                     else
                     {
-                        MessageBox.Show("No Match Detected", "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+                        MessageBox.Show(Properties.Resources.NoMatch, "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
                         output = false;
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Please Open Valorant First", "Error", MessageBoxButton.OK,
+                    MessageBox.Show(Properties.Resources.NoValGame, "Error", MessageBoxButton.OK,
                         MessageBoxImage.Question, MessageBoxResult.OK);
                     output = false;
                 }
@@ -467,7 +397,6 @@ namespace WAIUA.Commands
 
         private static void GetIGCUsername(sbyte playerno)
         {
-            CookieContainer cookie = new();
             if (IsIncognito[playerno])
             {
                 PlayerList[playerno] = "----";
@@ -476,7 +405,7 @@ namespace WAIUA.Commands
             }
             else
             {
-                PlayerList[playerno] = GetIGUsername(cookie, PUUIDList[playerno]);
+                PlayerList[playerno] = GetIGUsername(PUUIDList[playerno]);
                 if (Tracker(PlayerList[playerno], playerno))
                 {
                     TrackerEnabledList[playerno] = "Visible";
@@ -565,7 +494,7 @@ namespace WAIUA.Commands
                         JToken phantominfoObj = JObject.FromObject(phantominfo);
                         PhantomList[playerno] = phantominfoObj["data"]["displayIcon"].Value<string>();
                         PhantomNameList[playerno] = phantominfoObj["data"]["displayName"].Value<string>();
-                    } 
+                    }
                 }
                 else
                 {
@@ -587,7 +516,7 @@ namespace WAIUA.Commands
             {
                 if (!String.IsNullOrEmpty(puuid))
                 {
-                    string content = DoCachedRequest(Method.GET, $"https://pd.{Region}.a.pvp.net/mmr/v1/players/{puuid}/competitiveupdates?queue=competitive", true, null, true);
+                    string content = DoCachedRequest(Method.GET, $"https://pd.{Region}.a.pvp.net/mmr/v1/players/{puuid}/competitiveupdates?queue=competitive", true, true);
                     var historyinfo = JsonConvert.DeserializeObject(content);
                     JToken historyinfoObj = JObject.FromObject(historyinfo);
                     RankProgList[playerno] = historyinfoObj["Matches"][0]["RankedRatingAfterUpdate"].Value<string>();
@@ -637,7 +566,7 @@ namespace WAIUA.Commands
                 if (!String.IsNullOrEmpty(puuid))
                 {
                     string rank, prank, pprank, ppprank;
-                    string content = DoCachedRequest(Method.GET, $"https://pd.{Region}.a.pvp.net/mmr/v1/players/{puuid}", true, null, true);
+                    string content = DoCachedRequest(Method.GET, $"https://pd.{Region}.a.pvp.net/mmr/v1/players/{puuid}", true, true);
                     dynamic contentobj = JObject.Parse(content);
 
                     try
@@ -675,7 +604,7 @@ namespace WAIUA.Commands
 
                     if (rank is "21" or "22" or "23")
                     {
-                        string content2 = DoCachedRequest(Method.GET, $"https://pd.{Shard}.a.pvp.net/mmr/v1/leaderboards/affinity/{Region}/queue/competitive/season/{CurrentSeason}?startIndex=0&size=0", true, null);
+                        string content2 = DoCachedRequest(Method.GET, $"https://pd.{Shard}.a.pvp.net/mmr/v1/leaderboards/affinity/{Region}/queue/competitive/season/{CurrentSeason}?startIndex=0&size=0", true);
                         dynamic contentobj2 = JObject.Parse(content2);
                         switch (rank)
                         {
@@ -859,7 +788,7 @@ namespace WAIUA.Commands
                     {
                         TrackerUrlList[playerno] = url;
                         output = true;
-                    } 
+                    }
                 }
                 else
                 {

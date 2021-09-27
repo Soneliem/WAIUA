@@ -9,13 +9,13 @@ namespace WAIUA.ViewModels
     {
         public ICommand NavigateHomeCommand { get; }
         public ICommand NavigateInfoCommand { get; }
-        public ICommand NavigateAccountCommand { get; }
+        public ICommand NavigateSettingsCommand { get; }
 
-        public InfoViewModel(INavigationService homeNavigationService, INavigationService infoNavigationService, INavigationService accountNavigationService)
+        public InfoViewModel(INavigationService homeNavigationService, INavigationService infoNavigationService, INavigationService settingsNavigationService)
         {
             NavigateHomeCommand = new NavigateCommand(homeNavigationService);
             NavigateInfoCommand = new NavigateCommand(infoNavigationService);
-            NavigateAccountCommand = new NavigateCommand(accountNavigationService);
+            NavigateSettingsCommand = new NavigateCommand(settingsNavigationService);
         }
     }
 }

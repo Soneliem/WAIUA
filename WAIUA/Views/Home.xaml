@@ -68,10 +68,10 @@
             <Button
                 Grid.Column="0"
                 Margin="7"
-                Command="{Binding NavigateAccountCommand}"
+                Command="{Binding NavigateSettingsCommand}"
                 Template="{StaticResource ButtonTemplate}">
 
-                <Image Margin="10" Source="/Assets/sign-in.png" />
+                <Image Margin="10" Source="/Assets/settings.png" />
             </Button>
 
             <Button

@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccountExplanation" xml:space="preserve">
-    <value>Ne vous connectez à votre compte Riot UNIQUEMENT si il y a des problèmes avec l&apos;appli ou si Valorant n&apos;est pas en cours d&apos;exécution</value>
-  </data>
-  <data name="AccountTitle" xml:space="preserve">
-    <value>Compte</value>
-  </data>
   <data name="LoadMatchTitle" xml:space="preserve">
     <value>Charger Match</value>
   </data>
@@ -144,9 +138,6 @@
   <data name="Author" xml:space="preserve">
     <value>Fait par Soneliem</value>
   </data>
-  <data name="WAIUAFull" xml:space="preserve">
-    <value>Who Am I Up Against?</value>
-  </data>
   <data name="Latestversion" xml:space="preserve">
     <value>Dernière Version: </value>
   </data>
@@ -156,17 +147,8 @@
   <data name="CheckUpdates" xml:space="preserve">
     <value>Rechercher des Mises à Jour</value>
   </data>
-  <data name="RiotLogin" xml:space="preserve">
-    <value>Connexion Riot</value>
-  </data>
   <data name="Login" xml:space="preserve">
     <value>Connexion</value>
-  </data>
-  <data name="AccountInfoExplanation1" xml:space="preserve">
-    <value>Connectez-vous avec soit votre Compte Riot ou une connexion automatique si Valorant est ouvert. Vérifiez que vous avez selectionné la bonne région.</value>
-  </data>
-  <data name="AccountInfoExplanation2" xml:space="preserve">
-    <value>Toute communication de vos identifiants sont faits directement avec les serveurs Riot sans aucun stockage de mots de passe localement ou en ligne.</value>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
     <value>Statut Authentification</value>
@@ -185,30 +167,6 @@
   </data>
   <data name="AutoLoginExplanation" xml:space="preserve">
     <value>Note: Valorant doit être en cours d&apos;exécution pour que cela marche</value>
-  </data>
-  <data name="SelRegionTitle" xml:space="preserve">
-    <value>Selection Région</value>
-  </data>
-  <data name="SelRegionExplanation" xml:space="preserve">
-    <value>Jouez avec chaque région si vous n&apos;êtes pas sûr(e) de laquelle vous résidez</value>
-  </data>
-  <data name="NA" xml:space="preserve">
-    <value>Amérique du Nord</value>
-  </data>
-  <data name="AP" xml:space="preserve">
-    <value>Asie Pacifique</value>
-  </data>
-  <data name="EU" xml:space="preserve">
-    <value>Europe</value>
-  </data>
-  <data name="KO" xml:space="preserve">
-    <value>Corée</value>
-  </data>
-  <data name="BR" xml:space="preserve">
-    <value>Brézil</value>
-  </data>
-  <data name="LATAM" xml:space="preserve">
-    <value>Amérique Latine</value>
   </data>
   <data name="AuthStatusFail" xml:space="preserve">
     <value>Non Authentifié</value>
