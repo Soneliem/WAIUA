@@ -150,13 +150,15 @@
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
+  <data name="SettingsInfoExplanation2" xml:space="preserve">
+    <value>Es werden keine Anmeldedaten gespeichert. Die Zugangsdaten werden für die direkte Kommunikation mit den Riot-Servern verwendet.</value>
+    <comment>Fuzzy</comment>
+  </data>
   <data name="AuthStatusTitle" xml:space="preserve">
     <value>Anmelde Status</value>
-    <comment>&quot;Anmeldestatus&quot;</comment>
   </data>
   <data name="AuthStatusDefault" xml:space="preserve">
     <value>Zum Aktualisieren unten klicken</value>
-    <comment>Zum Aktualisieren unten klicken</comment>
   </data>
   <data name="AuthStatusButton" xml:space="preserve">
     <value>Überprüfe Anmeldung</value>
@@ -179,12 +181,32 @@
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Hier klicken, um Matchdaten neu zu laden</value>
-    <comment>&quot;Hier klicken, um Matchdaten neu zu laden&quot;</comment>
   </data>
-  <data name="SettingsInfoExplanation2" xml:space="preserve">
-	  <value>Es werden keine Anmeldedaten gespeichert. Die Zugangsdaten werden für die direkte Kommunikation mit den Riot-Servern verwendet.</value>
+  <data name="SettingsExplanation" xml:space="preserve">
+    <value>Hier Findest du die App und Account Einstellungen</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="SettingsInfoExplanation1" xml:space="preserve">
+    <value>Hier kannst du dich manuell anmelden, die Sprache ändern, etc</value>
+  </data>
+  <data name="SelLanguageTitle" xml:space="preserve">
+    <value>Sprache auswählen</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fehler</value>
   </data>
   <data name="Refreshing" xml:space="preserve">
-	  <value>Refreshing...</value>
+    <value>Neuladen...</value>
+  </data>
+  <data name="NoMatch" xml:space="preserve">
+    <value>Kein Match Gefunden</value>
+  </data>
+  <data name="NoValGame" xml:space="preserve">
+    <value>Bitte öffne zuerst Valorant</value>
+  </data>
+  <data name="TrackerToolTip" xml:space="preserve">
+    <value>Tracker.gg Profil öffnen</value>
   </data>
 </root>
