@@ -277,7 +277,7 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This page let&apos;s you manually sign in, change the app language, etc..
+        ///   Looks up a localized string similar to This page lets you manually sign in, change the app language, etc..
         /// </summary>
         public static string SettingsInfoExplanation1 {
             get {
@@ -304,7 +304,7 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Open Tracker.gg Profile.
         /// </summary>
         public static string TrackerToolTip {
             get {

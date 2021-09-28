@@ -139,7 +139,7 @@
     <value>Made By Soneliem</value>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
-	  <value>Click To Refresh Match</value>
+    <value>Click To Refresh Match</value>
   </data>
   <data name="Latestversion" xml:space="preserve">
     <value>Latest Version: </value>
@@ -175,33 +175,33 @@
     <value>Not Authenticated</value>
   </data>
   <data name="Translator" xml:space="preserve">
-	  <value>Translated into English By Soneliem</value>
+    <value>Translated into English By Soneliem</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-	  <value>Settings</value>
+    <value>Settings</value>
   </data>
   <data name="SettingsExplanation" xml:space="preserve">
-	  <value>Find app and account settings here</value>
+    <value>Find app and account settings here</value>
   </data>
   <data name="SelLanguageTitle" xml:space="preserve">
-	  <value>Select Language</value>
+    <value>Select Language</value>
   </data>
   <data name="SettingsInfoExplanation2" xml:space="preserve">
-	  <value>All communication regarding your credentials is done directly with Riot servers with no storage of passwords being done locally or online.</value>
+    <value>All communication regarding your credentials is done directly with Riot servers with no storage of passwords being done locally or online.</value>
   </data>
   <data name="SettingsInfoExplanation1" xml:space="preserve">
-	  <value>This page let's you manually sign in, change the app language, etc.</value>
+    <value>This page lets you manually sign in, change the app language, etc.</value>
   </data>
   <data name="NoMatch" xml:space="preserve">
-	  <value>No Match Detected</value>
+    <value>No Match Detected</value>
   </data>
   <data name="NoValGame" xml:space="preserve">
-	  <value>Please Open Valorant First</value>
+    <value>Please Open Valorant First</value>
   </data>
   <data name="Refreshing" xml:space="preserve">
-	  <value>Refreshing...</value>
+    <value>Refreshing...</value>
   </data>
   <data name="TrackerToolTip" xml:space="preserve">
-	  <value>Open Tracker.gg Profile</value>
+    <value>Open Tracker.gg Profile</value>
   </data>
 </root>
