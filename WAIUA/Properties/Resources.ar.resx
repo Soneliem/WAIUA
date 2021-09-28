@@ -183,30 +183,30 @@
     <value>ادغط لتحديث المباراة</value>
   </data>
   <data name="SettingsExplanation" xml:space="preserve">
-    <value></value>
+    <value>Find app and account settings here</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value></value>
+    <value>Settings</value>
   </data>
   <data name="SettingsInfoExplanation1" xml:space="preserve">
-    <value></value>
+    <value>This page let&apos;s you manually sign in, change the app language, etc.</value>
   </data>
   <data name="SelLanguageTitle" xml:space="preserve">
-    <value></value>
+    <value>Select Language</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value></value>
+    <value>Error</value>
   </data>
   <data name="Refreshing" xml:space="preserve">
-    <value></value>
+    <value>Refreshing...</value>
   </data>
   <data name="NoMatch" xml:space="preserve">
-    <value></value>
+    <value>No Match Detected</value>
   </data>
   <data name="NoValGame" xml:space="preserve">
-    <value></value>
+    <value>Please Open Valorant First</value>
   </data>
   <data name="TrackerToolTip" xml:space="preserve">
-    <value></value>
+    <value>Open Tracker.gg Profile</value>
   </data>
 </root>
