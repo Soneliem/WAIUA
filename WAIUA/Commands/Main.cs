@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -19,58 +20,57 @@ namespace WAIUA.Commands
 
     public class Main
     {
-        public static string AccessToken { get; set; }  // To be moved to OOP
-        public static string EntitlementToken { get; set; }
-        public static string Region { get; set; }
-        public static string Shard { get; set; }
-        public static string Version { get; set; }
+        private static string AccessToken { get; set; }  // To be moved to OOP
+        private static string EntitlementToken { get; set; }
+        private static string Region { get; set; }
+        private static string Shard { get; set; }
+        private static string Version { get; set; }
+        private static string Language { get; set; }
         public static string PPUUID { get; set; }
-        public static string Matchid { get; set; }
-        public static string Port { get; set; }
-        public static string LPassword { get; set; }
-        public static string Protocol { get; set; }
-        public static string CurrentSeason { get; set; }
-        public static string PSeason { get; set; }
-        public static string PPSeason { get; set; }
-        public static string PPPSeason { get; set; }
-        public static sbyte[] PlayerNo { get; set; } = new sbyte[10];
-        public static string[] PlayerList { get; set; } = new string[10];
-        public static string[] PUUIDList { get; set; } = new string[10];
-        public static string[] AgentList { get; set; } = new string[10];
-        public static string[] AgentPList { get; set; } = new string[10];
-        public static string[] CardList { get; set; } = new string[10];
-        public static string[] LevelList { get; set; } = new string[10];
-        public static string[] RankList { get; set; } = new string[10];
-        public static string[] MaxRRList { get; set; } = new string[10];
-        public static string[] PRankList { get; set; } = new string[10];
-        public static string[] PPRankList { get; set; } = new string[10];
-        public static string[] PPPRankList { get; set; } = new string[10];
-        public static string[] RankNameList { get; set; } = new string[10];
-        public static string[] PRankNameList { get; set; } = new string[10];
-        public static string[] PPRankNameList { get; set; } = new string[10];
-        public static string[] PPPRankNameList { get; set; } = new string[10];
-        public static string[] RankProgList { get; set; } = new string[10];
-        public static string[] PGList { get; set; } = new string[10];
-        public static string[] PPGList { get; set; } = new string[10];
-        public static string[] PPPGList { get; set; } = new string[10];
-        public static bool[] IsIncognito { get; set; } = new bool[10];
-        public static string[] TrackerUrlList { get; set; } = new string[10];
-        public static string[] TrackerEnabledList { get; set; } = new string[10];
-        public static string[] TrackerDisabledList { get; set; } = new string[10];
-        public static string[] VandalList { get; set; } = new string[10];
-        public static string[] PhantomList { get; set; } = new string[10];
-        public static string[] VandalNameList { get; set; } = new string[10];
-        public static string[] PhantomNameList { get; set; } = new string[10];
+        private static string Matchid { get; set; }
+        private static string Port { get; set; }
+        private static string LPassword { get; set; }
+        private static string Protocol { get; set; }
+        private static string CurrentSeason { get; set; }
+        private static string PSeason { get; set; }
+        private static string PPSeason { get; set; }
+        private static string PPPSeason { get; set; }
+        private static sbyte[] PlayerNo { get; set; } = new sbyte[10];
+        private static string[] PlayerList { get; set; } = new string[10];
+        private static string[] PUUIDList { get; set; } = new string[10];
+        private static string[] AgentList { get; set; } = new string[10];
+        private static string[] AgentPList { get; set; } = new string[10];
+        private static string[] CardList { get; set; } = new string[10];
+        private static string[] LevelList { get; set; } = new string[10];
+        private static string[] RankList { get; set; } = new string[10];
+        private static string[] MaxRRList { get; set; } = new string[10];
+        private static string[] PRankList { get; set; } = new string[10];
+        private static string[] PPRankList { get; set; } = new string[10];
+        private static string[] PPPRankList { get; set; } = new string[10];
+        private static string[] RankNameList { get; set; } = new string[10];
+        private static string[] PRankNameList { get; set; } = new string[10];
+        private static string[] PPRankNameList { get; set; } = new string[10];
+        private static string[] PPPRankNameList { get; set; } = new string[10];
+        private static string[] RankProgList { get; set; } = new string[10];
+        private static string[] PGList { get; set; } = new string[10];
+        private static string[] PPGList { get; set; } = new string[10];
+        private static string[] PPPGList { get; set; } = new string[10];
+        private static bool[] IsIncognito { get; set; } = new bool[10];
+        private static string[] TrackerUrlList { get; set; } = new string[10];
+        private static string[] TrackerEnabledList { get; set; } = new string[10];
+        private static string[] TrackerDisabledList { get; set; } = new string[10];
+        private static string[] VandalList { get; set; } = new string[10];
+        private static string[] PhantomList { get; set; } = new string[10];
+        private static string[] VandalNameList { get; set; } = new string[10];
+        private static string[] PhantomNameList { get; set; } = new string[10];
 
-        public static string DoCachedRequest(Method method, string url, bool add_riot_auth, bool bypass_cache = false) // Thank you MitchC for this, I am always touched when random people go out of the way to help others even though they know that we would be clueless and need to ask alot of followup questions
+        private static string DoCachedRequest(Method method, string url, bool add_riot_auth, bool bypass_cache = false) // Thank you MitchC for this, I am always touched when random people go out of the way to help others even though they know that we would be clueless and need to ask alot of followup questions
         {
             var tsk = DoCachedRequestAsync(method, url, add_riot_auth, bypass_cache);
             return tsk.Result;
         }
 
-        // TODO: Add dictonary for locales
-
-        public static async Task<string> DoCachedRequestAsync(Method method, string url, bool add_riot_auth,
+        private static async Task<string> DoCachedRequestAsync(Method method, string url, bool add_riot_auth,
             bool bypass_cache = false)
         {
             var attempt_cache = method == Method.GET && !bypass_cache;
@@ -307,7 +307,7 @@ namespace WAIUA.Commands
 
         private void LiveMatchSetup()
         {
-            Parallel.Invoke(GetSeasons, GetLatestVersion);
+            Parallel.Invoke(GetSeasons, GetLatestVersion, GetLanguage);
             string url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
             RestClient client = new(url);
             RestRequest request = new(Method.GET);
@@ -387,6 +387,11 @@ namespace WAIUA.Commands
             return output;
         }
 
+        private static void GetLanguage()
+        {
+            Language = Models.LanguageConverter.ValApicomDictionary.GetValueOrDefault(Properties.Settings.Default.Language);
+        }
+
         private static void GetIGCUsername(sbyte playerno)
         {
             if (IsIncognito[playerno])
@@ -417,7 +422,7 @@ namespace WAIUA.Commands
             {
                 if (!String.IsNullOrEmpty(agent))
                 {
-                    string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/agents/{agent}", false);
+                    string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/agents/{agent}?language={Language}", false);
                     var agentinfo = JsonConvert.DeserializeObject(content);
                     JToken agentinfoObj = JObject.FromObject(agentinfo);
                     AgentPList[playerno] = agentinfoObj["data"]["killfeedPortrait"].Value<string>();
@@ -468,7 +473,7 @@ namespace WAIUA.Commands
                     }
                     else
                     {
-                        string vandalcontent = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/weapons/skinchromas/{vandalchroma}", false);
+                        string vandalcontent = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/weapons/skinchromas/{vandalchroma}?language={Language}", false);
                         var vandalinfo = JsonConvert.DeserializeObject(vandalcontent);
                         JToken vandalinfoObj = JObject.FromObject(vandalinfo);
                         VandalList[playerno] = vandalinfoObj["data"]["displayIcon"].Value<string>();
@@ -481,7 +486,7 @@ namespace WAIUA.Commands
                     }
                     else
                     {
-                        string phantomcontent = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/weapons/skinchromas/{phantomchroma}", false);
+                        string phantomcontent = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/weapons/skinchromas/{phantomchroma}?language={Language}", false);
                         var phantominfo = JsonConvert.DeserializeObject(phantomcontent);
                         JToken phantominfoObj = JObject.FromObject(phantominfo);
                         PhantomList[playerno] = phantominfoObj["data"]["displayIcon"].Value<string>();
@@ -746,7 +751,8 @@ namespace WAIUA.Commands
 
         public static string GetRankName(string rank)
         {
-            string content = DoCachedRequest(Method.GET, "https://valorant-api.com/v1/competitivetiers", false);
+            string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/competitivetiers?language={Language}", false);
+            
             dynamic agentinfo = JsonConvert.DeserializeObject(content);
             string name = null;
             foreach (var tiers in agentinfo.data[2].tiers)

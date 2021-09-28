@@ -184,6 +184,7 @@
                 Grid.Row="2"
                 Grid.Column="2"
                 Height="5"
+                Margin="10,0,0,0"
                 VerticalAlignment="Bottom"
                 Background="Transparent"
                 BorderThickness="0.5"
