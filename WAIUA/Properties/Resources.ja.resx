@@ -145,14 +145,13 @@
     <value>現在のバージョン: </value>
   </data>
   <data name="CheckUpdates" xml:space="preserve">
-    <value>アップデートのチェック</value>
+    <value>アップデートを確認</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>ログイン</value>
   </data>
   <data name="SettingsInfoExplanation2" xml:space="preserve">
     <value>アカウントに関する全ての情報はRiotのサーバーで直接処理されており、ローカルもしくはオンラインでもパスワードは保管されていません。</value>
-    <comment>Fuzzy</comment>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
     <value>認証ステータス</value>
@@ -176,36 +175,36 @@
     <value>未認証</value>
   </data>
   <data name="Translator" xml:space="preserve">
-    <value>Aronにより日本語に翻訳</value>
+    <value>日本語翻訳: Aron, Soneliem, nepixjp</value>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>クリックで試合を更新</value>
   </data>
   <data name="SettingsExplanation" xml:space="preserve">
-    <value></value>
+    <value>アプリとアカウントの設定</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value></value>
+    <value>設定</value>
   </data>
   <data name="SettingsInfoExplanation1" xml:space="preserve">
-    <value></value>
+    <value>このページでは手動ログインや、アプリの言語変更などができます。</value>
   </data>
   <data name="SelLanguageTitle" xml:space="preserve">
-    <value></value>
+    <value>言語を選択</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value></value>
+    <value>エラー</value>
   </data>
   <data name="Refreshing" xml:space="preserve">
-    <value></value>
+    <value>更新中…</value>
   </data>
   <data name="NoMatch" xml:space="preserve">
-    <value></value>
+    <value>試合が検出されませんでした</value>
   </data>
   <data name="NoValGame" xml:space="preserve">
-    <value></value>
+    <value>まずValorantを開いてください</value>
   </data>
   <data name="TrackerToolTip" xml:space="preserve">
-    <value></value>
+    <value>Tracker.gg上のプロフィールを開く</value>
   </data>
 </root>
