@@ -183,7 +183,7 @@
             <ProgressBar
                 Grid.Row="2"
                 Grid.Column="2"
-                Height="5"
+                Height="4.5"
                 Margin="10,0,0,0"
                 VerticalAlignment="Bottom"
                 Background="Transparent"
