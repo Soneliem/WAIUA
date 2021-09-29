@@ -189,7 +189,7 @@
     <value>Settings</value>
   </data>
   <data name="SettingsInfoExplanation1" xml:space="preserve">
-    <value>This page let&apos;s you manually sign in, change the app language, etc.</value>
+    <value>This page lets you manually sign in, change the app language, etc.</value>
   </data>
   <data name="SelLanguageTitle" xml:space="preserve">
     <value>Select Language</value>
