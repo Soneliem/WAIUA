@@ -51,7 +51,7 @@ namespace WAIUA.Views
             int index = combo.SelectedIndex;
             Thread.CurrentThread.CurrentCulture = LanguageList[index];
             Thread.CurrentThread.CurrentUICulture = LanguageList[index];
-            Properties.Settings.Default.Language = LanguageList[index].IetfLanguageTag;
+            Properties.Settings.Default.Language = LanguageList[index].TwoLetterISOLanguageName;
         }
 
         private static IEnumerable<CultureInfo> GetAvailableCultures()

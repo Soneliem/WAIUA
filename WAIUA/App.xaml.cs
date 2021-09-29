@@ -18,10 +18,17 @@ namespace WAIUA
         {
             _navigationStore = new NavigationStore();
             _modalNavigationStore = new ModalNavigationStore();
+
+            if (WAIUA.Properties.Settings.Default.Language.Length >= 3)
+            {
+                WAIUA.Properties.Settings.Default.Reset();
+            };
+
             if (string.IsNullOrEmpty(WAIUA.Properties.Settings.Default.Language))
             {
                 Thread.CurrentThread.CurrentCulture = CultureInfo.InstalledUICulture;
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.InstalledUICulture;
+                WAIUA.Properties.Settings.Default.Language = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName;
             }
             else
             {
