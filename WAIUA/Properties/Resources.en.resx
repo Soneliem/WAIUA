@@ -152,7 +152,6 @@
   </data>
   <data name="SettingsInfoExplanation2" xml:space="preserve">
     <value>All communication regarding your credentials is done directly with Riot servers with no storage of passwords being done locally or online.</value>
-    <comment>Fuzzy</comment>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
     <value>Authentication Status</value>
@@ -189,7 +188,7 @@
     <value>Settings</value>
   </data>
   <data name="SettingsInfoExplanation1" xml:space="preserve">
-    <value>This page let&apos;s you manually sign in, change the app language, etc.</value>
+    <value>This page lets you manually sign in, change the app language, etc.</value>
   </data>
   <data name="SelLanguageTitle" xml:space="preserve">
     <value>Select Language</value>
