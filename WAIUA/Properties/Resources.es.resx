@@ -121,7 +121,7 @@
     <value>Cargar Partida</value>
   </data>
   <data name="LoadMatchExplanation" xml:space="preserve">
-    <value>Esto carga los datos de partida en vivo si están disponibles. Esto debería tomar menos de 10 segundos.</value>
+    <value>Cargar los datos de partida en vivo si están disponibles. Debería tomar menos de 10 segundos.</value>
   </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>Información</value>
@@ -133,7 +133,7 @@
     <value>Únete a mi Discord</value>
   </data>
   <data name="JoinDiscordSub" xml:space="preserve">
-    <value>Por si acaso de que necesites apoyo o cualquier otra cosa</value>
+    <value>Por si acaso necesitas apoyo, etcétera</value>
   </data>
   <data name="Author" xml:space="preserve">
     <value>Desarrollado Por Soneliem</value>
@@ -157,7 +157,7 @@
     <value>Estado de Autenticación</value>
   </data>
   <data name="AuthStatusDefault" xml:space="preserve">
-    <value>Haga clic debajo para actualizar</value>
+    <value>Haz clic debajo para actualizar</value>
   </data>
   <data name="AuthStatusButton" xml:space="preserve">
     <value>Comprobar la Autenticación</value>
@@ -166,7 +166,7 @@
     <value>Autenticado como:</value>
   </data>
   <data name="AutoLoginTitle" xml:space="preserve">
-    <value>Inicio de Sesión Automático</value>
+    <value>Inicio Automático de Sesión</value>
   </data>
   <data name="AutoLoginExplanation" xml:space="preserve">
     <value>Nota: Valorant necesita estar abierto para que esto funcione</value>
@@ -175,22 +175,22 @@
     <value>No Autenticado</value>
   </data>
   <data name="Translator" xml:space="preserve">
-    <value>Traducido al Español Por ZzyzxFox</value>
+    <value>Traducido al Español Por ZzyzxFox, FamiTom</value>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
-    <value>Haga clic aquí Para Actualizar el partido</value>
+    <value>Haz clic aquí para actualizar el partido</value>
   </data>
   <data name="SettingsExplanation" xml:space="preserve">
-    <value>Encuentra la configuración de la aplicación y de cuenta aquí</value>
+    <value>Aquí se encuentra la configuración de la aplicación y de cuenta</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Configuración</value>
   </data>
   <data name="SettingsInfoExplanation1" xml:space="preserve">
-    <value>Esta página le permite iniciar sesión manualmente, cambiar el idioma de la aplicación, etc.</value>
+    <value>Esta página te permite iniciar sesión manualmente, cambiar el idioma de la aplicación, etc.</value>
   </data>
   <data name="SelLanguageTitle" xml:space="preserve">
-    <value>Seleccione el Idioma</value>
+    <value>Seleccionar Idioma</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
@@ -199,7 +199,7 @@
     <value>Actualizando...</value>
   </data>
   <data name="NoMatch" xml:space="preserve">
-    <value>No ha se detectado ningúna partida</value>
+    <value>No se ha detectado ningúna partida</value>
   </data>
   <data name="NoValGame" xml:space="preserve">
     <value>Por Favor, Inicie Valorant Primero</value>
