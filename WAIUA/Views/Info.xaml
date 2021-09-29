@@ -118,7 +118,8 @@
                 <TextBlock
                     FontSize="30"
                     Foreground="White"
-                    Text="{x:Static p:Resources.SettingsTitle}" />
+                    Text="{x:Static p:Resources.SettingsTitle}"
+                    TextWrapping="Wrap" />
                 <TextBlock
                     FontSize="20"
                     Foreground="White"
@@ -126,32 +127,35 @@
                     Text="{x:Static p:Resources.SettingsExplanation}"
                     TextWrapping="Wrap" />
             </StackPanel>
-            <Viewbox Grid.Column="0" VerticalAlignment="Bottom">
-                <StackPanel>
-                    <Image
-                        Height="100"
-                        HorizontalAlignment="Center"
-                        RenderOptions.BitmapScalingMode="HighQuality"
-                        Source="/Assets/discord.png" />
-                    <TextBlock
-                        FontSize="30"
-                        Foreground="White"
-                        TextAlignment="Center">
-                        <Hyperlink NavigateUri="https://discord.gg/X7CYCeZSRK" RequestNavigate="HandleLinkClick">
-                            <Hyperlink.Inlines>
-                                <Run Text="{x:Static p:Resources.JoinDiscord}" />
-                            </Hyperlink.Inlines>
-                        </Hyperlink>
-                    </TextBlock>
-                    <TextBlock
-                        FontSize="20"
-                        Foreground="White"
-                        Opacity="0.7"
-                        Text="{x:Static p:Resources.JoinDiscordSub}"
-                        TextAlignment="Center"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </Viewbox>
+            <StackPanel
+                Grid.Column="0"
+                Width="Auto"
+                VerticalAlignment="Bottom">
+                <Image
+                    Height="100"
+                    HorizontalAlignment="Center"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Source="/Assets/discord.png" />
+                <TextBlock
+                    FontSize="30"
+                    Foreground="White"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap">
+                    <Hyperlink NavigateUri="https://discord.gg/X7CYCeZSRK" RequestNavigate="HandleLinkClick">
+                        <Hyperlink.Inlines>
+                            <Run Text="{x:Static p:Resources.JoinDiscord}" />
+                        </Hyperlink.Inlines>
+                    </Hyperlink>
+                </TextBlock>
+                <TextBlock
+                    Width="Auto"
+                    FontSize="20"
+                    Foreground="White"
+                    Opacity="0.7"
+                    Text="{x:Static p:Resources.JoinDiscordSub}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+            </StackPanel>
         </Grid>
         <Grid
             Grid.Row="1"
@@ -172,7 +176,8 @@
                     FontSize="30"
                     Foreground="White"
                     Text="{x:Static p:Resources.LoadMatchTitle}"
-                    TextAlignment="Center" />
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
                 <TextBlock
                     FontSize="20"
                     Foreground="White"
@@ -181,64 +186,63 @@
                     TextAlignment="Center"
                     TextWrapping="Wrap" />
             </StackPanel>
-            <Viewbox
+
+            <StackPanel
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
                 VerticalAlignment="Bottom">
-                <StackPanel VerticalAlignment="Bottom">
-                    <Button
-                        Margin="30,0,30,0"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Top"
-                        Click="Button_Click"
-                        Template="{StaticResource ButtonTemplate}">
+                <Button
+                    Margin="30,0,30,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Click="Button_Click"
+                    Template="{StaticResource ButtonTemplate}">
 
-                        <Viewbox>
-                            <TextBlock
-                                Padding="5"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                FontWeight="Normal"
-                                Foreground="#007EF9"
-                                Text="{x:Static p:Resources.CheckUpdates}" />
-                        </Viewbox>
-                    </Button>
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Viewbox>
                         <TextBlock
-                            FontSize="20"
-                            Foreground="White"
-                            Opacity="0.7"
-                            Text="{x:Static p:Resources.Latestversion}"
-                            TextAlignment="Left"
-                            TextWrapping="Wrap" />
-                        <TextBlock
-                            x:Name="LatestVersion"
-                            FontSize="20"
-                            Foreground="White"
-                            Opacity="0.7"
-                            Text=""
-                            TextAlignment="Left"
-                            TextWrapping="Wrap" />
-                    </StackPanel>
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock
-                            FontSize="20"
-                            Foreground="White"
-                            Opacity="0.7"
-                            Text="{x:Static p:Resources.CurrentVersion}"
-                            TextAlignment="Left"
-                            TextWrapping="Wrap" />
-                        <TextBlock
-                            x:Name="CurrentVersion"
-                            FontSize="20"
-                            Foreground="White"
-                            Opacity="0.7"
-                            Text=""
-                            TextAlignment="Left"
-                            TextWrapping="Wrap" />
-                    </StackPanel>
+                            Padding="5"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontWeight="Normal"
+                            Foreground="#007EF9"
+                            Text="{x:Static p:Resources.CheckUpdates}" />
+                    </Viewbox>
+                </Button>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="20"
+                        Foreground="White"
+                        Opacity="0.7"
+                        Text="{x:Static p:Resources.Latestversion}"
+                        TextAlignment="Left"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        x:Name="LatestVersion"
+                        FontSize="20"
+                        Foreground="White"
+                        Opacity="0.7"
+                        Text=""
+                        TextAlignment="Left"
+                        TextWrapping="Wrap" />
                 </StackPanel>
-            </Viewbox>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="20"
+                        Foreground="White"
+                        Opacity="0.7"
+                        Text="{x:Static p:Resources.CurrentVersion}"
+                        TextAlignment="Left"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        x:Name="CurrentVersion"
+                        FontSize="20"
+                        Foreground="White"
+                        Opacity="0.7"
+                        Text=""
+                        TextAlignment="Left"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </StackPanel>
         </Grid>
         <Grid
             Grid.Row="1"
@@ -257,7 +261,8 @@
                     FontSize="30"
                     Foreground="White"
                     Text="{x:Static p:Resources.InfoTitle}"
-                    TextAlignment="Right" />
+                    TextAlignment="Right"
+                    TextWrapping="Wrap" />
                 <TextBlock
                     FontSize="20"
                     Foreground="White"
@@ -266,31 +271,30 @@
                     TextAlignment="Right"
                     TextWrapping="Wrap" />
             </StackPanel>
-            <Viewbox Grid.Column="1" VerticalAlignment="Bottom">
-                <StackPanel>
-                    <Image
-                        Height="100"
-                        HorizontalAlignment="Center"
-                        Source="/Assets/Soneliem.png" />
-                    <TextBlock
-                        FontSize="30"
-                        Foreground="White"
-                        TextAlignment="Center">
-                        <Hyperlink NavigateUri="https://github.com/Soneliem" RequestNavigate="HandleLinkClick">
-                            <Hyperlink.Inlines>
-                                <Run Text="{x:Static p:Resources.Author}" />
-                            </Hyperlink.Inlines>
-                        </Hyperlink>
-                    </TextBlock>
-                    <TextBlock
-                        FontSize="20"
-                        Foreground="White"
-                        Opacity="0.7"
-                        Text="{x:Static p:Resources.Translator}"
-                        TextAlignment="Center"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </Viewbox>
+            <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
+                <Image
+                    Height="100"
+                    HorizontalAlignment="Center"
+                    Source="/Assets/Soneliem.png" />
+                <TextBlock
+                    FontSize="30"
+                    Foreground="White"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap">
+                    <Hyperlink NavigateUri="https://github.com/Soneliem" RequestNavigate="HandleLinkClick">
+                        <Hyperlink.Inlines>
+                            <Run Text="{x:Static p:Resources.Author}" />
+                        </Hyperlink.Inlines>
+                    </Hyperlink>
+                </TextBlock>
+                <TextBlock
+                    FontSize="20"
+                    Foreground="White"
+                    Opacity="0.7"
+                    Text="{x:Static p:Resources.Translator}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+            </StackPanel>
         </Grid>
         <StackPanel
             Grid.Row="1"
@@ -307,7 +311,8 @@
                 HorizontalAlignment="Center"
                 FontSize="45"
                 FontWeight="SemiBold"
-                Foreground="White">
+                Foreground="White"
+                TextWrapping="Wrap">
                 WAIUA
             </TextBlock>
             <TextBlock
@@ -315,7 +320,8 @@
                 FontSize="25"
                 FontWeight="DemiBold"
                 Foreground="#32e2b2"
-                Text="Who Am I Up Against?" />
+                Text="Who Am I Up Against?"
+                TextWrapping="Wrap" />
         </StackPanel>
     </Grid>
 </UserControl>

@@ -15,6 +15,7 @@
     <PackageIconUrl />
     <RepositoryUrl>https://github.com/Soneliem/WAIUA</RepositoryUrl>
     <NeutralLanguage>en</NeutralLanguage>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
