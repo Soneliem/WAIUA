@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LoadMatchTitle" xml:space="preserve">
-    <value>Загрузите матче</value>
+    <value>Загрузить матч</value>
   </data>
   <data name="LoadMatchExplanation" xml:space="preserve">
     <value>Загружает данные о матчах в реальном времени, если таковые имеются. Это должно занять менее 10 секунд.</value>
@@ -127,13 +127,13 @@
     <value>Информация</value>
   </data>
   <data name="InfoExplanation" xml:space="preserve">
-    <value>Ты уже на этой странице идиот</value>
+    <value>Ты уже на этой странице, идиот</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>Присоединяйтесь к моему дискорд серверу</value>
   </data>
   <data name="JoinDiscordSub" xml:space="preserve">
-    <value>На всякий случай, если вам понадобится поддержка</value>
+    <value>Для поддержки и прочего</value>
   </data>
   <data name="Author" xml:space="preserve">
     <value>Создано Soneliem</value>
@@ -145,13 +145,13 @@
     <value>Текущая Версия: </value>
   </data>
   <data name="CheckUpdates" xml:space="preserve">
-    <value>Проверьте наличие обновлений</value>
+    <value>Проверить обновления</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Вход</value>
   </data>
   <data name="SettingsInfoExplanation2" xml:space="preserve">
-    <value>Все коммуникации, касающиеся ваших учетных данных, осуществляются напрямую с серверами RIOT, при этом пароли не хранятся ни локально, ни в Интернете.</value>
+    <value>Все взаимодействия относительно ваших учетных данных, осуществляются напрямую с серверами RIOT, при этом пароли не хранятся ни локально, ни в Интернете.</value>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
     <value>Статус аутентификации</value>
@@ -175,7 +175,7 @@
     <value>Не аутентифицирован</value>
   </data>
   <data name="Translator" xml:space="preserve">
-    <value>Переведено на русский Язык ZzyzxFox</value>
+    <value>Переведено на русский Язык ZzyzxFox и DXGames</value>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Нажмите, чтобы обновить матч</value>
@@ -196,10 +196,10 @@
     <value>Ошибка</value>
   </data>
   <data name="Refreshing" xml:space="preserve">
-    <value>Обновление страницы...</value>
+    <value>Обновление...</value>
   </data>
   <data name="NoMatch" xml:space="preserve">
-    <value>Матч не обнаружено</value>
+    <value>Матч не обнаружен</value>
   </data>
   <data name="NoValGame" xml:space="preserve">
     <value>Пожалуйста, сначала запустите Валорант</value>
