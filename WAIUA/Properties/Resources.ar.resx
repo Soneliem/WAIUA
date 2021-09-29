@@ -152,7 +152,6 @@
   </data>
   <data name="SettingsInfoExplanation2" xml:space="preserve">
     <value>تتم جميع الاتصالات المتعلقة ببيانات الاعتماد الخاصة بك مباشرةً مع خوادم ريُت دون تخزين كلمات المرور محليًا أو عبر الإنترنت</value>
-    <comment>Fuzzy</comment>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
     <value>حالة المصادقة</value>
@@ -183,30 +182,32 @@
     <value>ادغط لتحديث المباراة</value>
   </data>
   <data name="SettingsExplanation" xml:space="preserve">
-    <value>Find app and account settings here</value>
+    <value>ابحث عن إعدادات التطبيق والحساب هنا</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>Settings</value>
+    <value>اعدادات</value>
   </data>
   <data name="SettingsInfoExplanation1" xml:space="preserve">
-    <value>This page lets you manually sign in, change the app language, etc.</value>
+    <value>تسمح هذه الصفحة تسجيل الدخول يدويًا وتغيير لغة التطبيق وما إلى ذلك.</value>
   </data>
   <data name="SelLanguageTitle" xml:space="preserve">
-    <value>Select Language</value>
+    <value>اختر اللغة
+
+</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Error</value>
+    <value>خطأ</value>
   </data>
   <data name="Refreshing" xml:space="preserve">
-    <value>Refreshing...</value>
+    <value>يحدث...</value>
   </data>
   <data name="NoMatch" xml:space="preserve">
-    <value>No Match Detected</value>
+    <value>لا مباراة موجودة...</value>
   </data>
   <data name="NoValGame" xml:space="preserve">
-    <value>Please Open Valorant First</value>
+    <value>افتح فالورانت أولًا</value>
   </data>
   <data name="TrackerToolTip" xml:space="preserve">
-    <value>Open Tracker.gg Profile</value>
+    <value>افتح الملف الشخصي لtracker.gg</value>
   </data>
 </root>
