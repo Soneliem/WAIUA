@@ -5,7 +5,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>logo.ico</ApplicationIcon>
-    <Version>1.3.0.0</Version>
+    <Version>1.3.1.0</Version>
     <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
     <StartupObject>WAIUA.App</StartupObject>
     <Description>A Windows app to view player ranks and stats in a live Valorant Match</Description>
@@ -16,6 +16,7 @@
     <RepositoryUrl>https://github.com/Soneliem/WAIUA</RepositoryUrl>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>Soneliem</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -28,15 +29,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.de.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.en.resx">
       <DependentUpon>Resources.resx</DependentUpon>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.fr.resx">
       <DependentUpon>Resources.resx</DependentUpon>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.ja.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>

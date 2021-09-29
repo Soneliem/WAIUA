@@ -272,7 +272,7 @@ namespace WAIUA.Commands
                 }
                 else
                 {
-                    MessageBox.Show(Properties.Resources.NoMatch, "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+                    MessageBox.Show(Properties.Resources.NoMatch, Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
                     output = false;
                 }
             }
@@ -291,13 +291,13 @@ namespace WAIUA.Commands
                     }
                     else
                     {
-                        MessageBox.Show(Properties.Resources.NoMatch, "Error", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+                        MessageBox.Show(Properties.Resources.NoMatch, Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
                         output = false;
                     }
                 }
                 else
                 {
-                    MessageBox.Show(Properties.Resources.NoValGame, "Error", MessageBoxButton.OK,
+                    MessageBox.Show(Properties.Resources.NoValGame, Properties.Resources.Error, MessageBoxButton.OK,
                         MessageBoxImage.Question, MessageBoxResult.OK);
                     output = false;
                 }

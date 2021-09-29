@@ -142,7 +142,6 @@ Discord Server:
 ## Acknowledgements
 
 * [techchrism for work on documenting Valorant endpoints](https://github.com/techchrism/valorant-api-docs)
-* [RumbleMike for base C# authentication flow](https://github.com/RumbleMike/ValorantClientAPI)
 * [Valorant-API.com for all images, etc](https://valorant-api.com/)
 * [The guys on the Valorant App Developers Discord Server](https://discord.gg/a9yzrw3KAm)
 * This project uses Riot's unofficial-private-notforpublicuse API for most of the information. Riot pls no kil

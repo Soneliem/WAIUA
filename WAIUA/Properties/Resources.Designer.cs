@@ -149,6 +149,15 @@ namespace WAIUA.Properties {
                 return ResourceManager.GetString("CurrentVersion", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to You&apos;re on this page idiot.
