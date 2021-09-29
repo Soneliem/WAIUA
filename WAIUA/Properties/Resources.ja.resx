@@ -130,7 +130,7 @@
     <value>このページだよバーカ</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
-    <value>ディスコードに参加</value>
+    <value>Discordに参加</value>
   </data>
   <data name="JoinDiscordSub" xml:space="preserve">
     <value>サポート類はここ</value>
@@ -175,7 +175,7 @@
     <value>未認証</value>
   </data>
   <data name="Translator" xml:space="preserve">
-    <value>日本語翻訳: Aron, Soneliem, nepixjp</value>
+    <value>日本語翻訳: Aron, nepixjp</value>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>クリックで試合を更新</value>
