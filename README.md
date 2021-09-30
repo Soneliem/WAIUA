@@ -55,11 +55,12 @@
 **WAIUA** - Pronounced: Why? Whaaa??
 
 
-A simple(for you, not me) Windows GUI app that lets you see the ranks, recent games and other info of players in a live Valorant match while you're still playing it. What you see above is what you get (for now).
+"Who Am I Up Against?" is simple Windows app that lets you see the ranks, recent games and other info of players in a live Valorant match while you're still playing it. What you see above is what you get (for now).
 
 ### Current Features
+
 Displays for each player:
-|Current Rank|Past three ranks (from last 3 acts, not last 3 played acts)|W/L indicator for last three competitive games|Player card and Account Level|In-game name, Agent and Title|Vandal And Phantom Skin|
+|Current Rank|Past three ranks (from last 3 acts, not last 3 played acts)|W/L indicator for last three competitive games|Player card and Account Level|In-game name and Agent|Vandal And Phantom Skin|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |![rank](Screenshots/rank.png)|![rank](Screenshots/pranks.png)|![rank](Screenshots/history.png)|![card](Screenshots/card.png)|![name](Screenshots/name.png)|![skin](Screenshots/skin.png)|
 
@@ -83,17 +84,9 @@ To get the app up and running follow these simple steps.
 
 Please ensure you are in a match when you try to use it. I swear if you complain about it not working and you're not in a match...
 
-If Valorant is already running:
 1. Ensure you are in a match (after selecting agents)
 2. Press the big "Click To Load Match Info" button and wait about 7 seconds
 3. Profit
-
-If Valorant is not running:
-1. Press the account button in the top left
-2. Use your Riot Account details to log in. Remember to select your region from the bottom left.
-3. Ensure you are in a match (after selecting agents). idk about you but wouldn't you need to have Valorant open for this?
-3. Press the big "Click To Load Match Info" button and wait about 7 seconds
-4. Profit slightly less
 
 ## Roadmap and Known Bugs
 
