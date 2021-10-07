@@ -722,7 +722,7 @@ namespace WAIUA.Commands
             string content = DoCachedRequest(Method.GET, "https://valorant-api.com/v1/competitivetiers", false);
             dynamic agentinfo = JsonConvert.DeserializeObject(content);
             string output = "";
-            foreach (var tiers in agentinfo.data[2].tiers)
+            foreach (var tiers in agentinfo.data[3].tiers)
             {
                 if (tiers.tier == rank)
                 {
@@ -738,7 +738,7 @@ namespace WAIUA.Commands
             string content = DoCachedRequest(Method.GET, "https://valorant-api.com/v1/competitivetiers", false);
             dynamic agentinfo = JsonConvert.DeserializeObject(content);
             string output = "";
-            foreach (var tiers in agentinfo.data[2].tiers)
+            foreach (var tiers in agentinfo.data[3].tiers)
             {
                 if (tiers.tier == rank)
                 {
@@ -755,7 +755,7 @@ namespace WAIUA.Commands
             
             dynamic agentinfo = JsonConvert.DeserializeObject(content);
             string name = null;
-            foreach (var tiers in agentinfo.data[2].tiers)
+            foreach (var tiers in agentinfo.data[3].tiers)
             {
                 if (tiers.tier == rank)
                 {
