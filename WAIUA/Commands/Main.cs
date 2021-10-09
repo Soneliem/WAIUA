@@ -90,9 +90,18 @@ namespace WAIUA.Commands
                 request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
                 request.AddHeader("X-Riot-ClientVersion", $"{Version}");
             }
-            var cont = (await client.ExecuteAsync(request)).Content;
-            if (attempt_cache) Dictionary.url_to_body.TryAdd(url, cont);
-            return cont;
+            var resp = (await client.ExecuteAsync(request));
+            if (resp.IsSuccessful && resp.RawBytes != null)
+            {
+                var cont = resp.Content;
+
+                if (attempt_cache) Dictionary.url_to_body.TryAdd(url, cont);
+                return cont;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         
@@ -601,22 +610,24 @@ namespace WAIUA.Commands
 
                     if (rank is "21" or "22" or "23")
                     {
-                        string content2 = DoCachedRequest(Method.GET, $"https://pd.{Shard}.a.pvp.net/mmr/v1/leaderboards/affinity/{Region}/queue/competitive/season/{CurrentSeason}?startIndex=0&size=0", true);
-                        dynamic contentobj2 = JObject.Parse(content2);
-                        switch (rank)
-                        {
-                            case "21":
-                                MaxRRList[playerno] = contentobj2.tierDetails[22].rankedRatingThreshold;
-                                break;
 
-                            case "22":
-                                MaxRRList[playerno] = contentobj2.tierDetails[23].rankedRatingThreshold;
-                                break;
+                            string content2 = DoCachedRequest(Method.GET, $"https://pd.{Shard}.a.pvp.net/mmr/v1/leaderboards/affinity/{Region}/queue/competitive/season/{CurrentSeason}?startIndex=0&size=0", true);
+                            dynamic contentobj2 = JObject.Parse(content2);
+                            switch (rank)
+                            {
+                                case "21":
+                                    MaxRRList[playerno] = contentobj2.tierDetails["22"].rankedRatingThreshold;
+                                    break;
 
-                            case "23":
-                                MaxRRList[playerno] = contentobj2.tierDetails[24].rankedRatingThreshold;
-                                break;
-                        }
+                                case "22":
+                                    MaxRRList[playerno] = contentobj2.tierDetails["23"].rankedRatingThreshold;
+                                    break;
+
+                                case "23":
+                                    MaxRRList[playerno] = contentobj2.tierDetails["24"].rankedRatingThreshold;
+                                    break;
+                            }
+                       
                     }
                     else
                     {
