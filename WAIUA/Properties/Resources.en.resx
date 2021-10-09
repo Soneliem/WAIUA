@@ -176,7 +176,6 @@
   </data>
   <data name="Translator" xml:space="preserve">
     <value>Translated into English By Soneliem</value>
-    <comment>Fuzzy</comment>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Click To Refresh Match</value>
