@@ -190,7 +190,7 @@
     <value>Cette page vous permet de vous connecter, changer la langue de l&apos;appli, etc.</value>
   </data>
   <data name="SelLanguageTitle" xml:space="preserve">
-    <value>Selectio</value>
+    <value>Sélectionner Language</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Erreur</value>
