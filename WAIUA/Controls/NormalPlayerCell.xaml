@@ -193,7 +193,6 @@
                 Minimum="0"
                 ToolTip="{Binding RankProgress, ElementName=Self}"
                 Value="{Binding RankProgress, ElementName=Self}" />
-
         </Grid>
     </Border>
 </UserControl>

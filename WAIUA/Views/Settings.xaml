@@ -77,7 +77,7 @@
                         <Grid>
                             <ToggleButton
                                 Name="ToggleButton"
-                                Grid.Column="2"
+                                Grid.Column="0"
                                 ClickMode="Press"
                                 Focusable="false"
                                 IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
@@ -151,7 +151,6 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers />
         </Style>
 
         <!--  SimpleStyles: ComboBoxItem  -->

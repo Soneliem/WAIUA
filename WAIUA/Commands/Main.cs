@@ -104,7 +104,6 @@ namespace WAIUA.Commands
             }
         }
 
-        
         public static bool GetSetPPUUID()
         {
             RestClient client = new(new Uri("https://auth.riotgames.com/userinfo"));
@@ -578,6 +577,7 @@ namespace WAIUA.Commands
                     try
                     {
                         rank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{CurrentSeason}"].CompetitiveTier;
+                        if (rank is "1" or "2") rank = "0";
                     }
                     catch (Exception)
                     {
@@ -586,6 +586,7 @@ namespace WAIUA.Commands
                     try
                     {
                         prank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{PSeason}"].CompetitiveTier;
+                        if (prank is "1" or "2") prank = "0";
                     }
                     catch (Exception)
                     {
@@ -594,6 +595,7 @@ namespace WAIUA.Commands
                     try
                     {
                         pprank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{PPSeason}"].CompetitiveTier;
+                        if (pprank is "1" or "2") pprank = "0";
                     }
                     catch (Exception)
                     {
@@ -602,6 +604,7 @@ namespace WAIUA.Commands
                     try
                     {
                         ppprank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{PPPSeason}"].CompetitiveTier;
+                        if (ppprank is "1" or "2") ppprank = "0";
                     }
                     catch (Exception)
                     {
@@ -610,24 +613,22 @@ namespace WAIUA.Commands
 
                     if (rank is "21" or "22" or "23")
                     {
+                        string content2 = DoCachedRequest(Method.GET, $"https://pd.{Shard}.a.pvp.net/mmr/v1/leaderboards/affinity/{Region}/queue/competitive/season/{CurrentSeason}?startIndex=0&size=0", true);
+                        dynamic contentobj2 = JObject.Parse(content2);
+                        switch (rank)
+                        {
+                            case "21":
+                                MaxRRList[playerno] = contentobj2.tierDetails["22"].rankedRatingThreshold;
+                                break;
 
-                            string content2 = DoCachedRequest(Method.GET, $"https://pd.{Shard}.a.pvp.net/mmr/v1/leaderboards/affinity/{Region}/queue/competitive/season/{CurrentSeason}?startIndex=0&size=0", true);
-                            dynamic contentobj2 = JObject.Parse(content2);
-                            switch (rank)
-                            {
-                                case "21":
-                                    MaxRRList[playerno] = contentobj2.tierDetails["22"].rankedRatingThreshold;
-                                    break;
+                            case "22":
+                                MaxRRList[playerno] = contentobj2.tierDetails["23"].rankedRatingThreshold;
+                                break;
 
-                                case "22":
-                                    MaxRRList[playerno] = contentobj2.tierDetails["23"].rankedRatingThreshold;
-                                    break;
-
-                                case "23":
-                                    MaxRRList[playerno] = contentobj2.tierDetails["24"].rankedRatingThreshold;
-                                    break;
-                            }
-                       
+                            case "23":
+                                MaxRRList[playerno] = contentobj2.tierDetails["24"].rankedRatingThreshold;
+                                break;
+                        }
                     }
                     else
                     {
@@ -763,7 +764,7 @@ namespace WAIUA.Commands
         public static string GetRankName(string rank)
         {
             string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/competitivetiers?language={Language}", false);
-            
+
             dynamic agentinfo = JsonConvert.DeserializeObject(content);
             string name = null;
             foreach (var tiers in agentinfo.data[3].tiers)
