@@ -140,10 +140,7 @@ namespace WAIUA.Commands
                 }
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         public static void LocalLogin()
@@ -729,7 +726,7 @@ namespace WAIUA.Commands
             }
         }
 
-        public static string GetLRankIcon(string rank)
+        private static string GetLRankIcon(string rank)
         {
             string content = DoCachedRequest(Method.GET, "https://valorant-api.com/v1/competitivetiers", false);
             dynamic agentinfo = JsonConvert.DeserializeObject(content);
@@ -745,7 +742,7 @@ namespace WAIUA.Commands
             return output;
         }
 
-        public static string GetRankIcon(string rank)
+        private static string GetRankIcon(string rank)
         {
             string content = DoCachedRequest(Method.GET, "https://valorant-api.com/v1/competitivetiers", false);
             dynamic agentinfo = JsonConvert.DeserializeObject(content);
@@ -761,7 +758,7 @@ namespace WAIUA.Commands
             return output;
         }
 
-        public static string GetRankName(string rank)
+        private static string GetRankName(string rank)
         {
             string content = DoCachedRequest(Method.GET, $"https://valorant-api.com/v1/competitivetiers?language={Language}", false);
 
@@ -778,7 +775,7 @@ namespace WAIUA.Commands
             return name;
         }
 
-        public static bool Tracker(string username, sbyte playerno)
+        private static bool Tracker(string username, sbyte playerno)
         {
             bool output = false;
             try
