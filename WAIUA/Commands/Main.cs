@@ -665,7 +665,7 @@ namespace WAIUA.Commands
         {
             try
             {
-                string url = $"https://shared.{Region}.a.pvp.net/content-service/v2/content";
+                string url = $"https://shared.{Region}.a.pvp.net/content-service/v3/content";
                 RestClient client = new(url);
                 RestRequest request = new(Method.GET);
                 request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
