@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Xml;
+using static WAIUA.ValAPI.ValAPI;
 
 namespace WAIUA.Views
 {
@@ -21,6 +22,7 @@ namespace WAIUA.Views
             CurrentVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             LatestVersion.Text = await Task.Run(GetLatestVerion);
             AutoUpdater.Start("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xml");
+            await CheckAndUpdateJson();
         }
 
         private string GetLatestVerion()
@@ -29,6 +31,7 @@ namespace WAIUA.Views
             xml.Load("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xml");
             XmlNodeList result = xml.GetElementsByTagName("version");
             return result[0].InnerText;
+
         }
 
         private void HandleLinkClick(object sender, RoutedEventArgs e)
