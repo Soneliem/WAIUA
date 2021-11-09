@@ -1,37 +1,29 @@
-(function ($) {
 
-  "use strict";
 
-    // COLOR MODE
-    $('.color-mode').click(function(){
-        $('.color-mode-icon').toggleClass('active')
-        $('body').toggleClass('dark-mode')
-    })
+
+$(document).ready(function() {
+  var download_count = 0;
+  var output;
+  const settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://api.github.com/repos/soneliem/waiua/releases",
+    "method": "GET",
+    "headers": {}
+  };
+  
+  $.ajax(settings).done(function (response) {
+    response.forEach(element => {
+      download_count = download_count + element.assets[0].download_count;
+    });
+    $("#download_count").html(download_count);
+    console.log(download_count);
+  });
+
 
     setInterval(function(){
-        // toggle the class every five second
         $('.about-text > h1 > span').toggleClass('hover');
-
     },5000);
 
-    // HEADER
-    $(".navbar").headroom();
 
-
-    // SMOOTHSCROLL
-    $(function() {
-      $('.nav-link, .custom-btn-link').on('click', function(event) {
-        var $anchor = $(this);
-        $('html, body').stop().animate({
-            scrollTop: $($anchor.attr('href')).offset().top - 49
-        }, 1000);
-        event.preventDefault();
-      });
-    });
-
-    // TOOLTIP
-    $('.social-links a').tooltip();
-
-
-
-})(jQuery);
+  });
