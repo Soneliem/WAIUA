@@ -1,212 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
+    <!-- 
+      Microsoft ResX Schema 
+      
+      Version 2.0
+      
+      The primary goals of this format is to allow a simple XML format 
+      that is mostly human readable. The generation and parsing of the 
+      various data types are done through the TypeConverter classes 
+      associated with the data types.
+      
+      Example:
+      
+      ... ado.net/XML headers & schema ...
+      <resheader name="resmimetype">text/microsoft-resx</resheader>
+      <resheader name="version">2.0</resheader>
+      <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+      <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+      <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+      <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+      <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+          <value>[base64 mime encoded serialized .NET Framework object]</value>
+      </data>
+      <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+          <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+          <comment>This is a comment</comment>
+      </data>
+                  
+      There are any number of "resheader" rows that contain simple 
+      name/value pairs.
+      
+      Each data row contains a name, and value. The row also contains a 
+      type or mimetype. Type corresponds to a .NET class that support 
+      text/value conversion through the TypeConverter architecture. 
+      Classes that don't support this are serialized and stored with the 
+      mimetype set.
+      
+      The mimetype is used for serialized objects, and tells the 
+      ResXResourceReader how to depersist the object. This is currently not 
+      extensible. For a given mimetype the value must be set accordingly:
+      
+      Note - application/x-microsoft.net.object.binary.base64 is the format 
+      that the ResXResourceWriter will generate, however the reader can 
+      read any of the formats listed below.
+      
+      mimetype: application/x-microsoft.net.object.binary.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+              : and then encoded with base64 encoding.
+      
+      mimetype: application/x-microsoft.net.object.soap.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+              : and then encoded with base64 encoding.
+  
+      mimetype: application/x-microsoft.net.object.bytearray.base64
+      value   : The object must be serialized into a byte array 
+              : using a System.ComponentModel.TypeConverter
+              : and then encoded with base64 encoding.
+      -->
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
             <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="LoadMatchTitle" xml:space="preserve">
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="LoadMatchTitle" xml:space="preserve">
     <value>Lade Match</value>
   </data>
-  <data name="LoadMatchExplanation" xml:space="preserve">
+    <data name="LoadMatchExplanation" xml:space="preserve">
     <value>Lad die Matchdaten, wenn verfügbar. Dies sollte weniger als 10 Sekunden dauern</value>
   </data>
-  <data name="InfoTitle" xml:space="preserve">
+    <data name="InfoTitle" xml:space="preserve">
     <value>Info</value>
   </data>
-  <data name="InfoExplanation" xml:space="preserve">
+    <data name="InfoExplanation" xml:space="preserve">
     <value>Du bist auf dieser Seite</value>
   </data>
-  <data name="JoinDiscord" xml:space="preserve">
+    <data name="JoinDiscord" xml:space="preserve">
     <value>Tritt dem Discord bei</value>
   </data>
-  <data name="JoinDiscordSub" xml:space="preserve">
+    <data name="JoinDiscordSub" xml:space="preserve">
     <value>Für Support, etc.</value>
   </data>
-  <data name="Author" xml:space="preserve">
+    <data name="Author" xml:space="preserve">
     <value>Erstellt von Soneliem</value>
   </data>
-  <data name="Latestversion" xml:space="preserve">
+    <data name="Latestversion" xml:space="preserve">
     <value>Neuste Version: </value>
   </data>
-  <data name="CurrentVersion" xml:space="preserve">
+    <data name="CurrentVersion" xml:space="preserve">
     <value>Deine Version: </value>
   </data>
-  <data name="CheckUpdates" xml:space="preserve">
+    <data name="CheckUpdates" xml:space="preserve">
     <value>Suche Nach Updates</value>
   </data>
-  <data name="Login" xml:space="preserve">
+    <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
-  <data name="SettingsInfoExplanation2" xml:space="preserve">
+    <data name="SettingsInfoExplanation2" xml:space="preserve">
     <value>Es werden keine Anmeldedaten gespeichert. Die Zugangsdaten werden für die direkte Kommunikation mit den Riot-Servern verwendet.</value>
-    <comment>Fuzzy</comment>
+        <comment>Fuzzy</comment>
   </data>
-  <data name="AuthStatusTitle" xml:space="preserve">
+    <data name="AuthStatusTitle" xml:space="preserve">
     <value>Anmelde Status</value>
   </data>
-  <data name="AuthStatusDefault" xml:space="preserve">
+    <data name="AuthStatusDefault" xml:space="preserve">
     <value>Zum Aktualisieren unten klicken</value>
   </data>
-  <data name="AuthStatusButton" xml:space="preserve">
+    <data name="AuthStatusButton" xml:space="preserve">
     <value>Überprüfe Anmeldung</value>
   </data>
-  <data name="AuthStatusAuthAs" xml:space="preserve">
+    <data name="AuthStatusAuthAs" xml:space="preserve">
     <value>Angemeldet als:</value>
   </data>
-  <data name="AutoLoginTitle" xml:space="preserve">
+    <data name="AutoLoginTitle" xml:space="preserve">
     <value>Automatischer Login</value>
   </data>
-  <data name="AutoLoginExplanation" xml:space="preserve">
+    <data name="AutoLoginExplanation" xml:space="preserve">
     <value>Hinweis: Valorant muss hierfür gestartet sein</value>
   </data>
-  <data name="AuthStatusFail" xml:space="preserve">
+    <data name="AuthStatusFail" xml:space="preserve">
     <value>Nicht angemeldet</value>
   </data>
-  <data name="Translator" xml:space="preserve">
+    <data name="Translator" xml:space="preserve">
     <value>Ins Deutsche Übersetzt von lolostill und NNebus</value>
-    <comment>Fuzzy</comment>
+        <comment>Fuzzy</comment>
   </data>
-  <data name="RefreshMatch" xml:space="preserve">
+    <data name="RefreshMatch" xml:space="preserve">
     <value>Hier klicken, um Matchdaten neu zu laden</value>
   </data>
-  <data name="SettingsExplanation" xml:space="preserve">
+    <data name="SettingsExplanation" xml:space="preserve">
     <value>Hier Findest du die App und Account Einstellungen</value>
   </data>
-  <data name="SettingsTitle" xml:space="preserve">
+    <data name="SettingsTitle" xml:space="preserve">
     <value>Einstellungen</value>
   </data>
-  <data name="SettingsInfoExplanation1" xml:space="preserve">
+    <data name="SettingsInfoExplanation1" xml:space="preserve">
     <value>Hier kannst du dich manuell anmelden, die Sprache ändern, etc</value>
   </data>
-  <data name="SelLanguageTitle" xml:space="preserve">
+    <data name="SelLanguageTitle" xml:space="preserve">
     <value>Sprache auswählen</value>
   </data>
-  <data name="Error" xml:space="preserve">
+    <data name="Error" xml:space="preserve">
     <value>Fehler</value>
   </data>
-  <data name="Refreshing" xml:space="preserve">
+    <data name="Refreshing" xml:space="preserve">
     <value>Neuladen...</value>
   </data>
-  <data name="NoMatch" xml:space="preserve">
+    <data name="NoMatch" xml:space="preserve">
     <value>Kein Match Gefunden</value>
   </data>
-  <data name="NoValGame" xml:space="preserve">
+    <data name="NoValGame" xml:space="preserve">
     <value>Bitte öffne zuerst Valorant</value>
   </data>
-  <data name="TrackerToolTip" xml:space="preserve">
+    <data name="TrackerToolTip" xml:space="preserve">
     <value>Tracker.gg Profil öffnen</value>
   </data>
 </root>

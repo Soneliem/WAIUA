@@ -149,7 +149,8 @@
                         Margin="0,0,50,0"
                         Source="{Binding VandalSkin, ElementName=Self}"
                         ToolTip="{Binding VandalSkinName, ElementName=Self}" />
-                    <Image Source="{Binding PhantomSkin, ElementName=Self}" ToolTip="{Binding PhantomSkinName, ElementName=Self}" />
+                    <Image Source="{Binding PhantomSkin, ElementName=Self}"
+                           ToolTip="{Binding PhantomSkinName, ElementName=Self}" />
                 </StackPanel>
             </Viewbox>
             <Viewbox
@@ -159,7 +160,8 @@
                 VerticalAlignment="Bottom"
                 Stretch="Uniform">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="{Binding PPPRank, ElementName=Self}" ToolTip="{Binding PPPRankName, ElementName=Self}" />
+                    <Image Source="{Binding PPPRank, ElementName=Self}"
+                           ToolTip="{Binding PPPRankName, ElementName=Self}" />
                     <Image
                         Margin="5,0,5,0"
                         Source="{Binding PPRank, ElementName=Self}"
