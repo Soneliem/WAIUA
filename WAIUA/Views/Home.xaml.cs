@@ -2,11 +2,11 @@
 
 namespace WAIUA.Views
 {
-	public partial class Home : UserControl
-	{
-		public Home()
-		{
-			InitializeComponent();
-		}
-	}
+    public partial class Home : UserControl
+    {
+        public Home()
+        {
+            InitializeComponent();
+        }
+    }
 }
