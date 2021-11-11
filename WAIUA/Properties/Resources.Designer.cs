@@ -142,15 +142,6 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verify.
-        /// </summary>
-        public static string CheckDownloadButton2 {
-            get {
-                return ResourceManager.GetString("CheckDownloadButton2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Check Downloaded Content.
         /// </summary>
         public static string CheckDownloadTitle {
@@ -336,6 +327,15 @@ namespace WAIUA.Properties {
         public static string SettingsTitle {
             get {
                 return ResourceManager.GetString("SettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supported By:.
+        /// </summary>
+        public static string SupportedBy {
+            get {
+                return ResourceManager.GetString("SupportedBy", resourceCulture);
             }
         }
         

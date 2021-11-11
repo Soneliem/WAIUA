@@ -37,6 +37,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Models\**" />
+      <EmbeddedResource Remove="Models\**" />
+      <None Remove="Models\**" />
+      <Page Remove="Models\**" />
+    </ItemGroup>
+
+    <ItemGroup>
         <EmbeddedResource Update="Properties\Resources.ar.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
         </EmbeddedResource>
@@ -342,10 +349,6 @@
             <Generator>PublicSettingsSingleFileGenerator</Generator>
             <LastGenOutput>Settings.Designer.cs</LastGenOutput>
         </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Models\" />
     </ItemGroup>
 
 </Project>

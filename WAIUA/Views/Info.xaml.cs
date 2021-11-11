@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -18,6 +19,13 @@ namespace WAIUA.Views
 			string navigateUri = hl.NavigateUri.ToString();
 			Process.Start(new ProcessStartInfo(navigateUri) { UseShellExecute = true });
 			e.Handled = true;
+		}
+
+		private void ImageClick(object sender, RoutedEventArgs e)
+		{
+			Button _button = (Button)sender;
+			Process.Start(new ProcessStartInfo(_button.Tag.ToString()) { UseShellExecute = true });
+			e.Handled= true;
 		}
 	}
 }

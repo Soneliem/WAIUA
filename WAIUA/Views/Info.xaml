@@ -10,263 +10,283 @@
     Background="#2E3349"
     UseLayoutRounding="True"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
-            <Border Name="RootElement" CornerRadius="10">
-                <Border.Background>
-                    <SolidColorBrush x:Name="ButtonBackground" Color="#181E34" />
-                </Border.Background>
-                <ContentPresenter
+	<UserControl.Resources>
+		<ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
+			<Border Name="RootElement" CornerRadius="10">
+				<Border.Background>
+					<SolidColorBrush x:Name="ButtonBackground" Color="#181E34" />
+				</Border.Background>
+				<ContentPresenter
                     Margin="5"
                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="MouseOver">
-                            <Storyboard>
-                                <ColorAnimation
+				<VisualStateManager.VisualStateGroups>
+					<VisualStateGroup x:Name="CommonStates">
+						<VisualState x:Name="Normal" />
+						<VisualState x:Name="MouseOver">
+							<Storyboard>
+								<ColorAnimation
                                     Storyboard.TargetName="ButtonBackground"
                                     Storyboard.TargetProperty="Color"
                                     To="#234d96"
                                     Duration="0:0:0.5" />
-                            </Storyboard>
-                        </VisualState>
-                        <VisualState x:Name="Pressed">
-                            <Storyboard>
-                                <ColorAnimation
+							</Storyboard>
+						</VisualState>
+						<VisualState x:Name="Pressed">
+							<Storyboard>
+								<ColorAnimation
                                     Storyboard.TargetName="ButtonBackground"
                                     Storyboard.TargetProperty="Color"
                                     To="#89B4FF" />
-                            </Storyboard>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-            </Border>
-        </ControlTemplate>
-    </UserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="70" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+							</Storyboard>
+						</VisualState>
+					</VisualStateGroup>
+				</VisualStateManager.VisualStateGroups>
+			</Border>
+		</ControlTemplate>
+	</UserControl.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="70" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
 
-        <Grid Grid.ColumnSpan="3" Background="#181E34">
+		<Grid Grid.ColumnSpan="3" Background="#181E34">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="70" />
-            </Grid.ColumnDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="70" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="70" />
+			</Grid.ColumnDefinitions>
 
-            <Button
+			<Button
                 Grid.Column="0"
                 Margin="7"
                 Command="{Binding NavigateSettingsCommand}"
                 Template="{StaticResource ButtonTemplate}">
 
-                <Image Margin="10" Source="/Assets/settings.png" />
-            </Button>
+				<Image Margin="10" Source="/Assets/settings.png" />
+			</Button>
 
-            <Button
+			<Button
                 Grid.Column="1"
                 Margin="7"
                 Command="{Binding NavigateHomeCommand}"
                 Template="{StaticResource ButtonTemplate}">
 
-                <Viewbox
+				<Viewbox
                     Grid.Column="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-                    <TextBlock
+					<TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontFamily="Fonts/#RopaSans"
                         FontWeight="Medium"
                         Foreground="#007EF9"
                         Text="{x:Static p:Resources.RefreshMatch}" />
-                </Viewbox>
-            </Button>
+				</Viewbox>
+			</Button>
 
-            <Button
+			<Button
                 Grid.Column="2"
                 Margin="7"
                 Command="{Binding NavigateInfoCommand}"
                 Template="{StaticResource ButtonTemplate}">
 
-                <Image Margin="10" Source="/Assets/info.png" />
-            </Button>
-        </Grid>
+				<Image Margin="10" Source="/Assets/info.png" />
+			</Button>
+		</Grid>
 
-        <Grid
-            Grid.Row="1"
-            Grid.Column="0"
-            Margin="15">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <StackPanel>
-                <Image
+		<StackPanel Grid.Row="1" Margin="15">
+			<Image
                     Width="40"
                     HorizontalAlignment="Left"
                     Source="/Assets/arrow.png" />
-                <TextBlock
+			<TextBlock
                     FontSize="30"
                     Foreground="White"
                     Text="{x:Static p:Resources.SettingsTitle}"
                     TextWrapping="Wrap" />
-                <TextBlock
+			<TextBlock
                     FontSize="20"
                     Foreground="White"
                     Opacity="0.7"
+					Margin="0 0 100 0"
                     Text="{x:Static p:Resources.SettingsExplanation}"
                     TextWrapping="Wrap" />
-            </StackPanel>
-            <StackPanel
-                Grid.Column="0"
+		</StackPanel>
+		<StackPanel
+			Margin="15"
+			Grid.Row="1"
                 Width="Auto"
                 VerticalAlignment="Bottom">
-                <Image
-                    Height="100"
-                    HorizontalAlignment="Center"
+			<Button Background="Transparent"
+					BorderThickness="0"
+				    Height="100"
+                    HorizontalAlignment="Left"
                     RenderOptions.BitmapScalingMode="HighQuality"
-                    Source="/Assets/discord.png" />
-                <TextBlock
+					Click="ImageClick"
+					Tag="https://discord.gg/X7CYCeZSRK">
+				<Image Source="/Assets/discord.png" />
+			</Button>
+			<TextBlock
                     FontSize="30"
                     Foreground="White"
-                    TextAlignment="Center"
+                    TextAlignment="left"
                     TextWrapping="Wrap">
                     <Hyperlink NavigateUri="https://discord.gg/X7CYCeZSRK" RequestNavigate="HandleLinkClick">
                         <Hyperlink.Inlines>
                             <Run Text="{x:Static p:Resources.JoinDiscord}" />
                         </Hyperlink.Inlines>
                     </Hyperlink>
-                </TextBlock>
-                <TextBlock
+			</TextBlock>
+			<TextBlock
                     Width="Auto"
                     FontSize="20"
                     Foreground="White"
                     Opacity="0.7"
                     Text="{x:Static p:Resources.JoinDiscordSub}"
-                    TextAlignment="Center"
+                    TextAlignment="Left"
                     TextWrapping="Wrap" />
-            </StackPanel>
-        </Grid>
-        <Grid
-            Grid.Row="1"
-            Grid.Column="1"
-            Margin="15">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="1" Grid.ColumnSpan="2">
-                <Image
+		</StackPanel>
+
+		<StackPanel Margin="15" Grid.Row="1" Grid.Column="1">
+			<Image
                     Width="40"
                     HorizontalAlignment="Center"
                     Source="/Assets/arrow.png" />
-                <TextBlock
+			<TextBlock
                     FontSize="30"
                     Foreground="White"
                     Text="{x:Static p:Resources.LoadMatchTitle}"
                     TextAlignment="Center"
                     TextWrapping="Wrap" />
-                <TextBlock
+			<TextBlock
                     FontSize="20"
                     Foreground="White"
                     Opacity="0.7"
+					Margin="100 0"
                     Text="{x:Static p:Resources.LoadMatchExplanation}"
                     TextAlignment="Center"
                     TextWrapping="Wrap" />
-            </StackPanel>
-        </Grid>
-        <Grid
-            Grid.Row="1"
-            Grid.Column="2"
-            Margin="15">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="1">
-                <Image
-                    Width="40"
-                    HorizontalAlignment="Right"
-                    Source="/Assets/arrow.png" />
-                <TextBlock
-                    FontSize="30"
-                    Foreground="White"
-                    Text="{x:Static p:Resources.InfoTitle}"
-                    TextAlignment="Right"
-                    TextWrapping="Wrap" />
-                <TextBlock
-                    FontSize="20"
-                    Foreground="White"
-                    Opacity="0.7"
-                    Text="{x:Static p:Resources.InfoExplanation}"
-                    TextAlignment="Right"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-            <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
-                <Image
-                    Height="100"
-                    HorizontalAlignment="Center"
-                    Source="/Assets/Soneliem.png" />
-                <TextBlock
-                    FontSize="30"
-                    Foreground="White"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap">
-                    <Hyperlink NavigateUri="https://github.com/Soneliem" RequestNavigate="HandleLinkClick">
-                        <Hyperlink.Inlines>
-                            <Run Text="{x:Static p:Resources.Author}" />
-                        </Hyperlink.Inlines>
-                    </Hyperlink>
-                </TextBlock>
-                <TextBlock
-                    FontSize="20"
-                    Foreground="White"
-                    Opacity="0.7"
-                    Text="{x:Static p:Resources.Translator}"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-        </Grid>
-        <StackPanel
+		</StackPanel>
+
+		<StackPanel
+			Margin="15"
             Grid.Row="1"
             Grid.Column="0"
             Grid.ColumnSpan="3"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
-            <Image
-                Height="120"
+			<Button Background="Transparent"
+					BorderThickness="0"
+				    Height="120"
                 HorizontalAlignment="Center"
-                RenderOptions.BitmapScalingMode="HighQuality"
-                Source="/Assets/logo.png" />
-            <TextBlock
+                    RenderOptions.BitmapScalingMode="HighQuality"
+					Click="ImageClick"
+					Tag="https://waiua.sonel.dev">
+				<Image Source="/Assets/logo.png" />
+			</Button>
+			<TextBlock
                 HorizontalAlignment="Center"
                 FontSize="45"
                 FontWeight="SemiBold"
                 Foreground="White"
                 TextWrapping="Wrap">
                 WAIUA
-            </TextBlock>
-            <TextBlock
+			</TextBlock>
+			<TextBlock
                 HorizontalAlignment="Center"
                 FontSize="25"
                 FontWeight="DemiBold"
                 Foreground="#32e2b2"
                 Text="Who Am I Up Against?"
                 TextWrapping="Wrap" />
-        </StackPanel>
-    </Grid>
+		</StackPanel>
+
+		<StackPanel Margin="15" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom">
+			<TextBlock
+                    FontSize="30"
+                    Foreground="White"
+                    Text="{x:Static p:Resources.SupportedBy}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+			<Button Background="Transparent"
+					BorderThickness="0"
+				    Height="80"
+					Width="80"
+                    HorizontalAlignment="Center"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+					Click="ImageClick"
+					Tag="https://www.twitch.tv/laskin__"
+					ToolTip="Follow his Twitch">
+				<Ellipse Height="70"
+					Width="70"
+                    HorizontalAlignment="Center">
+					<Ellipse.Fill>
+						<ImageBrush ImageSource="https://static-cdn.jtvnw.net/jtv_user_pictures/3925e386-db57-4aa4-b0fa-20df6e287e93-profile_image-70x70.png" />
+					</Ellipse.Fill>
+				</Ellipse>
+			</Button>
+			
+		</StackPanel>
+
+		<StackPanel Margin="15" Grid.Row="1" Grid.Column="2">
+			<Image
+                    Width="40"
+                    HorizontalAlignment="Right"
+                    Source="/Assets/arrow.png" />
+			<TextBlock
+                    FontSize="30"
+                    Foreground="White"
+                    Text="{x:Static p:Resources.InfoTitle}"
+                    TextAlignment="Right"
+                    TextWrapping="Wrap" />
+			<TextBlock
+                    FontSize="20"
+                    Foreground="White"
+                    Opacity="0.7"
+					Margin="100 0 0 0"
+                    Text="{x:Static p:Resources.InfoExplanation}"
+                    TextAlignment="Right"
+                    TextWrapping="Wrap" />
+		</StackPanel>
+		<StackPanel Margin="15" Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom">
+			<Button Background="Transparent"
+					BorderThickness="0"
+				    Height="100"
+					Width="100"
+                    HorizontalAlignment="Right"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+					Click="ImageClick"
+					Tag="https://sonel.dev">
+				<Image Source="/Assets/Soneliem.png" />
+			</Button>
+			<TextBlock
+                    FontSize="30"
+                    Foreground="White"
+                    TextAlignment="Right"
+                    TextWrapping="Wrap">
+                    <Hyperlink NavigateUri="https://sonel.dev" RequestNavigate="HandleLinkClick">
+                        <Hyperlink.Inlines>
+                            <Run Text="{x:Static p:Resources.Author}" />
+                        </Hyperlink.Inlines>
+                    </Hyperlink>
+			</TextBlock>
+			<TextBlock
+                    FontSize="20"
+                    Foreground="White"
+                    Opacity="0.7"
+                    Text="{x:Static p:Resources.Translator}"
+                    TextAlignment="Right"
+                    TextWrapping="Wrap" />
+		</StackPanel>
+	</Grid>
 </UserControl>

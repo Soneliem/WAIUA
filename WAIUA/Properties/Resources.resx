@@ -213,7 +213,7 @@
   <data name="CheckDownloadButton" xml:space="preserve">
     <value>Force Update</value>
   </data>
-  <data name="CheckDownloadButton2" xml:space="preserve">
-    <value>Verify</value>
+  <data name="SupportedBy" xml:space="preserve">
+    <value>Supported By:</value>
   </data>
 </root>

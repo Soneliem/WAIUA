@@ -10,36 +10,36 @@
     d:DesignHeight="754"
     d:DesignWidth="1536"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="20" />
-                </Grid.ColumnDefinitions>
-                <Border
+	<UserControl.Resources>
+		<ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition Width="20" />
+				</Grid.ColumnDefinitions>
+				<Border
                     x:Name="Border"
                     Grid.ColumnSpan="2"
                     Background="#4a4f63"
                     BorderBrush="#4a4f63"
                     BorderThickness="1"
                     CornerRadius="0" />
-                <Border
+				<Border
                     Grid.Column="0"
                     Margin="1"
                     Background="#4a4f63"
                     BorderBrush="#4a4f63"
                     BorderThickness="0,0,1,0"
                     CornerRadius="0" />
-                <Path
+				<Path
                     x:Name="Arrow"
                     Grid.Column="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
                     Fill="White" />
-            </Grid>
-            <!--<ControlTemplate.Triggers>
+			</Grid>
+			<!--<ControlTemplate.Triggers>
                 <Trigger Property="ToggleButton.IsMouseOver" Value="true">
                     <Setter TargetName="Border" Property="Background" Value="#808080" />
                 </Trigger>
@@ -53,36 +53,36 @@
                     <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
                 </Trigger>
             </ControlTemplate.Triggers>-->
-        </ControlTemplate>
+		</ControlTemplate>
 
-        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
-            <Border
+		<ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+			<Border
                 x:Name="PART_ContentHost"
                 Background="{TemplateBinding Background}"
                 Focusable="False" />
-        </ControlTemplate>
+		</ControlTemplate>
 
-        <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
-            <Setter Property="SnapsToDevicePixels" Value="true" />
-            <Setter Property="OverridesDefaultStyle" Value="true" />
-            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-            <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
-            <Setter Property="MinWidth" Value="120" />
-            <Setter Property="MinHeight" Value="20" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ComboBox}">
-                        <Grid>
-                            <ToggleButton
+		<Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+			<Setter Property="SnapsToDevicePixels" Value="true" />
+			<Setter Property="OverridesDefaultStyle" Value="true" />
+			<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+			<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+			<Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+			<Setter Property="MinWidth" Value="120" />
+			<Setter Property="MinHeight" Value="20" />
+			<Setter Property="Foreground" Value="White" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type ComboBox}">
+						<Grid>
+							<ToggleButton
                                 Name="ToggleButton"
                                 Grid.Column="0"
                                 ClickMode="Press"
                                 Focusable="false"
                                 IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                 Template="{StaticResource ComboBoxToggleButton}" />
-                            <ContentPresenter
+							<ContentPresenter
                                 Name="ContentSite"
                                 Margin="3,3,23,3"
                                 HorizontalAlignment="Left"
@@ -91,7 +91,7 @@
                                 ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                 ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                                 IsHitTestVisible="False" />
-                            <TextBox
+							<TextBox
                                 x:Name="PART_EditableTextBox"
                                 Margin="3,3,23,3"
                                 HorizontalAlignment="Left"
@@ -103,7 +103,7 @@
                                 Style="{x:Null}"
                                 Template="{StaticResource ComboBoxTextBox}"
                                 Visibility="Hidden" />
-                            <Popup
+							<Popup
                                 Name="Popup"
                                 AllowsTransparency="True"
                                 Focusable="False"
@@ -111,185 +111,185 @@
                                 Placement="Bottom"
                                 PopupAnimation="Slide">
 
-                                <Grid
+								<Grid
                                     Name="DropDown"
                                     MinWidth="{TemplateBinding ActualWidth}"
                                     MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                     SnapsToDevicePixels="True">
-                                    <Border
+									<Border
                                         x:Name="DropDownBorder"
                                         Background="#4a4f63"
                                         BorderBrush="#4a4f63"
                                         BorderThickness="2"
                                         CornerRadius="10" />
-                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
-                                        <StackPanel IsItemsHost="True"
+									<ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+										<StackPanel IsItemsHost="True"
                                                     KeyboardNavigation.DirectionalNavigation="Contained" />
-                                    </ScrollViewer>
-                                </Grid>
-                            </Popup>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="HasItems" Value="false">
-                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95" />
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Foreground" Value="#888888" />
-                            </Trigger>
-                            <Trigger Property="IsGrouping" Value="true">
-                                <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
-                            </Trigger>
-                            <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
-                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0" />
-                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0" />
-                            </Trigger>
-                            <Trigger Property="IsEditable" Value="true">
-                                <Setter Property="IsTabStop" Value="false" />
-                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible" />
-                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+									</ScrollViewer>
+								</Grid>
+							</Popup>
+						</Grid>
+						<ControlTemplate.Triggers>
+							<Trigger Property="HasItems" Value="false">
+								<Setter TargetName="DropDownBorder" Property="MinHeight" Value="95" />
+							</Trigger>
+							<Trigger Property="IsEnabled" Value="false">
+								<Setter Property="Foreground" Value="#888888" />
+							</Trigger>
+							<Trigger Property="IsGrouping" Value="true">
+								<Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+							</Trigger>
+							<Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+								<Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0" />
+								<Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0" />
+							</Trigger>
+							<Trigger Property="IsEditable" Value="true">
+								<Setter Property="IsTabStop" Value="false" />
+								<Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible" />
+								<Setter TargetName="ContentSite" Property="Visibility" Value="Hidden" />
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
 
-        <!--  SimpleStyles: ComboBoxItem  -->
-        <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
-            <Setter Property="SnapsToDevicePixels" Value="true" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="OverridesDefaultStyle" Value="true" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
-                        <Border
+		<!--  SimpleStyles: ComboBoxItem  -->
+		<Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
+			<Setter Property="SnapsToDevicePixels" Value="true" />
+			<Setter Property="Foreground" Value="White" />
+			<Setter Property="OverridesDefaultStyle" Value="true" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type ComboBoxItem}">
+						<Border
                             Name="Border"
                             Padding="2"
                             SnapsToDevicePixels="true">
-                            <ContentPresenter />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsHighlighted" Value="true">
-                                <Setter TargetName="Border" Property="Background" Value="#FF4F4F4F" />
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Foreground" Value="#888888" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
-            <Border Name="RootElement" CornerRadius="10">
-                <Border.Background>
-                    <SolidColorBrush x:Name="ButtonBackground" Color="#181E34" />
-                </Border.Background>
-                <ContentPresenter
+							<ContentPresenter />
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsHighlighted" Value="true">
+								<Setter TargetName="Border" Property="Background" Value="#FF4F4F4F" />
+							</Trigger>
+							<Trigger Property="IsEnabled" Value="false">
+								<Setter Property="Foreground" Value="#888888" />
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
+			<Border Name="RootElement" CornerRadius="10">
+				<Border.Background>
+					<SolidColorBrush x:Name="ButtonBackground" Color="#181E34" />
+				</Border.Background>
+				<ContentPresenter
                     Margin="5"
                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="MouseOver">
-                            <Storyboard>
-                                <ColorAnimation
+				<VisualStateManager.VisualStateGroups>
+					<VisualStateGroup x:Name="CommonStates">
+						<VisualState x:Name="Normal" />
+						<VisualState x:Name="MouseOver">
+							<Storyboard>
+								<ColorAnimation
                                     Storyboard.TargetName="ButtonBackground"
                                     Storyboard.TargetProperty="Color"
                                     To="#234d96"
                                     Duration="0:0:0.5" />
-                            </Storyboard>
-                        </VisualState>
-                        <VisualState x:Name="Pressed">
-                            <Storyboard>
-                                <ColorAnimation
+							</Storyboard>
+						</VisualState>
+						<VisualState x:Name="Pressed">
+							<Storyboard>
+								<ColorAnimation
                                     Storyboard.TargetName="ButtonBackground"
                                     Storyboard.TargetProperty="Color"
                                     To="#89B4FF" />
-                            </Storyboard>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-            </Border>
-        </ControlTemplate>
-    </UserControl.Resources>
+							</Storyboard>
+						</VisualState>
+					</VisualStateGroup>
+				</VisualStateManager.VisualStateGroups>
+			</Border>
+		</ControlTemplate>
+	</UserControl.Resources>
 
-    <Grid Background="#2E3349">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+	<Grid Background="#2E3349">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="70" />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid Grid.ColumnSpan="3" Background="#181E34">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="70" />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid Grid.ColumnSpan="3" Background="#181E34">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="70" />
-            </Grid.ColumnDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="70" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="70" />
+			</Grid.ColumnDefinitions>
 
-            <Button
+			<Button
                 Grid.Column="0"
                 Margin="7"
                 Command="{Binding NavigateSettingsCommand}"
                 Template="{StaticResource ButtonTemplate}">
 
-                <Image Margin="10" Source="/Assets/settings.png" />
-            </Button>
+				<Image Margin="10" Source="/Assets/settings.png" />
+			</Button>
 
-            <Button
+			<Button
                 Grid.Column="1"
                 Margin="7"
                 Command="{Binding NavigateHomeCommand}"
                 Template="{StaticResource ButtonTemplate}">
 
-                <Viewbox
+				<Viewbox
                     Grid.Column="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-                    <TextBlock
+					<TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontFamily="Fonts/#RopaSans"
                         FontWeight="Medium"
                         Foreground="#007EF9"
                         Text="{x:Static p:Resources.RefreshMatch}" />
-                </Viewbox>
-            </Button>
+				</Viewbox>
+			</Button>
 
-            <Button
+			<Button
                 Grid.Column="2"
                 Margin="7"
                 Command="{Binding NavigateInfoCommand}"
                 Template="{StaticResource ButtonTemplate}">
 
-                <Image Margin="10" Source="/Assets/info.png" />
-            </Button>
-        </Grid>
+				<Image Margin="10" Source="/Assets/info.png" />
+			</Button>
+		</Grid>
 
-        <Border
+		<Border
             Grid.Row="1"
             Grid.RowSpan="2"
             Grid.Column="0"
             Margin="25"
             Background="#252A40"
             CornerRadius="20">
-            <Viewbox>
-                <Grid Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition MinHeight="20" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <TextBlock
+			<Viewbox>
+				<Grid Margin="10">
+					<Grid.RowDefinitions>
+						<RowDefinition MinHeight="20" />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<TextBlock
                         Grid.Row="0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -298,39 +298,39 @@
                         Text="{x:Static p:Resources.SelLanguageTitle}"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
-                    <Border
+					<Border
                         Grid.Row="1"
                         Height="25"
                         Margin="25"
                         Padding="3"
                         Background="#4a4f63"
                         CornerRadius="5">
-                        <ComboBox
+						<ComboBox
                             Name="LanguageCombo"
                             HorizontalContentAlignment="Center"
                             Background="Transparent"
                             BorderThickness="0"
                             DropDownOpened="LanguageList_OnDropDownOpened"
                             SelectionChanged="ListBox_Selected" />
-                    </Border>
-                </Grid>
-            </Viewbox>
-        </Border>
+					</Border>
+				</Grid>
+			</Viewbox>
+		</Border>
 
-        <Border
+		<Border
             Grid.Row="3"
             Grid.RowSpan="2"
             Grid.Column="0"
             Margin="25"
             Background="#252A40"
             CornerRadius="20">
-            <Grid Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock
+			<Grid Margin="10">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<TextBlock
                     Grid.Row="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -339,60 +339,60 @@
                     Foreground="White"
                     Text="{x:Static p:Resources.CheckDownloadTitle}"
                     TextWrapping="Wrap" />
-                <Viewbox Grid.Row="1" HorizontalAlignment="Center">
-                    <Button
+				<Viewbox Grid.Row="1" HorizontalAlignment="Center">
+					<Button
                         Margin="10"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Click="Button_Click5"
                         Template="{StaticResource ButtonTemplate}">
-                        <Viewbox>
-                            <TextBlock
+						<Viewbox>
+							<TextBlock
                                 Padding="5"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontWeight="Normal"
                                 Foreground="#007EF9"
                                 Text="{x:Static p:Resources.CheckDownloadButton}" />
-                        </Viewbox>
-                    </Button>
-                </Viewbox>
+						</Viewbox>
+					</Button>
+				</Viewbox>
 
-                <Viewbox Grid.Row="2">
-                    <Button
+				<Viewbox Grid.Row="2">
+					<Button
                         Margin="10"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Click="Button_Click4"
                         Template="{StaticResource ButtonTemplate}">
-                        <Viewbox>
-                            <TextBlock
+						<Viewbox>
+							<TextBlock
                                 Padding="5"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontWeight="Normal"
                                 Foreground="#007EF9"
-                                Text="{x:Static p:Resources.CheckDownloadButton2}" />
-                        </Viewbox>
-                    </Button>
-                </Viewbox>
-            </Grid>
-        </Border>
+                                Text="{x:Static p:Resources.CheckUpdates}" />
+						</Viewbox>
+					</Button>
+				</Viewbox>
+			</Grid>
+		</Border>
 
-        <Border
+		<Border
             Grid.Row="1"
             Grid.RowSpan="2"
             Grid.Column="1"
             Margin="25"
             Background="#252A40"
             CornerRadius="20">
-            <Grid Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock
+			<Grid Margin="10">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<TextBlock
                     Grid.Row="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -401,8 +401,8 @@
                     Foreground="White"
                     Text="{x:Static p:Resources.InfoTitle}"
                     TextWrapping="Wrap" />
-                <Viewbox Grid.Row="1" VerticalAlignment="Top">
-                    <TextBlock
+				<Viewbox Grid.Row="1" VerticalAlignment="Top">
+					<TextBlock
                         Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"
                         Margin="25,0"
                         Background="Transparent"
@@ -413,10 +413,10 @@
                         Text="{x:Static p:Resources.SettingsInfoExplanation1}"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
-                </Viewbox>
+				</Viewbox>
 
-                <Viewbox Grid.Row="2" VerticalAlignment="Top">
-                    <TextBlock
+				<Viewbox Grid.Row="2" VerticalAlignment="Top">
+					<TextBlock
                         Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"
                         Margin="25,0"
                         FontSize="25"
@@ -426,24 +426,24 @@
                         Text="{x:Static p:Resources.SettingsInfoExplanation2}"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
-                </Viewbox>
-            </Grid>
-        </Border>
+				</Viewbox>
+			</Grid>
+		</Border>
 
-        <Border
+		<Border
             Grid.Row="1"
             Grid.RowSpan="2"
             Grid.Column="2"
             Margin="25"
             Background="#252A40"
             CornerRadius="20">
-            <Grid Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock
+			<Grid Margin="10">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition Height="Auto" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<TextBlock
                     Grid.Row="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -452,8 +452,8 @@
                     Foreground="White"
                     Text="{x:Static p:Resources.AutoLoginTitle}"
                     TextWrapping="Wrap" />
-                <Viewbox Grid.Row="1" HorizontalAlignment="Center">
-                    <TextBlock
+				<Viewbox Grid.Row="1" HorizontalAlignment="Center">
+					<TextBlock
                         Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
                         Margin="25,5"
                         Background="Transparent"
@@ -463,42 +463,42 @@
                         Opacity="0.7"
                         Text="{x:Static p:Resources.AutoLoginExplanation}"
                         TextWrapping="Wrap" />
-                </Viewbox>
+				</Viewbox>
 
-                <Viewbox Grid.Row="2">
-                    <Button
+				<Viewbox Grid.Row="2">
+					<Button
                         Margin="10"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Click="Button_Click3"
                         Template="{StaticResource ButtonTemplate}">
-                        <Viewbox>
-                            <TextBlock
+						<Viewbox>
+							<TextBlock
                                 Padding="5"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontWeight="Normal"
                                 Foreground="#007EF9"
                                 Text="{x:Static p:Resources.Login}" />
-                        </Viewbox>
-                    </Button>
-                </Viewbox>
-            </Grid>
-        </Border>
+						</Viewbox>
+					</Button>
+				</Viewbox>
+			</Grid>
+		</Border>
 
-        <Border Grid.Row="3"
+		<Border Grid.Row="3"
             Grid.RowSpan="2"
             Grid.Column="2"
             Margin="25"
             Background="#252A40"
             CornerRadius="20">
-                <Grid Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                <TextBlock
+			<Grid Margin="10">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition Height="Auto" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<TextBlock
                     Grid.Row="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -508,16 +508,16 @@
                     Text="{x:Static p:Resources.CheckUpdates}"
                     TextWrapping="Wrap" />
 
-                <StackPanel Grid.Row="1">
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock
+				<StackPanel Grid.Row="1">
+					<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+						<TextBlock
                         FontSize="20"
                         Foreground="White"
                         Opacity="0.7"
                         Text="{x:Static p:Resources.Latestversion}"
                         TextAlignment="Left"
                         TextWrapping="Wrap" />
-                        <TextBlock
+						<TextBlock
                         x:Name="LatestVersion"
                         FontSize="20"
                         Foreground="White"
@@ -525,16 +525,16 @@
                         Text=""
                         TextAlignment="Left"
                         TextWrapping="Wrap" />
-                    </StackPanel>
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock
+					</StackPanel>
+					<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+						<TextBlock
                         FontSize="20"
                         Foreground="White"
                         Opacity="0.7"
                         Text="{x:Static p:Resources.CurrentVersion}"
                         TextAlignment="Left"
                         TextWrapping="Wrap" />
-                        <TextBlock
+						<TextBlock
                         x:Name="CurrentVersion"
                         FontSize="20"
                         Foreground="White"
@@ -542,44 +542,44 @@
                         Text=""
                         TextAlignment="Left"
                         TextWrapping="Wrap" />
-                    </StackPanel>
-                </StackPanel>
-                <Viewbox Grid.Row="2">
-                    <Button
+					</StackPanel>
+				</StackPanel>
+				<Viewbox Grid.Row="2">
+					<Button
                         Margin="30,00"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Top"
                         Click="Button_Click1"
                         Template="{StaticResource ButtonTemplate}">
 
-                        <Viewbox>
-                            <TextBlock
+						<Viewbox>
+							<TextBlock
                                 Padding="5"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontWeight="Normal"
                                 Foreground="#007EF9"
                                 Text="{x:Static p:Resources.CheckUpdates}" />
-                        </Viewbox>
-                    </Button>
-                </Viewbox>
-            </Grid>
-            </Border>
+						</Viewbox>
+					</Button>
+				</Viewbox>
+			</Grid>
+		</Border>
 
-        <Border
+		<Border
             Grid.Row="3"
             Grid.RowSpan="2"
             Grid.Column="1"
             Margin="25"
             Background="#252A40"
             CornerRadius="20">
-            <Grid Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock
+			<Grid Margin="10">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition Height="Auto" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<TextBlock
                     Grid.Row="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -588,39 +588,39 @@
                     Foreground="White"
                     Text="{x:Static p:Resources.AuthStatusTitle}"
                     TextWrapping="Wrap" />
-                <Viewbox Grid.Row="1" HorizontalAlignment="Center">
-                    <TextBlock
+				<Viewbox Grid.Row="1" HorizontalAlignment="Center">
+					<TextBlock
                         x:Name="AuthStatusBox"
                         Margin="25,5"
                         Background="Transparent"
-                        FontSize="15"
+                        FontSize="10"
                         FontWeight="Normal"
                         Foreground="#32e2b2"
                         Opacity="0.7"
                         Text="{x:Static p:Resources.AuthStatusDefault}"
                         TextWrapping="Wrap" />
-                </Viewbox>
+				</Viewbox>
 
-                <Viewbox Grid.Row="2">
-                    <Button
+				<Viewbox Grid.Row="2">
+					<Button
                         Margin="30,00"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Top"
                         Click="Button_Click2"
                         Template="{StaticResource ButtonTemplate}">
 
-                        <Viewbox>
-                            <TextBlock
+						<Viewbox>
+							<TextBlock
                                 Padding="5"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontWeight="Normal"
                                 Foreground="#007EF9"
                                 Text="{x:Static p:Resources.AuthStatusButton}" />
-                        </Viewbox>
-                    </Button>
-                </Viewbox>
-            </Grid>
-        </Border>
-    </Grid>
+						</Viewbox>
+					</Button>
+				</Viewbox>
+			</Grid>
+		</Border>
+	</Grid>
 </UserControl>
