@@ -133,6 +133,33 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Force Update.
+        /// </summary>
+        public static string CheckDownloadButton {
+            get {
+                return ResourceManager.GetString("CheckDownloadButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verify.
+        /// </summary>
+        public static string CheckDownloadButton2 {
+            get {
+                return ResourceManager.GetString("CheckDownloadButton2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check Downloaded Content.
+        /// </summary>
+        public static string CheckDownloadTitle {
+            get {
+                return ResourceManager.GetString("CheckDownloadTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check for Updates.
         /// </summary>
         public static string CheckUpdates {

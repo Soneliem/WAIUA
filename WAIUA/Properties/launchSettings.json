@@ -1,7 +1,7 @@
 {
-  "profiles": {
-    "WAIUA": {
-      "commandName": "Project"
-    }
-  }
+	"profiles": {
+		"WAIUA": {
+			"commandName": "Project"
+		}
+	}
 }

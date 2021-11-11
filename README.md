@@ -21,7 +21,6 @@
 
   <br />
 
-
 <details open="open">
   <summary>Table of Contents</summary>
   <ol>
@@ -48,12 +47,10 @@
   </ol>
 </details>
 
-
 ## About The Project
 ![Screenshot](Screenshots/main.png)
 
 **WAIUA** - Pronounced: Why? Whaaa??
-
 
 "Who Am I Up Against?" is simple Windows app that lets you see the ranks, recent games and other info of players in a live Valorant match while you're still playing it. What you see above is what you get (for now).
 
@@ -63,7 +60,6 @@ Displays for each player:
 |Current Rank|Past three ranks (from last 3 acts, not last 3 played acts)|W/L indicator for last three competitive games|Player card and Account Level|In-game name and Agent|Vandal And Phantom Skin|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |![rank](Screenshots/rank.png)|![rank](Screenshots/pranks.png)|![rank](Screenshots/history.png)|![card](Screenshots/card.png)|![name](Screenshots/name.png)|![skin](Screenshots/skin.png)|
-
 
 ## Getting Started
 
@@ -125,12 +121,11 @@ Distributed under the MIT License. See the [license](https://github.com/Soneliem
 
 ## Contact
 
-Discord: Soneliem#4194  
+Discord: Soneliem#4194
 Project Link: [https://github.com/Soneliem/WAIUA](https://github.com/Soneliem/WAIUA)
 Discord Server:
 
 [![Discord Banner 2](https://discordapp.com/api/guilds/881790284613185546/widget.png?style=banner2)](https://discord.gg/X7CYCeZSRK)
-
 
 ## Acknowledgements
 

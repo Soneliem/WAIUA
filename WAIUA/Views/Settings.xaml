@@ -277,7 +277,7 @@
         </Grid>
 
         <Border
-            Grid.Row="2"
+            Grid.Row="1"
             Grid.RowSpan="2"
             Grid.Column="0"
             Margin="25"
@@ -316,6 +316,69 @@
                 </Grid>
             </Viewbox>
         </Border>
+
+        <Border
+            Grid.Row="3"
+            Grid.RowSpan="2"
+            Grid.Column="0"
+            Margin="25"
+            Background="#252A40"
+            CornerRadius="20">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="30"
+                    FontWeight="DemiBold"
+                    Foreground="White"
+                    Text="{x:Static p:Resources.CheckDownloadTitle}"
+                    TextWrapping="Wrap" />
+                <Viewbox Grid.Row="1" HorizontalAlignment="Center">
+                    <Button
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Click="Button_Click5"
+                        Template="{StaticResource ButtonTemplate}">
+                        <Viewbox>
+                            <TextBlock
+                                Padding="5"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontWeight="Normal"
+                                Foreground="#007EF9"
+                                Text="{x:Static p:Resources.CheckDownloadButton}" />
+                        </Viewbox>
+                    </Button>
+                </Viewbox>
+
+                <Viewbox Grid.Row="2">
+                    <Button
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Click="Button_Click4"
+                        Template="{StaticResource ButtonTemplate}">
+                        <Viewbox>
+                            <TextBlock
+                                Padding="5"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontWeight="Normal"
+                                Foreground="#007EF9"
+                                Text="{x:Static p:Resources.CheckDownloadButton2}" />
+                        </Viewbox>
+                    </Button>
+                </Viewbox>
+            </Grid>
+        </Border>
+
         <Border
             Grid.Row="1"
             Grid.RowSpan="2"
@@ -442,7 +505,7 @@
                     FontSize="30"
                     FontWeight="DemiBold"
                     Foreground="White"
-                    Text="{x:Static p:Resources.AuthStatusTitle}"
+                    Text="{x:Static p:Resources.CheckUpdates}"
                     TextWrapping="Wrap" />
 
                 <StackPanel Grid.Row="1">
@@ -502,7 +565,7 @@
                 </Viewbox>
             </Grid>
             </Border>
-        
+
         <Border
             Grid.Row="3"
             Grid.RowSpan="2"

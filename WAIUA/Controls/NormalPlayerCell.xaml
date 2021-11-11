@@ -166,7 +166,8 @@
                         Margin="5,0,5,0"
                         Source="{Binding PPRank, ElementName=Self}"
                         ToolTip="{Binding PPRankName, ElementName=Self}" />
-                    <Image Source="{Binding PRank, ElementName=Self}" ToolTip="{Binding PRankName, ElementName=Self}" />
+                    <Image Source="{Binding PRank, ElementName=Self}"
+                           ToolTip="{Binding PRankName, ElementName=Self}" />
                 </StackPanel>
             </Viewbox>
             <Border

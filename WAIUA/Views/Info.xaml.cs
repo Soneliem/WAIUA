@@ -5,19 +5,19 @@ using System.Windows.Documents;
 
 namespace WAIUA.Views
 {
-    public partial class Info : UserControl
-    {
-        public Info()
-        {
-            InitializeComponent();
-        }
+	public partial class Info : UserControl
+	{
+		public Info()
+		{
+			InitializeComponent();
+		}
 
-        private void HandleLinkClick(object sender, RoutedEventArgs e)
-        {
-            Hyperlink hl = (Hyperlink)sender;
-            string navigateUri = hl.NavigateUri.ToString();
-            Process.Start(new ProcessStartInfo(navigateUri) { UseShellExecute = true });
-            e.Handled = true;
-        }
-    }
+		private void HandleLinkClick(object sender, RoutedEventArgs e)
+		{
+			Hyperlink hl = (Hyperlink)sender;
+			string navigateUri = hl.NavigateUri.ToString();
+			Process.Start(new ProcessStartInfo(navigateUri) { UseShellExecute = true });
+			e.Handled = true;
+		}
+	}
 }
