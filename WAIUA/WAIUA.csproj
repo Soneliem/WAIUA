@@ -1,163 +1,351 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows10.0.22000.0</TargetFramework>
-    <UseWPF>true</UseWPF>
-    <ApplicationIcon>logo.ico</ApplicationIcon>
-    <Version>1.3.1.3</Version>
-    <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
-    <StartupObject>WAIUA.App</StartupObject>
-    <Description>A Windows app to view player ranks and stats in a live Valorant Match</Description>
-    <Copyright>Soneliem</Copyright>
-    <PackageProjectUrl>https://soneliem.github.io/WAIUA</PackageProjectUrl>
-    <PackageIcon>logo.png</PackageIcon>
-    <PackageIconUrl />
-    <RepositoryUrl>https://github.com/Soneliem/WAIUA</RepositoryUrl>
-    <NeutralLanguage>en</NeutralLanguage>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Authors>Soneliem</Authors>
-    <PackageLicenseFile></PackageLicenseFile>
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-    <PlatformTarget>x64</PlatformTarget>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net5.0-windows10.0.22000.0</TargetFramework>
+        <UseWPF>true</UseWPF>
+        <ApplicationIcon>logo.ico</ApplicationIcon>
+        <Version>1.3.1.3</Version>
+        <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
+        <StartupObject>WAIUA.App</StartupObject>
+        <Description>A Windows app to view player ranks and stats in a live Valorant Match</Description>
+        <Copyright>Soneliem</Copyright>
+        <PackageProjectUrl>https://waiua.sonel.dev</PackageProjectUrl>
+        <PackageIcon>logo.png</PackageIcon>
+        <PackageIconUrl />
+        <RepositoryUrl>https://github.com/Soneliem/WAIUA</RepositoryUrl>
+        <NeutralLanguage>en</NeutralLanguage>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Authors>Soneliem</Authors>
+        <PackageLicenseFile></PackageLicenseFile>
+        <IsPackable>false</IsPackable>
+        <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryType>git</RepositoryType>
+        <AssemblyVersion>1.3.9.0</AssemblyVersion>
+        <FileVersion>1.3.9.0</FileVersion>
+    </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <Optimize>True</Optimize>
-  </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <PlatformTarget>x64</PlatformTarget>
+        <Optimize>False</Optimize>
+    </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <Optimize>True</Optimize>
-  </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <Optimize>True</Optimize>
+        <PlatformTarget>x64</PlatformTarget>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.ar.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\Resources.de.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\Resources.en.resx">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\Resources.es.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\Resources.fr.resx">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\Resources.hi.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\Resources.it.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\Resources.ja.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\Resources.pt.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\Resources.ru.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Update="Properties\Resources.ar.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\Resources.de.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\Resources.en.resx">
+            <DependentUpon>Resources.resx</DependentUpon>
+            <Generator>PublicResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\Resources.es.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\Resources.fr.resx">
+            <DependentUpon>Resources.resx</DependentUpon>
+            <Generator>PublicResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\Resources.hi.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\Resources.it.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\Resources.ja.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\Resources.pt.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\Resources.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\Resources.ru.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+        <Compile Update="Properties\Resources.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Assets\arrow.png" />
-    <None Remove="Assets\discord.png" />
-    <None Remove="Assets\icon.ico" />
-    <None Remove="Assets\info.png" />
-    <None Remove="Assets\logo.ico" />
-    <None Remove="Assets\logo.png" />
-    <None Remove="Assets\loss.png" />
-    <None Remove="Assets\phantom.png" />
-    <None Remove="Assets\settings.png" />
-    <None Remove="Assets\Soneliem.png" />
-    <None Remove="Assets\vandal.png" />
-    <None Remove="Assets\win.png" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Remove="Assets\arrow.png" />
+        <None Remove="Assets\discord.png" />
+        <None Remove="Assets\icon.ico" />
+        <None Remove="Assets\info.png" />
+        <None Remove="Assets\logo.ico" />
+        <None Remove="Assets\logo.png" />
+        <None Remove="Assets\loss.png" />
+        <None Remove="Assets\phantom.png" />
+        <None Remove="Assets\settings.png" />
+        <None Remove="Assets\Soneliem.png" />
+        <None Remove="Assets\vandal.png" />
+        <None Remove="Assets\win.png" />
+        <None Remove="ValAPI\agents.json" />
+        <None Remove="ValAPI\agentsimg\117ed9e3-49f3-6512-3ccf-0cada7e3823b.png" />
+        <None Remove="ValAPI\agentsimg\1e58de9c-4950-5125-93e9-a0aee9f98746.png" />
+        <None Remove="ValAPI\agentsimg\320b2a48-4d9b-a075-30f1-1f93a9b638fa.png" />
+        <None Remove="ValAPI\agentsimg\41fb69c1-4189-7b37-f117-bcaf1e96f1bf.png" />
+        <None Remove="ValAPI\agentsimg\569fdd95-4d10-43ab-ca70-79becc718b46.png" />
+        <None Remove="ValAPI\agentsimg\5f8d3a7f-467b-97f3-062c-13acf203c006.png" />
+        <None Remove="ValAPI\agentsimg\601dbbe7-43ce-be57-2a40-4abd24953621.png" />
+        <None Remove="ValAPI\agentsimg\6f2a04ca-43e0-be17-7f36-b3908627744d.png" />
+        <None Remove="ValAPI\agentsimg\707eab51-4836-f488-046a-cda6bf494859.png" />
+        <None Remove="ValAPI\agentsimg\7f94d92c-4234-0a36-9646-3a87eb8b5c89.png" />
+        <None Remove="ValAPI\agentsimg\8e253930-4c05-31dd-1b6c-968525494517.png" />
+        <None Remove="ValAPI\agentsimg\9f0d8ba9-4140-b941-57d3-a7ad57c6b417.png" />
+        <None Remove="ValAPI\agentsimg\a3bfb853-43b2-7238-a4f1-ad90e9e46bcc.png" />
+        <None Remove="ValAPI\agentsimg\add6443a-41bd-e414-f6ad-e58d267f4e95.png" />
+        <None Remove="ValAPI\agentsimg\ded3520f-4264-bfed-162d-b080e2abccf9.png" />
+        <None Remove="ValAPI\agentsimg\eb93336a-449b-9c1b-0a54-a891f7921d69.png" />
+        <None Remove="ValAPI\agentsimg\f94c3b30-42be-e959-889c-5aa313dba261.png" />
+        <None Remove="ValAPI\competitivetiers.json" />
+        <None Remove="ValAPI\playercards.json" />
+        <None Remove="ValAPI\ranksimg\0.png" />
+        <None Remove="ValAPI\ranksimg\10.png" />
+        <None Remove="ValAPI\ranksimg\11.png" />
+        <None Remove="ValAPI\ranksimg\12.png" />
+        <None Remove="ValAPI\ranksimg\13.png" />
+        <None Remove="ValAPI\ranksimg\14.png" />
+        <None Remove="ValAPI\ranksimg\15.png" />
+        <None Remove="ValAPI\ranksimg\16.png" />
+        <None Remove="ValAPI\ranksimg\17.png" />
+        <None Remove="ValAPI\ranksimg\18.png" />
+        <None Remove="ValAPI\ranksimg\19.png" />
+        <None Remove="ValAPI\ranksimg\20.png" />
+        <None Remove="ValAPI\ranksimg\21.png" />
+        <None Remove="ValAPI\ranksimg\22.png" />
+        <None Remove="ValAPI\ranksimg\23.png" />
+        <None Remove="ValAPI\ranksimg\24.png" />
+        <None Remove="ValAPI\ranksimg\3.png" />
+        <None Remove="ValAPI\ranksimg\4.png" />
+        <None Remove="ValAPI\ranksimg\5.png" />
+        <None Remove="ValAPI\ranksimg\6.png" />
+        <None Remove="ValAPI\ranksimg\7.png" />
+        <None Remove="ValAPI\ranksimg\8.png" />
+        <None Remove="ValAPI\ranksimg\9.png" />
+        <None Remove="ValAPI\skinchromas.json" />
+        <None Remove="ValAPI\version.json" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Assets\arrow.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\discord.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\info.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\logo.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\loss.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\phantom.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\vandal.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\win.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\settings.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\Soneliem.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
+    <ItemGroup>
+        <Resource Include="Assets\arrow.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\discord.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\info.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\logo.ico">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\logo.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\loss.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\phantom.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\vandal.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\win.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\settings.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\Soneliem.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agents.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\117ed9e3-49f3-6512-3ccf-0cada7e3823b.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\1e58de9c-4950-5125-93e9-a0aee9f98746.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\320b2a48-4d9b-a075-30f1-1f93a9b638fa.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\41fb69c1-4189-7b37-f117-bcaf1e96f1bf.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\569fdd95-4d10-43ab-ca70-79becc718b46.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\5f8d3a7f-467b-97f3-062c-13acf203c006.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\601dbbe7-43ce-be57-2a40-4abd24953621.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\6f2a04ca-43e0-be17-7f36-b3908627744d.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\707eab51-4836-f488-046a-cda6bf494859.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\7f94d92c-4234-0a36-9646-3a87eb8b5c89.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\8e253930-4c05-31dd-1b6c-968525494517.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\9f0d8ba9-4140-b941-57d3-a7ad57c6b417.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\a3bfb853-43b2-7238-a4f1-ad90e9e46bcc.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\add6443a-41bd-e414-f6ad-e58d267f4e95.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\ded3520f-4264-bfed-162d-b080e2abccf9.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\eb93336a-449b-9c1b-0a54-a891f7921d69.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\agentsimg\f94c3b30-42be-e959-889c-5aa313dba261.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\competitivetiers.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\playercards.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\0.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\10.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\11.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\12.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\13.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\14.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\15.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\16.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\17.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\18.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\19.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\20.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\21.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\22.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\23.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\24.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\3.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\4.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\5.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\6.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\7.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\8.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\ranksimg\9.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\skinchromas.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="ValAPI\version.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+        <None Include="..\.editorconfig" Link=".editorconfig" />
+        <None Include="..\README.md">
+          <Pack>True</Pack>
+          <PackagePath>\</PackagePath>
+        </None>
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Autoupdater.NET.Official" Version="1.7.0" />
-    <PackageReference Include="MVVMEssentials.WPF" Version="1.0.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="RestSharp" Version="106.12.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Autoupdater.NET.Official" Version="1.7.0" />
+        <PackageReference Include="MVVMEssentials.WPF" Version="1.0.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="RestSharp" Version="106.12.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Update="Properties\Settings.Designer.cs">
+            <DesignTimeSharedInput>True</DesignTimeSharedInput>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Settings.settings</DependentUpon>
+        </Compile>
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Assets\matchdemo.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-    <None Update="Properties\Settings.settings">
-      <Generator>PublicSettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+        <None Update="Assets\matchdemo.json">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </None>
+        <None Update="Properties\Settings.settings">
+            <Generator>PublicSettingsSingleFileGenerator</Generator>
+            <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Models\" />
+    </ItemGroup>
 
 </Project>

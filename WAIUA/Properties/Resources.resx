@@ -205,6 +205,15 @@
     <value>Open Tracker.gg Profile</value>
   </data>
   <data name="Error" xml:space="preserve">
-	  <value>Error</value>
+    <value>Error</value>
+  </data>
+  <data name="CheckDownloadTitle" xml:space="preserve">
+    <value>Check Downloaded Content</value>
+  </data>
+  <data name="CheckDownloadButton" xml:space="preserve">
+    <value>Force Update</value>
+  </data>
+  <data name="CheckDownloadButton2" xml:space="preserve">
+    <value>Verify</value>
   </data>
 </root>

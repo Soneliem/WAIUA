@@ -188,63 +188,6 @@
                     TextAlignment="Center"
                     TextWrapping="Wrap" />
             </StackPanel>
-
-            <StackPanel
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                VerticalAlignment="Bottom">
-                <Button
-                    Margin="30,0,30,0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top"
-                    Click="Button_Click"
-                    Template="{StaticResource ButtonTemplate}">
-
-                    <Viewbox>
-                        <TextBlock
-                            Padding="5"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontWeight="Normal"
-                            Foreground="#007EF9"
-                            Text="{x:Static p:Resources.CheckUpdates}" />
-                    </Viewbox>
-                </Button>
-                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <TextBlock
-                        FontSize="20"
-                        Foreground="White"
-                        Opacity="0.7"
-                        Text="{x:Static p:Resources.Latestversion}"
-                        TextAlignment="Left"
-                        TextWrapping="Wrap" />
-                    <TextBlock
-                        x:Name="LatestVersion"
-                        FontSize="20"
-                        Foreground="White"
-                        Opacity="0.7"
-                        Text=""
-                        TextAlignment="Left"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <TextBlock
-                        FontSize="20"
-                        Foreground="White"
-                        Opacity="0.7"
-                        Text="{x:Static p:Resources.CurrentVersion}"
-                        TextAlignment="Left"
-                        TextWrapping="Wrap" />
-                    <TextBlock
-                        x:Name="CurrentVersion"
-                        FontSize="20"
-                        Foreground="White"
-                        Opacity="0.7"
-                        Text=""
-                        TextAlignment="Left"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </StackPanel>
         </Grid>
         <Grid
             Grid.Row="1"

@@ -10,8 +10,8 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <link rel="stylesheet" href="css/tooplate-style.css">
-    
+    <link rel="stylesheet" href="css/styles.css">
+
     <link rel="apple-touch-icon" sizes="57x57" href="../WAIUA/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="../WAIUA/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="../WAIUA/apple-icon-72x72.png">
@@ -29,18 +29,12 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="../WAIUA/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-<!--
 
-Tooplate 2115 Marvel
-
-https://www.tooplate.com/view/2115-marvel
-
--->
   </head>
   <body class="dark-mode">
 
     <!-- MENU -->
-    <nav class="navbar navbar-expand-sm navbar-light">
+    <nav class="navbar navbar-expand-sm navbar-light fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html"><i class='uil uil-home'></i> WAIUA</a>
 
@@ -52,7 +46,7 @@ https://www.tooplate.com/view/2115-marvel
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
+                <ul class="navbar-nav">
                     <li class="nav-item">
                         <a href="#about" class="nav-link"><span data-hover="Home">Home</span></a>
                     </li>
@@ -69,14 +63,6 @@ https://www.tooplate.com/view/2115-marvel
                         <a href="#contact" class="nav-link"><span data-hover="Contact">Contact</span></a>
                     </li>
                 </ul>
-
-                <ul class="navbar-nav ml-lg-auto">
-                    <div class="ml-lg-4">
-                      <div class="color-mode d-lg-flex justify-content-center align-items-center">
-                        <i class="uil uil-moon me-2"></i>Color mode
-                      </div>
-                    </div>
-                </ul>
             </div>
         </div>
     </nav>
@@ -85,7 +71,7 @@ https://www.tooplate.com/view/2115-marvel
     <section class="d-lg-flex justify-content-center align-items-center" id="about">
         <div class="container">
             <div class="row">
-                
+
                 <div class="col-lg-7 col-md-12 col-12 d-flex align-items-center">
                     <div class="about-text">
                         <small class="small-text">This is: </small>
@@ -97,18 +83,19 @@ https://www.tooplate.com/view/2115-marvel
                             <span>A</span><span>gainst</span>
                         </h1>
                         <p>A  simple Windows app that lets you see the ranks, recent games and other info of players in a live Valorant match while you're still playing it.</p>
-                        
+
                         <div class="custom-btn-group mt-4">
-                          <a href="https://github.com/Soneliem/WAIUA/releases/latest/download/WAIUA.exe" class="btn corner custom-btn custom-btn-bg custom-btn-link"><i class='uil uil-import'></i> Download</a>
-                          <a href="https://github.com/Soneliem/WAIUA" class="btn corner mx-3 custom-btn"><i class='uil uil-github-alt'></i> View Github</a>
-                          <a href="https://discord.gg/X7CYCeZSRK" class="btn corner custom-btn"><i class='uil uil-discord'></i> Join Discord</a>
+                          <a id="download-btn" href="https://github.com/Soneliem/WAIUA/releases/latest/download/WAIUA.exe" class="btn corner mx-2 custom-btn custom-btn-bg custom-btn-link"><i class='uil uil-file-download'></i> Download</a>
+                          <label for="download-btn" id="first" class="download-btn-text"><i class='uil uil-windows'></i> Windows <a> 64-bit </a><br/><span><i class='uil uil-import'></i> Downloads: <a id="download_count"></a></span></label><br/><br/>
+                          <a href="https://github.com/Soneliem/WAIUA" class="btn corner mx-2 custom-btn"><i class='uil uil-github-alt'></i> View Github</a>
+                          <a href="https://discord.gg/X7CYCeZSRK" class="btn corner mx-2 custom-btn"><i class='uil uil-discord'></i> Join Discord</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-5 col-md-12 col-12">
-                    <div class="about-image">
-                        <img src="images/logo.png" class="p-5 m-5 img-fluid" alt="logo">
+                    <div class="about-image p-5">
+                        <img src="images/logo.png" class="p-5 img-fluid" alt="logo">
                     </div>
                 </div>
 
@@ -119,7 +106,7 @@ https://www.tooplate.com/view/2115-marvel
     <!-- PROJECTS -->
     <section class="pb-5" id="screenshots">
         <div class="container">
-                
+
                 <div class="row">
                   <div class="col-lg-11 text-center mx-auto col-12">
 
@@ -238,7 +225,7 @@ https://www.tooplate.com/view/2115-marvel
                             <widgetbot
                                     server="881790284613185546"
                                     channel="881790284646735880"
-                                    width="800"
+                                    width="100%"
                                     height="600"
                             ></widgetbot>
                             <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
@@ -259,12 +246,12 @@ https://www.tooplate.com/view/2115-marvel
                 <div class="contact-info-item">
                   <h3 class="mb-3 text-white">Contact Me</h3>
                   <p class="footer-text mb-0">Soneliem</p>
-<!--                    <p><a href="mailto:24221762+Soneliem@users.noreply.github.com">24221762+Soneliem@users.noreply.github.com</a></p>-->
+                   <p><a href="mailto:waiua@sonel.dev">waiua@sonel.dev</a></p>
                 </div>
 
                 <ul class="social-links">
-                     <li><a href="https://github.com/Soneliem" class="uil uil-discord" data-toggle="tooltip" data-placement="left" title="Discord"></a></li>
-                     <li><a href="https://discord.gg/X7CYCeZSRK" class="uil uil-github" data-toggle="tooltip" data-placement="left" title="GitHub"></a></li>
+                     <li><a href="https://discord.gg/X7CYCeZSRK" class="uil uil-discord" data-toggle="tooltip" data-placement="left" title="Discord"></a></li>
+                     <li><a href="https://github.com/Soneliem" class="uil uil-github" data-toggle="tooltip" data-placement="left" title="GitHub"></a></li>
                 </ul>
             </div>
 
@@ -272,13 +259,8 @@ https://www.tooplate.com/view/2115-marvel
       </div>
     </section>
 
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="js/Headroom.js"></script>
-    <script src="js/jQuery.headroom.js"></script>
-    <script src="js/smoothscroll.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="js/custom.js"></script>
-
   </body>
 </html>

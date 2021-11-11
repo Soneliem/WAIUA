@@ -19,7 +19,7 @@ namespace WAIUA.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -133,6 +133,33 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Force Update.
+        /// </summary>
+        public static string CheckDownloadButton {
+            get {
+                return ResourceManager.GetString("CheckDownloadButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verify.
+        /// </summary>
+        public static string CheckDownloadButton2 {
+            get {
+                return ResourceManager.GetString("CheckDownloadButton2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check Downloaded Content.
+        /// </summary>
+        public static string CheckDownloadTitle {
+            get {
+                return ResourceManager.GetString("CheckDownloadTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check for Updates.
         /// </summary>
         public static string CheckUpdates {
@@ -149,7 +176,7 @@ namespace WAIUA.Properties {
                 return ResourceManager.GetString("CurrentVersion", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
