@@ -15,12 +15,11 @@ namespace WAIUA.ViewModels
 		{
 			public string[] data = null;
 			public static Player[] players = null;
-			public const sbyte MAX_PLAYERS = 10;
 
 			static Player()
 			{
-				players = new Player[MAX_PLAYERS];
-				for (sbyte x = 0; x < MAX_PLAYERS; x++)
+				players = new Player[10];
+				for (sbyte x = 0; x < 10; x++)
 				{
 					players[x] = new Player();
 				}
@@ -52,14 +51,14 @@ namespace WAIUA.ViewModels
 					{
 						Parallel.For(0, 10, i => { Player.players[i].data = NewMatch.LiveMatchOutput((sbyte)i); });
 					}
-					catch (Exception e)
+					catch (Exception)
 					{
 					}
 
 					output = true;
 				}
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 			}
 

@@ -52,6 +52,9 @@ namespace WAIUA.Commands
 		private static string[] PGList { get; set; } = new string[10];
 		private static string[] PPGList { get; set; } = new string[10];
 		private static string[] PPPGList { get; set; } = new string[10];
+		private static string[] PGColourList { get; set; } = new string[10];
+		private static string[] PPGColourList { get; set; } = new string[10];
+		private static string[] PPPGColourList { get; set; } = new string[10];
 		private static bool[] IsIncognito { get; set; } = new bool[10];
 		private static string[] TrackerUrlList { get; set; } = new string[10];
 		private static string[] TrackerEnabledList { get; set; } = new string[10];
@@ -243,7 +246,7 @@ namespace WAIUA.Commands
 				gameTag = uinfoObj["TagLine"].Value<string>();
 				IGN = gameName + "#" + gameTag;
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 				IGN = null;
 			}
@@ -266,7 +269,7 @@ namespace WAIUA.Commands
 				Matchid = matchinfoObj["MatchID"].Value<string>();
 				return true;
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 				return false;
 			}
@@ -403,7 +406,10 @@ namespace WAIUA.Commands
 				TrackerEnabledList[playerno],
 				TrackerUrlList[playerno],
 				VandalList[playerno],
-				VandalNameList[playerno]
+				VandalNameList[playerno],
+				PGColourList[playerno],
+				PPGColourList[playerno],
+				PPPGColourList[playerno]
 			};
 			return output;
 		}
@@ -453,7 +459,7 @@ namespace WAIUA.Commands
 					AgentPList[playerno] = AgentList[playerno] = null;
 				}
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 			}
 		}
@@ -471,7 +477,7 @@ namespace WAIUA.Commands
 					break;
 				}
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 			}
 		}
@@ -524,7 +530,7 @@ namespace WAIUA.Commands
 					PhantomNameList[playerno] = null;
 				}
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 			}
 		}
@@ -540,40 +546,59 @@ namespace WAIUA.Commands
 						true, true);
 					var historyinfo = JsonConvert.DeserializeObject(content);
 					JToken historyinfoObj = JObject.FromObject(historyinfo);
-					RankProgList[playerno] = historyinfoObj["Matches"][0]["RankedRatingAfterUpdate"].Value<string>();
-					if (historyinfoObj["Matches"][0]["RankedRatingEarned"].Value<int>() >= 0)
+
+					int pmatch = historyinfoObj["Matches"][0]["RankedRatingEarned"].Value<int>();
+					RankProgList[playerno] = pmatch.ToString();
+					PGList[playerno] = pmatch.ToString("+#;-#;0");
+					if (pmatch > 0)
 					{
-						PGList[playerno] = "/Assets/win.png";
+						PGColourList[playerno] = "#4cd964";
+					}
+					else if (pmatch < 0)
+					{
+						PGColourList[playerno] = "#ff4654";
 					}
 					else
 					{
-						PGList[playerno] = "/Assets/loss.png";
+						PGColourList[playerno] = "#7f7f7f";
+					}
+					int ppmatch = historyinfoObj["Matches"][1]["RankedRatingEarned"].Value<int>();
+
+					PPGList[playerno] = ppmatch.ToString("+#;-#;0");
+					if (ppmatch > 0)
+					{
+						PPGColourList[playerno] = "#4cd964";
+					}
+					else if (ppmatch < 0)
+					{
+						PPGColourList[playerno] = "#ff4654";
+					}
+					else
+					{
+						PPGColourList[playerno] = "#7f7f7f";
 					}
 
-					if (historyinfoObj["Matches"][1]["RankedRatingEarned"].Value<int>() >= 0)
+					int pppmatch = historyinfoObj["Matches"][2]["RankedRatingEarned"].Value<int>();
+					PPPGList[playerno] = pppmatch.ToString("+#;-#;0");
+					if (pppmatch > 0)
 					{
-						PPGList[playerno] = "/Assets/win.png";
+						PPPGColourList[playerno] = "#4cd964";
+					}
+					else if (pppmatch < 0)
+					{
+						PPPGColourList[playerno] = "#ff4654";
 					}
 					else
 					{
-						PPGList[playerno] = "/Assets/loss.png";
-					}
-
-					if (historyinfoObj["Matches"][2]["RankedRatingEarned"].Value<int>() >= 0)
-					{
-						PPPGList[playerno] = "/Assets/win.png";
-					}
-					else
-					{
-						PPPGList[playerno] = "/Assets/loss.png";
+						PPPGColourList[playerno] = "#7f7f7f";
 					}
 				}
 				else
 				{
-					RankProgList[playerno] = PGList[playerno] = PPGList[playerno] = PPPGList[playerno] = null;
+					RankProgList[playerno] = PGList[playerno] = PPGList[playerno] = PPPGList[playerno] = PGColourList[playerno] = PPGColourList[playerno] = PPPGColourList[playerno] = null;
 				}
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 			}
 		}
@@ -595,7 +620,7 @@ namespace WAIUA.Commands
 							.CompetitiveTier;
 						if (rank is "1" or "2") rank = "0";
 					}
-					catch (Exception e)
+					catch (Exception)
 					{
 						rank = "0";
 					}
@@ -605,7 +630,7 @@ namespace WAIUA.Commands
 						prank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{PSeason}"].CompetitiveTier;
 						if (prank is "1" or "2") prank = "0";
 					}
-					catch (Exception e)
+					catch (Exception)
 					{
 						prank = "0";
 					}
@@ -616,7 +641,7 @@ namespace WAIUA.Commands
 							.CompetitiveTier;
 						if (pprank is "1" or "2") pprank = "0";
 					}
-					catch (Exception e)
+					catch (Exception)
 					{
 						pprank = "0";
 					}
@@ -627,7 +652,7 @@ namespace WAIUA.Commands
 							.CompetitiveTier;
 						if (ppprank is "1" or "2") ppprank = "0";
 					}
-					catch (Exception e)
+					catch (Exception)
 					{
 						ppprank = "0";
 					}
@@ -660,7 +685,7 @@ namespace WAIUA.Commands
 							PPRankNameList[playerno] = PPPRankNameList[playerno] = null;
 				}
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 			}
 		}
@@ -728,9 +753,8 @@ namespace WAIUA.Commands
 					PPPSeason = content.Seasons[currentindex].ID;
 				}
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
-				System.Diagnostics.Debug.WriteLine(e);
 			}
 		}
 
@@ -790,7 +814,7 @@ namespace WAIUA.Commands
 					TrackerUrlList[playerno] = null;
 				}
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 			}
 			return output;

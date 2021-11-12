@@ -94,12 +94,10 @@
         <None Remove="Assets\info.png" />
         <None Remove="Assets\logo.ico" />
         <None Remove="Assets\logo.png" />
-        <None Remove="Assets\loss.png" />
         <None Remove="Assets\phantom.png" />
         <None Remove="Assets\settings.png" />
         <None Remove="Assets\Soneliem.png" />
         <None Remove="Assets\vandal.png" />
-        <None Remove="Assets\win.png" />
         <None Remove="ValAPI\agents.json" />
         <None Remove="ValAPI\agentsimg\117ed9e3-49f3-6512-3ccf-0cada7e3823b.png" />
         <None Remove="ValAPI\agentsimg\1e58de9c-4950-5125-93e9-a0aee9f98746.png" />
@@ -163,16 +161,10 @@
         <Resource Include="Assets\logo.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
-        <Resource Include="Assets\loss.png">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
         <Resource Include="Assets\phantom.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
         <Resource Include="Assets\vandal.png">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Assets\win.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
         <Resource Include="Assets\settings.png">

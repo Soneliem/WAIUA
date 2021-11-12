@@ -119,9 +119,16 @@ namespace WAIUA.ValAPI
 			foreach (var rank in content.data[3].tiers)
 			{
 				int currentrank = rank.tier;
-				if (currentrank == 1 || currentrank == 2) { continue; }
+				string url2;
 				WebClient client2 = new WebClient();
-				string url2 = rank.largeIcon;
+				if (currentrank == 0 || currentrank == 1 || currentrank == 2)
+				{
+					url2 = rank.smallIcon;
+				}
+				else
+				{
+					url2 = rank.largeIcon;
+				}
 				Uri uri2 = new(url2);
 				string fileName = string.Format("ValAPI/ranksimg/{0}.png", currentrank);
 				client2.DownloadFile(uri2, fileName);

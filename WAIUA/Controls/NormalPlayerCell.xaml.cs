@@ -128,6 +128,35 @@ namespace WAIUA.Controls
 			DependencyProperty.Register("PPPMatch", typeof(string), typeof(NormalPlayerCell),
 				new PropertyMetadata(null));
 
+		public string PMatchColour
+		{
+			get { return (string)GetValue(PMatchColourProperty); }
+			set { SetValue(PMatchColourProperty, value); }
+		}
+
+		public static readonly DependencyProperty PMatchColourProperty =
+			DependencyProperty.Register("PMatchColour", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+
+		public string PPMatchColour
+		{
+			get { return (string)GetValue(PPMatchColourProperty); }
+			set { SetValue(PPMatchColourProperty, value); }
+		}
+
+		public static readonly DependencyProperty PPMatchColourProperty =
+			DependencyProperty.Register("PPMatchColour", typeof(string), typeof(NormalPlayerCell),
+				new PropertyMetadata(null));
+
+		public string PPPMatchColour
+		{
+			get { return (string)GetValue(PPPMatchColourProperty); }
+			set { SetValue(PPPMatchColourProperty, value); }
+		}
+
+		public static readonly DependencyProperty PPPMatchColourProperty =
+			DependencyProperty.Register("PPPMatchColour", typeof(string), typeof(NormalPlayerCell),
+				new PropertyMetadata(null));
+
 		public string PRankName
 		{
 			get { return (string)GetValue(PRankNameProperty); }
