@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -25,7 +24,7 @@ namespace WAIUA.Views
 		{
 			Button _button = (Button)sender;
 			Process.Start(new ProcessStartInfo(_button.Tag.ToString()) { UseShellExecute = true });
-			e.Handled= true;
+			e.Handled = true;
 		}
 	}
 }

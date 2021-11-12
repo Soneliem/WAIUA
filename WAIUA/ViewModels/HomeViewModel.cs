@@ -1,6 +1,7 @@
 ﻿using MVVMEssentials.Commands;
 using MVVMEssentials.Services;
 using MVVMEssentials.ViewModels;
+using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -51,14 +52,14 @@ namespace WAIUA.ViewModels
 					{
 						Parallel.For(0, 10, i => { Player.players[i].data = NewMatch.LiveMatchOutput((sbyte)i); });
 					}
-					finally
+					catch (Exception e)
 					{
 					}
 
 					output = true;
 				}
 			}
-			finally
+			catch (Exception e)
 			{
 			}
 

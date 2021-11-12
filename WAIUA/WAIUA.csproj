@@ -181,66 +181,66 @@
         <Resource Include="Assets\Soneliem.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
-        <Resource Include="ValAPI\agents.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
+        <Content Include="ValAPI\agents.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
         <Resource Include="ValAPI\agentsimg\117ed9e3-49f3-6512-3ccf-0cada7e3823b.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Resource Include="ValAPI\agentsimg\1e58de9c-4950-5125-93e9-a0aee9f98746.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Resource Include="ValAPI\agentsimg\320b2a48-4d9b-a075-30f1-1f93a9b638fa.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Resource Include="ValAPI\agentsimg\41fb69c1-4189-7b37-f117-bcaf1e96f1bf.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Resource Include="ValAPI\agentsimg\569fdd95-4d10-43ab-ca70-79becc718b46.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Resource Include="ValAPI\agentsimg\5f8d3a7f-467b-97f3-062c-13acf203c006.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Resource Include="ValAPI\agentsimg\601dbbe7-43ce-be57-2a40-4abd24953621.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Resource Include="ValAPI\agentsimg\6f2a04ca-43e0-be17-7f36-b3908627744d.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Resource Include="ValAPI\agentsimg\707eab51-4836-f488-046a-cda6bf494859.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Resource Include="ValAPI\agentsimg\7f94d92c-4234-0a36-9646-3a87eb8b5c89.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Resource Include="ValAPI\agentsimg\8e253930-4c05-31dd-1b6c-968525494517.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Resource Include="ValAPI\agentsimg\9f0d8ba9-4140-b941-57d3-a7ad57c6b417.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Resource Include="ValAPI\agentsimg\a3bfb853-43b2-7238-a4f1-ad90e9e46bcc.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Resource Include="ValAPI\agentsimg\add6443a-41bd-e414-f6ad-e58d267f4e95.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Resource Include="ValAPI\agentsimg\ded3520f-4264-bfed-162d-b080e2abccf9.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Resource Include="ValAPI\agentsimg\eb93336a-449b-9c1b-0a54-a891f7921d69.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Resource Include="ValAPI\agentsimg\f94c3b30-42be-e959-889c-5aa313dba261.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
-        <Resource Include="ValAPI\competitivetiers.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="ValAPI\playercards.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
+        <Content Include="ValAPI\competitivetiers.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="ValAPI\playercards.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
         <Resource Include="ValAPI\ranksimg\0.png">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
@@ -310,12 +310,12 @@
         <Resource Include="ValAPI\ranksimg\9.png">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
-        <Resource Include="ValAPI\skinchromas.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="ValAPI\version.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
+        <Content Include="ValAPI\skinchromas.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="ValAPI\version.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>

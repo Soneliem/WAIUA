@@ -118,9 +118,8 @@ namespace WAIUA.Views
 					if (rs != null)
 						result.Add(culture);
 				}
-				catch (CultureNotFoundException)
+				catch (CultureNotFoundException e)
 				{
-					//TODO
 				}
 			}
 

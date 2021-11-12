@@ -103,11 +103,8 @@ namespace WAIUA.ValAPI
 			});
 			await Task.WhenAll(tasks);
 
-			var task1 = LoadJsonFromFile("ValAPI/competitivetiers.json");
-			var task2 = LoadJsonFromFile("ValAPI/agents.json");
-			await Task.WhenAll(task1, task2);
-			dynamic content = task1.Result;
-			dynamic content2 = task2.Result;
+			dynamic content = await LoadJsonFromFile("ValAPI/competitivetiers.json");
+			dynamic content2 = await LoadJsonFromFile("ValAPI/agents.json");
 
 			foreach (var agent in content2.data)
 			{

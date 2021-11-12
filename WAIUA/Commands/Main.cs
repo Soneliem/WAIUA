@@ -25,7 +25,6 @@ namespace WAIUA.Commands
 		private static string Region { get; set; }
 		private static string Shard { get; set; }
 		private static string Version { get; set; }
-		private static string Language { get; set; }
 		public static string PPUUID { get; private set; }
 		private static string Matchid { get; set; }
 		private static string Port { get; set; }
@@ -61,6 +60,11 @@ namespace WAIUA.Commands
 		private static string[] PhantomList { get; set; } = new string[10];
 		private static string[] VandalNameList { get; set; } = new string[10];
 		private static string[] PhantomNameList { get; set; } = new string[10];
+		private static dynamic AgentJson { get; set; }
+		private static dynamic CardsJson { get; set; }
+		private static dynamic SkinJson { get; set; }
+		private static dynamic TiersJson { get; set; }
+		private static dynamic VersionJson { get; set; }
 
 		private static string
 			DoCachedRequest(Method method, string url, bool addRiotAuth, bool bypassCache = false) // Thank you MitchC for this, I am always touched when random people go out of the way to help others even though they know that we would be clueless and need to ask alot of followup questions
@@ -206,8 +210,8 @@ namespace WAIUA.Commands
 
 		private static void GetLatestVersion()
 		{
-			dynamic content = Task.Run(() => { return LoadJsonFromFile("ValAPI/version.json"); }).Result;
-			Version = content.data.riotClientVersion;
+			VersionJson = Task.Run(() => LoadJsonFromFile("ValAPI/version.json")).Result;
+			Version = VersionJson.data.riotClientVersion;
 		}
 
 		public static string GetIGUsername(string puuid)
@@ -239,7 +243,7 @@ namespace WAIUA.Commands
 				gameTag = uinfoObj["TagLine"].Value<string>();
 				IGN = gameName + "#" + gameTag;
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
 				IGN = null;
 			}
@@ -262,7 +266,7 @@ namespace WAIUA.Commands
 				Matchid = matchinfoObj["MatchID"].Value<string>();
 				return true;
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
 				return false;
 			}
@@ -319,7 +323,7 @@ namespace WAIUA.Commands
 
 		private static void LiveMatchSetup()
 		{
-			Parallel.Invoke(GetSeasons, GetLatestVersion, GetLanguage);
+			Parallel.Invoke(GetSeasons, GetLatestVersion);
 			string url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
 			RestClient client = new(url);
 			RestRequest request = new(Method.GET);
@@ -404,11 +408,6 @@ namespace WAIUA.Commands
 			return output;
 		}
 
-		private static void GetLanguage()
-		{
-			Language = "ru-RU";
-		}
-
 		private static void GetIGCUsername(sbyte playerno)
 		{
 			if (IsIncognito[playerno])
@@ -454,7 +453,7 @@ namespace WAIUA.Commands
 					AgentPList[playerno] = AgentList[playerno] = null;
 				}
 			}
-			finally
+			catch (Exception e)
 			{
 			}
 		}
@@ -472,7 +471,7 @@ namespace WAIUA.Commands
 					break;
 				}
 			}
-			finally
+			catch (Exception e)
 			{
 			}
 		}
@@ -525,7 +524,7 @@ namespace WAIUA.Commands
 					PhantomNameList[playerno] = null;
 				}
 			}
-			finally
+			catch (Exception e)
 			{
 			}
 		}
@@ -574,7 +573,7 @@ namespace WAIUA.Commands
 					RankProgList[playerno] = PGList[playerno] = PPGList[playerno] = PPPGList[playerno] = null;
 				}
 			}
-			finally
+			catch (Exception e)
 			{
 			}
 		}
@@ -596,7 +595,7 @@ namespace WAIUA.Commands
 							.CompetitiveTier;
 						if (rank is "1" or "2") rank = "0";
 					}
-					catch (Exception)
+					catch (Exception e)
 					{
 						rank = "0";
 					}
@@ -606,7 +605,7 @@ namespace WAIUA.Commands
 						prank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{PSeason}"].CompetitiveTier;
 						if (prank is "1" or "2") prank = "0";
 					}
-					catch (Exception)
+					catch (Exception e)
 					{
 						prank = "0";
 					}
@@ -617,7 +616,7 @@ namespace WAIUA.Commands
 							.CompetitiveTier;
 						if (pprank is "1" or "2") pprank = "0";
 					}
-					catch (Exception)
+					catch (Exception e)
 					{
 						pprank = "0";
 					}
@@ -628,7 +627,7 @@ namespace WAIUA.Commands
 							.CompetitiveTier;
 						if (ppprank is "1" or "2") ppprank = "0";
 					}
-					catch (Exception)
+					catch (Exception e)
 					{
 						ppprank = "0";
 					}
@@ -661,7 +660,7 @@ namespace WAIUA.Commands
 							PPRankNameList[playerno] = PPPRankNameList[playerno] = null;
 				}
 			}
-			finally
+			catch (Exception e)
 			{
 			}
 		}
@@ -790,12 +789,11 @@ namespace WAIUA.Commands
 				{
 					TrackerUrlList[playerno] = null;
 				}
-
-				return output;
 			}
-			finally
+			catch (Exception e)
 			{
 			}
+			return output;
 		}
 	}
 }
