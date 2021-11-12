@@ -333,9 +333,9 @@ namespace WAIUA.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Sponsors.
         /// </summary>
-        public static string SupportedBy {
+        public static string SponsorsTitle {
             get {
-                return ResourceManager.GetString("SupportedBy", resourceCulture);
+                return ResourceManager.GetString("SponsorsTitle", resourceCulture);
             }
         }
         
