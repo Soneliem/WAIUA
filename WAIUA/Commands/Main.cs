@@ -63,11 +63,6 @@ namespace WAIUA.Commands
 		private static string[] PhantomList { get; set; } = new string[10];
 		private static string[] VandalNameList { get; set; } = new string[10];
 		private static string[] PhantomNameList { get; set; } = new string[10];
-		private static dynamic AgentJson { get; set; }
-		private static dynamic CardsJson { get; set; }
-		private static dynamic SkinJson { get; set; }
-		private static dynamic TiersJson { get; set; }
-		private static dynamic VersionJson { get; set; }
 
 		private static string
 			DoCachedRequest(Method method, string url, bool addRiotAuth, bool bypassCache = false) // Thank you MitchC for this, I am always touched when random people go out of the way to help others even though they know that we would be clueless and need to ask alot of followup questions
@@ -213,8 +208,8 @@ namespace WAIUA.Commands
 
 		private static void GetLatestVersion()
 		{
-			VersionJson = Task.Run(() => LoadJsonFromFile("ValAPI/version.json")).Result;
-			Version = VersionJson.data.riotClientVersion;
+			dynamic content = Task.Run(() => LoadJsonFromFile("ValAPI/version.json")).Result;
+			Version = content.data.riotClientVersion;
 		}
 
 		public static string GetIGUsername(string puuid)
@@ -222,8 +217,6 @@ namespace WAIUA.Commands
 			string IGN = null;
 			try
 			{
-				string gameName = "";
-				string gameTag = "";
 				string url = $"https://pd.{Region}.a.pvp.net/name-service/v2/players";
 				RestClient client = new(url);
 				RestRequest request = new(Method.PUT)
@@ -242,9 +235,7 @@ namespace WAIUA.Commands
 
 				var uinfo = JsonConvert.DeserializeObject(content);
 				JToken uinfoObj = JObject.FromObject(uinfo);
-				gameName = uinfoObj["GameName"].Value<string>();
-				gameTag = uinfoObj["TagLine"].Value<string>();
-				IGN = gameName + "#" + gameTag;
+				IGN = uinfoObj["GameName"].Value<string>() + "#" + uinfoObj["TagLine"].Value<string>();
 			}
 			catch (Exception)
 			{
