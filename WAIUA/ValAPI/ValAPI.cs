@@ -121,9 +121,13 @@ namespace WAIUA.ValAPI
 				int currentrank = rank.tier;
 				string url2;
 				WebClient client2 = new WebClient();
-				if (currentrank == 0 || currentrank == 1 || currentrank == 2)
+				if (currentrank == 0)
 				{
 					url2 = rank.smallIcon;
+				}
+				else if (currentrank == 1 || currentrank == 2)
+				{
+					continue;
 				}
 				else
 				{
