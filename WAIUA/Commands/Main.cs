@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -63,6 +64,8 @@ namespace WAIUA.Commands
 		private static string[] PhantomList { get; set; } = new string[10];
 		private static string[] VandalNameList { get; set; } = new string[10];
 		private static string[] PhantomNameList { get; set; } = new string[10];
+		private static string[] PartyList { get; set; } = new string[10];
+		private static dynamic Presences { get; set; }
 
 		private static string
 			DoCachedRequest(Method method, string url, bool addRiotAuth, bool bypassCache = false) // Thank you MitchC for this, I am always touched when random people go out of the way to help others even though they know that we would be clueless and need to ask alot of followup questions
@@ -317,7 +320,7 @@ namespace WAIUA.Commands
 
 		private static void LiveMatchSetup()
 		{
-			Parallel.Invoke(GetSeasons, GetLatestVersion);
+			Parallel.Invoke(GetSeasons, GetLatestVersion, GetPresences);
 			string url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
 			RestClient client = new(url);
 			RestRequest request = new(Method.GET);
@@ -369,7 +372,8 @@ namespace WAIUA.Commands
 				() => GetCardInfo(CardList[playerno], playerno),
 				() => GetSkinInfo(playerno),
 				() => GetCompHistory(PUUIDList[playerno], playerno),
-				() => GetPlayerHistory(PUUIDList[playerno], playerno));
+				() => GetPlayerHistory(PUUIDList[playerno], playerno),
+				() => GetPartyIDs(PUUIDList[playerno], playerno));
 
 			string[] output =
 			{
@@ -400,7 +404,8 @@ namespace WAIUA.Commands
 				VandalNameList[playerno],
 				PGColourList[playerno],
 				PPGColourList[playerno],
-				PPPGColourList[playerno]
+				PPPGColourList[playerno],
+				PartyList[playerno]
 			};
 			return output;
 		}
@@ -538,12 +543,12 @@ namespace WAIUA.Commands
 					var historyinfo = JsonConvert.DeserializeObject(content);
 					JToken historyinfoObj = JObject.FromObject(historyinfo);
 
+					RankProgList[playerno] = historyinfoObj["Matches"][0]["RankedRatingEarned"].Value<string>();
 					int pmatch = historyinfoObj["Matches"][0]["RankedRatingEarned"].Value<int>();
-					RankProgList[playerno] = pmatch.ToString();
 					PGList[playerno] = pmatch.ToString("+#;-#;0");
 					if (pmatch > 0)
 					{
-						PGColourList[playerno] = "#4cd964";
+						PGColourList[playerno] = "#32e2b2";
 					}
 					else if (pmatch < 0)
 					{
@@ -558,7 +563,7 @@ namespace WAIUA.Commands
 					PPGList[playerno] = ppmatch.ToString("+#;-#;0");
 					if (ppmatch > 0)
 					{
-						PPGColourList[playerno] = "#4cd964";
+						PPGColourList[playerno] = "#32e2b2";
 					}
 					else if (ppmatch < 0)
 					{
@@ -573,7 +578,7 @@ namespace WAIUA.Commands
 					PPPGList[playerno] = pppmatch.ToString("+#;-#;0");
 					if (pppmatch > 0)
 					{
-						PPPGColourList[playerno] = "#4cd964";
+						PPPGColourList[playerno] = "#32e2b2";
 					}
 					else if (pppmatch < 0)
 					{
@@ -809,6 +814,50 @@ namespace WAIUA.Commands
 			{
 			}
 			return output;
+		}
+
+		private static void GetPresences()
+		{
+			try
+			{
+				RestClient client = new(new Uri($"https://127.0.0.1:{Port}/chat/v4/presences"));
+				RestRequest request = new(Method.GET);
+				client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+				request.AddHeader("Authorization",
+					$"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{LPassword}"))}");
+				request.AddHeader("X-Riot-ClientPlatform",
+					"ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
+				request.AddHeader("X-Riot-ClientVersion", $"{Version}");
+				request.RequestFormat = DataFormat.Json;
+				var response = client.Get(request);
+				string content = client.Execute(request).Content;
+				Presences = JsonConvert.DeserializeObject(content);
+			}
+			catch (Exception)
+			{
+			}
+		}
+
+		private static void GetPartyIDs(string puuid, int playerno)
+		{
+			try
+			{
+				foreach (var friend in Presences.presences)
+				{
+					if (friend.puuid == puuid)
+					{
+						string base64 = friend["private"];
+						var blob = Convert.FromBase64String(base64);
+						string json = Encoding.UTF8.GetString(blob);
+						dynamic content = JsonConvert.DeserializeObject(json);
+						PartyList[playerno] = content.partyId;
+						break;
+					}
+				}
+			}
+			catch (Exception)
+			{
+			}
 		}
 	}
 }

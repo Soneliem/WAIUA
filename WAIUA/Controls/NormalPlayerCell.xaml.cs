@@ -283,6 +283,16 @@ namespace WAIUA.Controls
 			DependencyProperty.Register("TrackerDisabled", typeof(string), typeof(NormalPlayerCell),
 				new PropertyMetadata(null));
 
+		public string PartyColour
+		{
+			get { return (string)GetValue(PartyColourProperty); }
+			set { SetValue(PartyColourProperty, value); }
+		}
+
+		public static readonly DependencyProperty PartyColourProperty =
+			DependencyProperty.Register("PartyColour", typeof(string), typeof(NormalPlayerCell),
+				new PropertyMetadata(null));
+
 		private void HandleLinkClick(object sender, RequestNavigateEventArgs e)
 		{
 			Hyperlink hl = (Hyperlink)sender;

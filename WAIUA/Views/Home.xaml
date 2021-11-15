@@ -143,7 +143,8 @@
 				TrackerEnabled="{Binding Path=Player0[21]}"
 				TrackerUrl="{Binding Path=Player0[22]}"
 				VandalSkin="{Binding Path=Player0[23]}"
-				VandalSkinName="{Binding Path=Player0[24]}" />
+				VandalSkinName="{Binding Path=Player0[24]}"
+				PartyColour="{Binding Path=Player0[28]}" />
 			<c:NormalPlayerCell
 				Grid.Row="1"
 				Agent="{Binding Path=Player1[0]}"
@@ -173,7 +174,8 @@
 				TrackerEnabled="{Binding Path=Player1[21]}"
 				TrackerUrl="{Binding Path=Player1[22]}"
 				VandalSkin="{Binding Path=Player1[23]}"
-				VandalSkinName="{Binding Path=Player1[24]}" />
+				VandalSkinName="{Binding Path=Player1[24]}"
+				PartyColour="{Binding Path=Player1[28]}" />
 			<c:NormalPlayerCell
 				Grid.Row="2"
 				Agent="{Binding Path=Player2[0]}"
@@ -203,7 +205,8 @@
 				TrackerEnabled="{Binding Path=Player2[21]}"
 				TrackerUrl="{Binding Path=Player2[22]}"
 				VandalSkin="{Binding Path=Player2[23]}"
-				VandalSkinName="{Binding Path=Player2[24]}" />
+				VandalSkinName="{Binding Path=Player2[24]}"
+				PartyColour="{Binding Path=Player2[28]}" />
 			<c:NormalPlayerCell
 				Grid.Row="3"
 				Agent="{Binding Path=Player3[0]}"
@@ -233,7 +236,8 @@
 				TrackerEnabled="{Binding Path=Player3[21]}"
 				TrackerUrl="{Binding Path=Player3[22]}"
 				VandalSkin="{Binding Path=Player3[23]}"
-				VandalSkinName="{Binding Path=Player3[24]}" />
+				VandalSkinName="{Binding Path=Player3[24]}"
+				PartyColour="{Binding Path=Player3[28]}" />
 			<c:NormalPlayerCell
 				Grid.Row="4"
 				Agent="{Binding Path=Player4[0]}"
@@ -263,7 +267,8 @@
 				TrackerEnabled="{Binding Path=Player4[21]}"
 				TrackerUrl="{Binding Path=Player4[22]}"
 				VandalSkin="{Binding Path=Player4[23]}"
-				VandalSkinName="{Binding Path=Player4[24]}" />
+				VandalSkinName="{Binding Path=Player4[24]}"
+				PartyColour="{Binding Path=Player4[28]}" />
 		</Grid>
 
 		<Grid
@@ -308,7 +313,8 @@
 				TrackerEnabled="{Binding Path=Player5[21]}"
 				TrackerUrl="{Binding Path=Player5[22]}"
 				VandalSkin="{Binding Path=Player5[23]}"
-				VandalSkinName="{Binding Path=Player5[24]}" />
+				VandalSkinName="{Binding Path=Player5[24]}"
+				PartyColour="{Binding Path=Player5[28]}" />
 			<c:NormalPlayerCell
 				Grid.Row="1"
 				Agent="{Binding Path=Player6[0]}"
@@ -338,7 +344,8 @@
 				TrackerEnabled="{Binding Path=Player6[21]}"
 				TrackerUrl="{Binding Path=Player6[22]}"
 				VandalSkin="{Binding Path=Player6[23]}"
-				VandalSkinName="{Binding Path=Player6[24]}" />
+				VandalSkinName="{Binding Path=Player6[24]}"
+				PartyColour="{Binding Path=Player6[28]}" />
 			<c:NormalPlayerCell
 				Grid.Row="2"
 				Agent="{Binding Path=Player7[0]}"
@@ -368,7 +375,8 @@
 				TrackerEnabled="{Binding Path=Player7[21]}"
 				TrackerUrl="{Binding Path=Player7[22]}"
 				VandalSkin="{Binding Path=Player7[23]}"
-				VandalSkinName="{Binding Path=Player7[24]}" />
+				VandalSkinName="{Binding Path=Player7[24]}"
+				PartyColour="{Binding Path=Player7[28]}" />
 			<c:NormalPlayerCell
 				Grid.Row="3"
 				Agent="{Binding Path=Player8[0]}"
@@ -398,7 +406,8 @@
 				TrackerEnabled="{Binding Path=Player8[21]}"
 				TrackerUrl="{Binding Path=Player8[22]}"
 				VandalSkin="{Binding Path=Player8[23]}"
-				VandalSkinName="{Binding Path=Player8[24]}" />
+				VandalSkinName="{Binding Path=Player8[24]}"
+				PartyColour="{Binding Path=Player8[28]}" />
 			<c:NormalPlayerCell
 				Grid.Row="4"
 				Agent="{Binding Path=Player9[0]}"
@@ -428,7 +437,8 @@
 				TrackerEnabled="{Binding Path=Player9[21]}"
 				TrackerUrl="{Binding Path=Player9[22]}"
 				VandalSkin="{Binding Path=Player9[23]}"
-				VandalSkinName="{Binding Path=Player9[24]}" />
+				VandalSkinName="{Binding Path=Player9[24]}"
+				PartyColour="{Binding Path=Player9[28]}" />
 		</Grid>
 	</Grid>
 </UserControl>
