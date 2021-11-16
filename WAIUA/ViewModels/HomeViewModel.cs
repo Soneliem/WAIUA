@@ -2,6 +2,7 @@
 using MVVMEssentials.Services;
 using MVVMEssentials.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -49,7 +50,29 @@ namespace WAIUA.ViewModels
 				{
 					try
 					{
-						Parallel.For(0, 10, i => { Player.players[i].data = NewMatch.LiveMatchOutput((sbyte)i); });
+						Parallel.For(0, 10, i =>
+						{
+							Player.players[i].data = NewMatch.LiveMatchOutput((sbyte)i);
+						});
+
+						List<string> colours = new List<string>() { "Red", "Green", "DarkOrange", "White", "DeepSkyBlue", "MediumPurple", "SaddleBrown" };
+						for (int i = 0; i < Player.players.Length; i++)
+						{
+							bool colourused = false;
+							string id = Player.players[i].data[28];
+							for (int j = i + 1; j < Player.players.Length; j++)
+							{
+								if (Player.players[j].data[28] == id && Player.players[j].data[28].Length >= 13)
+								{
+									Player.players[i].data[28] = Player.players[j].data[28] = colours[0];
+									colourused = true;
+								}
+							}
+							if (colourused)
+							{
+								colours.RemoveAt(0);
+							}
+						}
 					}
 					catch (Exception)
 					{

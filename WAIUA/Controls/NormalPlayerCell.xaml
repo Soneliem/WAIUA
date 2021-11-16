@@ -1,12 +1,11 @@
 ﻿<UserControl
 	x:Class="WAIUA.Controls.NormalPlayerCell"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:commands="clr-namespace:WAIUA.Commands"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:p="clr-namespace:WAIUA.Properties"
-	x:Name="Self"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:WAIUA.Properties"
+    x:Name="Self"
 	d:DesignHeight="450"
 	d:DesignWidth="1700"
 	mc:Ignorable="d">
@@ -174,7 +173,7 @@
 						Source="{Binding VandalSkin, ElementName=Self}"
 						ToolTip="{Binding VandalSkinName, ElementName=Self}" />
 					<Image Source="{Binding PhantomSkin, ElementName=Self}"
-						   ToolTip="{Binding PhantomSkinName, ElementName=Self}" />
+						ToolTip="{Binding PhantomSkinName, ElementName=Self}" />
 				</StackPanel>
 			</Viewbox>
 			<Viewbox
@@ -205,6 +204,17 @@
 				<Border.Background>
 					<ImageBrush ImageSource="{Binding Rank, ElementName=Self}" />
 				</Border.Background>
+				<Canvas HorizontalAlignment="Right">
+					<Polyline
+						Margin="-20,0,0,0"
+						Fill="{Binding PartyColour, ElementName=Self}"
+						Stroke="{Binding PartyColour, ElementName=Self}"
+						Points="17,14.5 17,2 3,2 17,14.5"
+						StrokeStartLineCap="Round"
+						StrokeEndLineCap="Round"
+						StrokeLineJoin="Round"
+						StrokeThickness="4" />
+				</Canvas>
 			</Border>
 
 			<ProgressBar

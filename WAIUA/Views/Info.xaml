@@ -303,6 +303,7 @@
 					TextAlignment="Right"
 					TextWrapping="Wrap" />
 		</StackPanel>
+
 		<StackPanel Margin="15" Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom">
 			<Button Background="Transparent"
 					BorderThickness="0"
