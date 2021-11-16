@@ -55,7 +55,7 @@ namespace WAIUA.ViewModels
 							Player.players[i].data = NewMatch.LiveMatchOutput((sbyte)i);
 						});
 
-						List<string> colours = new List<string>() { "Red", "Green", "Orange", "Purple", "White", "Pick", "Grey" };
+						List<string> colours = new List<string>() { "Red", "Green", "DarkOrange", "White", "DeepSkyBlue", "MediumPurple", "SaddleBrown" };
 						for (int i = 0; i < Player.players.Length; i++)
 						{
 							bool colourused = false;
