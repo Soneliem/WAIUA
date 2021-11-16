@@ -62,7 +62,7 @@ namespace WAIUA.ViewModels
 							string id = Player.players[i].data[28];
 							for (int j = i + 1; j < Player.players.Length; j++)
 							{
-								if (Player.players[j].data[28] == id && Player.players[j].data[28].Length > 8)
+								if (Player.players[j].data[28] == id && Player.players[j].data[28].Length >= 13)
 								{
 									Player.players[i].data[28] = Player.players[j].data[28] = colours[0];
 									colourused = true;
