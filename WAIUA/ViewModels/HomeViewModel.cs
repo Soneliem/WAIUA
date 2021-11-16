@@ -55,21 +55,23 @@ namespace WAIUA.ViewModels
 							Player.players[i].data = NewMatch.LiveMatchOutput((sbyte)i);
 						});
 
-						List<string> colours = new List<string>() { "Blue", "Red", "Green", "Orange", "Purple", "White", "Pick", "Grey" };
+						List<string> colours = new List<string>() { "Red", "Green", "Orange", "Purple", "White", "Pick", "Grey" };
 						for (int i = 0; i < Player.players.Length; i++)
 						{
+							bool colourused = false;
 							string id = Player.players[i].data[28];
 							for (int j = i + 1; j < Player.players.Length; j++)
 							{
-								if (Player.players[j].data[28] == id && !String.IsNullOrEmpty(Player.players[j].data[28]))
+								if (Player.players[j].data[28] == id && Player.players[j].data[28].Length > 8)
 								{
 									Player.players[i].data[28] = Player.players[j].data[28] = colours[0];
-								}
-								else
-								{
+									colourused = true;
 								}
 							}
-							colours.RemoveAt(0);
+							if (colourused)
+							{
+								colours.RemoveAt(0);
+							}
 						}
 					}
 					catch (Exception)

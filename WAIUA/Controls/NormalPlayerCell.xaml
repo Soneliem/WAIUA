@@ -206,10 +206,10 @@
 				</Border.Background>
 				<Canvas HorizontalAlignment="Right">
 					<Polyline
-						Margin="-30,0,0,0"
+						Margin="-20,0,0,0"
 						Fill="{Binding PartyColour, ElementName=Self}"
 						Stroke="{Binding PartyColour, ElementName=Self}"
-						Points="27,24.5 27,2 3,2 27,24.5"
+						Points="17,14.5 17,2 3,2 17,14.5"
 						StrokeStartLineCap="Round"
 						StrokeEndLineCap="Round"
 						StrokeLineJoin="Round"
