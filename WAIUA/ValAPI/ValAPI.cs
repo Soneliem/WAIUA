@@ -105,6 +105,7 @@ namespace WAIUA.ValAPI
 
 			dynamic content = await LoadJsonFromFile("ValAPI/competitivetiers.json");
 			dynamic content2 = await LoadJsonFromFile("ValAPI/agents.json");
+			string currentPath = Directory.GetCurrentDirectory();
 
 			foreach (var agent in content2.data)
 			{
@@ -113,6 +114,9 @@ namespace WAIUA.ValAPI
 				string url = agent.killfeedPortrait;
 				Uri uri = new(url);
 				string fileName = string.Format("ValAPI/agentsimg/{0}.png", uuid);
+
+				if (!Directory.Exists(Path.Combine(currentPath, "ValAPI/agentsimg")))
+					Directory.CreateDirectory(Path.Combine(currentPath, "ValAPI/agentsimg"));
 				client.DownloadFile(uri, fileName);
 			}
 
@@ -135,6 +139,8 @@ namespace WAIUA.ValAPI
 				}
 				Uri uri2 = new(url2);
 				string fileName = string.Format("ValAPI/ranksimg/{0}.png", currentrank);
+				if (!Directory.Exists(Path.Combine(currentPath, "ValAPI/ranksimg")))
+					Directory.CreateDirectory(Path.Combine(currentPath, "ValAPI/ranksimg"));
 				client2.DownloadFile(uri2, fileName);
 			}
 		}

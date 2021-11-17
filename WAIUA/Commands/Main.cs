@@ -26,6 +26,7 @@ namespace WAIUA.Commands
 		private static string Region { get; set; }
 		private static string Shard { get; set; }
 		private static string Version { get; set; }
+		private static string currentPath { get; set; }
 		public static string PPUUID { get; private set; }
 		private static string Matchid { get; set; }
 		private static string Port { get; set; }
@@ -362,6 +363,8 @@ namespace WAIUA.Commands
 			CardList = card;
 			LevelList = level;
 			IsIncognito = incognito;
+
+			currentPath = Directory.GetCurrentDirectory();
 		}
 
 		public string[] LiveMatchOutput(sbyte playerno)
@@ -445,7 +448,7 @@ namespace WAIUA.Commands
 					{
 						string uuid = agentEntry.uuid;
 						if (uuid != agent) continue;
-						AgentPList[playerno] = String.Format("/ValAPI/agentsimg/{0}.png", uuid);
+						AgentPList[playerno] = String.Format(Path.Combine(currentPath, "ValAPI/agentsimg/{0}.png"), uuid);
 						AgentList[playerno] = agentEntry.displayName;
 						break;
 					}
@@ -671,7 +674,6 @@ namespace WAIUA.Commands
 					{
 						MaxRRList[playerno] = "100";
 					}
-
 					GetRankStuff(playerno, rank, prank, pprank, ppprank);
 				}
 				else
@@ -762,22 +764,22 @@ namespace WAIUA.Commands
 				string tier = tiers.tier;
 				if (rank == tier)
 				{
-					RankList[playerno] = String.Format("/ValAPI/ranksimg/{0}.png", tier);
+					RankList[playerno] = String.Format(Path.Combine(currentPath, "ValAPI/ranksimg/{0}.png"), tier);
 					RankNameList[playerno] = tiers.tierName;
 				}
 				if (prank == tier)
 				{
-					PRankList[playerno] = String.Format("/ValAPI/ranksimg/{0}.png", tier);
+					PRankList[playerno] = String.Format(Path.Combine(currentPath, "ValAPI/ranksimg/{0}.png"), tier);
 					PRankNameList[playerno] = tiers.tierName;
 				}
 				if (tier == pprank)
 				{
-					PPRankList[playerno] = String.Format("/ValAPI/ranksimg/{0}.png", tier);
+					PPRankList[playerno] = String.Format(Path.Combine(currentPath, "ValAPI/ranksimg/{0}.png"), tier);
 					PPRankNameList[playerno] = tiers.tierName;
 				}
 				if (tier == ppprank)
 				{
-					PPPRankList[playerno] = String.Format("/ValAPI/ranksimg/{0}.png", tier);
+					PPPRankList[playerno] = String.Format(Path.Combine(currentPath, "ValAPI/ranksimg/{0}.png"), tier);
 					PPPRankNameList[playerno] = tiers.tierName;
 				}
 			}

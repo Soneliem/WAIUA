@@ -1,11 +1,1 @@
-{
-	"status": 200,
-	"data": {
-		"manifestId": "2390F0D1CF232B5B",
-		"branch": "release-03.09",
-		"version": "03.09.00.629826",
-		"buildVersion": "13",
-		"riotClientVersion": "release-03.09-shipping-13-629826",
-		"buildDate": "2021-11-03T00:00:00Z"
-	}
-}
+{"status":200,"data":{"manifestId":"68EF96E8331F9BC6","branch":"release-03.10","version":"03.10.00.635534","buildVersion":"6","riotClientVersion":"release-03.10-shipping-6-635534","buildDate":"2021-11-15T00:00:00Z"}}
