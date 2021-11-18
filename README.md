@@ -4,10 +4,12 @@
   </a>
 </p>
 <h3 align="center">WAIUA</h3>
-<h5 align="center">Who Am I Up Against?</h5>
+<h4 align="center">Who Am I Up Against?</h4>
+<a href="https://waiua.sonel.dev"><h5 align="center">waiua.sonel.dev</h5></a>
+
 
   <p align="center">
-    A Windows application to view player ranks in a live Valorant Match</p>
+    A Windows application to view player ranks and other info in a live Valorant Match</p>
     <p align="center">
     <a href="https://discord.gg/X7CYCeZSRK">
       <img alt="Discord" src="https://img.shields.io/discord/881790284613185546?color=blue&label=discord">
@@ -41,7 +43,6 @@
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap-and-known-bugs">Roadmap And Known Bugs</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
@@ -56,10 +57,9 @@
 
 ### Current Features
 
-Displays for each player:
-|Current Rank|Past three ranks (from last 3 acts, not last 3 played acts)|W/L indicator for last three competitive games|Player card and Account Level|In-game name and Agent|Vandal And Phantom Skin|
-|:---:|:---:|:---:|:---:|:---:|:---:|
-|![rank](Screenshots/rank.png)|![rank](Screenshots/pranks.png)|![rank](Screenshots/history.png)|![card](Screenshots/card.png)|![name](Screenshots/name.png)|![skin](Screenshots/skin.png)|
+|Current Rank and Rank Progress|Past three ranks (from last 3 acts, not last 3 played acts)|RR lost or gained in last three competitive games|Player card and Account Level|In-game name and Agent|Vandal And Phantom Skin|Party Indicators|Fully translated into 10+ languages|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|![rank](Screenshots/rank.png)|![rank](Screenshots/pranks.png)|![rank](Screenshots/history.png)|![card](Screenshots/card.png)|![name](Screenshots/name.png)|![skin](Screenshots/skin.png)|![party](Screenshots/party.png)|![translation](Screenshots/language.png)|
 
 ## Getting Started
 
@@ -109,23 +109,19 @@ Another reason to making this was that I wanted some experience with .NET and GU
 
 ## Contributing
 
-I welcome any sort of contribution and am happy to take in any ~~hate/~~ feedback. Open source means open heart :)
+I welcome any sort of contribution and am happy to take in any ~~hate/~~ feedback. Open source means open heart :) Also applogies for the code. In the near future I will definitely change the code to something that doesn't break every coding convention.
 
 ## Translations
 
 WAIUA Supports full localization and instructions to help with translations can be found in [Localization](https://github.com/Soneliem/WAIUA/blob/master/Localization.md)
 
-## License
-
-Distributed under the MIT License. See the [license](https://github.com/Soneliem/WAIUA/blob/master/LICENSE) for more information.
-
 ## Contact
 
-Discord: Soneliem#4194
-Project Link: [https://github.com/Soneliem/WAIUA](https://github.com/Soneliem/WAIUA)
-Discord Server:
-
-[![Discord Banner 2](https://discordapp.com/api/guilds/881790284613185546/widget.png?style=banner2)](https://discord.gg/X7CYCeZSRK)
+**Discord:** Soneliem#4194  
+**Email:** [waiua@sonel.dev](mailto:waiua@sonel.dev)  
+**Project Link:** [https://github.com/Soneliem/WAIUA](https://github.com/Soneliem/WAIUA)  
+**Discord Server:**  
+[![Discord Banner 2](https://discordapp.com/api/guilds/881790284613185546/widget.png?style=banner2)](https://discord.gg/X7CYCeZSRK)  
 
 ## Acknowledgements
 

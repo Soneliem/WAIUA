@@ -73,6 +73,13 @@ namespace WAIUA.ViewModels
 								colours.RemoveAt(0);
 							}
 						}
+						for (int i = 0; i < Player.players.Length; i++)
+						{
+							if (Player.players[i].data[28].Length >= 13)
+							{
+								Player.players[i].data[28] = "Transparent";
+							}
+						}
 					}
 					catch (Exception)
 					{

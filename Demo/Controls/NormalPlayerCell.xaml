@@ -1,10 +1,9 @@
 ﻿<UserControl
-	x:Class="WAIUA.Controls.NormalPlayerCell"
+	x:Class="Demo.Controls.NormalPlayerCell"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:p="clr-namespace:WAIUA.Properties"
     x:Name="Self"
 	d:DesignHeight="450"
 	d:DesignWidth="1700"
@@ -129,7 +128,7 @@
 					<TextBlock
 						FontWeight="Normal"
 						Foreground="#9f97b0"
-						ToolTip="{x:Static p:Resources.TrackerToolTip}"
+						ToolTip=""
 						Visibility="{Binding TrackerEnabled, ElementName=Self}">
 						<Hyperlink
 							NavigateUri="{Binding TrackerUrl, ElementName=Self}"
@@ -182,7 +181,7 @@
 				HorizontalAlignment="Right"
 				VerticalAlignment="Bottom"
 				Stretch="Uniform">
-				<StackPanel Orientation="Horizontal" >
+				<StackPanel Orientation="Horizontal">
 					<Image Height="256" Width="256" Source="{Binding PPPRank, ElementName=Self}"
 						   ToolTip="{Binding PPPRankName, ElementName=Self}" />
 					<Image
@@ -190,7 +189,7 @@
 						Height="256" Width="256"
 						Source="{Binding PPRank, ElementName=Self}"
 						ToolTip="{Binding PPRankName, ElementName=Self}" />
-					<Image Height="256" Width="256" 
+					<Image Height="256" Width="256"
 						 Source="{Binding PRank, ElementName=Self}"
 						 ToolTip="{Binding PRankName, ElementName=Self}" />
 				</StackPanel>
