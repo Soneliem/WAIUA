@@ -7,7 +7,6 @@
 <h4 align="center">Who Am I Up Against?</h4>
 <a href="https://waiua.sonel.dev"><h5 align="center">waiua.sonel.dev</h5></a>
 
-
   <p align="center">
     A Windows application to view player ranks and other info in a live Valorant Match</p>
     <p align="center">
@@ -103,9 +102,9 @@ I knew none of these things before making this lol
 
 ## Why I Made This
 
-The main reason I made this was to detect smurfs. Being able to see an account that were bronze 1 last act and then miraculously became gold 3 this act while having an account level of 2 is a very clear indication of them being a smurf. I have chosen the set of available features carefully mainly to maintain the competitive integrity of the game. For example I could have given you access to player ranks while you're still choosing agents, but this will lead to people dodging because they don't want "bad" teammates. I could have also given you access to the enemy's last 90 games but that both breaches their privacy and could lead to bullying.
+The main reason I made this was to detect smurfs. This app basically settles the debates between team memebers or the enemy. I have chosen the set of available features carefully mainly to maintain the competitive integrity of the game. For example I could have given you access to team ranks while you're still choosing agents, but this will lead to people dodging because they don't want "bad" teammates. I could have also given you access to the enemy's last 90 games but that both breaches their privacy and could lead to bullying.
 
-Another reason to making this was that I wanted some experience with .NET and GUI apps. This application uses C# as the backend, WPF as the frontend and .NET as the framework. I knew none of these so this was a fun journey. Because of this, the code is very messy but it does the job. I probably should have made it all asynchronously but I am lazy and I wanted to slowly get into C#. But mainly because I am lazy.
+Another reason to making this was that I wanted some experience with .NET and GUI apps. This application uses C# as the backend, WPF as the frontend and .NET as the framework. I knew none of these, so this was a fun journey. Because of this, the code is very messy but it does the job. I probably should have made it all asynchronously but I am lazy and I wanted to slowly get into C#. But mainly because I am lazy.
 
 ## Contributing
 
@@ -117,11 +116,11 @@ WAIUA Supports full localization and instructions to help with translations can 
 
 ## Contact
 
-**Discord:** Soneliem#4194  
-**Email:** [waiua@sonel.dev](mailto:waiua@sonel.dev)  
-**Project Link:** [https://github.com/Soneliem/WAIUA](https://github.com/Soneliem/WAIUA)  
-**Discord Server:**  
-[![Discord Banner 2](https://discordapp.com/api/guilds/881790284613185546/widget.png?style=banner2)](https://discord.gg/X7CYCeZSRK)  
+**Discord:** Soneliem#4194
+**Email:** [waiua@sonel.dev](mailto:waiua@sonel.dev)
+**Project Link:** [https://github.com/Soneliem/WAIUA](https://github.com/Soneliem/WAIUA)
+**Discord Server:**
+[![Discord Banner 2](https://discordapp.com/api/guilds/881790284613185546/widget.png?style=banner2)](https://discord.gg/X7CYCeZSRK)
 
 ## Acknowledgements
 

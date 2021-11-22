@@ -1,5 +1,4 @@
-﻿using AutoUpdaterDotNET;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
@@ -10,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml;
+using AutoUpdaterDotNET;
 using WAIUA.Properties;
 using static WAIUA.Commands.Main;
 using static WAIUA.ValAPI.ValAPI;
@@ -18,12 +18,12 @@ namespace WAIUA.Views
 {
 	public partial class Settings : UserControl
 	{
+		private readonly List<CultureInfo> LanguageList = new();
+
 		public Settings()
 		{
 			InitializeComponent();
 		}
-
-		private List<CultureInfo> LanguageList = new List<CultureInfo>();
 
 		private void CheckAuth()
 		{
@@ -39,28 +39,28 @@ namespace WAIUA.Views
 		{
 			Mouse.OverrideCursor = Cursors.Wait;
 			CurrentVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-			LatestVersion.Text = await Task.Run(GetLatestVerion);
+			LatestVersion.Text = await Task.Run(GetLatestVersion);
 			AutoUpdater.Start("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xml");
 			await CheckAndUpdateJson();
 			Mouse.OverrideCursor = Cursors.Arrow;
 		}
 
-		private static string GetLatestVerion()
+		private static string GetLatestVersion()
 		{
-			XmlDocument xml = new XmlDocument();
+			var xml = new XmlDocument();
 			xml.Load("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xml");
-			XmlNodeList result = xml.GetElementsByTagName("version");
+			var result = xml.GetElementsByTagName("version");
 			return result[0].InnerText;
 		}
 
-		private void Button_Click2(object sender, System.Windows.RoutedEventArgs e)
+		private void Button_Click2(object sender, RoutedEventArgs e)
 		{
 			Mouse.OverrideCursor = Cursors.Wait;
 			CheckAuth();
 			Mouse.OverrideCursor = Cursors.Arrow;
 		}
 
-		private void Button_Click3(object sender, System.Windows.RoutedEventArgs e)
+		private void Button_Click3(object sender, RoutedEventArgs e)
 		{
 			Mouse.OverrideCursor = Cursors.Wait;
 			if (CheckLocal())
@@ -73,55 +73,54 @@ namespace WAIUA.Views
 			{
 				AuthStatusBox.Text = Properties.Resources.NoValGame;
 			}
+
 			Mouse.OverrideCursor = Cursors.Arrow;
 		}
 
-		private async void Button_Click4(object sender, System.Windows.RoutedEventArgs e)
+		private async void Button_Click4(object sender, RoutedEventArgs e)
 		{
 			Mouse.OverrideCursor = Cursors.Wait;
 			await CheckAndUpdateJson();
 			Mouse.OverrideCursor = Cursors.Arrow;
 		}
 
-		private async void Button_Click5(object sender, System.Windows.RoutedEventArgs e)
+		private async void Button_Click5(object sender, RoutedEventArgs e)
 		{
 			Mouse.OverrideCursor = Cursors.Wait;
-			await UpdateJson();
+			await UpdateJson(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA");
 			Mouse.OverrideCursor = Cursors.Arrow;
 		}
 
 		private async void ListBox_Selected(object sender, SelectionChangedEventArgs e)
 		{
 			Mouse.OverrideCursor = Cursors.Wait;
-			ComboBox combo = (ComboBox)sender;
-			int index = combo.SelectedIndex;
+			var combo = (ComboBox)sender;
+			var index = combo.SelectedIndex;
 			Thread.CurrentThread.CurrentCulture = LanguageList[index];
 			Thread.CurrentThread.CurrentUICulture = LanguageList[index];
 			Properties.Settings.Default.Language = LanguageList[index].TwoLetterISOLanguageName;
-			await UpdateJson();
+			await UpdateJson(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA");
 			Mouse.OverrideCursor = Cursors.Arrow;
 		}
 
 		private static IEnumerable<CultureInfo> GetAvailableCultures()
 		{
-			List<CultureInfo> result = new List<CultureInfo>();
-			ResourceManager rm = new ResourceManager(typeof(Resources));
+			var result = new List<CultureInfo>();
+			var rm = new ResourceManager(typeof(Resources));
 
-			CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
-			foreach (CultureInfo culture in cultures)
-			{
+			var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
+			foreach (var culture in cultures)
 				try
 				{
 					if (culture.Equals(CultureInfo.InvariantCulture)) continue;
 
-					ResourceSet rs = rm.GetResourceSet(culture, true, false);
+					var rs = rm.GetResourceSet(culture, true, false);
 					if (rs != null)
 						result.Add(culture);
 				}
 				catch (CultureNotFoundException)
 				{
 				}
-			}
 
 			return result;
 		}
@@ -130,13 +129,12 @@ namespace WAIUA.Views
 		{
 			Mouse.OverrideCursor = Cursors.Wait;
 			if (LanguageCombo.Items.Count == 0)
-			{
-				foreach (CultureInfo language in GetAvailableCultures())
+				foreach (var language in GetAvailableCultures())
 				{
 					LanguageCombo.Items.Add(language.NativeName);
 					LanguageList.Add(language);
 				}
-			}
+
 			Mouse.OverrideCursor = Cursors.Arrow;
 		}
 	}

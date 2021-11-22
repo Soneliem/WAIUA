@@ -343,7 +343,7 @@
 				PartyColour="Green" />
 			<c:NormalPlayerCell
 				Grid.Row="2"
-				
+
 			Agent="Sage"
 				AgentPicture="/images/agentsimg/569fdd95-4d10-43ab-ca70-79becc718b46.png"
 				Card="https://media.valorant-api.com/playercards/51dcf475-4078-2dce-883b-48bb77670ea8/smallart.png"

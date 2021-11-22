@@ -14,15 +14,15 @@ namespace WAIUA.Views
 
 		private void HandleLinkClick(object sender, RoutedEventArgs e)
 		{
-			Hyperlink hl = (Hyperlink)sender;
-			string navigateUri = hl.NavigateUri.ToString();
+			var hl = (Hyperlink)sender;
+			var navigateUri = hl.NavigateUri.ToString();
 			Process.Start(new ProcessStartInfo(navigateUri) { UseShellExecute = true });
 			e.Handled = true;
 		}
 
 		private void ImageClick(object sender, RoutedEventArgs e)
 		{
-			Button _button = (Button)sender;
+			var _button = (Button)sender;
 			Process.Start(new ProcessStartInfo(_button.Tag.ToString()) { UseShellExecute = true });
 			e.Handled = true;
 		}

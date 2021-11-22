@@ -98,7 +98,6 @@
         <None Remove="Assets\settings.png" />
         <None Remove="Assets\Soneliem.png" />
         <None Remove="Assets\vandal.png" />
-        <None Remove="ValAPI\version.json" />
     </ItemGroup>
 
     <ItemGroup>
@@ -129,9 +128,6 @@
         <Resource Include="Assets\Soneliem.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
-        <Content Include="ValAPI\version.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
     </ItemGroup>
 
     <ItemGroup>

@@ -1,16 +1,12 @@
-﻿using MVVMEssentials.Commands;
+﻿using System.Windows.Input;
+using MVVMEssentials.Commands;
 using MVVMEssentials.Services;
 using MVVMEssentials.ViewModels;
-using System.Windows.Input;
 
 namespace WAIUA.ViewModels
 {
 	internal class InfoViewModel : ViewModelBase
 	{
-		public ICommand NavigateHomeCommand { get; }
-		public ICommand NavigateInfoCommand { get; }
-		public ICommand NavigateSettingsCommand { get; }
-
 		public InfoViewModel(INavigationService homeNavigationService, INavigationService infoNavigationService,
 			INavigationService settingsNavigationService)
 		{
@@ -18,5 +14,9 @@ namespace WAIUA.ViewModels
 			NavigateInfoCommand = new NavigateCommand(infoNavigationService);
 			NavigateSettingsCommand = new NavigateCommand(settingsNavigationService);
 		}
+
+		public ICommand NavigateHomeCommand { get; }
+		public ICommand NavigateInfoCommand { get; }
+		public ICommand NavigateSettingsCommand { get; }
 	}
 }

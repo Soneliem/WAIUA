@@ -1,16 +1,16 @@
 ﻿<UserControl
 	x:Class="WAIUA.Controls.NormalPlayerCell"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:p="clr-namespace:WAIUA.Properties"
-    x:Name="Self"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:p="clr-namespace:WAIUA.Properties"
+	x:Name="Self"
 	d:DesignHeight="450"
 	d:DesignWidth="1700"
 	mc:Ignorable="d">
 	<UserControl.Resources>
-		<Style x:Key="HyperlinkStyledButton" TargetType="Button">
+		<Style TargetType="Button">
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="Button">
@@ -81,31 +81,34 @@
 					Stretch="Uniform">
 					<StackPanel Orientation="Horizontal">
 						<Border CornerRadius="50"
-								Width="30"
-								Height="30"
-								Padding="4,4,4,5"
-								Margin="0, 2"
-								Background="{Binding PPPMatchColour, ElementName=Self}"
-								BorderThickness="1">
-							<TextBlock Text="{Binding PPPMatch, ElementName=Self}" Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+						        Width="30"
+						        Height="30"
+						        Padding="4,4,4,5"
+						        Margin="0, 2"
+						        Background="{Binding PPPMatchColour, ElementName=Self}"
+						        BorderThickness="1">
+							<TextBlock Text="{Binding PPPMatch, ElementName=Self}" Foreground="#252A40" FontWeight="Bold"
+							           HorizontalAlignment="Center" VerticalAlignment="Center" />
 						</Border>
 						<Border CornerRadius="50"
-								Width="30"
-								Height="30"
-								Margin="8, 2"
-								Padding="4,4,4,5"
-								Background="{Binding PPMatchColour, ElementName=Self}"
-								BorderThickness="1">
-							<TextBlock Text="{Binding PPMatch, ElementName=Self}" Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+						        Width="30"
+						        Height="30"
+						        Margin="8, 2"
+						        Padding="4,4,4,5"
+						        Background="{Binding PPMatchColour, ElementName=Self}"
+						        BorderThickness="1">
+							<TextBlock Text="{Binding PPMatch, ElementName=Self}" Foreground="#252A40" FontWeight="Bold"
+							           HorizontalAlignment="Center" VerticalAlignment="Center" />
 						</Border>
 						<Border CornerRadius="50"
-								Width="30"
-								Height="30"
-								Padding="4,4,4,5"
-								Margin="0, 2"
-								Background="{Binding PMatchColour, ElementName=Self}"
-								BorderThickness="1">
-							<TextBlock Text="{Binding PMatch, ElementName=Self}" Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+						        Width="30"
+						        Height="30"
+						        Padding="4,4,4,5"
+						        Margin="0, 2"
+						        Background="{Binding PMatchColour, ElementName=Self}"
+						        BorderThickness="1">
+							<TextBlock Text="{Binding PMatch, ElementName=Self}" Foreground="#252A40" FontWeight="Bold"
+							           HorizontalAlignment="Center" VerticalAlignment="Center" />
 						</Border>
 					</StackPanel>
 				</Viewbox>
@@ -173,7 +176,7 @@
 						Source="{Binding VandalSkin, ElementName=Self}"
 						ToolTip="{Binding VandalSkinName, ElementName=Self}" />
 					<Image Source="{Binding PhantomSkin, ElementName=Self}"
-						ToolTip="{Binding PhantomSkinName, ElementName=Self}" />
+					       ToolTip="{Binding PhantomSkinName, ElementName=Self}" />
 				</StackPanel>
 			</Viewbox>
 			<Viewbox
@@ -182,17 +185,17 @@
 				HorizontalAlignment="Right"
 				VerticalAlignment="Bottom"
 				Stretch="Uniform">
-				<StackPanel Orientation="Horizontal" >
+				<StackPanel Orientation="Horizontal">
 					<Image Height="256" Width="256" Source="{Binding PPPRank, ElementName=Self}"
-						   ToolTip="{Binding PPPRankName, ElementName=Self}" />
+					       ToolTip="{Binding PPPRankName, ElementName=Self}" />
 					<Image
 						Margin="30,0"
 						Height="256" Width="256"
 						Source="{Binding PPRank, ElementName=Self}"
 						ToolTip="{Binding PPRankName, ElementName=Self}" />
-					<Image Height="256" Width="256" 
-						 Source="{Binding PRank, ElementName=Self}"
-						 ToolTip="{Binding PRankName, ElementName=Self}" />
+					<Image Height="256" Width="256"
+					       Source="{Binding PRank, ElementName=Self}"
+					       ToolTip="{Binding PRankName, ElementName=Self}" />
 				</StackPanel>
 			</Viewbox>
 			<Border

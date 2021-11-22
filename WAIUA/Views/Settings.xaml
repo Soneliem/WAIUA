@@ -62,7 +62,7 @@
 				Focusable="False" />
 		</ControlTemplate>
 
-		<Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+		<Style TargetType="{x:Type ComboBox}">
 			<Setter Property="SnapsToDevicePixels" Value="true" />
 			<Setter Property="OverridesDefaultStyle" Value="true" />
 			<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
@@ -124,7 +124,7 @@
 										CornerRadius="10" />
 									<ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
 										<StackPanel IsItemsHost="True"
-													KeyboardNavigation.DirectionalNavigation="Contained" />
+										            KeyboardNavigation.DirectionalNavigation="Contained" />
 									</ScrollViewer>
 								</Grid>
 							</Popup>
@@ -155,7 +155,7 @@
 		</Style>
 
 		<!--  SimpleStyles: ComboBoxItem  -->
-		<Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
+		<Style TargetType="{x:Type ComboBoxItem}">
 			<Setter Property="SnapsToDevicePixels" Value="true" />
 			<Setter Property="Foreground" Value="White" />
 			<Setter Property="OverridesDefaultStyle" Value="true" />
@@ -487,11 +487,11 @@
 		</Border>
 
 		<Border Grid.Row="3"
-			Grid.RowSpan="2"
-			Grid.Column="2"
-			Margin="25"
-			Background="#252A40"
-			CornerRadius="20">
+		        Grid.RowSpan="2"
+		        Grid.Column="2"
+		        Margin="25"
+		        Background="#252A40"
+		        CornerRadius="20">
 			<Grid Margin="10">
 				<Grid.RowDefinitions>
 					<RowDefinition />
@@ -511,37 +511,37 @@
 				<StackPanel Grid.Row="1">
 					<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
 						<TextBlock
-						FontSize="20"
-						Foreground="White"
-						Opacity="0.7"
-						Text="{x:Static p:Resources.Latestversion}"
-						TextAlignment="Left"
-						TextWrapping="Wrap" />
+							FontSize="20"
+							Foreground="White"
+							Opacity="0.7"
+							Text="{x:Static p:Resources.Latestversion}"
+							TextAlignment="Left"
+							TextWrapping="Wrap" />
 						<TextBlock
-						x:Name="LatestVersion"
-						FontSize="20"
-						Foreground="White"
-						Opacity="0.7"
-						Text=""
-						TextAlignment="Left"
-						TextWrapping="Wrap" />
+							x:Name="LatestVersion"
+							FontSize="20"
+							Foreground="White"
+							Opacity="0.7"
+							Text=""
+							TextAlignment="Left"
+							TextWrapping="Wrap" />
 					</StackPanel>
 					<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
 						<TextBlock
-						FontSize="20"
-						Foreground="White"
-						Opacity="0.7"
-						Text="{x:Static p:Resources.CurrentVersion}"
-						TextAlignment="Left"
-						TextWrapping="Wrap" />
+							FontSize="20"
+							Foreground="White"
+							Opacity="0.7"
+							Text="{x:Static p:Resources.CurrentVersion}"
+							TextAlignment="Left"
+							TextWrapping="Wrap" />
 						<TextBlock
-						x:Name="CurrentVersion"
-						FontSize="20"
-						Foreground="White"
-						Opacity="0.7"
-						Text=""
-						TextAlignment="Left"
-						TextWrapping="Wrap" />
+							x:Name="CurrentVersion"
+							FontSize="20"
+							Foreground="White"
+							Opacity="0.7"
+							Text=""
+							TextAlignment="Left"
+							TextWrapping="Wrap" />
 					</StackPanel>
 				</StackPanel>
 				<Viewbox Grid.Row="2">

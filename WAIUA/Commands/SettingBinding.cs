@@ -1,4 +1,5 @@
 ﻿using System.Windows.Data;
+using WAIUA.Properties;
 
 namespace WAIUA.Commands
 {
@@ -17,8 +18,8 @@ namespace WAIUA.Commands
 
 		private void Initialize()
 		{
-			this.Source = WAIUA.Properties.Settings.Default;
-			this.Mode = BindingMode.TwoWay;
+			Source = Settings.Default;
+			Mode = BindingMode.TwoWay;
 		}
 	}
 }
