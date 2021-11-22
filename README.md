@@ -56,10 +56,13 @@
 
 ### Current Features
 
-|Current Rank and Rank Progress|Past three ranks (from last 3 acts, not last 3 played acts)|RR lost or gained in last three competitive games|Player card and Account Level|In-game name and Agent|Vandal And Phantom Skin|Party Indicators|Fully translated into 10+ languages|
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|![rank](Screenshots/rank.png)|![rank](Screenshots/pranks.png)|![rank](Screenshots/history.png)|![card](Screenshots/card.png)|![name](Screenshots/name.png)|![skin](Screenshots/skin.png)|![party](Screenshots/party.png)|![translation](Screenshots/language.png)|
+|Current Rank and Rank Progress|Past three ranks (from last 3 acts, not last 3 played acts)|RR lost or gained in last three competitive games|Player card and Account Level|
+|:---:|:---:|:---:|:---:|
+|![rank](Screenshots/rank.png)|![rank](Screenshots/pranks.png)|![rank](Screenshots/history.png)|![card](Screenshots/card.png)|
 
+|In-game name and Agent|Vandal And Phantom Skin|Party Indicators|Fully translated into 10+ languages|
+|:---:|:---:|:---:|:---:|
+|![name](Screenshots/name.png)|![skin](Screenshots/skin.png)|![party](Screenshots/party.png)|![translation](Screenshots/language.png)|
 ## Getting Started
 
 To get the app up and running follow these simple steps.
@@ -116,11 +119,11 @@ WAIUA Supports full localization and instructions to help with translations can 
 
 ## Contact
 
-**Discord:** Soneliem#4194
-**Email:** [waiua@sonel.dev](mailto:waiua@sonel.dev)
-**Project Link:** [https://github.com/Soneliem/WAIUA](https://github.com/Soneliem/WAIUA)
-**Discord Server:**
-[![Discord Banner 2](https://discordapp.com/api/guilds/881790284613185546/widget.png?style=banner2)](https://discord.gg/X7CYCeZSRK)
+**Discord:** Soneliem#4194  
+**Email:** [waiua@sonel.dev](mailto:waiua@sonel.dev)  
+**Project Link:** [https://github.com/Soneliem/WAIUA](https://github.com/Soneliem/WAIUA)  
+**Discord Server:**  
+[![Discord Banner 2](https://discordapp.com/api/guilds/881790284613185546/widget.png?style=banner2)](https://discord.gg/X7CYCeZSRK)  
 
 ## Acknowledgements
 
