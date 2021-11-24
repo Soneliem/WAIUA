@@ -67,17 +67,42 @@ namespace WAIUA.Commands
 		private static string[] PartyList { get; } = new string[10];
 		private static dynamic Presences { get; set; }
 
-		private static string
-			DoCachedRequest(Method method, string url, bool addRiotAuth,
-				bool bypassCache =
-					false) // Thank you MitchC for this, I am always touched when random people go out of the way to help others even though they know that we would be clueless and need to ask alot of followup questions
+		//private static string DoCachedRequest(Method method, string url, bool addRiotAuth, bool bypassCache = false) // Thank you MitchC for this, I am always touched when random people go out of the way to help others even though they know that we would be clueless and need to ask alot of followup questions
+		//{
+		//	var tsk = DoCachedRequestAsync(method, url, addRiotAuth, bypassCache);
+		//	return tsk.Result;
+		//}
+
+		private static string DoCachedRequest(Method method, string url, bool addRiotAuth, bool bypassCache = false) 
 		{
-			var tsk = DoCachedRequestAsync(method, url, addRiotAuth, bypassCache);
-			return tsk.Result;
+			var attemptCache = method == Method.GET && !bypassCache;
+			if (attemptCache)
+				if (Dictionary.UrlToBody.TryGetValue(url, out var res))
+					return res;
+
+			RestClient client = new(url);
+			RestRequest request = new(method);
+			if (addRiotAuth)
+			{
+				request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
+				request.AddHeader("Authorization", $"Bearer {AccessToken}");
+				request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
+				request.AddHeader("X-Riot-ClientVersion", $"{Version}");
+			}
+
+			var resp = client.Execute(request);
+			if (resp.IsSuccessful)
+			{
+				var cont = resp.Content;
+
+				if (attemptCache) Dictionary.UrlToBody.TryAdd(url, cont);
+				return cont;
+			}
+
+			return null;
 		}
 
-		private static async Task<string> DoCachedRequestAsync(Method method, string url, bool addRiotAuth,
-			bool bypassCache = false)
+		private static async Task<string> DoCachedRequestAsync(Method method, string url, bool addRiotAuth, bool bypassCache = false)
 		{
 			var attemptCache = method == Method.GET && !bypassCache;
 			if (attemptCache)
@@ -421,28 +446,29 @@ namespace WAIUA.Commands
 
 		private static void GetAgentInfo(string agent, sbyte playerno)
 		{
-			try
+			AgentPList[playerno] = AgentList[playerno] = "";
+			if (!string.IsNullOrEmpty(agent))
 			{
-				if (!string.IsNullOrEmpty(agent))
+				try
 				{
+					AgentPList[playerno] = CurrentPath + $"\\ValAPI\\agentsimg\\{agent}.png";
+
 					var content = Task.Run(() => LoadJsonFromFile("\\ValAPI\\agents.json")).Result;
 					foreach (var agentEntry in content.data)
 					{
-						string uuid = agentEntry.uuid;
-						if (uuid != agent) continue;
-						AgentPList[playerno] =
-							string.Format(CurrentPath + "\\ValAPI\\agentsimg\\{0}.png", uuid);
-						AgentList[playerno] = agentEntry.displayName;
-						break;
+						if (agentEntry.uuid == agent)
+						{
+							AgentList[playerno] = agentEntry.displayName;
+							break;
+						}
 					}
 				}
-				else
+				catch (Exception)
 				{
-					AgentPList[playerno] = AgentList[playerno] = null;
+					// ignored
 				}
-			}
-			catch (Exception)
-			{
+
+				
 			}
 		}
 
@@ -515,6 +541,8 @@ namespace WAIUA.Commands
 		{
 			try
 			{
+				RankProgList[playerno] = PGList[playerno] = PPGList[playerno] = PPPGList[playerno] = "";
+				PGColourList[playerno] = PPGColourList[playerno] = PPPGColourList[playerno] = "Transparent";
 				if (!string.IsNullOrEmpty(puuid))
 				{
 					var content = DoCachedRequest(Method.GET,
@@ -523,38 +551,43 @@ namespace WAIUA.Commands
 					var historyinfo = JsonConvert.DeserializeObject(content);
 					JToken historyinfoObj = JObject.FromObject(historyinfo);
 
-					RankProgList[playerno] = historyinfoObj["Matches"][0]["RankedRatingEarned"].Value<string>();
-					var pmatch = historyinfoObj["Matches"][0]["RankedRatingEarned"].Value<int>();
-					PGList[playerno] = pmatch.ToString("+#;-#;0");
-					if (pmatch > 0)
-						PGColourList[playerno] = "#32e2b2";
-					else if (pmatch < 0)
-						PGColourList[playerno] = "#ff4654";
-					else
-						PGColourList[playerno] = "#7f7f7f";
-					var ppmatch = historyinfoObj["Matches"][1]["RankedRatingEarned"].Value<int>();
+					if (historyinfoObj["Matches"][0]["RankedRatingEarned"] != null)
+					{
+						RankProgList[playerno] =
+							historyinfoObj["Matches"][0]["RankedRatingAfterUpdate"].Value<string>();
+						int pmatch = historyinfoObj["Matches"][0]["RankedRatingEarned"].Value<int>();
+						PGList[playerno] = pmatch.ToString("+#;-#;0");
+						if (pmatch > 0)
+							PGColourList[playerno] = "#32e2b2";
+						else if (pmatch < 0)
+							PGColourList[playerno] = "#ff4654";
+						else
+							PGColourList[playerno] = "#7f7f7f";
+					}
 
-					PPGList[playerno] = ppmatch.ToString("+#;-#;0");
-					if (ppmatch > 0)
-						PPGColourList[playerno] = "#32e2b2";
-					else if (ppmatch < 0)
-						PPGColourList[playerno] = "#ff4654";
-					else
-						PPGColourList[playerno] = "#7f7f7f";
+					if (historyinfoObj["Matches"][1]["RankedRatingEarned"] != null)
+					{
+						int ppmatch = historyinfoObj["Matches"][1]["RankedRatingEarned"].Value<int>();
+						PPGList[playerno] = ppmatch.ToString("+#;-#;0");
+						if (ppmatch > 0)
+							PPGColourList[playerno] = "#32e2b2";
+						else if (ppmatch < 0)
+							PPGColourList[playerno] = "#ff4654";
+						else
+							PPGColourList[playerno] = "#7f7f7f";
+					}
 
-					var pppmatch = historyinfoObj["Matches"][2]["RankedRatingEarned"].Value<int>();
-					PPPGList[playerno] = pppmatch.ToString("+#;-#;0");
-					if (pppmatch > 0)
-						PPPGColourList[playerno] = "#32e2b2";
-					else if (pppmatch < 0)
-						PPPGColourList[playerno] = "#ff4654";
-					else
-						PPPGColourList[playerno] = "#7f7f7f";
-				}
-				else
-				{
-					RankProgList[playerno] = PGList[playerno] = PPGList[playerno] = PPPGList[playerno] =
-						PGColourList[playerno] = PPGColourList[playerno] = PPPGColourList[playerno] = null;
+					if (historyinfoObj["Matches"][2]["RankedRatingEarned"] != null)
+					{
+						int pppmatch = historyinfoObj["Matches"][2]["RankedRatingEarned"].Value<int>();
+						PPPGList[playerno] = pppmatch.ToString("+#;-#;0");
+						if (pppmatch > 0)
+							PPPGColourList[playerno] = "#32e2b2";
+						else if (pppmatch < 0)
+							PPPGColourList[playerno] = "#ff4654";
+						else
+							PPPGColourList[playerno] = "#7f7f7f";
+					}
 				}
 			}
 			catch (Exception)
@@ -564,82 +597,79 @@ namespace WAIUA.Commands
 
 		private static void GetPlayerHistory(string puuid, sbyte playerno)
 		{
+			RankList[playerno] = PRankList[playerno] = PPRankList[playerno] = PPPRankList[playerno] =
+				RankNameList[playerno] = PRankNameList[playerno] =
+					PPRankNameList[playerno] = PPPRankNameList[playerno] = null;
 			if (!string.IsNullOrEmpty(puuid))
 			{
 				string rank, prank, pprank, ppprank;
-				var content = DoCachedRequest(Method.GET,
-					$"https://pd.{Region}.a.pvp.net/mmr/v1/players/{puuid}", true, true);
-				dynamic contentobj = JObject.Parse(content);
+				var content = DoCachedRequest(Method.GET, $"https://pd.{Region}.a.pvp.net/mmr/v1/players/{puuid}", true, true);
 
-				try
+				if (content != null)
 				{
-					rank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{CurrentSeason}"]
-						.CompetitiveTier;
-					if (rank is "1" or "2") rank = "0";
-				}
-				catch (Exception)
-				{
-					rank = "0";
-				}
+					dynamic contentobj = JObject.Parse(content);
 
-				try
-				{
-					prank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{PSeason}"].CompetitiveTier;
-					if (prank is "1" or "2") prank = "0";
-				}
-				catch (Exception)
-				{
-					prank = "0";
-				}
-
-				try
-				{
-					pprank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{PPSeason}"]
-						.CompetitiveTier;
-					if (pprank is "1" or "2") pprank = "0";
-				}
-				catch (Exception)
-				{
-					pprank = "0";
-				}
-
-				try
-				{
-					ppprank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{PPPSeason}"]
-						.CompetitiveTier;
-					if (ppprank is "1" or "2") ppprank = "0";
-				}
-				catch (Exception)
-				{
-					ppprank = "0";
-				}
-
-				if (rank is "21" or "22" or "23")
-				{
-					var content2 = DoCachedRequest(Method.GET,
-						$"https://pd.{Shard}.a.pvp.net/mmr/v1/leaderboards/affinity/{Region}/queue/competitive/season/{CurrentSeason}?startIndex=0&size=0",
-						true);
-					dynamic contentobj2 = JObject.Parse(content2);
-					MaxRRList[playerno] = rank switch
+					try
 					{
-						"21" => contentobj2.tierDetails["22"].rankedRatingThreshold,
-						"22" => contentobj2.tierDetails["23"].rankedRatingThreshold,
-						"23" => contentobj2.tierDetails["24"].rankedRatingThreshold,
-						_ => MaxRRList[playerno]
-					};
-				}
-				else
-				{
-					MaxRRList[playerno] = "100";
-				}
+						rank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{CurrentSeason}"].CompetitiveTier;
+						if (rank is "1" or "2") rank = "0";
+					}
+					catch (Exception)
+					{
+						rank = "0";
+					}
 
-				GetRankStuff(playerno, rank, prank, pprank, ppprank);
-			}
-			else
-			{
-				RankList[playerno] = PRankList[playerno] = PPRankList[playerno] = PPPRankList[playerno] =
-					RankNameList[playerno] = PRankNameList[playerno] =
-						PPRankNameList[playerno] = PPPRankNameList[playerno] = null;
+					try
+					{
+						prank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{PSeason}"].CompetitiveTier;
+						if (prank is "1" or "2") prank = "0";
+					}
+					catch (Exception)
+					{
+						prank = "0";
+					}
+
+					try
+					{
+						pprank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{PPSeason}"].CompetitiveTier;
+						if (pprank is "1" or "2") pprank = "0";
+					}
+					catch (Exception)
+					{
+						pprank = "0";
+					}
+
+					try
+					{
+						ppprank = contentobj.QueueSkills.competitive.SeasonalInfoBySeasonID[$"{PPPSeason}"].CompetitiveTier;
+						if (ppprank is "1" or "2") ppprank = "0";
+					}
+					catch (Exception)
+					{
+						ppprank = "0";
+					}
+
+					if (rank is "21" or "22" or "23")
+					{
+						var content2 = DoCachedRequest(Method.GET,
+							$"https://pd.{Shard}.a.pvp.net/mmr/v1/leaderboards/affinity/{Region}/queue/competitive/season/{CurrentSeason}?startIndex=0&size=0",
+							true);
+						dynamic contentobj2 = JObject.Parse(content2);
+						MaxRRList[playerno] = rank switch
+						{
+							"21" => contentobj2.tierDetails["22"].rankedRatingThreshold,
+							"22" => contentobj2.tierDetails["23"].rankedRatingThreshold,
+							"23" => contentobj2.tierDetails["24"].rankedRatingThreshold,
+							_ => MaxRRList[playerno]
+						};
+					}
+					else
+					{
+						MaxRRList[playerno] = "100";
+					}
+
+					GetRankStuff(playerno, rank, prank, pprank, ppprank);
+				}
 			}
 		}
 
@@ -719,25 +749,25 @@ namespace WAIUA.Commands
 				string tier = tiers.tier;
 				if (rank == tier)
 				{
-					RankList[playerno] = string.Format(CurrentPath + "\\ValAPI\\ranksimg\\{0}.png", tier);
+					RankList[playerno] = CurrentPath + $"\\ValAPI\\ranksimg\\{tier}.png";
 					RankNameList[playerno] = tiers.tierName;
 				}
 
 				if (prank == tier)
 				{
-					PRankList[playerno] = string.Format(CurrentPath + "\\ValAPI\\ranksimg\\{0}.png", tier);
+					PRankList[playerno] = CurrentPath + $"\\ValAPI\\ranksimg\\{tier}.png";
 					PRankNameList[playerno] = tiers.tierName;
 				}
 
 				if (tier == pprank)
 				{
-					PPRankList[playerno] = string.Format(CurrentPath + "\\ValAPI\\ranksimg\\{0}.png", tier);
+					PPRankList[playerno] = CurrentPath + $"\\ValAPI\\ranksimg\\{tier}.png";
 					PPRankNameList[playerno] = tiers.tierName;
 				}
 
 				if (tier == ppprank)
 				{
-					PPPRankList[playerno] = string.Format(CurrentPath + "\\ValAPI\\ranksimg\\{0}.png", tier);
+					PPPRankList[playerno] = CurrentPath + $"\\ValAPI\\ranksimg\\{tier}.png";
 					PPPRankNameList[playerno] = tiers.tierName;
 				}
 			}
@@ -802,6 +832,7 @@ namespace WAIUA.Commands
 		{
 			try
 			{
+				PartyList[playerno] = null;
 				foreach (var friend in Presences.presences)
 					if (friend.puuid == puuid)
 					{

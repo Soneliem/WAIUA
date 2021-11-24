@@ -235,6 +235,24 @@
 				TextAlignment="Center"
 				TextWrapping="Wrap" />
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<Ellipse Height="80"
+				         Width="80"
+				         Margin="10"
+				         ToolTip="PantryWizard">
+					<Ellipse.Fill>
+						<ImageBrush ImageSource="https://i.pinimg.com/originals/d5/8b/3b/d58b3bebacee938ee7bd91df82bdbdfd.jpg" />
+					</Ellipse.Fill>
+				</Ellipse>
+				<Ellipse Height="80"
+				         Width="80"
+				         Margin="10"
+				         ToolTip="NookiMinaj">
+					<Ellipse.Fill>
+						<ImageBrush ImageSource="https://avatars.githubusercontent.com/u/94875072?v=4" />
+					</Ellipse.Fill>
+				</Ellipse>
+			</StackPanel>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 				<Border Margin="5" Background="#6441A4"
 				        BorderThickness="1"
 				        CornerRadius="20">
@@ -271,16 +289,24 @@
 								</Ellipse.Fill>
 							</Ellipse>
 						</Button>
+						<Button Background="Transparent"
+						        BorderThickness="0"
+						        Margin="10"
+						        Click="ImageClick"
+						        Cursor="Hand"
+						        Tag="https://www.twitch.tv/jendrina22"
+						        ToolTip="Follow jendrina22 on Twitch">
+							<Ellipse Height="80"
+							         Width="80"
+							         HorizontalAlignment="Center">
+								<Ellipse.Fill>
+									<ImageBrush
+										ImageSource="https://static-cdn.jtvnw.net/jtv_user_pictures/4f5aa0bc-71bb-47ce-a7e9-6e0e5ac32ccd-profile_image-70x70.png" />
+								</Ellipse.Fill>
+							</Ellipse>
+						</Button>
 					</StackPanel>
 				</Border>
-				<Ellipse Height="80"
-				         Width="80"
-				         Margin="10"
-				         ToolTip="PantryWizard">
-					<Ellipse.Fill>
-						<ImageBrush ImageSource="https://i.pinimg.com/originals/d5/8b/3b/d58b3bebacee938ee7bd91df82bdbdfd.jpg" />
-					</Ellipse.Fill>
-				</Ellipse>
 			</StackPanel>
 		</StackPanel>
 

@@ -96,51 +96,57 @@ namespace WAIUA.ValAPI
 
 		public static async Task UpdateJson(string currentPath)
 		{
-			await GetUrls(currentPath);
-			if (!Directory.Exists(currentPath + "\\ValAPI"))
-				Directory.CreateDirectory(currentPath + "\\ValAPI");
-
-			var tasks = _urls.Select(async url =>
+			try
 			{
-				RestClient client = new(new Uri(url.Url));
-				RestRequest request = new(Method.GET);
-				var response = await client.ExecuteGetAsync(request);
-				var content = response.Content;
-				await File.WriteAllTextAsync(url.Filepath, content);
-			});
-			await Task.WhenAll(tasks);
+				await GetUrls(currentPath);
+				if (!Directory.Exists(currentPath + "\\ValAPI"))
+					Directory.CreateDirectory(currentPath + "\\ValAPI");
 
-			var content = await LoadJsonFromFile("\\ValAPI\\competitivetiers.json");
-			var content2 = await LoadJsonFromFile("\\ValAPI\\agents.json");
+				var tasks = _urls.Select(async url =>
+				{
+					RestClient client = new(new Uri(url.Url));
+					RestRequest request = new(Method.GET);
+					var response = await client.ExecuteGetAsync(request);
+					var content = response.Content;
+					await File.WriteAllTextAsync(url.Filepath, content);
+				});
+				await Task.WhenAll(tasks);
 
-			if (!Directory.Exists(currentPath + "\\ValAPI\\agentsimg"))
-				Directory.CreateDirectory(currentPath + "\\ValAPI\\agentsimg");
-			foreach (var agent in content2.data)
-			{
-				string uuid = agent.uuid;
-				var client = new WebClient();
-				string url = agent.killfeedPortrait;
-				Uri uri = new(url);
-				var fileName = currentPath + $"\\ValAPI\\agentsimg\\{uuid}.png";
-				client.DownloadFile(uri, fileName);
+				var content = await LoadJsonFromFile("\\ValAPI\\competitivetiers.json");
+				var content2 = await LoadJsonFromFile("\\ValAPI\\agents.json");
+
+				if (!Directory.Exists(currentPath + "\\ValAPI\\agentsimg"))
+					Directory.CreateDirectory(currentPath + "\\ValAPI\\agentsimg");
+				foreach (var agent in content2.data)
+				{
+					string uuid = agent.uuid;
+					var client = new WebClient();
+					string url = agent.killfeedPortrait;
+					Uri uri = new(url);
+					var fileName = currentPath + $"\\ValAPI\\agentsimg\\{uuid}.png";
+					client.DownloadFile(uri, fileName);
+				}
+
+				if (!Directory.Exists(currentPath + "\\ValAPI\\ranksimg"))
+					Directory.CreateDirectory(currentPath + "\\ValAPI\\ranksimg");
+				foreach (var rank in content.data[3].tiers)
+				{
+					int currentrank = rank.tier;
+					string url2;
+					var client2 = new WebClient();
+					if (currentrank == 0)
+						url2 = rank.smallIcon;
+					else if (currentrank is 1 or 2)
+						continue;
+					else
+						url2 = rank.largeIcon;
+					Uri uri2 = new(url2);
+					var fileName = currentPath + $"\\ValAPI\\ranksimg\\{currentrank}.png";
+					client2.DownloadFile(uri2, fileName);
+				}
 			}
-
-			if (!Directory.Exists(currentPath + "\\ValAPI\\ranksimg"))
-				Directory.CreateDirectory(currentPath + "\\ValAPI\\ranksimg");
-			foreach (var rank in content.data[3].tiers)
+			catch (Exception)
 			{
-				int currentrank = rank.tier;
-				string url2;
-				var client2 = new WebClient();
-				if (currentrank == 0)
-					url2 = rank.smallIcon;
-				else if (currentrank is 1 or 2)
-					continue;
-				else
-					url2 = rank.largeIcon;
-				Uri uri2 = new(url2);
-				var fileName = currentPath + $"\\ValAPI\\ranksimg\\{currentrank}.png";
-				client2.DownloadFile(uri2, fileName);
 			}
 		}
 
@@ -159,16 +165,22 @@ namespace WAIUA.ValAPI
 
 		public static async Task CheckAndUpdateJson()
 		{
-			string currentPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA";
-			await GetUrls(currentPath);
-			foreach (var path in _urls)
+			try
 			{
-				if (!File.Exists(path.Filepath))
+				string currentPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA";
+				await GetUrls(currentPath);
+				foreach (var path in _urls)
 				{
-					await UpdateJson(currentPath);
+					if (!File.Exists(path.Filepath))
+					{
+						await UpdateJson(currentPath);
+					}
 				}
+				if (await GetValApiVersion() != await GetLocalValApiVersion(currentPath)) await UpdateJson(currentPath);
 			}
-			if (await GetValApiVersion() != await GetLocalValApiVersion(currentPath)) await UpdateJson(currentPath);
+			catch (Exception)
+			{
+			}
 		}
 
 		private class Urls
