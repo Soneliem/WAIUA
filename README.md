@@ -113,6 +113,10 @@ Another reason to making this was that I wanted some experience with .NET and GU
 
 I welcome any sort of contribution and am happy to take in any ~~hate/~~ feedback. Open source means open heart :) Also applogies for the code. In the near future I will definitely change the code to something that doesn't break every coding convention.
 
+## Sponsors
+This project is sponsored by:
+<!-- sponsors --><!-- sponsors -->  
+Thank you for your support! Any donation of $5 and over will addionally get you into the app's main page.  
 ## Translations
 
 WAIUA Supports full localization and instructions to help with translations can be found in [Localization](https://github.com/Soneliem/WAIUA/blob/master/Localization.md)

@@ -73,7 +73,7 @@ namespace WAIUA.Commands
 		//	return tsk.Result;
 		//}
 
-		private static string DoCachedRequest(Method method, string url, bool addRiotAuth, bool bypassCache = false) 
+		private static string DoCachedRequest(Method method, string url, bool addRiotAuth, bool bypassCache = false)
 		{
 			var attemptCache = method == Method.GET && !bypassCache;
 			if (attemptCache)
@@ -258,7 +258,7 @@ namespace WAIUA.Commands
 			}
 			catch (Exception)
 			{
-				IGN = null;
+				// ignored
 			}
 
 			return IGN;
@@ -467,8 +467,6 @@ namespace WAIUA.Commands
 				{
 					// ignored
 				}
-
-				
 			}
 		}
 
@@ -487,6 +485,7 @@ namespace WAIUA.Commands
 			}
 			catch (Exception)
 			{
+				// ignored
 			}
 		}
 
@@ -494,6 +493,10 @@ namespace WAIUA.Commands
 		{
 			try
 			{
+				VandalList[playerno] = null;
+				VandalNameList[playerno] = null;
+				PhantomList[playerno] = null;
+				PhantomNameList[playerno] = null;
 				if (!string.IsNullOrEmpty(PUUIDList[playerno]))
 				{
 					var response = DoCachedRequest(Method.GET,
@@ -524,16 +527,10 @@ namespace WAIUA.Commands
 					if (phantomchroma == "52221ba2-4e4c-ec76-8c81-3483506d5242")
 						PhantomList[playerno] = "/Assets/phantom.png";
 				}
-				else
-				{
-					VandalList[playerno] = null;
-					VandalNameList[playerno] = null;
-					PhantomList[playerno] = null;
-					PhantomNameList[playerno] = null;
-				}
 			}
 			catch (Exception)
 			{
+				// ignored
 			}
 		}
 
@@ -553,8 +550,7 @@ namespace WAIUA.Commands
 
 					if (historyinfoObj["Matches"][0]["RankedRatingEarned"] != null)
 					{
-						RankProgList[playerno] =
-							historyinfoObj["Matches"][0]["RankedRatingAfterUpdate"].Value<string>();
+						RankProgList[playerno] = historyinfoObj["Matches"][0]["RankedRatingAfterUpdate"].Value<string>();
 						int pmatch = historyinfoObj["Matches"][0]["RankedRatingEarned"].Value<int>();
 						PGList[playerno] = pmatch.ToString("+#;-#;0");
 						if (pmatch > 0)
@@ -592,6 +588,7 @@ namespace WAIUA.Commands
 			}
 			catch (Exception)
 			{
+				// ignored
 			}
 		}
 
@@ -738,6 +735,7 @@ namespace WAIUA.Commands
 			}
 			catch (Exception)
 			{
+				// ignored
 			}
 		}
 
@@ -778,6 +776,7 @@ namespace WAIUA.Commands
 			var output = false;
 			try
 			{
+				TrackerUrlList[playerno] = null;
 				if (!string.IsNullOrEmpty(username))
 				{
 					var encodedUsername = Uri.EscapeDataString(username);
@@ -795,13 +794,10 @@ namespace WAIUA.Commands
 						output = true;
 					}
 				}
-				else
-				{
-					TrackerUrlList[playerno] = null;
-				}
 			}
 			catch (Exception)
 			{
+				// ignored
 			}
 
 			return output;
@@ -825,6 +821,7 @@ namespace WAIUA.Commands
 			}
 			catch (Exception)
 			{
+				// ignored
 			}
 		}
 
@@ -846,6 +843,7 @@ namespace WAIUA.Commands
 			}
 			catch (Exception)
 			{
+				// ignored
 			}
 		}
 	}

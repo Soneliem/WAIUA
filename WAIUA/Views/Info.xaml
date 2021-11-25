@@ -60,17 +60,17 @@
 		</Grid.RowDefinitions>
 
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition />
-			<ColumnDefinition />
-			<ColumnDefinition />
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="Auto" />
 		</Grid.ColumnDefinitions>
 
 		<Grid Grid.ColumnSpan="3" Background="#181E34">
 
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="70" />
+				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="70" />
+				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
 
 			<Button
@@ -130,7 +130,6 @@
 				FontSize="20"
 				Foreground="White"
 				Opacity="0.7"
-				Margin="0 0 100 0"
 				Text="{x:Static p:Resources.SettingsExplanation}"
 				TextWrapping="Wrap" />
 		</StackPanel>
@@ -235,24 +234,6 @@
 				TextAlignment="Center"
 				TextWrapping="Wrap" />
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-				<Ellipse Height="80"
-				         Width="80"
-				         Margin="10"
-				         ToolTip="PantryWizard">
-					<Ellipse.Fill>
-						<ImageBrush ImageSource="https://i.pinimg.com/originals/d5/8b/3b/d58b3bebacee938ee7bd91df82bdbdfd.jpg" />
-					</Ellipse.Fill>
-				</Ellipse>
-				<Ellipse Height="80"
-				         Width="80"
-				         Margin="10"
-				         ToolTip="NookiMinaj">
-					<Ellipse.Fill>
-						<ImageBrush ImageSource="https://avatars.githubusercontent.com/u/94875072?v=4" />
-					</Ellipse.Fill>
-				</Ellipse>
-			</StackPanel>
-			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 				<Border Margin="5" Background="#6441A4"
 				        BorderThickness="1"
 				        CornerRadius="20">
@@ -264,8 +245,8 @@
 						        Click="ImageClick"
 						        Tag="https://www.twitch.tv/laskin__"
 						        ToolTip="Follow Laskin on Twitch">
-							<Ellipse Height="80"
-							         Width="80"
+							<Ellipse Height="75"
+							         Width="75"
 							         HorizontalAlignment="Center">
 								<Ellipse.Fill>
 									<ImageBrush
@@ -280,8 +261,8 @@
 						        Cursor="Hand"
 						        Tag="https://www.twitch.tv/ladams_"
 						        ToolTip="Follow Ladams on Twitch">
-							<Ellipse Height="80"
-							         Width="80"
+							<Ellipse Height="75"
+							         Width="75"
 							         HorizontalAlignment="Center">
 								<Ellipse.Fill>
 									<ImageBrush
@@ -296,8 +277,8 @@
 						        Cursor="Hand"
 						        Tag="https://www.twitch.tv/jendrina22"
 						        ToolTip="Follow jendrina22 on Twitch">
-							<Ellipse Height="80"
-							         Width="80"
+							<Ellipse Height="75"
+							         Width="75"
 							         HorizontalAlignment="Center">
 								<Ellipse.Fill>
 									<ImageBrush
@@ -307,6 +288,22 @@
 						</Button>
 					</StackPanel>
 				</Border>
+				<Ellipse Height="75"
+				         Width="75"
+				         Margin="10"
+				         ToolTip="PantryWizard">
+					<Ellipse.Fill>
+						<ImageBrush ImageSource="https://i.pinimg.com/originals/d5/8b/3b/d58b3bebacee938ee7bd91df82bdbdfd.jpg" />
+					</Ellipse.Fill>
+				</Ellipse>
+				<Ellipse Height="75"
+				         Width="75"
+				         Margin="10"
+				         ToolTip="NookiMinaj">
+					<Ellipse.Fill>
+						<ImageBrush ImageSource="https://avatars.githubusercontent.com/u/94875072?v=4" />
+					</Ellipse.Fill>
+				</Ellipse>
 			</StackPanel>
 		</StackPanel>
 
@@ -326,7 +323,6 @@
 				FontSize="20"
 				Foreground="White"
 				Opacity="0.7"
-				Margin="100 0 0 0"
 				Text="{x:Static p:Resources.InfoExplanation}"
 				TextAlignment="Right"
 				TextWrapping="Wrap" />
