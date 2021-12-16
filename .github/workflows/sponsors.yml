@@ -3,7 +3,7 @@ name: Generate Sponsors README
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
@@ -18,9 +18,3 @@ jobs:
         with:
           token: ${{ secrets.SECRETS }}
           file: 'README.md'
-
-      - name: Deploy to GitHub Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.1
-        with:
-          branch: main
-          folder: '.'
