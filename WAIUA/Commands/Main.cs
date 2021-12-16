@@ -84,10 +84,10 @@ namespace WAIUA.Commands
 			RestRequest request = new(method);
 			if (addRiotAuth)
 			{
-				request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
+				request.AddHeader("X-Riot-Entitlements-JWT", EntitlementToken);
 				request.AddHeader("Authorization", $"Bearer {AccessToken}");
 				request.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
-				request.AddHeader("X-Riot-ClientVersion", $"{Version}");
+				request.AddHeader("X-Riot-ClientVersion", Version);
 			}
 
 			var resp = client.Execute(request);
@@ -113,11 +113,11 @@ namespace WAIUA.Commands
 			RestRequest request = new(method);
 			if (addRiotAuth)
 			{
-				request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
+				request.AddHeader("X-Riot-Entitlements-JWT", EntitlementToken);
 				request.AddHeader("Authorization", $"Bearer {AccessToken}");
 				request.AddHeader("X-Riot-ClientPlatform",
 					"ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
-				request.AddHeader("X-Riot-ClientVersion", $"{Version}");
+				request.AddHeader("X-Riot-ClientVersion", Version);
 			}
 
 			var resp = await client.ExecuteAsync(request);
@@ -180,7 +180,7 @@ namespace WAIUA.Commands
 				$"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{LPassword}"))}");
 			request.AddHeader("X-Riot-ClientPlatform",
 				"ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
-			request.AddHeader("X-Riot-ClientVersion", $"{Version}");
+			request.AddHeader("X-Riot-ClientVersion", Version);
 			request.RequestFormat = DataFormat.Json;
 			var response = client.Get(request);
 			var content = client.Execute(request).Content;
@@ -199,7 +199,7 @@ namespace WAIUA.Commands
 				$"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{LPassword}"))}");
 			request.AddHeader("X-Riot-ClientPlatform",
 				"ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
-			request.AddHeader("X-Riot-ClientVersion", $"{Version}");
+			request.AddHeader("X-Riot-ClientVersion", Version);
 			request.RequestFormat = DataFormat.Json;
 			var response = client.Get(request);
 			var content = client.Execute(request).Content;
@@ -271,7 +271,7 @@ namespace WAIUA.Commands
 				var url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/players/{PPUUID}";
 				RestClient client = new(url);
 				RestRequest request = new(Method.GET);
-				request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
+				request.AddHeader("X-Riot-Entitlements-JWT", EntitlementToken);
 				request.AddHeader("Authorization", $"Bearer {AccessToken}");
 				var response = client.Execute(request).Content;
 				var matchinfo = JsonConvert.DeserializeObject(response);
@@ -340,7 +340,7 @@ namespace WAIUA.Commands
 			var url = $"https://glz-{Shard}-1.{Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
 			RestClient client = new(url);
 			RestRequest request = new(Method.GET);
-			request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
+			request.AddHeader("X-Riot-Entitlements-JWT", EntitlementToken);
 			request.AddHeader("Authorization", $"Bearer {AccessToken}");
 			var content = client.Execute(request).Content;
 			dynamic matchinfo = JsonConvert.DeserializeObject(content);
@@ -677,11 +677,11 @@ namespace WAIUA.Commands
 				var url = $"https://shared.{Region}.a.pvp.net/content-service/v3/content";
 				RestClient client = new(url);
 				RestRequest request = new(Method.GET);
-				request.AddHeader("X-Riot-Entitlements-JWT", $"{EntitlementToken}");
+				request.AddHeader("X-Riot-Entitlements-JWT", EntitlementToken);
 				request.AddHeader("Authorization", $"Bearer {AccessToken}");
 				request.AddHeader("X-Riot-ClientPlatform",
 					"ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
-				request.AddHeader("X-Riot-ClientVersion", $"{Version}");
+				request.AddHeader("X-Riot-ClientVersion", Version);
 				var response = client.Execute(request).Content;
 				dynamic content = JsonConvert.DeserializeObject(response);
 				sbyte index = 0;
@@ -814,7 +814,7 @@ namespace WAIUA.Commands
 					$"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{LPassword}"))}");
 				request.AddHeader("X-Riot-ClientPlatform",
 					"ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
-				request.AddHeader("X-Riot-ClientVersion", $"{Version}");
+				request.AddHeader("X-Riot-ClientVersion", Version);
 				request.RequestFormat = DataFormat.Json;
 				var content = client.Execute(request).Content;
 				Presences = JsonConvert.DeserializeObject(content);

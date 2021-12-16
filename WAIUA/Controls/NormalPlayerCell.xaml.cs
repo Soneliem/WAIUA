@@ -12,17 +12,17 @@ namespace WAIUA.Controls
 			DependencyProperty.Register("Card", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
 
 		public static readonly DependencyProperty LevelProperty =
-			DependencyProperty.Register("Level", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+			DependencyProperty.Register("Level", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata("0"));
 
 		public static readonly DependencyProperty AgentPictureProperty =
 			DependencyProperty.Register("AgentPicture", typeof(string), typeof(NormalPlayerCell),
 				new PropertyMetadata(null));
 
 		public static readonly DependencyProperty AgentProperty =
-			DependencyProperty.Register("Agent", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+			DependencyProperty.Register("Agent", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(""));
 
 		public static readonly DependencyProperty IGNProperty =
-			DependencyProperty.Register("IGN", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+			DependencyProperty.Register("IGN", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(""));
 
 		public static readonly DependencyProperty VandalSkinProperty =
 			DependencyProperty.Register("VandalSkin", typeof(string), typeof(NormalPlayerCell),
@@ -34,50 +34,50 @@ namespace WAIUA.Controls
 
 		public static readonly DependencyProperty VandalSkinNameProperty =
 			DependencyProperty.Register("VandalSkinName", typeof(string), typeof(NormalPlayerCell),
-				new PropertyMetadata(null));
+				new PropertyMetadata(""));
 
 		public static readonly DependencyProperty PhantomSkinNameProperty =
 			DependencyProperty.Register("PhantomSkinName", typeof(string), typeof(NormalPlayerCell),
-				new PropertyMetadata(null));
+				new PropertyMetadata(""));
 
 		public static readonly DependencyProperty PMatchProperty =
-			DependencyProperty.Register("PMatch", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
+			DependencyProperty.Register("PMatch", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(""));
 
 		public static readonly DependencyProperty PPMatchProperty =
 			DependencyProperty.Register("PPMatch", typeof(string), typeof(NormalPlayerCell),
-				new PropertyMetadata(null));
+				new PropertyMetadata(""));
 
 		public static readonly DependencyProperty PPPMatchProperty =
 			DependencyProperty.Register("PPPMatch", typeof(string), typeof(NormalPlayerCell),
-				new PropertyMetadata(null));
+				new PropertyMetadata(""));
 
 		public static readonly DependencyProperty PMatchColourProperty =
 			DependencyProperty.Register("PMatchColour", typeof(string), typeof(NormalPlayerCell),
-				new PropertyMetadata(null));
+				new PropertyMetadata("Transparent"));
 
 		public static readonly DependencyProperty PPMatchColourProperty =
 			DependencyProperty.Register("PPMatchColour", typeof(string), typeof(NormalPlayerCell),
-				new PropertyMetadata(null));
+				new PropertyMetadata("Transparent"));
 
 		public static readonly DependencyProperty PPPMatchColourProperty =
 			DependencyProperty.Register("PPPMatchColour", typeof(string), typeof(NormalPlayerCell),
-				new PropertyMetadata(null));
+				new PropertyMetadata("Transparent"));
 
 		public static readonly DependencyProperty PRankNameProperty =
 			DependencyProperty.Register("PRankName", typeof(string), typeof(NormalPlayerCell),
-				new PropertyMetadata(null));
+				new PropertyMetadata(""));
 
 		public static readonly DependencyProperty PPRankNameProperty =
 			DependencyProperty.Register("PPRankName", typeof(string), typeof(NormalPlayerCell),
-				new PropertyMetadata(null));
+				new PropertyMetadata(""));
 
 		public static readonly DependencyProperty PPPRankNameProperty =
 			DependencyProperty.Register("PPPRankName", typeof(string), typeof(NormalPlayerCell),
-				new PropertyMetadata(null));
+				new PropertyMetadata(""));
 
 		public static readonly DependencyProperty RankNameProperty =
 			DependencyProperty.Register("RankName", typeof(string), typeof(NormalPlayerCell),
-				new PropertyMetadata(null));
+				new PropertyMetadata(""));
 
 		public static readonly DependencyProperty PRankProperty =
 			DependencyProperty.Register("PRank", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
@@ -94,26 +94,26 @@ namespace WAIUA.Controls
 
 		public static readonly DependencyProperty RankProgressProperty =
 			DependencyProperty.Register("RankProgress", typeof(string), typeof(NormalPlayerCell),
-				new PropertyMetadata(null));
+				new PropertyMetadata("0"));
 
 		public static readonly DependencyProperty MaxRRProperty =
 			DependencyProperty.Register("MaxRR", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
 
 		public static readonly DependencyProperty TrackerUrlProperty =
 			DependencyProperty.Register("TrackerUrl", typeof(string), typeof(NormalPlayerCell),
-				new PropertyMetadata(null));
+				new PropertyMetadata(""));
 
 		public static readonly DependencyProperty TrackerEnabledProperty =
 			DependencyProperty.Register("TrackerEnabled", typeof(string), typeof(NormalPlayerCell),
-				new PropertyMetadata(null));
+				new PropertyMetadata("False"));
 
 		public static readonly DependencyProperty TrackerDisabledProperty =
 			DependencyProperty.Register("TrackerDisabled", typeof(string), typeof(NormalPlayerCell),
-				new PropertyMetadata(null));
+				new PropertyMetadata("True"));
 
 		public static readonly DependencyProperty PartyColourProperty =
 			DependencyProperty.Register("PartyColour", typeof(string), typeof(NormalPlayerCell),
-				new PropertyMetadata(null));
+				new PropertyMetadata("Transparent"));
 
 		public NormalPlayerCell()
 		{
