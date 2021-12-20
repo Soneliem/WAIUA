@@ -102,6 +102,7 @@ I knew none of these things before making this lol
 * [JSON.NET](https://www.newtonsoft.com/json)
 * [MVVMEssentials](https://www.nuget.org/packages/MVVMEssentials.WPF) by [SingletonSean](https://www.youtube.com/channel/UC7X9mQ_XtTYWzr9Tf_NYcIg). His WPF tutorials were a lifesaver.
 * [AutoUpdater.NET](https://github.com/ravibpatel/AutoUpdater.NET)
+* [FontAwesome](https://fontawesome.com/license) for icons. I'm also supposed say that I changed the colours so here it is.
 
 ## Why I Made This
 

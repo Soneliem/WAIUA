@@ -2,7 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Navigation;
+using Demo.Controls;
 
 namespace Demo.Controls
 {
@@ -293,6 +295,16 @@ namespace Demo.Controls
 			DependencyProperty.Register("PartyColour", typeof(string), typeof(NormalPlayerCell),
 				new PropertyMetadata(null));
 
+        public string BackgroundColour
+        {
+            get { return (string)GetValue(BackgroundColourProperty); }
+            set { SetValue(BackgroundColourProperty, value); }
+        }
+
+        public static readonly DependencyProperty BackgroundColourProperty =
+            DependencyProperty.Register("BackgroundColour", typeof(string), typeof(NormalPlayerCell),
+                new PropertyMetadata("#252A40"));
+
 		private void HandleLinkClick(object sender, RequestNavigateEventArgs e)
 		{
 			Hyperlink hl = (Hyperlink)sender;
@@ -300,5 +312,5 @@ namespace Demo.Controls
 			Process.Start(new ProcessStartInfo(navigateUri) { UseShellExecute = true });
 			e.Handled = true;
 		}
-	}
+    }
 }

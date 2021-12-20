@@ -89,12 +89,14 @@
 
     <ItemGroup>
         <None Remove="Assets\arrow.png" />
+        <None Remove="Assets\back.png" />
         <None Remove="Assets\discord.png" />
         <None Remove="Assets\icon.ico" />
         <None Remove="Assets\info.png" />
         <None Remove="Assets\logo.ico" />
         <None Remove="Assets\logo.png" />
         <None Remove="Assets\phantom.png" />
+        <None Remove="Assets\refresh.png" />
         <None Remove="Assets\settings.png" />
         <None Remove="Assets\Soneliem.png" />
         <None Remove="Assets\vandal.png" />
@@ -103,6 +105,9 @@
     <ItemGroup>
         <Resource Include="Assets\arrow.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\back.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
         <Resource Include="Assets\discord.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -118,6 +123,9 @@
         </Resource>
         <Resource Include="Assets\phantom.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\refresh.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
         <Resource Include="Assets\vandal.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -140,9 +148,10 @@
 
     <ItemGroup>
         <PackageReference Include="Autoupdater.NET.Official" Version="1.7.0" />
+        <PackageReference Include="ControlzEx" Version="5.0.1" />
         <PackageReference Include="MVVMEssentials.WPF" Version="1.0.3" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-        <PackageReference Include="RestSharp" Version="106.13.0" />
+        <PackageReference Include="RestSharp" Version="106.15.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -164,6 +173,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Helpers\" />
       <Folder Include="ValAPI\agentsimg\" />
       <Folder Include="ValAPI\ranksimg\" />
     </ItemGroup>

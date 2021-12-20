@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Media;
 
 namespace Demo
 {
@@ -10,6 +11,6 @@ namespace Demo
 		public MainWindow()
 		{
 			InitializeComponent();
-		}
+        }
 	}
 }

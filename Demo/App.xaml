@@ -3,5 +3,6 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 StartupUri="MainWindow.xaml">
 	<Application.Resources>
-	</Application.Resources>
+        <FontFamily  x:Key="Nunito">/images/#Nunito</FontFamily>
+    </Application.Resources>
 </Application>

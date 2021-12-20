@@ -8,8 +8,9 @@
         Title="WAIUA DEMO" d:DesignHeight="754"
 		d:DesignWidth="1536"
 		Background="#2E3349">
-	<Window.Resources>
-		<ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
+    <Window.Resources>
+        
+        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
 			<Border Name="RootElement" CornerRadius="10">
 				<Border.Background>
 					<SolidColorBrush x:Name="ButtonBackground" Color="#181E34" />
@@ -45,63 +46,73 @@
 	</Window.Resources>
 	<Grid>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition />
-			<ColumnDefinition />
+			<ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="70" />
 			<RowDefinition />
 		</Grid.RowDefinitions>
-		<Grid Grid.ColumnSpan="3" Background="#181E34">
 
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="70" />
-				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="70" />
-			</Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="3" Margin="5 5 5 0" >
 
-			<Button
-				Grid.Column="0"
-				Margin="7"
-				Command="{Binding NavigateSettingsCommand}"
-				Template="{StaticResource ButtonTemplate}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-				<Image Margin="10" Source="/images/Assets/settings.png" />
-			</Button>
+            <Button
+                Grid.Column="0"
+                Margin="7"
+                Command="{Binding NavigateHomeCommand}"
+                Template="{StaticResource ButtonTemplate}">
 
-			<Button
-				Grid.Column="1"
-				Margin="0,7"
-				Command="{Binding NavigateHomeCommand}"
-				Template="{StaticResource ButtonTemplate}">
+                <Image Margin="10" Source="/images/Assets/back.png" />
+            </Button>
+            <Button
+                Grid.Column="1"
+                Margin="7"
+                Command="{Binding NavigateMatchCommand}"
+                Template="{StaticResource ButtonTemplate}">
 
-				<Viewbox
-					Grid.Column="1"
-					HorizontalAlignment="Center"
-					VerticalAlignment="Center">
-					<TextBlock
-						HorizontalAlignment="Center"
-						VerticalAlignment="Center"
-						FontFamily="Fonts/#RopaSans"
-						FontWeight="Medium"
-						Foreground="#007EF9"
-						Text="Click To Refresh Match" />
-				</Viewbox>
-			</Button>
+                <Image Margin="10" Source="/images/Assets/refresh.png" />
+            </Button>
 
-			<Button
-				Grid.Column="2"
-				Margin="7"
-				Command="{Binding NavigateInfoCommand}"
-				Template="{StaticResource ButtonTemplate}">
+            <Border
+                Grid.Column="2" HorizontalAlignment="Right"
+                Margin="7"
+                CornerRadius="10">
 
-				<Image Margin="10" Source="/images/Assets/info.png" />
-			</Button>
-		</Grid>
-		<Grid
+                <TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="SemiBold" Margin="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Text="🏅 Competitive    🌍 Sydney-2"></TextBlock>
+
+
+            </Border>
+
+            <Border
+                Grid.Column="3" HorizontalAlignment="Right" Width="234"
+                Margin="7"
+                CornerRadius="10">
+
+                    <Border.Background>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="https://media.valorant-api.com/maps/7eaecc1b-4337-bbf6-6ab9-04b8f06b3319/listviewicon.png"/>
+                    </Border.Background>
+
+                <TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="Bold" Margin="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">Ascent</TextBlock>
+                
+
+            </Border>
+
+        </Grid>
+        
+
+
+        <Grid
 			Grid.Row="1"
 			Grid.Column="0"
-			Margin="10,10,5,10">
+			Margin="10,0,5,10">
 			<Grid.RowDefinitions>
 				<RowDefinition />
 				<RowDefinition />
@@ -110,7 +121,7 @@
 				<RowDefinition />
 			</Grid.RowDefinitions>
 			<c:NormalPlayerCell
-				Grid.Row="0"
+                Grid.Row="0" Margin="0 5"
 				Agent="Sova"
 				AgentPicture="/images/agentsimg/320b2a48-4d9b-a075-30f1-1f93a9b638fa.png"
 				Card="https://media.valorant-api.com/playercards/d29e6e34-44bd-21c8-f7bb-b0a73f267e50/smallart.png"
@@ -139,9 +150,10 @@
 				TrackerUrl=""
 				VandalSkin="https://media.valorant-api.com/weaponskinchromas/a26e0d1d-4886-7d62-6b4f-1996e706463d/fullrender.png"
 				VandalSkinName=""
-				PartyColour="Red" />
+				PartyColour="Red" 
+                BackgroundColour="#181E34"/>
 			<c:NormalPlayerCell
-				Grid.Row="1"
+				Grid.Row="1" Margin="0 5"
 				Agent="Viper"
 				AgentPicture="/images/agentsimg/707eab51-4836-f488-046a-cda6bf494859.png"
 				Card="https://media.valorant-api.com/playercards/ac838a07-4a2a-f7ca-58b8-f6b1372769e9/smallart.png"
@@ -172,7 +184,7 @@
 				VandalSkinName=""
 				PartyColour="Red" />
 			<c:NormalPlayerCell
-				Grid.Row="2"
+				Grid.Row="2" Margin="0 5"
 				Agent="Jett"
 				AgentPicture="/images/agentsimg/add6443a-41bd-e414-f6ad-e58d267f4e95.png"
 				Card="https://media.valorant-api.com/playercards/e7fc5596-4687-f0c1-1e30-08808669ef07/smallart.png"
@@ -203,7 +215,7 @@
 				VandalSkinName=""
 				PartyColour="Red" />
 			<c:NormalPlayerCell
-				Grid.Row="3"
+				Grid.Row="3" Margin="0 5"
 				Agent="Reyna"
 				AgentPicture="/images/agentsimg/a3bfb853-43b2-7238-a4f1-ad90e9e46bcc.png"
 				Card="https://media.valorant-api.com/playercards/5488fcd7-41d5-0890-e90a-8d9099807d9b/smallart.png"
@@ -234,7 +246,7 @@
 				VandalSkinName=""
 				PartyColour="Red" />
 			<c:NormalPlayerCell
-				Grid.Row="4"
+				Grid.Row="4" Margin="0 5"
 				Agent="Astra"
 				AgentPicture="/images/agentsimg/41fb69c1-4189-7b37-f117-bcaf1e96f1bf.png"
 				Card="https://media.valorant-api.com/playercards/ea210157-4595-8727-86ae-9490a08a955f/smallart.png"
@@ -266,10 +278,14 @@
 				PartyColour="Red" />
 		</Grid>
 
-		<Grid
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+            <Separator Width="5" Margin="6 20 6 30" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Foreground="#252A40" Background="#252A40" BorderThickness="0" />
+        </StackPanel>
+
+        <Grid
 			Grid.Row="1"
-			Grid.Column="1"
-			Margin="5,10,10,10">
+			Grid.Column="2"
+			Margin="5,0,10,10">
 
 			<Grid.RowDefinitions>
 				<RowDefinition />
@@ -280,7 +296,7 @@
 			</Grid.RowDefinitions>
 
 			<c:NormalPlayerCell
-				Grid.Row="0"
+				Grid.Row="0" Margin="0 5"
 				Agent="Omen"
 				AgentPicture="/images/agentsimg/8e253930-4c05-31dd-1b6c-968525494517.png"
 				Card="https://media.valorant-api.com/playercards/aaad6093-4d27-c053-c53b-9c8a657338d1/smallart.png"
@@ -311,7 +327,7 @@
 				VandalSkinName=""
 				PartyColour="Green" />
 			<c:NormalPlayerCell
-				Grid.Row="1"
+				Grid.Row="1" Margin="0 5"
 				Agent="Cypher"
 				AgentPicture="/images/agentsimg/117ed9e3-49f3-6512-3ccf-0cada7e3823b.png"
 				Card="https://media.valorant-api.com/playercards/3c930c58-4f56-1a14-6397-c3bd42f31955/smallart.png"
@@ -342,7 +358,7 @@
 				VandalSkinName=""
 				PartyColour="Green" />
 			<c:NormalPlayerCell
-				Grid.Row="2"
+				Grid.Row="2" Margin="0 5"
 
 			Agent="Sage"
 				AgentPicture="/images/agentsimg/569fdd95-4d10-43ab-ca70-79becc718b46.png"
@@ -374,7 +390,7 @@
 				VandalSkinName=""
 				PartyColour="Transparent" />
 			<c:NormalPlayerCell
-				Grid.Row="3"
+				Grid.Row="3" Margin="0 5"
 				Agent="Reyna"
 				AgentPicture="/images/agentsimg/a3bfb853-43b2-7238-a4f1-ad90e9e46bcc.png"
 				Card="https://media.valorant-api.com/playercards/9fb348bc-41a0-91ad-8a3e-818035c4e561/smallart.png"
@@ -405,7 +421,7 @@
 				VandalSkinName=""
 				PartyColour="DarkOrange" />
 			<c:NormalPlayerCell
-				Grid.Row="4"
+				Grid.Row="4" Margin="0 5"
 				Agent="Raze"
 				AgentPicture="/images/agentsimg/f94c3b30-42be-e959-889c-5aa313dba261.png"
 				Card="https://media.valorant-api.com/playercards/475ce7c1-4ddc-63aa-7e22-54bb621d615b/smallart.png"
