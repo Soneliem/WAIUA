@@ -7,6 +7,7 @@ using MVVMEssentials.Commands;
 using MVVMEssentials.Services;
 using MVVMEssentials.ViewModels;
 using WAIUA.Commands;
+using WAIUA.Helpers;
 
 namespace WAIUA.ViewModels
 {
@@ -31,6 +32,10 @@ namespace WAIUA.ViewModels
         private string[] _player8Prop;
 
         private string[] _player9Prop;
+        private string _server;
+        private string _gameMode;
+        private string _map;
+        private string _mapImg;
 
         public MatchViewModel(INavigationService homeNavigationService, INavigationService matchNavigationService)
         {
@@ -114,6 +119,30 @@ namespace WAIUA.ViewModels
             set => SetProperty(ref _player9Prop, value, nameof(Player9));
         }
 
+        public string Server
+        {
+            get => _server;
+            set => SetProperty(ref _server, value, nameof(Server));
+        }
+
+        public string GameMode
+        {
+            get => _gameMode;
+            set => SetProperty(ref _gameMode, value, nameof(GameMode));
+        }
+
+        public string Map
+        {
+            get => _map;
+            set => SetProperty(ref _map, value, nameof(Map));
+        }
+
+        public string MapImg
+        {
+            get => _mapImg;
+            set => SetProperty(ref _mapImg, value, nameof(MapImg));
+        }
+
         public ICommand NavigateHomeCommand { get; }
         public ICommand NavigateMatchCommand { get; }
 
@@ -122,35 +151,46 @@ namespace WAIUA.ViewModels
             var output = false;
             try
             {
-                var newMatch = new Main();
+                var newMatch = new LiveMatch();
                 Parallel.For(0, 10, i => { Player.players[i].Data = null; });
 
-                try
+
+                if (newMatch.LiveMatchChecks(false))
                 {
-                    Parallel.For(0, 10, i => { Player.players[i].Data = newMatch.LiveMatchOutput((sbyte) i); });
+                    output = true;
+                    Parallel.For(0, 10, i => { Player.players[i].Data = newMatch.LiveMatchOutput((sbyte)i); });
+
+                    if (newMatch.Server != null) Server = newMatch.Server;
+                    if (newMatch.GameMode != null) GameMode = newMatch.GameMode;
+                    if (newMatch.Map != null) Map = newMatch.Map;
+                    if (newMatch.MapImage != null) MapImg = newMatch.MapImage;
 
                     var colours = new List<string>
-                        {"Red", "Green", "DarkOrange", "White", "DeepSkyBlue", "MediumPurple", "SaddleBrown"};
-                    for (var i = 0; i < Player.players.Length; i++)
+                        {"Red", "#32e2b2", "DarkOrange", "White", "DeepSkyBlue", "MediumPurple", "SaddleBrown"};
+
+                    string[] newArray = new string[10] {"Transparent", "Transparent" , "Transparent" , "Transparent" , "Transparent" , "Transparent" , "Transparent" , "Transparent" , "Transparent" , "Transparent" };
+                    for (var i = 0; i < 10; i++)
                     {
                         var colourused = false;
                         var id = Player.players[i].Data[28];
-                        for (var j = i + 1; j < Player.players.Length; j++)
-                            if (Player.players[j].Data[28] == id && Player.players[j].Data[28].Length >= 13)
+                        for (var j = i + 1; j < 10; j++)
+                            if (Player.players[j].Data[28] == id && id != null)
                             {
-                                Player.players[i].Data[28] = Player.players[j].Data[28] = colours[0];
+                                newArray[i] = newArray[j] = colours[0];
                                 colourused = true;
                             }
 
                         if (colourused) colours.RemoveAt(0);
-                        if (Player.players[i].Data[28] == Main.PPartyID && Player.players[i].Data[29] != "#181E34") Player.players[i].Data[29] = "Red";
                     }
-                }
-                catch (Exception)
-                {
+
+                    for (var i = 0; i < Player.players.Length; i++)
+                    {
+                        Player.players[i].Data[28] = newArray[i];
+                    }
+
                 }
 
-                output = true;
+
             }
             catch (Exception)
             {

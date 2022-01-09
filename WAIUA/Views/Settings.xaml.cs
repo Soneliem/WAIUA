@@ -10,9 +10,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml;
 using AutoUpdaterDotNET;
+using WAIUA.Helpers;
 using WAIUA.Properties;
-using static WAIUA.Commands.Main;
-using static WAIUA.ValAPI.ValAPI;
+using static WAIUA.Helpers.Login;
+using static WAIUA.Helpers.ValAPI;
 
 namespace WAIUA.Views
 {
@@ -31,7 +32,7 @@ namespace WAIUA.Views
             AuthStatusBox.Text = Properties.Resources.Refreshing;
             if (!GetSetPPUUID())
                 AuthStatusBox.Text = Properties.Resources.AuthStatusFail;
-            else AuthStatusBox.Text = $"{Properties.Resources.AuthStatusAuthAs} {GetIGUsername(PPUUID)}";
+            else AuthStatusBox.Text = $"{Properties.Resources.AuthStatusAuthAs} {GetIGUsername(Constants.PPUUID)}";
             Mouse.OverrideCursor = Cursors.Arrow;
         }
 
@@ -87,7 +88,7 @@ namespace WAIUA.Views
         private async void Button_Click5(object sender, RoutedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
-            await UpdateJson(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA");
+            await UpdateFiles();
             Mouse.OverrideCursor = Cursors.Arrow;
         }
 
@@ -99,7 +100,7 @@ namespace WAIUA.Views
             Thread.CurrentThread.CurrentCulture = LanguageList[index];
             Thread.CurrentThread.CurrentUICulture = LanguageList[index];
             Properties.Settings.Default.Language = LanguageList[index].TwoLetterISOLanguageName;
-            await UpdateJson(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA");
+            await UpdateFiles();
             Mouse.OverrideCursor = Cursors.Arrow;
         }
 

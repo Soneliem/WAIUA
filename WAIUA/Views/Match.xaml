@@ -10,48 +10,16 @@
              d:DesignHeight="754"
              d:DesignWidth="1536">
     <UserControl.Resources>
-        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
-            <Border Name="RootElement" CornerRadius="10">
-                <Border.Background>
-                    <SolidColorBrush x:Name="ButtonBackground" Color="#181E34" />
-                </Border.Background>
-                <ContentPresenter
-                    Margin="5"
-                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="MouseOver">
-                            <Storyboard>
-                                <ColorAnimation
-                                    Storyboard.TargetName="ButtonBackground"
-                                    Storyboard.TargetProperty="Color"
-                                    To="#234d96"
-                                    Duration="0:0:0.5" />
-                            </Storyboard>
-                        </VisualState>
-                        <VisualState x:Name="Pressed">
-                            <Storyboard>
-                                <ColorAnimation
-                                    Storyboard.TargetName="ButtonBackground"
-                                    Storyboard.TargetProperty="Color"
-                                    To="#89B4FF" />
-                            </Storyboard>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-            </Border>
-        </ControlTemplate>
     </UserControl.Resources>
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="70" />
+             <RowDefinition Height="70" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.ColumnSpan="3">
@@ -59,6 +27,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="70" />
                 <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Button
@@ -77,6 +47,32 @@
 
                 <Image Margin="10" Source="/Assets/refresh.png" />
             </Button>
+
+            <Border
+                Grid.Column="2" HorizontalAlignment="Right"
+                Margin="7"
+                CornerRadius="10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="SemiBold" Margin="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=GameMode}"></TextBlock>
+                    <TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="SemiBold" Margin="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Server}"></TextBlock>
+                </StackPanel>
+                
+
+            </Border>
+
+            <Border
+                Grid.Column="3" HorizontalAlignment="Right" Width="234"
+                Margin="7"
+                CornerRadius="10">
+
+                <Border.Background>
+                    <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Path=MapImg}"/>
+                </Border.Background>
+
+                <TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="Bold" Margin="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Map}"/>
+
+
+            </Border>
 
         </Grid>
         <Grid
@@ -153,7 +149,7 @@
                 VandalSkin="{Binding Path=Player1[23]}"
                 VandalSkinName="{Binding Path=Player1[24]}"
                 PartyColour="{Binding Path=Player1[28]}" 
-                BackgroundColour="{Binding Path=Player0[29]}"/>
+                BackgroundColour="{Binding Path=Player1[29]}"/>
             <controls:NormalPlayerCell
                 Grid.Row="2" Margin="0 5"
                 Agent="{Binding Path=Player2[0]}"
@@ -185,7 +181,7 @@
                 VandalSkin="{Binding Path=Player2[23]}"
                 VandalSkinName="{Binding Path=Player2[24]}"
                 PartyColour="{Binding Path=Player2[28]}" 
-                BackgroundColour="{Binding Path=Player0[29]}"/>
+                BackgroundColour="{Binding Path=Player2[29]}"/>
             <controls:NormalPlayerCell
                 Grid.Row="3" Margin="0 5"
                 Agent="{Binding Path=Player3[0]}"
@@ -217,7 +213,7 @@
                 VandalSkin="{Binding Path=Player3[23]}"
                 VandalSkinName="{Binding Path=Player3[24]}"
                 PartyColour="{Binding Path=Player3[28]}" 
-                BackgroundColour="{Binding Path=Player0[29]}"/>
+                BackgroundColour="{Binding Path=Player3[29]}"/>
             <controls:NormalPlayerCell
                 Grid.Row="4" Margin="0 5"
                 Agent="{Binding Path=Player4[0]}"
@@ -249,12 +245,16 @@
                 VandalSkin="{Binding Path=Player4[23]}"
                 VandalSkinName="{Binding Path=Player4[24]}"
                 PartyColour="{Binding Path=Player4[28]}" 
-                BackgroundColour="{Binding Path=Player0[29]}"/>
+                BackgroundColour="{Binding Path=Player4[29]}"/>
         </Grid>
+
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+            <Separator Width="4" Margin="6 20 6 30" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"  Background="#181E34" BorderThickness="0" />
+        </StackPanel>
 
         <Grid
             Grid.Row="1"
-            Grid.Column="1"
+            Grid.Column="2"
             Margin="5,0,10,0">
 
             <Grid.RowDefinitions>
@@ -296,7 +296,7 @@
                 VandalSkin="{Binding Path=Player5[23]}"
                 VandalSkinName="{Binding Path=Player5[24]}"
                 PartyColour="{Binding Path=Player5[28]}" 
-                BackgroundColour="{Binding Path=Player0[29]}"/>
+                BackgroundColour="{Binding Path=Player5[29]}"/>
             <controls:NormalPlayerCell
                 Grid.Row="1" Margin="0 5"
                 Agent="{Binding Path=Player6[0]}"
@@ -328,7 +328,7 @@
                 VandalSkin="{Binding Path=Player6[23]}"
                 VandalSkinName="{Binding Path=Player6[24]}"
                 PartyColour="{Binding Path=Player6[28]}" 
-                BackgroundColour="{Binding Path=Player0[29]}"/>
+                BackgroundColour="{Binding Path=Player6[29]}"/>
             <controls:NormalPlayerCell
                 Grid.Row="2" Margin="0 5"
                 Agent="{Binding Path=Player7[0]}"
@@ -360,7 +360,7 @@
                 VandalSkin="{Binding Path=Player7[23]}"
                 VandalSkinName="{Binding Path=Player7[24]}"
                 PartyColour="{Binding Path=Player7[28]}" 
-                BackgroundColour="{Binding Path=Player0[29]}"/>
+                BackgroundColour="{Binding Path=Player7[29]}"/>
             <controls:NormalPlayerCell
                 Grid.Row="3" Margin="0 5"
                 Agent="{Binding Path=Player8[0]}"
@@ -392,7 +392,7 @@
                 VandalSkin="{Binding Path=Player8[23]}"
                 VandalSkinName="{Binding Path=Player8[24]}"
                 PartyColour="{Binding Path=Player8[28]}" 
-                BackgroundColour="{Binding Path=Player0[29]}"/>
+                BackgroundColour="{Binding Path=Player8[29]}"/>
             <controls:NormalPlayerCell
                 Grid.Row="4" Margin="0 5"
                 Agent="{Binding Path=Player9[0]}"
@@ -424,7 +424,7 @@
                 VandalSkin="{Binding Path=Player9[23]}"
                 VandalSkinName="{Binding Path=Player9[24]}"
                 PartyColour="{Binding Path=Player9[28]}" 
-                BackgroundColour="{Binding Path=Player0[29]}"/>
+                BackgroundColour="{Binding Path=Player9[29]}"/>
         </Grid>
     </Grid>
 </UserControl>

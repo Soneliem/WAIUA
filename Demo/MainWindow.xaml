@@ -279,7 +279,7 @@
 		</Grid>
 
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-            <Separator Width="5" Margin="6 20 6 30" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Foreground="#252A40" Background="#252A40" BorderThickness="0" />
+            <Separator Width="4" Margin="6 20 6 30" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"  Background="#181E34" BorderThickness="0" />
         </StackPanel>
 
         <Grid

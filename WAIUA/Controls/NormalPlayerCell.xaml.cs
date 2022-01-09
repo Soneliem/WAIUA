@@ -9,14 +9,14 @@ namespace WAIUA.Controls
     public partial class NormalPlayerCell : UserControl
     {
         public static readonly DependencyProperty CardProperty =
-            DependencyProperty.Register("Card", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(""));
+            DependencyProperty.Register("Card", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata("/Assets/empty.png"));
 
         public static readonly DependencyProperty LevelProperty =
             DependencyProperty.Register("Level", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(""));
 
         public static readonly DependencyProperty AgentPictureProperty =
             DependencyProperty.Register("AgentPicture", typeof(string), typeof(NormalPlayerCell),
-                new PropertyMetadata(""));
+                new PropertyMetadata("/Assets/empty.png"));
 
         public static readonly DependencyProperty AgentProperty =
             DependencyProperty.Register("Agent", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(""));
@@ -26,11 +26,11 @@ namespace WAIUA.Controls
 
         public static readonly DependencyProperty VandalSkinProperty =
             DependencyProperty.Register("VandalSkin", typeof(string), typeof(NormalPlayerCell),
-                new PropertyMetadata(""));
+                new PropertyMetadata("/Assets/empty.png"));
 
         public static readonly DependencyProperty PhantomSkinProperty =
             DependencyProperty.Register("PhantomSkin", typeof(string), typeof(NormalPlayerCell),
-                new PropertyMetadata(""));
+                new PropertyMetadata("/Assets/empty.png"));
 
         public static readonly DependencyProperty VandalSkinNameProperty =
             DependencyProperty.Register("VandalSkinName", typeof(string), typeof(NormalPlayerCell),
@@ -80,17 +80,17 @@ namespace WAIUA.Controls
                 new PropertyMetadata(""));
 
         public static readonly DependencyProperty PRankProperty =
-            DependencyProperty.Register("PRank", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(""));
+            DependencyProperty.Register("PRank", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata("/Assets/empty.png"));
 
         public static readonly DependencyProperty PPRankProperty =
-            DependencyProperty.Register("PPRank", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(""));
+            DependencyProperty.Register("PPRank", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata("/Assets/empty.png"));
 
         public static readonly DependencyProperty PPPRankProperty =
             DependencyProperty.Register("PPPRank", typeof(string), typeof(NormalPlayerCell),
-                new PropertyMetadata(""));
+                new PropertyMetadata("/Assets/empty.png"));
 
         public static readonly DependencyProperty RankProperty =
-            DependencyProperty.Register("Rank", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(""));
+            DependencyProperty.Register("Rank", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata("/Assets/empty.png"));
 
         public static readonly DependencyProperty RankProgressProperty =
             DependencyProperty.Register("RankProgress", typeof(string), typeof(NormalPlayerCell),
@@ -101,7 +101,7 @@ namespace WAIUA.Controls
 
         public static readonly DependencyProperty TrackerUrlProperty =
             DependencyProperty.Register("TrackerUrl", typeof(string), typeof(NormalPlayerCell),
-                new PropertyMetadata(""));
+                new PropertyMetadata("https://waiua.sonel.dev/"));
 
         public static readonly DependencyProperty TrackerEnabledProperty =
             DependencyProperty.Register("TrackerEnabled", typeof(string), typeof(NormalPlayerCell),

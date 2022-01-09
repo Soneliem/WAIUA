@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:WAIUA.Properties"
     xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     d:DesignHeight="754"
     d:DesignWidth="1536"
@@ -96,6 +97,7 @@
                                 Margin="3,3,23,3"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
+                                FontFamily="{StaticResource Nunito}"
                                 Background="#FF3F3F3F"
                                 Focusable="True"
                                 Foreground="Green"
@@ -180,39 +182,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
-            <Border Name="RootElement" CornerRadius="10">
-                <Border.Background>
-                    <SolidColorBrush x:Name="ButtonBackground" Color="#181E34" />
-                </Border.Background>
-                <ContentPresenter
-                    Margin="5"
-                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="MouseOver">
-                            <Storyboard>
-                                <ColorAnimation
-                                    Storyboard.TargetName="ButtonBackground"
-                                    Storyboard.TargetProperty="Color"
-                                    To="#234d96"
-                                    Duration="0:0:0.5" />
-                            </Storyboard>
-                        </VisualState>
-                        <VisualState x:Name="Pressed">
-                            <Storyboard>
-                                <ColorAnimation
-                                    Storyboard.TargetName="ButtonBackground"
-                                    Storyboard.TargetProperty="Color"
-                                    To="#89B4FF" />
-                            </Storyboard>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-            </Border>
-        </ControlTemplate>
     </UserControl.Resources>
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="Loaded">
@@ -220,410 +189,431 @@
                 <Storyboard>
                     <DoubleAnimation
                         Storyboard.TargetProperty="Opacity"
-                        From="0.0" To="1.0" Duration="0:0:0.5" />
+                        From="0.0" To="1.0" Duration="0:0:0.75" />
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
     </UserControl.Triggers>
 
-    <Grid Background="#2E3349" Margin="15">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60" />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid Grid.ColumnSpan="3">
-
+    <xctk:BusyIndicator IsBusy="False" BusyContent="Updating Resources...">
+        <Grid Background="#2E3349" Margin="15">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="60" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="60" />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Image Grid.Column="0" Margin="13" Source="/Assets/settings.png" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Grid.ColumnSpan="3">
 
-            <Button
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="60" />
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0" Margin="13" Source="/Assets/settings.png" />
+
+                <Button
                 Grid.Column="1" Cursor="Hand"
                 Margin="25 0"
                 Command="{Binding NavigateHomeCommand}"
                 Template="{StaticResource ButtonTemplate}">
 
-                <Viewbox
+                    <Viewbox
                     Grid.Column="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-                    <TextBlock
+                        <TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        FontFamily="Fonts/#RopaSans"
+                        FontFamily="{StaticResource Nunito}"
                         FontWeight="Medium"
                         Foreground="#007EF9"
-                        Text="{x:Static p:Resources.RefreshMatch}" />
-                </Viewbox>
-            </Button>
+                        Text="{x:Static p:Resources.Home}" />
+                    </Viewbox>
+                </Button>
 
-            <Button
+                <Button
                 Grid.Column="2" Cursor="Hand"
                 Command="{Binding NavigateInfoCommand}"
                 Template="{StaticResource ButtonTemplate}">
 
-                <Image Margin="10" Source="/Assets/info.png" />
-            </Button>
-        </Grid>
+                    <Image Margin="10" Source="/Assets/info.png" />
+                </Button>
+            </Grid>
 
-        <Border
+            <Border
             Grid.Row="1"
             Grid.RowSpan="2"
             Grid.Column="0"
             Margin="0 25 25 25"
             Background="#252A40"
             CornerRadius="20">
-            <Viewbox>
-                <Grid Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition MinHeight="20" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <TextBlock
+                <Viewbox>
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition MinHeight="20" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock
                         Grid.Row="0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontWeight="DemiBold"
+                        FontFamily="{StaticResource Nunito}"
                         Foreground="White"
                         Text="{x:Static p:Resources.SelLanguageTitle}"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
-                    <Border
+                        <Border
                         Grid.Row="1"
                         Height="25"
                         Margin="25"
                         Padding="3"
                         Background="#4a4f63"
                         CornerRadius="5">
-                        <ComboBox
+                            <ComboBox
                             Name="LanguageCombo"
                             HorizontalContentAlignment="Center"
                             Background="Transparent"
                             BorderThickness="0"
                             DropDownOpened="LanguageList_OnDropDownOpened"
                             SelectionChanged="ListBox_Selected" />
-                    </Border>
-                </Grid>
-            </Viewbox>
-        </Border>
+                        </Border>
+                    </Grid>
+                </Viewbox>
+            </Border>
 
-        <Border
+            <Border
             Grid.Row="3"
             Grid.RowSpan="2"
             Grid.Column="0"
             Margin="0 25 25 0"
             Background="#252A40"
             CornerRadius="20">
-            <Grid Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock
                     Grid.Row="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="30"
                     FontWeight="DemiBold"
+                    FontFamily="{StaticResource Nunito}"
                     Foreground="White"
                     Text="{x:Static p:Resources.CheckDownloadTitle}"
                     TextWrapping="Wrap" />
-                <Viewbox Grid.Row="1" HorizontalAlignment="Center">
-                    <Button
+                    <Viewbox Grid.Row="1" HorizontalAlignment="Center">
+                        <Button
                         Margin="10"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Click="Button_Click5"
                         Template="{StaticResource ButtonTemplate}">
-                        <Viewbox>
-                            <TextBlock
+                            <Viewbox>
+                                <TextBlock
                                 Padding="5"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
+                                FontFamily="{StaticResource Nunito}"
                                 FontWeight="Normal"
                                 Foreground="#007EF9"
                                 Text="{x:Static p:Resources.CheckDownloadButton}" />
-                        </Viewbox>
-                    </Button>
-                </Viewbox>
+                            </Viewbox>
+                        </Button>
+                    </Viewbox>
 
-                <Viewbox Grid.Row="2">
-                    <Button
+                    <Viewbox Grid.Row="2">
+                        <Button
                         Margin="10"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Click="Button_Click4"
                         Template="{StaticResource ButtonTemplate}">
-                        <Viewbox>
-                            <TextBlock
+                            <Viewbox>
+                                <TextBlock
                                 Padding="5"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
+                                FontFamily="{StaticResource Nunito}"
                                 FontWeight="Normal"
                                 Foreground="#007EF9"
                                 Text="{x:Static p:Resources.CheckUpdates}" />
-                        </Viewbox>
-                    </Button>
-                </Viewbox>
-            </Grid>
-        </Border>
+                            </Viewbox>
+                        </Button>
+                    </Viewbox>
+                </Grid>
+            </Border>
 
-        <Border
+            <Border
             Grid.Row="1"
             Grid.RowSpan="2"
             Grid.Column="1"
             Margin="25"
             Background="#252A40"
             CornerRadius="20">
-            <Grid Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock
                     Grid.Row="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="30"
+                    FontFamily="{StaticResource Nunito}"
                     FontWeight="DemiBold"
                     Foreground="White"
                     Text="{x:Static p:Resources.InfoTitle}"
                     TextWrapping="Wrap" />
-                <Viewbox Grid.Row="1" VerticalAlignment="Top">
-                    <TextBlock
+                    <Viewbox Grid.Row="1" VerticalAlignment="Top">
+                        <TextBlock
                         Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"
                         Margin="25,0"
                         Background="Transparent"
                         FontSize="25"
                         FontWeight="Light"
+                        FontFamily="{StaticResource Nunito}"
                         Foreground="White"
                         Opacity="0.7"
                         Text="{x:Static p:Resources.SettingsInfoExplanation1}"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
-                </Viewbox>
+                    </Viewbox>
 
-                <Viewbox Grid.Row="2" VerticalAlignment="Top">
-                    <TextBlock
+                    <Viewbox Grid.Row="2" VerticalAlignment="Top">
+                        <TextBlock
                         Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"
                         Margin="25,0"
                         FontSize="25"
                         FontWeight="Normal"
                         Foreground="White"
+                        FontFamily="{StaticResource Nunito}"
                         Opacity="0.2"
                         Text="{x:Static p:Resources.SettingsInfoExplanation2}"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
-                </Viewbox>
-            </Grid>
-        </Border>
+                    </Viewbox>
+                </Grid>
+            </Border>
 
-        <Border
+            <Border
             Grid.Row="1"
             Grid.RowSpan="2"
             Grid.Column="2"
             Margin="25 25 0 25"
             Background="#252A40"
             CornerRadius="20">
-            <Grid Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock
                     Grid.Row="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
+                    FontFamily="{StaticResource Nunito}"
                     FontSize="30"
                     FontWeight="DemiBold"
                     Foreground="White"
                     Text="{x:Static p:Resources.AutoLoginTitle}"
                     TextWrapping="Wrap" />
-                <Viewbox Grid.Row="1" HorizontalAlignment="Center">
-                    <TextBlock
+                    <Viewbox Grid.Row="1" HorizontalAlignment="Center">
+                        <TextBlock
                         Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
                         Margin="25,5"
                         Background="Transparent"
                         FontSize="25"
+                        FontFamily="{StaticResource Nunito}"
                         FontWeight="Normal"
                         Foreground="White"
                         Opacity="0.7"
                         Text="{x:Static p:Resources.AutoLoginExplanation}"
                         TextWrapping="Wrap" />
-                </Viewbox>
+                    </Viewbox>
 
-                <Viewbox Grid.Row="2">
-                    <Button
+                    <Viewbox Grid.Row="2">
+                        <Button
                         Margin="10"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Click="Button_Click3"
                         Template="{StaticResource ButtonTemplate}">
-                        <Viewbox>
-                            <TextBlock
+                            <Viewbox>
+                                <TextBlock
                                 Padding="5"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontWeight="Normal"
+                                FontFamily="{StaticResource Nunito}"
                                 Foreground="#007EF9"
                                 Text="{x:Static p:Resources.Login}" />
-                        </Viewbox>
-                    </Button>
-                </Viewbox>
-            </Grid>
-        </Border>
+                            </Viewbox>
+                        </Button>
+                    </Viewbox>
+                </Grid>
+            </Border>
 
-        <Border Grid.Row="3"
+            <Border Grid.Row="3"
                 Grid.RowSpan="2"
                 Grid.Column="2"
                 Margin="25 25 0 0"
                 Background="#252A40"
                 CornerRadius="20">
-            <Grid Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock
                     Grid.Row="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="30"
+                    FontFamily="{StaticResource Nunito}"
                     FontWeight="DemiBold"
                     Foreground="White"
                     Text="{x:Static p:Resources.CheckUpdates}"
                     TextWrapping="Wrap" />
 
-                <StackPanel Grid.Row="1">
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock
+                    <StackPanel Grid.Row="1">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock
                             FontSize="20"
+                            FontFamily="{StaticResource Nunito}"
                             Foreground="White"
                             Opacity="0.7"
                             Text="{x:Static p:Resources.Latestversion}"
                             TextAlignment="Left"
                             TextWrapping="Wrap" />
-                        <TextBlock
+                            <TextBlock
                             x:Name="LatestVersion"
                             FontSize="20"
                             Foreground="White"
                             Opacity="0.7"
                             Text=""
+                            FontFamily="{StaticResource Nunito}"
                             TextAlignment="Left"
                             TextWrapping="Wrap" />
-                    </StackPanel>
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock
                             FontSize="20"
                             Foreground="White"
                             Opacity="0.7"
+                            FontFamily="{StaticResource Nunito}"
                             Text="{x:Static p:Resources.CurrentVersion}"
                             TextAlignment="Left"
                             TextWrapping="Wrap" />
-                        <TextBlock
+                            <TextBlock
                             x:Name="CurrentVersion"
                             FontSize="20"
+                            FontFamily="{StaticResource Nunito}"
                             Foreground="White"
                             Opacity="0.7"
                             Text=""
                             TextAlignment="Left"
                             TextWrapping="Wrap" />
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
-                <Viewbox Grid.Row="2">
-                    <Button
+                    <Viewbox Grid.Row="2">
+                        <Button
                         Margin="30,00"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Top"
                         Click="Button_Click1"
                         Template="{StaticResource ButtonTemplate}">
 
-                        <Viewbox>
-                            <TextBlock
+                            <Viewbox>
+                                <TextBlock
                                 Padding="5"
                                 HorizontalAlignment="Center"
+                                FontFamily="{StaticResource Nunito}"
                                 VerticalAlignment="Center"
                                 FontWeight="Normal"
                                 Foreground="#007EF9"
                                 Text="{x:Static p:Resources.CheckUpdates}" />
-                        </Viewbox>
-                    </Button>
-                </Viewbox>
-            </Grid>
-        </Border>
+                            </Viewbox>
+                        </Button>
+                    </Viewbox>
+                </Grid>
+            </Border>
 
-        <Border
+            <Border
             Grid.Row="3"
             Grid.RowSpan="2"
             Grid.Column="1"
             Margin="25 25 25 0"
             Background="#252A40"
             CornerRadius="20">
-            <Grid Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock
                     Grid.Row="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="30"
                     FontWeight="DemiBold"
+                    FontFamily="{StaticResource Nunito}"
                     Foreground="White"
                     Text="{x:Static p:Resources.AuthStatusTitle}"
                     TextWrapping="Wrap" />
-                <Viewbox Grid.Row="1" HorizontalAlignment="Center">
-                    <TextBlock
+                    <Viewbox Grid.Row="1" HorizontalAlignment="Center">
+                        <TextBlock
                         x:Name="AuthStatusBox"
                         Margin="25,5"
                         Background="Transparent"
+                        FontFamily="{StaticResource Nunito}"
                         FontSize="10"
                         FontWeight="Normal"
                         Foreground="#32e2b2"
                         Opacity="0.7"
                         Text="{x:Static p:Resources.AuthStatusDefault}"
                         TextWrapping="Wrap" />
-                </Viewbox>
+                    </Viewbox>
 
-                <Viewbox Grid.Row="2">
-                    <Button
+                    <Viewbox Grid.Row="2">
+                        <Button
                         Margin="30,00"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Top"
                         Click="Button_Click2"
                         Template="{StaticResource ButtonTemplate}">
 
-                        <Viewbox>
-                            <TextBlock
+                            <Viewbox>
+                                <TextBlock
                                 Padding="5"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
+                                FontFamily="{StaticResource Nunito}"
                                 FontWeight="Normal"
                                 Foreground="#007EF9"
                                 Text="{x:Static p:Resources.AuthStatusButton}" />
-                        </Viewbox>
-                    </Button>
-                </Viewbox>
-            </Grid>
-        </Border>
-    </Grid>
+                            </Viewbox>
+                        </Button>
+                    </Viewbox>
+                </Grid>
+            </Border>
+        </Grid>
+    </xctk:BusyIndicator>
 </UserControl>

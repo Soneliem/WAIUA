@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
     xmlns:views="clr-namespace:WAIUA.Views"
-    Title="Who Am I Up Against?"
+    Title="Who Am I Up Against? (WAIUA)"
     Width="{commands:SettingBinding Width}"
     Height="{commands:SettingBinding Height}"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}"

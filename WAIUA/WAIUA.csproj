@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net5.0-windows10.0.22000.0</TargetFramework>
+        <TargetFramework>net6.0-windows</TargetFramework>
         <UseWPF>true</UseWPF>
         <ApplicationIcon>logo.ico</ApplicationIcon>
         <Version>1.4.0.1</Version>
@@ -19,11 +19,11 @@
         <Authors>Soneliem</Authors>
         <PackageLicenseFile></PackageLicenseFile>
         <IsPackable>false</IsPackable>
-        <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <RepositoryType>git</RepositoryType>
         <AssemblyVersion>1.4.0.1</AssemblyVersion>
         <FileVersion>1.4.0.1</FileVersion>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -38,9 +38,17 @@
 
     <ItemGroup>
       <Compile Remove="Models\**" />
+      <Compile Remove="ValAPI\agentsimg\**" />
+      <Compile Remove="ValAPI\ranksimg\**" />
       <EmbeddedResource Remove="Models\**" />
+      <EmbeddedResource Remove="ValAPI\agentsimg\**" />
+      <EmbeddedResource Remove="ValAPI\ranksimg\**" />
       <None Remove="Models\**" />
+      <None Remove="ValAPI\agentsimg\**" />
+      <None Remove="ValAPI\ranksimg\**" />
       <Page Remove="Models\**" />
+      <Page Remove="ValAPI\agentsimg\**" />
+      <Page Remove="ValAPI\ranksimg\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -90,12 +98,17 @@
     <ItemGroup>
         <None Remove="Assets\arrow.png" />
         <None Remove="Assets\back.png" />
+        <None Remove="Assets\Check.png" />
+        <None Remove="Assets\cross.png" />
         <None Remove="Assets\discord.png" />
+        <None Remove="Assets\empty.png" />
         <None Remove="Assets\icon.ico" />
         <None Remove="Assets\info.png" />
         <None Remove="Assets\logo.ico" />
         <None Remove="Assets\logo.png" />
+        <None Remove="Assets\Nunito-Regular.ttf" />
         <None Remove="Assets\phantom.png" />
+        <None Remove="Assets\question.png" />
         <None Remove="Assets\refresh.png" />
         <None Remove="Assets\settings.png" />
         <None Remove="Assets\Soneliem.png" />
@@ -109,8 +122,17 @@
         <Resource Include="Assets\back.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
+        <Resource Include="Assets\check.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\cross.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
         <Resource Include="Assets\discord.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\empty.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
         <Resource Include="Assets\info.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -121,9 +143,11 @@
         <Resource Include="Assets\logo.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
+        <Resource Include="Assets\Nunito-Regular.ttf" />
         <Resource Include="Assets\phantom.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
+        <Resource Include="Assets\question.png" />
         <Resource Include="Assets\refresh.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
@@ -148,7 +172,8 @@
 
     <ItemGroup>
         <PackageReference Include="Autoupdater.NET.Official" Version="1.7.0" />
-        <PackageReference Include="ControlzEx" Version="5.0.1" />
+        <PackageReference Include="Extended.Wpf.Toolkit" Version="4.2.0" />
+        <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
         <PackageReference Include="MVVMEssentials.WPF" Version="1.0.3" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageReference Include="RestSharp" Version="106.15.0" />
@@ -173,9 +198,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Helpers\" />
-      <Folder Include="ValAPI\agentsimg\" />
-      <Folder Include="ValAPI\ranksimg\" />
+      <Folder Include="ValAPI\" />
     </ItemGroup>
 
 </Project>

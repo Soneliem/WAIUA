@@ -178,11 +178,11 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You&apos;re on this page idiot.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string InfoExplanation {
+        public static string Home {
             get {
-                return ResourceManager.GetString("InfoExplanation", resourceCulture);
+                return ResourceManager.GetString("Home", resourceCulture);
             }
         }
         
@@ -219,15 +219,6 @@ namespace WAIUA.Properties {
         public static string Latestversion {
             get {
                 return ResourceManager.GetString("Latestversion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Loads live match data if available. This should take less than 10 seconds.
-        /// </summary>
-        public static string LoadMatchExplanation {
-            get {
-                return ResourceManager.GetString("LoadMatchExplanation", resourceCulture);
             }
         }
         
@@ -291,15 +282,6 @@ namespace WAIUA.Properties {
         public static string SelLanguageTitle {
             get {
                 return ResourceManager.GetString("SelLanguageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Find app and account settings here.
-        /// </summary>
-        public static string SettingsExplanation {
-            get {
-                return ResourceManager.GetString("SettingsExplanation", resourceCulture);
             }
         }
         

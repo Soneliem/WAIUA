@@ -16,7 +16,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <TextBlock
-                            FontFamily="Nunito"
+                            FontFamily="{StaticResource Nunito}"
                             Cursor="Hand"
                             Foreground="DodgerBlue"
                             Text="{TemplateBinding Content}"
@@ -29,6 +29,7 @@
             <Setter Property="Background" Value="#32e2b2" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontFamily" Value="{StaticResource Nunito}"/>
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
             <Setter Property="HasDropShadow" Value="False"/>
@@ -69,14 +70,12 @@
                 </Grid.ColumnDefinitions>
                 <Image Grid.Column="0" Source="{Binding AgentPicture, ElementName=Self}" />
                 <Viewbox Grid.Column="1" HorizontalAlignment="Left">
-                    <TextBox
+                    <TextBlock
 						Background="Transparent"
-						BorderThickness="0"
                         FontFamily="{StaticResource Nunito}"
 						FontWeight="Bold"
 						Foreground="#32e2b2"
-						IsReadOnly="True"
-						Text="{Binding Agent, ElementName=Self}" />
+                        Text="{Binding Agent, ElementName=Self}" />
                 </Viewbox>
 
             </Grid>
@@ -157,7 +156,8 @@
                 VerticalAlignment="Bottom"
                 Stretch="Uniform">
                 <StackPanel Orientation="Horizontal">
-                    <Image Height="256" Width="256" Source="{Binding PPPRank, ElementName=Self}"
+                    <Image Height="256" Width="256" 
+                           Source="{Binding PPPRank, ElementName=Self}"
                            ToolTip="{Binding PPPRankName, ElementName=Self}" />
                     <Image
                         Margin="30,0"

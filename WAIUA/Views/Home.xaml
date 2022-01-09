@@ -6,53 +6,19 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:c="clr-namespace:WAIUA.Controls"
     xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}"
     d:DesignHeight="754"
     d:DesignWidth="1536"
     Background="#2E3349"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
-            <Border Name="RootElement" CornerRadius="10">
-                <Border.Background>
-                    <SolidColorBrush x:Name="ButtonBackground" Color="#181E34" />
-                </Border.Background>
-                <ContentPresenter
-                    Margin="5"
-                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="MouseOver">
-                            <Storyboard>
-                                <ColorAnimation
-                                    Storyboard.TargetName="ButtonBackground"
-                                    Storyboard.TargetProperty="Color"
-                                    To="#234d96"
-                                    Duration="0:0:0.5" />
-                            </Storyboard>
-                        </VisualState>
-                        <VisualState x:Name="Pressed">
-                            <Storyboard>
-                                <ColorAnimation
-                                    Storyboard.TargetName="ButtonBackground"
-                                    Storyboard.TargetProperty="Color"
-                                    To="#89B4FF" />
-                            </Storyboard>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-            </Border>
-        </ControlTemplate>
-    </UserControl.Resources>
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="Loaded">
             <BeginStoryboard>
                 <Storyboard>
                     <DoubleAnimation
                         Storyboard.TargetProperty="Opacity"
-                        From="0.0" To="1.0" Duration="0:0:0.5" />
+                        From="0.0" To="1.0" Duration="0:0:0.75" />
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
@@ -65,8 +31,9 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="251*" />
+            <ColumnDefinition Width="200*" />
+            <ColumnDefinition Width="51*"/>
         </Grid.ColumnDefinitions>
 
 
@@ -80,20 +47,20 @@
         </Button>
 
         <Button
-            Grid.Column="1" Cursor="Hand" Width="60"
-            HorizontalAlignment="Right"
+            Grid.Column="2" Cursor="Hand" Width="60"
+            HorizontalAlignment="Left"
             Command="{Binding NavigateInfoCommand}"
-            Template="{StaticResource ButtonTemplate}">
+            Template="{StaticResource ButtonTemplate}" Margin="93,0,0,0">
 
             <Image Margin="10" Source="/Assets/info.png" />
         </Button>
         <TextBlock FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Center"
-                   FontWeight="SemiBold" Grid.Row="0"
+                   FontWeight="SemiBold"  FontFamily="{StaticResource Nunito}"
                    Foreground="White" Text="Your Party" />
-        <TextBlock FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Center"
-                   FontWeight="SemiBold" Grid.Row="0" Grid.Column="1"
-                   Foreground="White" Text="Status" />
-        <Grid Grid.Row="1" VerticalAlignment="Stretch" Margin="0 15 0 0 ">
+        <TextBlock FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Left"
+                   FontWeight="SemiBold" Grid.Column="1" FontFamily="{StaticResource Nunito}"
+                   Foreground="White" Text="Status" Margin="324,0,0,0" />
+        <Grid Grid.Row="1" Margin="0,15,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -256,7 +223,7 @@
         </Grid>
 
 
-        <Grid Grid.Row="1" Grid.Column="1" Height="664" VerticalAlignment="Top">
+        <Grid Grid.Row="1" Grid.Column="1" Height="664" VerticalAlignment="Center" Grid.ColumnSpan="2">
 
             <Grid Grid.Row="0"
                   Margin="5 15 0 0">
@@ -282,30 +249,33 @@
                             <TextBlock Margin="25"
                                        FontSize="20"
                                        HorizontalAlignment="Center"
+                                       FontFamily="{StaticResource Nunito}"
                                        VerticalAlignment="Center"
                                        FontWeight="Normal"
                                        Foreground="White"
                                        Text="Valorant" />
-                            <Image Margin="25" Width="30" Grid.Column="1" Source="/Assets/refresh.png" />
+                            <Image Margin="25" Width="30" Grid.Column="1" Source="{Binding GameStatus}" />
 
 
                             <TextBlock Margin="25" Grid.Row="1"
                                        FontSize="20"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
+                                       FontFamily="{StaticResource Nunito}"
                                        FontWeight="Normal"
                                        Foreground="White"
                                        Text="Account" />
-                            <Image Margin="25" Width="30" Grid.Row="1" Grid.Column="1" Source="/Assets/refresh.png" />
+                            <Image Margin="25" Width="30" Grid.Row="1" Grid.Column="1" Source="{Binding AccountStatus}" />
 
                             <TextBlock Margin="25" Grid.Row="2" Grid.Column="0"
                                        FontSize="20"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
+                                       FontFamily="{StaticResource Nunito}"
                                        FontWeight="Normal"
                                        Foreground="White"
                                        Text="Match" />
-                            <Image Margin="25" Width="30" Grid.Row="2" Grid.Column="1" Source="/Assets/refresh.png" />
+                            <Image Margin="25" Width="30" Grid.Row="2" Grid.Column="1" Source="{Binding MatchStatus}" />
                         </Grid>
                     </Border>
 
@@ -324,27 +294,31 @@
                                        FontSize="20"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
+                                       FontFamily="{StaticResource Nunito}"
                                        FontWeight="Normal"
                                        Foreground="White"
-                                       Text="Queue:" />
+                                       Text="Queue Time:" />
                             <TextBlock Margin="25"
-                                       FontSize="20" Grid.Column="1"
+                                       FontSize="20" Grid.Row="0" Grid.Column="1"
                                        HorizontalAlignment="Center"
+                                       FontFamily="{StaticResource Nunito}"
                                        VerticalAlignment="Center"
                                        FontWeight="Normal"
                                        Foreground="#007EF9" 
-                                       Text="{Binding RefreshTime}"/>
+                                       Text="{Binding QueueTime}"/>
 
-                            <TextBlock Margin="25" Grid.Row="1"
+                            <TextBlock Margin="25" Grid.Row="1" Grid.Column="0"
                                        FontSize="20"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        FontWeight="Normal"
                                        Foreground="White"
-                                       Text="Refresh In:" />
+                                       FontFamily="{StaticResource Nunito}"
+                                       Text="Refreshing In:" />
                             <TextBlock Margin="25" Grid.Row="1"
                                        FontSize="20" Grid.Column="1"
                                        HorizontalAlignment="Center"
+                                       FontFamily="{StaticResource Nunito}"
                                        VerticalAlignment="Center"
                                        FontWeight="Normal"
                                        Foreground="#007EF9"
@@ -359,9 +333,15 @@
                 <StackPanel Height="90" Margin="30,20" Grid.Row="1" Orientation="Horizontal"
                             HorizontalAlignment="Center">
                     <Viewbox>
-                        <Button
-                            Click="PassiveLoad"
-                            Template="{StaticResource ButtonTemplate}">
+                        <ToggleButton Template="{StaticResource ToggleButtonTemplate}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Checked">
+                                    <i:InvokeCommandAction Command="{Binding Path=PassiveEnabledCommand}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="Unchecked">
+                                    <i:InvokeCommandAction Command="{Binding Path=PassiveDisabledCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <Viewbox>
                                 <TextBlock
                                     Padding="5"
@@ -369,10 +349,10 @@
                                     VerticalAlignment="Center"
                                     FontWeight="Normal"
                                     Foreground="#007EF9"
-                                    Text="Wait for Next Match"
-                                    x:Name="PassiveBtn" />
+                                    FontFamily="{StaticResource Nunito}"
+                                    Text="{Binding ToggleBtnTxt}"/>
                             </Viewbox>
-                        </Button>
+                        </ToggleButton>
                     </Viewbox>
                     <Separator Width="20" Background="Transparent" />
                     <Button Cursor="Hand" Width="90" Height="90"

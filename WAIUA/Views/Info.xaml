@@ -48,6 +48,7 @@
             <Setter Property="Background" Value="#32e2b2" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontFamily" Value="{StaticResource Nunito}"/>
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
             <Setter Property="HasDropShadow" Value="False" />
@@ -59,7 +60,7 @@
                 <Storyboard>
                     <DoubleAnimation
                         Storyboard.TargetProperty="Opacity"
-                        From="0.0" To="1.0" Duration="0:0:0.5" />
+                        From="0.0" To="1.0" Duration="0:0:0.75" />
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
@@ -108,10 +109,10 @@
                     <TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        FontFamily="Fonts/#RopaSans"
+                        FontFamily="{StaticResource Nunito}"
                         FontWeight="Medium"
                         Foreground="#007EF9"
-                        Text="Home" />
+                        Text="{x:Static p:Resources.Home}" />
                 </Viewbox>
             </Button>
 
@@ -126,6 +127,7 @@
             <Button Background="Transparent"
                     Cursor="Hand"
                     BorderThickness="0"
+                    FontFamily="{StaticResource Nunito}"
                     Height="100"
                     HorizontalAlignment="Left"
                     RenderOptions.BitmapScalingMode="HighQuality"
@@ -137,6 +139,7 @@
                 FontSize="30"
                 FontWeight="SemiBold"
                 Foreground="White"
+                FontFamily="{StaticResource Nunito}"
                 TextAlignment="left"
                 TextWrapping="Wrap">
                 <Hyperlink NavigateUri="https://discord.gg/X7CYCeZSRK" RequestNavigate="HandleLinkClick">
@@ -148,6 +151,7 @@
             <TextBlock
                 Width="Auto"
                 FontSize="20"
+                FontFamily="{StaticResource Nunito}"
                 Foreground="White"
                 Opacity="0.7"
                 Text="{x:Static p:Resources.JoinDiscordSub}"
@@ -177,6 +181,7 @@
                 FontSize="45"
                 FontWeight="SemiBold"
                 Foreground="White"
+                FontFamily="{StaticResource Nunito}"
                 TextWrapping="Wrap">
                 WAIUA
             </TextBlock>
@@ -184,6 +189,7 @@
                 HorizontalAlignment="Center"
                 FontSize="25"
                 FontWeight="DemiBold"
+                FontFamily="{StaticResource Nunito}"
                 Foreground="#32e2b2"
                 Text="Who Am I Up Against?"
                 TextWrapping="Wrap" />
@@ -194,6 +200,7 @@
                 FontSize="30"
                 FontWeight="SemiBold"
                 Foreground="White"
+                FontFamily="{StaticResource Nunito}"
                 Text="{x:Static p:Resources.SponsorsTitle}"
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
@@ -288,6 +295,7 @@
                 FontSize="30"
                 FontWeight="SemiBold"
                 Foreground="White"
+                FontFamily="{StaticResource Nunito}"
                 TextAlignment="Right"
                 TextWrapping="Wrap">
                 <Hyperlink NavigateUri="https://sonel.dev" RequestNavigate="HandleLinkClick">
@@ -299,6 +307,7 @@
             <TextBlock
                 FontSize="20"
                 Foreground="White"
+                FontFamily="{StaticResource Nunito}"
                 Opacity="0.7"
                 Text="{x:Static p:Resources.Translator}"
                 TextAlignment="Right"
