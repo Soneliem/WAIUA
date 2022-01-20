@@ -19,56 +19,56 @@ namespace WAIUA.Views
 {
     public partial class Settings : UserControl
     {
-        private readonly List<CultureInfo> LanguageList = new();
+        private readonly List<CultureInfo> _languageList = new();
 
         public Settings()
         {
             InitializeComponent();
         }
 
-        private void CheckAuth()
+        private async Task CheckAuthAsync()
         {
             Mouse.OverrideCursor = Cursors.Wait;
             AuthStatusBox.Text = Properties.Resources.Refreshing;
-            if (!GetSetPPUUID())
+            if (!await GetSetPpuuidAsync().ConfigureAwait(false))
                 AuthStatusBox.Text = Properties.Resources.AuthStatusFail;
-            else AuthStatusBox.Text = $"{Properties.Resources.AuthStatusAuthAs} {GetIGUsername(Constants.PPUUID)}";
+            else AuthStatusBox.Text = $"{Properties.Resources.AuthStatusAuthAs} {await GetIgUsernameAsync(Constants.PPUUID).ConfigureAwait(false)}";
             Mouse.OverrideCursor = Cursors.Arrow;
         }
 
-        private async void Button_Click1(object sender, RoutedEventArgs e)
+        private async void Button_Click1Async(object sender, RoutedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
             CurrentVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            LatestVersion.Text = await Task.Run(GetLatestVersion);
+            LatestVersion.Text = await GetLatestVersionAsync().ConfigureAwait(false);
             AutoUpdater.Start("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xml");
-            await CheckAndUpdateJson();
+            await CheckAndUpdateJsonAsync().ConfigureAwait(false);
             Mouse.OverrideCursor = Cursors.Arrow;
         }
 
-        private static string GetLatestVersion()
+        private static Task<string> GetLatestVersionAsync()
         {
             var xml = new XmlDocument();
             xml.Load("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xml");
             var result = xml.GetElementsByTagName("version");
-            return result[0].InnerText;
+            return Task.FromResult(result[0].InnerText);
         }
 
-        private void Button_Click2(object sender, RoutedEventArgs e)
+        private async void Button_Click2Async(object sender, RoutedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
-            CheckAuth();
+            await CheckAuthAsync().ConfigureAwait(false);
             Mouse.OverrideCursor = Cursors.Arrow;
         }
 
-        private void Button_Click3(object sender, RoutedEventArgs e)
+        private async void Button_Click3Async(object sender, RoutedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
-            if (CheckLocal())
+            if (await CheckLocalAsync().ConfigureAwait(false))
             {
-                LocalLogin();
-                LocalRegion();
-                CheckAuth();
+                await LocalLoginAsync().ConfigureAwait(false);
+                await LocalRegionAsync().ConfigureAwait(false);
+                await CheckAuthAsync().ConfigureAwait(false);
             }
             else
             {
@@ -78,33 +78,33 @@ namespace WAIUA.Views
             Mouse.OverrideCursor = Cursors.Arrow;
         }
 
-        private async void Button_Click4(object sender, RoutedEventArgs e)
+        private async void Button_Click4Async(object sender, RoutedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
-            await CheckAndUpdateJson();
+            await CheckAndUpdateJsonAsync().ConfigureAwait(false);
             Mouse.OverrideCursor = Cursors.Arrow;
         }
 
-        private async void Button_Click5(object sender, RoutedEventArgs e)
+        private async void Button_Click5Async(object sender, RoutedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
-            await UpdateFiles();
+            await UpdateFilesAsync().ConfigureAwait(false);
             Mouse.OverrideCursor = Cursors.Arrow;
         }
 
-        private async void ListBox_Selected(object sender, SelectionChangedEventArgs e)
+        private async void ListBox_SelectedAsync(object sender, SelectionChangedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
             var combo = (ComboBox) sender;
             var index = combo.SelectedIndex;
-            Thread.CurrentThread.CurrentCulture = LanguageList[index];
-            Thread.CurrentThread.CurrentUICulture = LanguageList[index];
-            Properties.Settings.Default.Language = LanguageList[index].TwoLetterISOLanguageName;
-            await UpdateFiles();
+            Thread.CurrentThread.CurrentCulture = _languageList[index];
+            Thread.CurrentThread.CurrentUICulture = _languageList[index];
+            Properties.Settings.Default.Language = _languageList[index].TwoLetterISOLanguageName;
+            await UpdateFilesAsync().ConfigureAwait(false);
             Mouse.OverrideCursor = Cursors.Arrow;
         }
 
-        private static IEnumerable<CultureInfo> GetAvailableCultures()
+        private static Task<IEnumerable<CultureInfo>> GetAvailableCulturesAsync()
         {
             var result = new List<CultureInfo>();
             var rm = new ResourceManager(typeof(Resources));
@@ -123,17 +123,17 @@ namespace WAIUA.Views
                 {
                 }
 
-            return result;
+            return Task.FromResult<IEnumerable<CultureInfo>>(result);
         }
 
-        private void LanguageList_OnDropDownOpened(object sender, EventArgs e)
+        private async void LanguageList_OnDropDownOpenedAsync(object sender, EventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
             if (LanguageCombo.Items.Count == 0)
-                foreach (var language in GetAvailableCultures())
+                foreach (var language in await GetAvailableCulturesAsync().ConfigureAwait(false))
                 {
                     LanguageCombo.Items.Add(language.NativeName);
-                    LanguageList.Add(language);
+                    _languageList.Add(language);
                 }
 
             Mouse.OverrideCursor = Cursors.Arrow;

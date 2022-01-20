@@ -284,8 +284,8 @@
                             HorizontalContentAlignment="Center"
                             Background="Transparent"
                             BorderThickness="0"
-                            DropDownOpened="LanguageList_OnDropDownOpened"
-                            SelectionChanged="ListBox_Selected" />
+                            DropDownOpened="LanguageList_OnDropDownOpenedAsync"
+                            SelectionChanged="ListBox_SelectedAsync" />
                         </Border>
                     </Grid>
                 </Viewbox>
@@ -319,7 +319,7 @@
                         Margin="10"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Click="Button_Click5"
+                        Click="Button_Click5Async"
                         Template="{StaticResource ButtonTemplate}">
                             <Viewbox>
                                 <TextBlock
@@ -339,7 +339,7 @@
                         Margin="10"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Click="Button_Click4"
+                        Click="Button_Click4Async"
                         Template="{StaticResource ButtonTemplate}">
                             <Viewbox>
                                 <TextBlock
@@ -452,7 +452,7 @@
                         Margin="10"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Click="Button_Click3"
+                        Click="Button_Click3Async"
                         Template="{StaticResource ButtonTemplate}">
                             <Viewbox>
                                 <TextBlock
@@ -537,7 +537,7 @@
                         Margin="30,00"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Top"
-                        Click="Button_Click1"
+                        Click="Button_Click1Async"
                         Template="{StaticResource ButtonTemplate}">
 
                             <Viewbox>
@@ -597,7 +597,7 @@
                         Margin="30,00"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Top"
-                        Click="Button_Click2"
+                        Click="Button_Click2Async"
                         Template="{StaticResource ButtonTemplate}">
 
                             <Viewbox>

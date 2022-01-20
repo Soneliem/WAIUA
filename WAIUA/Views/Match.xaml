@@ -5,10 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:WAIUA.Controls"
              xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              d:DataContext="{d:DesignInstance Type=viewmodels:MatchViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="754"
              d:DesignWidth="1536">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding GetPlayerInfoCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <UserControl.Resources>
     </UserControl.Resources>
     <Grid>

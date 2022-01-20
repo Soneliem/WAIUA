@@ -131,7 +131,7 @@
                     Height="100"
                     HorizontalAlignment="Left"
                     RenderOptions.BitmapScalingMode="HighQuality"
-                    Click="ImageClick"
+                    Click="ImageClickAsync"
                     Tag="https://discord.gg/X7CYCeZSRK">
                 <Image Source="/Assets/discord.png" />
             </Button>
@@ -142,7 +142,7 @@
                 FontFamily="{StaticResource Nunito}"
                 TextAlignment="left"
                 TextWrapping="Wrap">
-                <Hyperlink NavigateUri="https://discord.gg/X7CYCeZSRK" RequestNavigate="HandleLinkClick">
+                <Hyperlink NavigateUri="https://discord.gg/X7CYCeZSRK" RequestNavigate="HandleLinkClickAsync">
                     <Hyperlink.Inlines>
                         <Run Text="{x:Static p:Resources.JoinDiscord}" />
                     </Hyperlink.Inlines>
@@ -172,7 +172,7 @@
                     Cursor="Hand"
                     HorizontalAlignment="Center"
                     RenderOptions.BitmapScalingMode="HighQuality"
-                    Click="ImageClick"
+                    Click="ImageClickAsync"
                     Tag="https://waiua.sonel.dev">
                 <Image Source="/Assets/logo.png" />
             </Button>
@@ -213,7 +213,7 @@
                                 Cursor="Hand"
                                 BorderThickness="0"
                                 Margin="10"
-                                Click="ImageClick"
+                                Click="ImageClickAsync"
                                 Tag="https://www.twitch.tv/laskin__"
                                 ToolTip="Follow Laskin on Twitch">
                             <Ellipse Height="75"
@@ -228,7 +228,7 @@
                         <Button Background="Transparent"
                                 BorderThickness="0"
                                 Margin="10"
-                                Click="ImageClick"
+                                Click="ImageClickAsync"
                                 Cursor="Hand"
                                 Tag="https://www.twitch.tv/ladams_"
                                 ToolTip="Follow Ladams on Twitch">
@@ -244,7 +244,7 @@
                         <Button Background="Transparent"
                                 BorderThickness="0"
                                 Margin="10"
-                                Click="ImageClick"
+                                Click="ImageClickAsync"
                                 Cursor="Hand"
                                 Tag="https://www.twitch.tv/jendrina22"
                                 ToolTip="Follow jendrina22 on Twitch">
@@ -287,7 +287,7 @@
                     Cursor="Hand"
                     HorizontalAlignment="Right"
                     RenderOptions.BitmapScalingMode="HighQuality"
-                    Click="ImageClick"
+                    Click="ImageClickAsync"
                     Tag="https://sonel.dev">
                 <Image Source="/Assets/Soneliem.png" />
             </Button>
@@ -298,7 +298,7 @@
                 FontFamily="{StaticResource Nunito}"
                 TextAlignment="Right"
                 TextWrapping="Wrap">
-                <Hyperlink NavigateUri="https://sonel.dev" RequestNavigate="HandleLinkClick">
+                <Hyperlink NavigateUri="https://sonel.dev" RequestNavigate="HandleLinkClickAsync">
                     <Hyperlink.Inlines>
                         <Run Text="{x:Static p:Resources.Author}" />
                     </Hyperlink.Inlines>

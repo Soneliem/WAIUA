@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -40,25 +41,12 @@ namespace WAIUA.ViewModels
         public MatchViewModel(INavigationService homeNavigationService, INavigationService matchNavigationService)
         {
             Mouse.OverrideCursor = Cursors.Wait;
-            if (GetPlayerInfo())
-            {
-                _player0Prop = Player.Player0;
-                _player1Prop = Player.Player1;
-                _player2Prop = Player.Player2;
-                _player3Prop = Player.Player3;
-                _player4Prop = Player.Player4;
-                _player5Prop = Player.Player5;
-                _player6Prop = Player.Player6;
-                _player7Prop = Player.Player7;
-                _player8Prop = Player.Player8;
-                _player9Prop = Player.Player9;
-            }
-
+            GetPlayerInfoCommand = new RelayCommand(o => { UpdatePlayersAsync().ConfigureAwait(false); }, o => true);
             NavigateHomeCommand = new NavigateCommand(homeNavigationService);
             NavigateMatchCommand = new NavigateCommand(matchNavigationService);
             Mouse.OverrideCursor = Cursors.Arrow;
         }
-
+        public ICommand GetPlayerInfoCommand { get; }
         public string[] Player0
         {
             get => _player0Prop;
@@ -146,19 +134,33 @@ namespace WAIUA.ViewModels
         public ICommand NavigateHomeCommand { get; }
         public ICommand NavigateMatchCommand { get; }
 
-        private bool GetPlayerInfo()
+        private Task UpdatePlayerAsync(int i, string[] value)
+        {
+            Player.players[i].Data = value;
+            return Task.CompletedTask;
+        }
+
+        private async Task<bool> GetPlayerInfoAsync()
         {
             var output = false;
             try
             {
                 var newMatch = new LiveMatch();
-                Parallel.For(0, 10, i => { Player.players[i].Data = null; });
 
+                var tasks = Enumerable.Range(0, 10)
+                    .Select(i => UpdatePlayerAsync(i, null))
+                    .ToArray();
+                await Task.WhenAll(tasks).ConfigureAwait(false);
 
-                if (newMatch.LiveMatchChecks(false))
+                if (await newMatch.LiveMatchChecksAsync(false).ConfigureAwait(false))
                 {
                     output = true;
-                    Parallel.For(0, 10, i => { Player.players[i].Data = newMatch.LiveMatchOutput((sbyte)i); });
+                    Parallel.For(0, 10, async i => { Player.players[i].Data = await newMatch.LiveMatchOutputAsync((sbyte)i).ConfigureAwait(false); });
+
+                    var tasks2 = Enumerable.Range(0, 10)
+                        .Select(async i => UpdatePlayerAsync(i, await newMatch.LiveMatchOutputAsync((sbyte)i).ConfigureAwait(false)))
+                        .ToArray();
+                    await Task.WhenAll(tasks2).ConfigureAwait(false);
 
                     if (newMatch.Server != null) Server = newMatch.Server;
                     if (newMatch.GameMode != null) GameMode = newMatch.GameMode;
@@ -167,14 +169,14 @@ namespace WAIUA.ViewModels
 
                     var colours = new List<string>
                         {"Red", "#32e2b2", "DarkOrange", "White", "DeepSkyBlue", "MediumPurple", "SaddleBrown"};
-
-                    string[] newArray = new string[10] {"Transparent", "Transparent" , "Transparent" , "Transparent" , "Transparent" , "Transparent" , "Transparent" , "Transparent" , "Transparent" , "Transparent" };
+                     
+                    string[] newArray = new string[] {"Transparent", "Transparent" , "Transparent" , "Transparent" , "Transparent" , "Transparent" , "Transparent" , "Transparent" , "Transparent" , "Transparent" };
                     for (var i = 0; i < 10; i++)
                     {
                         var colourused = false;
                         var id = Player.players[i].Data[28];
                         for (var j = i + 1; j < 10; j++)
-                            if (Player.players[j].Data[28] == id && id != null)
+                            if (Player.players[j].Data[28] == id && id != null && id.Length > 11)
                             {
                                 newArray[i] = newArray[j] = colours[0];
                                 colourused = true;
@@ -182,7 +184,6 @@ namespace WAIUA.ViewModels
 
                         if (colourused) colours.RemoveAt(0);
                     }
-
                     for (var i = 0; i < Player.players.Length; i++)
                     {
                         Player.players[i].Data[28] = newArray[i];
@@ -194,9 +195,26 @@ namespace WAIUA.ViewModels
             }
             catch (Exception)
             {
-            }
+            } 
 
             return output;
+        }
+
+        private async Task UpdatePlayersAsync()
+        {
+            if (await GetPlayerInfoAsync().ConfigureAwait(false))
+            {
+                _player0Prop = Player.Player0;
+                _player1Prop = Player.Player1;
+                _player2Prop = Player.Player2;
+                _player3Prop = Player.Player3;
+                _player4Prop = Player.Player4;
+                _player5Prop = Player.Player5;
+                _player6Prop = Player.Player6;
+                _player7Prop = Player.Player7;
+                _player8Prop = Player.Player8;
+                _player9Prop = Player.Player9;
+            }
         }
 
         private void SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)

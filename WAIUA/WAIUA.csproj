@@ -147,7 +147,9 @@
         <Resource Include="Assets\phantom.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
-        <Resource Include="Assets\question.png" />
+        <Resource Include="Assets\question.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
         <Resource Include="Assets\refresh.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
@@ -188,6 +190,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <None Update="Assets\0.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
         <None Update="Assets\matchdemo.json">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </None>

@@ -52,11 +52,11 @@ public class HomeViewModel : ViewModelBase
         NavigateInfoCommand = new NavigateCommand(infoNavigationService);
         NavigateSettingsCommand = new NavigateCommand(settingsNavigationService);
         NavigateMatchCommand = new NavigateCommand(matchNavigationService);
-        LoadNowCommand = new RelayCommand(o => { LoadNow(); }, o => true);
-        PassiveEnabledCommand = new RelayCommand(o => { PassiveLoad(); }, o => true);
-        PassiveDisabledCommand = new RelayCommand(o => { StopPassiveLoad(); }, o => true);
+        LoadNowCommand = new RelayCommand( o => { LoadNowAsync().ConfigureAwait(false); }, o => true);
+        PassiveEnabledCommand = new RelayCommand(o => { PassiveLoadAsync().ConfigureAwait(false); }, o => true);
+        PassiveDisabledCommand = new RelayCommand(o => { StopPassiveLoadAsync().ConfigureAwait(false); }, o => true);
         
-        UpdateChecks();
+        UpdateChecksAsync().ConfigureAwait(false);
 
     }
 
@@ -73,108 +73,112 @@ public class HomeViewModel : ViewModelBase
     public string[] Player0
     {
         get => _player0Prop;
-        set => SetProperty(ref _player0Prop, value, nameof(Player0));
+        set => SetPropertyAsync(ref _player0Prop, value, nameof(Player0)).ConfigureAwait(false);
     }
 
     public string[] Player1
     {
         get => _player1Prop;
-        set => SetProperty(ref _player1Prop, value, nameof(Player1));
+        set => SetPropertyAsync(ref _player1Prop, value, nameof(Player1)).ConfigureAwait(false);
     }
 
     public string[] Player2
     {
         get => _player2Prop;
-        set => SetProperty(ref _player2Prop, value, nameof(Player2));
+        set => SetPropertyAsync(ref _player2Prop, value, nameof(Player2)).ConfigureAwait(false);
     }
 
     public string[] Player3
     {
         get => _player3Prop;
-        set => SetProperty(ref _player3Prop, value, nameof(Player3));
+        set => SetPropertyAsync(ref _player3Prop, value, nameof(Player3)).ConfigureAwait(false);
     }
 
     public string[] Player4
     {
         get => _player4Prop;
-        set => SetProperty(ref _player4Prop, value, nameof(Player4));
+        set => SetPropertyAsync(ref _player4Prop, value, nameof(Player4)).ConfigureAwait(false);
     }
 
     public string RefreshTime
     {
         get => _refreshTime;
-        set => SetProperty(ref _refreshTime, value);
+        set => SetPropertyAsync(ref _refreshTime, value).ConfigureAwait(false);
     }
 
     public string QueueTime
     {
         get => _queueTime;
-        set => SetProperty(ref _queueTime, value);
+        set => SetPropertyAsync(ref _queueTime, value).ConfigureAwait(false);
     }
 
     public string ToggleBtnTxt
     {
         get => _toggleBtnTxt;
-        set => SetProperty(ref _toggleBtnTxt, value);
+        set => SetPropertyAsync(ref _toggleBtnTxt, value).ConfigureAwait(false);
     }
 
     public string GameStatus
     {
         get => gameStatus;
-        set => SetProperty(ref gameStatus, value);
+        set => SetPropertyAsync(ref gameStatus, value).ConfigureAwait(false);
     }
 
     public string MatchStatus
     {
         get => matchStatus;
-        set => SetProperty(ref matchStatus, value);
+        set => SetPropertyAsync(ref matchStatus, value).ConfigureAwait(false);
     }
 
     public string AccountStatus
     {
         get => accountStatus;
-        set => SetProperty(ref accountStatus, value);
+        set => SetPropertyAsync(ref accountStatus, value).ConfigureAwait(false);
     }
 
-    private void LoadNow()
+    private async Task LoadNowAsync()
     {
         _newMatch ??= new LiveMatch();
 
-        if (!_newMatch.LiveMatchChecks(false)) return;
+        if (!await _newMatch.LiveMatchChecksAsync(false).ConfigureAwait(false)) return;
         if (NavigateMatchCommand.CanExecute(null))
+        {
+            _countTimer.Stop();
             NavigateMatchCommand.Execute(null);
-        UpdateChecks();
+        }
+        await UpdateChecksAsync().ConfigureAwait(false);
     }
 
-    private void PassiveLoad()
+    private async Task PassiveLoadAsync()
     {
         _newMatch = new LiveMatch();
-        if (_newMatch.LiveMatchChecks(true))
+        if (await _newMatch.LiveMatchChecksAsync(true).ConfigureAwait(false))
             if (NavigateMatchCommand.CanExecute(null))
+            {
+                _countTimer.Stop();
                 NavigateMatchCommand.Execute(null);
-
+            }
         ToggleBtnTxt = "Waiting for match";
 
-        new DispatcherTimer();
-
         _countTimer = new DispatcherTimer();
-        _countTimer.Tick += UpdateTimers;
+        _countTimer.Tick += UpdateTimersAsync;
         _countTimer.Interval = new TimeSpan(0, 0, 1);
 
         _countTimer.Start();
-        UpdateChecks();
+        await UpdateChecksAsync().ConfigureAwait(false);
     }
 
-    private void StopPassiveLoad()
+    private Task StopPassiveLoadAsync()
     {
         _countTimer.Stop();
         ToggleBtnTxt = "Wait for Next Match";
         RefreshTime = "-";
         _countdownTime = 15;
+        return Task.CompletedTask;
     }
 
 
-    private void UpdateTimers(object sender, EventArgs e)
+    private async void UpdateTimersAsync(object sender, EventArgs e)
     {
         RefreshTime = _countdownTime + "s";
         if (_countdownTime == 0)
@@ -182,37 +186,35 @@ public class HomeViewModel : ViewModelBase
             _countdownTime = 15;
             ToggleBtnTxt = "Refreshing";
 
-            UpdateChecks();
-            // if (_newMatch.LiveMatchChecks(true))
-            // {
-            //     _refreshTimer.Stop();
-            //     if (NavigateMatchCommand.CanExecute(null))
-            //         NavigateMatchCommand.Execute(null);
-            // }
+            await UpdateChecksAsync().ConfigureAwait(false);
             ToggleBtnTxt = "Waiting for match";
         }
 
         _countdownTime--;
     }
 
-    private void UpdateChecks()
+    private async Task UpdateChecksAsync()
     {
         GameStatus = "/Assets/refresh.png";
         AccountStatus = "/Assets/question.png";
         MatchStatus = "/Assets/question.png";
-        if (CheckLocal())
+        if (await CheckLocalAsync().ConfigureAwait(false))
         {
             GameStatus = "/Assets/check.png";
             AccountStatus = "/Assets/refresh.png";
-            if (GetSetPPUUID())
+            if (await GetSetPpuuidAsync().ConfigureAwait(false))
             {
                 AccountStatus = "/Assets/check.png";
                 MatchStatus = "/Assets/refresh.png";
-                if (CheckMatchID())
+                if (await CheckMatchIdAsync().ConfigureAwait(false))
                 {
                     MatchStatus = "/Assets/check.png";
                     if (NavigateMatchCommand.CanExecute(null))
+                    {
+                        _countTimer.Stop();
                         NavigateMatchCommand.Execute(null);
+                    }
+                        
                 }
                 else
                 {
@@ -221,16 +223,19 @@ public class HomeViewModel : ViewModelBase
             }
             else
             {
-                LocalLogin();
-                LocalRegion();
-                if (GetSetPPUUID())
+                await LocalLoginAsync().ConfigureAwait(false);
+                await LocalRegionAsync().ConfigureAwait(false);
+                if (await GetSetPpuuidAsync().ConfigureAwait(false))
                 {
                     AccountStatus = "/Assets/check.png";
-                    if (CheckMatchID())
+                    if (await CheckMatchIdAsync().ConfigureAwait(false))
                     {
                         MatchStatus = "/Assets/check.png";
                         if (NavigateMatchCommand.CanExecute(null))
+                        {
+                            _countTimer.Stop();
                             NavigateMatchCommand.Execute(null);
+                        }
                     }
                     else
                     {
@@ -254,9 +259,9 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    public void UpdateParty()
+    public async Task UpdatePartyAsync()
     {
-        if (GetPartyPlayerInfo())
+        if (await GetPartyPlayerInfoAsync().ConfigureAwait(false))
         {
             _player0Prop = Player.Player0;
             _player1Prop = Player.Player1;
@@ -266,13 +271,14 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    private void SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+    private Task SetPropertyAsync<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
     {
         field = newValue;
         OnPropertyChanged(propertyName);
+        return Task.CompletedTask;
     }
 
-    private bool GetPartyPlayerInfo()
+    private Task<bool> GetPartyPlayerInfoAsync()
     {
         var output = false;
         try
@@ -282,7 +288,7 @@ public class HomeViewModel : ViewModelBase
 
             try
             {
-                Parallel.For(0, 5, i => { Player.players[i].Data = newMatch.LiveMatchOutput((sbyte) i); });
+                Parallel.For(0, 5, async i => { Player.players[i].Data = await newMatch.LiveMatchOutputAsync((sbyte) i).ConfigureAwait(false); });
             }
             catch (Exception)
             {
@@ -294,7 +300,7 @@ public class HomeViewModel : ViewModelBase
         {
         }
 
-        return output;
+        return Task.FromResult(output);
     }
 
     public class Player

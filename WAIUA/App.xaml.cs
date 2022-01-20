@@ -40,6 +40,7 @@ namespace WAIUA
 
         protected override async void OnStartup(StartupEventArgs e)
         {
+            Constants.CurrentPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA";
             var navigationService = CreateHomeNavigationService();
             navigationService.Navigate();
 
@@ -52,8 +53,8 @@ namespace WAIUA
             base.OnStartup(e);
             AutoUpdater.ShowSkipButton = false;
             AutoUpdater.Start("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xml");
-            Constants.CurrentPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA";
-            await CheckAndUpdateJson();
+            
+            await CheckAndUpdateJsonAsync().ConfigureAwait(false);
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)

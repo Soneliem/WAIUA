@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Navigation;
 
 namespace WAIUA.Views
 {
@@ -12,7 +14,7 @@ namespace WAIUA.Views
             InitializeComponent();
         }
 
-        private void HandleLinkClick(object sender, RoutedEventArgs e)
+        private void HandleLinkClickAsync(object sender, RequestNavigateEventArgs e)
         {
             var hl = (Hyperlink) sender;
             var navigateUri = hl.NavigateUri.ToString();
@@ -20,7 +22,7 @@ namespace WAIUA.Views
             e.Handled = true;
         }
 
-        private void ImageClick(object sender, RoutedEventArgs e)
+        private void ImageClickAsync(object sender, RoutedEventArgs e)
         {
             var _button = (Button) sender;
             Process.Start(new ProcessStartInfo(_button.Tag.ToString()) {UseShellExecute = true});
