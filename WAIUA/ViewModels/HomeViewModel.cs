@@ -34,11 +34,11 @@ public class HomeViewModel : ViewModelBase
     private string _refreshTime = "-";
     private string _toggleBtnTxt;
 
-    private string accountStatus;
+    private string _accountStatus;
 
-    private string gameStatus;
+    private string _gameStatus;
 
-    private string matchStatus;
+    private string _matchStatus;
 
     public HomeViewModel(INavigationService homeNavigationService, INavigationService infoNavigationService,
         INavigationService settingsNavigationService, INavigationService matchNavigationService)
@@ -55,9 +55,7 @@ public class HomeViewModel : ViewModelBase
         LoadNowCommand = new RelayCommand( o => { LoadNowAsync().ConfigureAwait(false); }, o => true);
         PassiveEnabledCommand = new RelayCommand(o => { PassiveLoadAsync().ConfigureAwait(false); }, o => true);
         PassiveDisabledCommand = new RelayCommand(o => { StopPassiveLoadAsync().ConfigureAwait(false); }, o => true);
-        
-        UpdateChecksAsync().ConfigureAwait(false);
-
+        UpdateChecksCommand = new RelayCommand(o => { UpdateChecksAsync().ConfigureAwait(false); }, o => true);
     }
 
     public ICommand NavigateHomeCommand { get; }
@@ -69,71 +67,72 @@ public class HomeViewModel : ViewModelBase
 
     public ICommand PassiveEnabledCommand { get; }
     public ICommand PassiveDisabledCommand { get; }
+    public ICommand UpdateChecksCommand { get; }
 
     public string[] Player0
     {
         get => _player0Prop;
-        set => SetPropertyAsync(ref _player0Prop, value, nameof(Player0)).ConfigureAwait(false);
+        set => SetProperty(ref _player0Prop, value, nameof(Player0));
     }
 
     public string[] Player1
     {
         get => _player1Prop;
-        set => SetPropertyAsync(ref _player1Prop, value, nameof(Player1)).ConfigureAwait(false);
+        set => SetProperty(ref _player1Prop, value, nameof(Player1));
     }
 
     public string[] Player2
     {
         get => _player2Prop;
-        set => SetPropertyAsync(ref _player2Prop, value, nameof(Player2)).ConfigureAwait(false);
+        set => SetProperty(ref _player2Prop, value, nameof(Player2));
     }
 
     public string[] Player3
     {
         get => _player3Prop;
-        set => SetPropertyAsync(ref _player3Prop, value, nameof(Player3)).ConfigureAwait(false);
+        set => SetProperty(ref _player3Prop, value, nameof(Player3));
     }
 
     public string[] Player4
     {
         get => _player4Prop;
-        set => SetPropertyAsync(ref _player4Prop, value, nameof(Player4)).ConfigureAwait(false);
+        set => SetProperty(ref _player4Prop, value, nameof(Player4));
     }
 
     public string RefreshTime
     {
         get => _refreshTime;
-        set => SetPropertyAsync(ref _refreshTime, value).ConfigureAwait(false);
+        set => SetProperty(ref _refreshTime, value);
     }
 
     public string QueueTime
     {
         get => _queueTime;
-        set => SetPropertyAsync(ref _queueTime, value).ConfigureAwait(false);
+        set => SetProperty(ref _queueTime, value);
     }
 
     public string ToggleBtnTxt
     {
         get => _toggleBtnTxt;
-        set => SetPropertyAsync(ref _toggleBtnTxt, value).ConfigureAwait(false);
+        set => SetProperty(ref _toggleBtnTxt, value);
     }
 
     public string GameStatus
     {
-        get => gameStatus;
-        set => SetPropertyAsync(ref gameStatus, value).ConfigureAwait(false);
+        get => _gameStatus;
+        set => SetProperty(ref _gameStatus, value);
     }
 
     public string MatchStatus
     {
-        get => matchStatus;
-        set => SetPropertyAsync(ref matchStatus, value).ConfigureAwait(false);
+        get => _matchStatus;
+        set => SetProperty(ref _matchStatus, value);
     }
 
     public string AccountStatus
     {
-        get => accountStatus;
-        set => SetPropertyAsync(ref accountStatus, value).ConfigureAwait(false);
+        get => _accountStatus;
+        set => SetProperty(ref _accountStatus, value);
     }
 
     private async Task LoadNowAsync()
@@ -151,6 +150,11 @@ public class HomeViewModel : ViewModelBase
 
     private async Task PassiveLoadAsync()
     {
+        _countTimer = new DispatcherTimer();
+        _countTimer.Tick += UpdateTimersAsync;
+        _countTimer.Interval = new TimeSpan(0, 0, 1);
+
+        _countTimer.Start();
         _newMatch = new LiveMatch();
         if (await _newMatch.LiveMatchChecksAsync(true).ConfigureAwait(false))
             if (NavigateMatchCommand.CanExecute(null))
@@ -160,11 +164,7 @@ public class HomeViewModel : ViewModelBase
             }
         ToggleBtnTxt = "Waiting for match";
 
-        _countTimer = new DispatcherTimer();
-        _countTimer.Tick += UpdateTimersAsync;
-        _countTimer.Interval = new TimeSpan(0, 0, 1);
-
-        _countTimer.Start();
+        
         await UpdateChecksAsync().ConfigureAwait(false);
     }
 
@@ -271,11 +271,11 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    private Task SetPropertyAsync<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+    private void SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
     {
         field = newValue;
         OnPropertyChanged(propertyName);
-        return Task.CompletedTask;
+
     }
 
     private Task<bool> GetPartyPlayerInfoAsync()

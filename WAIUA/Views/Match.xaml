@@ -6,6 +6,7 @@
              xmlns:controls="clr-namespace:WAIUA.Controls"
              xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              d:DataContext="{d:DesignInstance Type=viewmodels:MatchViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="754"
@@ -81,18 +82,24 @@
             </Border>
 
         </Grid>
-        <Grid
-            Grid.Row="1"
-            Grid.Column="0"
+        <xctk:BusyIndicator Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid
+                    Grid.Column="0"
             Margin="10,0,5,0">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <controls:NormalPlayerCell
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <controls:NormalPlayerCell
                 Grid.Row="0" Margin="0 5"
                 Agent="{Binding Path=Player0[0]}"
                 AgentPicture="{Binding Path=Player0[1]}"
@@ -124,7 +131,7 @@
                 VandalSkinName="{Binding Path=Player0[24]}"
                 PartyColour="{Binding Path=Player0[28]}" 
                 BackgroundColour="{Binding Path=Player0[29]}"/>
-            <controls:NormalPlayerCell
+                    <controls:NormalPlayerCell
                 Grid.Row="1" Margin="0 5"
                 Agent="{Binding Path=Player1[0]}"
                 AgentPicture="{Binding Path=Player1[1]}"
@@ -156,7 +163,7 @@
                 VandalSkinName="{Binding Path=Player1[24]}"
                 PartyColour="{Binding Path=Player1[28]}" 
                 BackgroundColour="{Binding Path=Player1[29]}"/>
-            <controls:NormalPlayerCell
+                    <controls:NormalPlayerCell
                 Grid.Row="2" Margin="0 5"
                 Agent="{Binding Path=Player2[0]}"
                 AgentPicture="{Binding Path=Player2[1]}"
@@ -188,7 +195,7 @@
                 VandalSkinName="{Binding Path=Player2[24]}"
                 PartyColour="{Binding Path=Player2[28]}" 
                 BackgroundColour="{Binding Path=Player2[29]}"/>
-            <controls:NormalPlayerCell
+                    <controls:NormalPlayerCell
                 Grid.Row="3" Margin="0 5"
                 Agent="{Binding Path=Player3[0]}"
                 AgentPicture="{Binding Path=Player3[1]}"
@@ -220,7 +227,7 @@
                 VandalSkinName="{Binding Path=Player3[24]}"
                 PartyColour="{Binding Path=Player3[28]}" 
                 BackgroundColour="{Binding Path=Player3[29]}"/>
-            <controls:NormalPlayerCell
+                    <controls:NormalPlayerCell
                 Grid.Row="4" Margin="0 5"
                 Agent="{Binding Path=Player4[0]}"
                 AgentPicture="{Binding Path=Player4[1]}"
@@ -252,26 +259,25 @@
                 VandalSkinName="{Binding Path=Player4[24]}"
                 PartyColour="{Binding Path=Player4[28]}" 
                 BackgroundColour="{Binding Path=Player4[29]}"/>
-        </Grid>
+                </Grid>
 
-        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-            <Separator Width="4" Margin="6 20 6 30" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"  Background="#181E34" BorderThickness="0" />
-        </StackPanel>
+                <StackPanel Grid.Column="1"  Orientation="Horizontal">
+                    <Separator Width="4" Margin="6 20 6 30" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"  Background="#181E34" BorderThickness="0" />
+                </StackPanel>
 
-        <Grid
-            Grid.Row="1"
-            Grid.Column="2"
+                <Grid
+                    Grid.Column="2"
             Margin="5,0,10,0">
 
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-            <controls:NormalPlayerCell
+                    <controls:NormalPlayerCell
                 Grid.Row="0" Margin="0 5"
                 Agent="{Binding Path=Player5[0]}"
                 AgentPicture="{Binding Path=Player5[1]}"
@@ -303,7 +309,7 @@
                 VandalSkinName="{Binding Path=Player5[24]}"
                 PartyColour="{Binding Path=Player5[28]}" 
                 BackgroundColour="{Binding Path=Player5[29]}"/>
-            <controls:NormalPlayerCell
+                    <controls:NormalPlayerCell
                 Grid.Row="1" Margin="0 5"
                 Agent="{Binding Path=Player6[0]}"
                 AgentPicture="{Binding Path=Player6[1]}"
@@ -335,7 +341,7 @@
                 VandalSkinName="{Binding Path=Player6[24]}"
                 PartyColour="{Binding Path=Player6[28]}" 
                 BackgroundColour="{Binding Path=Player6[29]}"/>
-            <controls:NormalPlayerCell
+                    <controls:NormalPlayerCell
                 Grid.Row="2" Margin="0 5"
                 Agent="{Binding Path=Player7[0]}"
                 AgentPicture="{Binding Path=Player7[1]}"
@@ -367,7 +373,7 @@
                 VandalSkinName="{Binding Path=Player7[24]}"
                 PartyColour="{Binding Path=Player7[28]}" 
                 BackgroundColour="{Binding Path=Player7[29]}"/>
-            <controls:NormalPlayerCell
+                    <controls:NormalPlayerCell
                 Grid.Row="3" Margin="0 5"
                 Agent="{Binding Path=Player8[0]}"
                 AgentPicture="{Binding Path=Player8[1]}"
@@ -399,7 +405,7 @@
                 VandalSkinName="{Binding Path=Player8[24]}"
                 PartyColour="{Binding Path=Player8[28]}" 
                 BackgroundColour="{Binding Path=Player8[29]}"/>
-            <controls:NormalPlayerCell
+                    <controls:NormalPlayerCell
                 Grid.Row="4" Margin="0 5"
                 Agent="{Binding Path=Player9[0]}"
                 AgentPicture="{Binding Path=Player9[1]}"
@@ -431,6 +437,8 @@
                 VandalSkinName="{Binding Path=Player9[24]}"
                 PartyColour="{Binding Path=Player9[28]}" 
                 BackgroundColour="{Binding Path=Player9[29]}"/>
-        </Grid>
+                </Grid>
+            </Grid>
+        </xctk:BusyIndicator>
     </Grid>
 </UserControl>

@@ -64,7 +64,7 @@ namespace WAIUA.Helpers
 
 		
 
-		public static async Task<bool> LiveMatchIDAsync()
+		public static async Task<bool> LiveMatchIdAsync()
 		{
 			var url =
 				$"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/players/{Constants.PPUUID}";
@@ -87,7 +87,7 @@ namespace WAIUA.Helpers
 
 			if (await GetSetPpuuidAsync().ConfigureAwait(false))
 			{
-				if (await LiveMatchIDAsync().ConfigureAwait(false))
+				if (await LiveMatchIdAsync().ConfigureAwait(false))
 				{
 					await LiveMatchSetupAsync().ConfigureAwait(false);
 					output = true;
@@ -108,7 +108,7 @@ namespace WAIUA.Helpers
 					await GetSetPpuuidAsync().ConfigureAwait(false);
 					await LocalRegionAsync().ConfigureAwait(false);
 
-					if (await LiveMatchIDAsync().ConfigureAwait(false))
+					if (await LiveMatchIdAsync().ConfigureAwait(false))
 					{
 						await LiveMatchSetupAsync().ConfigureAwait(false);
 						output = true;

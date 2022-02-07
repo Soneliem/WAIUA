@@ -33,20 +33,16 @@ public static class Login
 		var lockfileLocation =
 			$@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Riot Games\Riot Client\Config\lockfile";
 
-		if (File.Exists(lockfileLocation))
-		{
-            await using FileStream fileStream = new(lockfileLocation, FileMode.Open, FileAccess.ReadWrite,
-				FileShare.ReadWrite);
-			using StreamReader sr = new(fileStream);
-			var parts = (await sr.ReadToEndAsync().ConfigureAwait(false)).Split(":");
-			Constants.Port = parts[2];
-			Constants.LPassword = parts[3];
+        if (!File.Exists(lockfileLocation)) return false;
+        await using FileStream fileStream = new(lockfileLocation, FileMode.Open, FileAccess.ReadWrite,
+            FileShare.ReadWrite);
+        using StreamReader sr = new(fileStream);
+        var parts = (await sr.ReadToEndAsync().ConfigureAwait(false)).Split(":");
+        Constants.Port = parts[2];
+        Constants.LPassword = parts[3];
+        return true;
 
-			return true;
-		}
-
-		return false;
-	}
+    }
 
 	public static async Task LocalLoginAsync()
 	{
@@ -60,8 +56,7 @@ public static class Login
 			"ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
 		request.AddHeader("X-Riot-ClientVersion", Constants.Version);
 		request.RequestFormat = DataFormat.Json;
-		var response = client.Get(request);
-		var content = (await client.ExecuteAsync(request).ConfigureAwait(false)).Content;
+        var content = (await client.ExecuteAsync(request).ConfigureAwait(false)).Content;
 		var responsevar = JsonConvert.DeserializeObject(content);
 		JToken responseObj = JObject.FromObject(responsevar);
 		Constants.AccessToken = responseObj["accessToken"].Value<string>();
@@ -79,8 +74,7 @@ public static class Login
 			"ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
 		request.AddHeader("X-Riot-ClientVersion", Constants.Version);
 		request.RequestFormat = DataFormat.Json;
-		var response = client.Get(request);
-		var content = (await client.ExecuteAsync(request).ConfigureAwait(false)).Content;
+        var content = (await client.ExecuteAsync(request).ConfigureAwait(false)).Content;
 		var root = JObject.Parse(content);
 		var property = (JProperty)root.First;
 		var fullstring = property.Value["launchConfiguration"]["arguments"][3];
@@ -118,7 +112,7 @@ public static class Login
 
     public static async Task<string> GetIgUsernameAsync(string puuid)
     {
-        var IGN = "";
+        var ign = "";
         try
         {
             var url = $"https://pd.{Constants.Region}.a.pvp.net/name-service/v2/players";
@@ -131,7 +125,6 @@ public static class Login
             string[] body = { puuid };
             request.AddJsonBody(body);
 
-            var response = client.Put(request);
             var content = (await client.ExecuteAsync(request).ConfigureAwait(false)).Content;
 
             content = content.Replace("[", "");
@@ -139,14 +132,14 @@ public static class Login
 
             var uinfo = JsonConvert.DeserializeObject(content);
             JToken uinfoObj = JObject.FromObject(uinfo);
-            IGN = uinfoObj["GameName"].Value<string>() + "#" + uinfoObj["TagLine"].Value<string>();
+            ign = uinfoObj["GameName"].Value<string>() + "#" + uinfoObj["TagLine"].Value<string>();
         }
         catch (Exception)
         {
             // ignored
         }
 
-        return IGN;
+        return ign;
     }
 
 	private static async Task GetLatestVersionAsync()
