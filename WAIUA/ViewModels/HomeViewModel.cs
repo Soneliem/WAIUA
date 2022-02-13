@@ -140,18 +140,21 @@ namespace WAIUA.ViewModels
 						{
 							var colourused = false;
 							var id = Player.players[i].Data[28];
-							for (var j = i + 1; j < Player.players.Length; j++)
-								if (Player.players[j].Data[28] == id && Player.players[j].Data[28].Length >= 13)
-								{
-									Player.players[i].Data[28] = Player.players[j].Data[28] = colours[0];
-									colourused = true;
-								}
+							if (id != null)  // If ith player does not exist
+							{
+								for (var j = i + 1; j < Player.players.Length; j++)
+									if (Player.players[j].Data[28] == id && Player.players[j].Data[28].Length >= 13)
+									{
+										Player.players[i].Data[28] = Player.players[j].Data[28] = colours[0];
+										colourused = true;
+									}
 
-							if (colourused) colours.RemoveAt(0);
+								if (colourused) colours.RemoveAt(0);
+							}
 						}
 
 						for (var i = 0; i < Player.players.Length; i++)
-							if (Player.players[i].Data[28].Length >= 13)
+							if (Player.players[i].Data[28] != null && Player.players[i].Data[28].Length >= 13)
 								Player.players[i].Data[28] = "Transparent";
 					}
 					catch (Exception)
