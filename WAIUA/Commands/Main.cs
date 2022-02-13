@@ -513,12 +513,18 @@ namespace WAIUA.Commands
 					foreach (var skin in content2.data)
 						if (skin.uuid == phantomchroma)
 						{
-							PhantomList[playerno] = skin.displayIcon;
+							if (skin.displayIcon != null)
+								PhantomList[playerno] = skin.displayIcon;
+							else  // Incase skin doesn't have variants
+								PhantomList[playerno] = skin.fullRender;
 							PhantomNameList[playerno] = skin.displayName;
 						}
 						else if (skin.uuid == vandalchroma)
 						{
-							VandalList[playerno] = skin.displayIcon;
+							if (skin.displayIcon != null)
+								VandalList[playerno] = skin.displayIcon;
+							else
+								VandalList[playerno] = skin.fullRender;
 							VandalNameList[playerno] = skin.displayName;
 						}
 
