@@ -86,7 +86,8 @@ namespace WAIUA.Helpers
 			bool output;
 
 			if (await GetSetPpuuidAsync().ConfigureAwait(false))
-			{
+            {
+                await LocalRegionAsync().ConfigureAwait(false);
 				if (await LiveMatchIdAsync().ConfigureAwait(false))
 				{
 					await LiveMatchSetupAsync().ConfigureAwait(false);

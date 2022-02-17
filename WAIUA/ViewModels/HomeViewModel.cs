@@ -142,7 +142,8 @@ public class HomeViewModel : ViewModelBase
         if (!await _newMatch.LiveMatchChecksAsync(false).ConfigureAwait(false)) return;
         if (NavigateMatchCommand.CanExecute(null))
         {
-            _countTimer.Stop();
+            _countTimer?.Stop();
+
             NavigateMatchCommand.Execute(null);
         }
         await UpdateChecksAsync().ConfigureAwait(false);
@@ -211,7 +212,7 @@ public class HomeViewModel : ViewModelBase
                     MatchStatus = "/Assets/check.png";
                     if (NavigateMatchCommand.CanExecute(null))
                     {
-                        _countTimer.Stop();
+                        _countTimer?.Stop();
                         NavigateMatchCommand.Execute(null);
                     }
                         
@@ -228,18 +229,19 @@ public class HomeViewModel : ViewModelBase
                 if (await GetSetPpuuidAsync().ConfigureAwait(false))
                 {
                     AccountStatus = "/Assets/check.png";
+                    MatchStatus = "/Assets/refresh.png";
                     if (await CheckMatchIdAsync().ConfigureAwait(false))
                     {
                         MatchStatus = "/Assets/check.png";
                         if (NavigateMatchCommand.CanExecute(null))
                         {
-                            _countTimer.Stop();
+
+                            _countTimer?.Stop();
                             NavigateMatchCommand.Execute(null);
                         }
                     }
                     else
                     {
-                        AccountStatus = "/Assets/cross.png";
                         MatchStatus = "/Assets/cross.png";
                     }
                 }

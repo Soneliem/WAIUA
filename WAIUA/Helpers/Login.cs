@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,21 +11,28 @@ namespace WAIUA.Helpers;
 
 public static class Login
 {
-	public static async Task<bool> GetSetPpuuidAsync()
-	{
-		RestClient client = new(new Uri("https://auth.riotgames.com/userinfo"));
-		RestRequest request = new(Method.POST);
-		request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
-		request.AddJsonBody("{}");
-		var response = await client.ExecuteAsync(request).ConfigureAwait(false);
-		var statusCode = response.StatusCode;
-		var numericStatusCode = (short)statusCode;
-		if (numericStatusCode != 200) return false;
+    public static async Task<bool> GetSetPpuuidAsync()
+    {
+        // When I decide to update RestSharp
+        // var client = new RestClient("https://auth.riotgames.com/userinfo");
+        // var request = new RestRequest(Method.POST)
+        //     .AddHeader("Authorization", $"Bearer {Constants.AccessToken}")
+        //     .AddBody("{}");
+        //  var response = await client.PostAsync<RestResponse>(request).ConfigureAwait(false);
 
-		var content = response.Content;
-		var PlayerInfo = JsonConvert.DeserializeObject(content);
-		JToken PUUIDObj = JObject.FromObject(PlayerInfo);
+        var client = new RestClient("https://auth.riotgames.com/userinfo");
+        var request = new RestRequest(Method.POST);
+        request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
+        request.AddJsonBody("{}");
+        
+        var response = await client.ExecuteAsync(request).ConfigureAwait(false);
+        if (!response.IsSuccessful) return false;
+
+        var content = response.Content;
+		var playerInfo = JsonConvert.DeserializeObject(content);
+		JToken PUUIDObj = JObject.FromObject(playerInfo);
 		Constants.PPUUID = PUUIDObj["sub"].Value<string>();
+        
 		return true;
 	}
 
@@ -34,7 +42,7 @@ public static class Login
 			$@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Riot Games\Riot Client\Config\lockfile";
 
         if (!File.Exists(lockfileLocation)) return false;
-        await using FileStream fileStream = new(lockfileLocation, FileMode.Open, FileAccess.ReadWrite,
+        await using FileStream fileStream = new(lockfileLocation, FileMode.Open, FileAccess.Read,
             FileShare.ReadWrite);
         using StreamReader sr = new(fileStream);
         var parts = (await sr.ReadToEndAsync().ConfigureAwait(false)).Split(":");
@@ -57,7 +65,7 @@ public static class Login
 		request.AddHeader("X-Riot-ClientVersion", Constants.Version);
 		request.RequestFormat = DataFormat.Json;
         var content = (await client.ExecuteAsync(request).ConfigureAwait(false)).Content;
-		var responsevar = JsonConvert.DeserializeObject(content);
+        var responsevar = JsonConvert.DeserializeObject(content);
 		JToken responseObj = JObject.FromObject(responsevar);
 		Constants.AccessToken = responseObj["accessToken"].Value<string>();
 		Constants.EntitlementToken = responseObj["token"].Value<string>();
@@ -80,21 +88,21 @@ public static class Login
 		var fullstring = property.Value["launchConfiguration"]["arguments"][3];
 		var parts = fullstring.ToString().Split('=', '&');
 		var output = parts[1];
-		if (output == "latam")
-		{
-			Constants.Region = "na";
-			Constants.Shard = "latam";
-		}
-		else if (output == "br")
-		{
-			Constants.Region = "na";
-			Constants.Shard = "br";
-		}
-		else
-		{
-			Constants.Region = output;
-			Constants.Shard = output;
-		}
+		switch (output)
+        {
+            case "latam":
+                Constants.Region = "na";
+                Constants.Shard = "latam";
+                break;
+            case "br":
+                Constants.Region = "na";
+                Constants.Shard = "br";
+                break;
+            default:
+                Constants.Region = output;
+                Constants.Shard = output;
+                break;
+        }
 	}
 
     public static async Task<bool> CheckMatchIdAsync()

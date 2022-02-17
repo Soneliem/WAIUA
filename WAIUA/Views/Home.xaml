@@ -7,6 +7,7 @@
     xmlns:c="clr-namespace:WAIUA.Controls"
     xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:p="clr-namespace:WAIUA.Properties"
     d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}"
     d:DesignHeight="754"
     d:DesignWidth="1536"
@@ -36,36 +37,62 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="251*" />
-            <ColumnDefinition Width="200*" />
-            <ColumnDefinition Width="51*"/>
+            <ColumnDefinition  />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  />
+                <ColumnDefinition />
+                <ColumnDefinition  />
+                <ColumnDefinition />
+                <ColumnDefinition  />
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.Column="0" Cursor="Hand" Width="60"
+                HorizontalAlignment="Left" VerticalAlignment="Center"
+                Command="{Binding NavigateSettingsCommand}"
+                Template="{StaticResource ButtonTemplate}">
 
-        <Button
-            Grid.Column="0" Cursor="Hand" Width="60"
-            HorizontalAlignment="Left" VerticalAlignment="Center"
-            Command="{Binding NavigateSettingsCommand}"
-            Template="{StaticResource ButtonTemplate}">
+                <Image Margin="10" Source="/Assets/settings.png" />
+            </Button>
 
-            <Image Margin="10" Source="/Assets/settings.png" />
-        </Button>
+            <Button
+                Grid.Row="0" Grid.Column="2" Cursor="Hand" 
+                HorizontalAlignment="Right"
+                Command="{Binding LoadNowCommand}"
+                Template="{StaticResource ButtonTemplate}">
+                <Viewbox>
+                    <TextBlock
+                        Padding="5"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontWeight="Normal"
+                        Foreground="#007EF9"
+                        FontFamily="{StaticResource Nunito}"
+                        Text="{x:Static p:Resources.RefreshMatch}"/>
+                </Viewbox>
+            </Button>
 
-        <Button
-            Grid.Column="2" Cursor="Hand" Width="60"
-            HorizontalAlignment="Left"
-            Command="{Binding NavigateInfoCommand}"
-            Template="{StaticResource ButtonTemplate}" Margin="93,0,0,0">
+            <Button
+                Grid.Row="0" Grid.Column="4" Cursor="Hand" Width="60"
+                HorizontalAlignment="Right"
+                Command="{Binding NavigateInfoCommand}"
+                Template="{StaticResource ButtonTemplate}" >
+                <Image Margin="10" Source="/Assets/info.png" />
+            </Button>
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" FontSize="35" VerticalAlignment="Center" 
+                       FontWeight="SemiBold"  FontFamily="{StaticResource Nunito}"
+                       Foreground="White" Text="Your Party" />
 
-            <Image Margin="10" Source="/Assets/info.png" />
-        </Button>
-        <TextBlock FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Center"
-                   FontWeight="SemiBold"  FontFamily="{StaticResource Nunito}"
-                   Foreground="White" Text="Your Party" />
-        <TextBlock FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Left"
-                   FontWeight="SemiBold" Grid.Column="1" FontFamily="{StaticResource Nunito}"
-                   Foreground="White" Text="Status" Margin="324,0,0,0" />
-        <Grid Grid.Row="1" Margin="0,15,0,0">
+            <TextBlock FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Right"
+                       FontWeight="SemiBold" Grid.Row="0" Grid.Column="3" FontFamily="{StaticResource Nunito}"
+                       Foreground="White" Text="Status"  />
+        </Grid>
+
+        
+        <Grid Grid.Row="1" Grid.Column="0" Margin="0,15,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />

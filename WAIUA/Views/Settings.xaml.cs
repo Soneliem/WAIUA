@@ -94,14 +94,12 @@ namespace WAIUA.Views
 
         private async void ListBox_SelectedAsync(object sender, SelectionChangedEventArgs e)
         {
-            Mouse.OverrideCursor = Cursors.Wait;
             var combo = (ComboBox) sender;
             var index = combo.SelectedIndex;
             Thread.CurrentThread.CurrentCulture = _languageList[index];
             Thread.CurrentThread.CurrentUICulture = _languageList[index];
             Properties.Settings.Default.Language = _languageList[index].TwoLetterISOLanguageName;
             await UpdateFilesAsync().ConfigureAwait(false);
-            Mouse.OverrideCursor = Cursors.Arrow;
         }
 
         private static Task<IEnumerable<CultureInfo>> GetAvailableCulturesAsync()

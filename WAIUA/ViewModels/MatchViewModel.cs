@@ -40,11 +40,9 @@ namespace WAIUA.ViewModels
 
         public MatchViewModel(INavigationService homeNavigationService, INavigationService matchNavigationService)
         {
-            Mouse.OverrideCursor = Cursors.Wait;
             GetPlayerInfoCommand = new RelayCommand(o => { UpdatePlayersAsync().ConfigureAwait(false); }, o => true);
             NavigateHomeCommand = new NavigateCommand(homeNavigationService);
             NavigateMatchCommand = new NavigateCommand(matchNavigationService);
-            Mouse.OverrideCursor = Cursors.Arrow;
         }
         public ICommand GetPlayerInfoCommand { get; }
         public string[] Player0
@@ -204,16 +202,16 @@ namespace WAIUA.ViewModels
         {
             if (await GetPlayerInfoAsync().ConfigureAwait(false))
             {
-                _player0Prop = Player.Player0;
-                _player1Prop = Player.Player1;
-                _player2Prop = Player.Player2;
-                _player3Prop = Player.Player3;
-                _player4Prop = Player.Player4;
-                _player5Prop = Player.Player5;
-                _player6Prop = Player.Player6;
-                _player7Prop = Player.Player7;
-                _player8Prop = Player.Player8;
-                _player9Prop = Player.Player9;
+                Player0 = Player.Player0;
+                Player1 = Player.Player1;
+                Player2 = Player.Player2;
+                Player3 = Player.Player3;
+                Player4 = Player.Player4;
+                Player5 = Player.Player5;
+                Player6 = Player.Player6;
+                Player7 = Player.Player7;
+                Player8 = Player.Player8;
+                Player9 = Player.Player9;
             }
         }
 
