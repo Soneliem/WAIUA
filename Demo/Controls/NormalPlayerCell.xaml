@@ -8,84 +8,75 @@
 	d:DesignHeight="450"
 	d:DesignWidth="1700"
 	mc:Ignorable="d">
-    <UserControl.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <TextBlock
+	<UserControl.Resources>
+		<Style TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<TextBlock
                             FontFamily="{StaticResource Nunito}"
-							Cursor="Hand"
-							Foreground="DodgerBlue"
-							Text="{TemplateBinding Content}"
-							TextDecorations="Underline" />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style TargetType="ToolTip">
-            <Setter Property="Background" Value="#32e2b2" />
-            <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="Foreground" Value="Black" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
-            <Setter Property="HasDropShadow" Value="False" />
-        </Style>
+                            Cursor="Hand"
+                            Foreground="DodgerBlue"
+                            Text="{TemplateBinding Content}"
+                            TextDecorations="Underline" />
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style TargetType="ToolTip">
+			<Setter Property="Background" Value="#32e2b2" />
+			<Setter Property="FontWeight" Value="SemiBold" />
+			<Setter Property="Foreground" Value="Black" />
+			<Setter Property="FontFamily" Value="{StaticResource Nunito}"/>
+			<Setter Property="BorderThickness" Value="0" />
+			<Setter Property="ToolTipService.InitialShowDelay" Value="0" />
+			<Setter Property="HasDropShadow" Value="False"/>
+		</Style>
+	</UserControl.Resources>
 
-    </UserControl.Resources>
-    <Border
-		Visibility="Visible"
-        Background="{Binding BackgroundColour, ElementName=Self}"
+	<Border
+		Background="{Binding BackgroundColour, ElementName=Self}"
         BorderThickness="0"
 		CornerRadius="20">
-        <Grid Margin="15">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition SharedSizeGroup="A" />
-                <RowDefinition SharedSizeGroup="A" />
-                <RowDefinition SharedSizeGroup="A" />
-            </Grid.RowDefinitions>
-            
-            <Border
+		<Grid Margin="15">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition SharedSizeGroup="A" />
+				<RowDefinition SharedSizeGroup="A" />
+				<RowDefinition SharedSizeGroup="A" />
+			</Grid.RowDefinitions>
+
+			<Border
 				Grid.RowSpan="3"
 				Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
 				Margin="0,0,10,0"
 				CornerRadius="10">
-                <Border.Background>
-                    <ImageBrush ImageSource="{Binding Card, ElementName=Self}" />
-                </Border.Background>
-            </Border>
-            <Grid Grid.Row="0" Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Image Grid.Column="0" Source="{Binding AgentPicture, ElementName=Self}" />
-                <Viewbox Grid.Column="1" HorizontalAlignment="Left">
-                    <TextBox
+				<Border.Background>
+					<ImageBrush ImageSource="{Binding AgentPicture, ElementName=Self}" />
+				</Border.Background>
+			</Border>
+
+			<Viewbox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
+				<TextBlock
 						Background="Transparent"
-						BorderThickness="0"
                         FontFamily="{StaticResource Nunito}"
 						FontWeight="Bold"
 						Foreground="#32e2b2"
-						IsReadOnly="True"
-						Text="{Binding Agent, ElementName=Self}" />
-                </Viewbox>
-
-            </Grid>
-            <Viewbox
+                        Text="{Binding Agent, ElementName=Self}" />
+			</Viewbox>
+			<Viewbox
 				Grid.Row="1"
 				Grid.Column="1"
 				Margin="0"
 				HorizontalAlignment="Left"
 				VerticalAlignment="Center"
 				Stretch="Uniform">
-                <StackPanel Orientation="Horizontal">
-                    <TextBox
+				<StackPanel Orientation="Horizontal">
+					<TextBox
 						Background="Transparent"
                         FontFamily="{StaticResource Nunito}"
 						BorderThickness="0"
@@ -94,10 +85,9 @@
 						IsReadOnly="True"
 						Text="{Binding IGN, ElementName=Self}"
 						Visibility="{Binding TrackerDisabled, ElementName=Self}" />
-                    <TextBlock
+					<TextBlock
 						FontWeight="Normal"
 						Foreground="#9f97b0"
-						ToolTip=""
 						Visibility="{Binding TrackerEnabled, ElementName=Self}">
 						<Hyperlink
 							NavigateUri="{Binding TrackerUrl, ElementName=Self}"
@@ -107,19 +97,19 @@
 								<Run Text="{Binding IGN, ElementName=Self}" />
 							</Hyperlink.Inlines>
 						</Hyperlink>
-                    </TextBlock>
+					</TextBlock>
 
-                </StackPanel>
-            </Viewbox>
-            <Viewbox
+				</StackPanel>
+			</Viewbox>
+			<Viewbox
 				Grid.Row="2"
 				Grid.Column="0"
 				Margin="0,10,0,0"
 				HorizontalAlignment="Left"
 				VerticalAlignment="Bottom"
 				Stretch="Uniform">
-                <Border Background="#32e2b2" CornerRadius="5">
-                    <TextBox
+				<Border Background="#32e2b2" CornerRadius="5">
+					<TextBox
 						Padding="2"
                         FontFamily="{StaticResource Nunito}"
 						Background="Transparent"
@@ -128,135 +118,135 @@
 						Foreground="Black"
 						IsReadOnly="True"
 						Text="{Binding Path=Level, ElementName=Self}" />
-                </Border>
-            </Viewbox>
-            <Viewbox
+				</Border>
+			</Viewbox>
+			<Viewbox
 				Grid.Row="2"
 				Grid.Column="1"
 				Margin="0,5,0,0"
 				HorizontalAlignment="Left"
 				VerticalAlignment="Bottom"
 				Stretch="Uniform">
-                <StackPanel Orientation="Horizontal">
-                    <Image
+				<StackPanel Orientation="Horizontal">
+					<Image
 						Margin="0,0,50,0"
 						Source="{Binding VandalSkin, ElementName=Self}"
 						ToolTip="{Binding VandalSkinName, ElementName=Self}" />
-                    <Image Source="{Binding PhantomSkin, ElementName=Self}"
+					<Image Source="{Binding PhantomSkin, ElementName=Self}"
 					       ToolTip="{Binding PhantomSkinName, ElementName=Self}" />
-                </StackPanel>
-            </Viewbox>
+				</StackPanel>
+			</Viewbox>
 
-            <Viewbox
+			<Viewbox
                 Grid.Row="2"
                 Grid.Column="1"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Stretch="Uniform">
-                <StackPanel Orientation="Horizontal">
-                    <Image Height="256" Width="256" Source="{Binding PPPRank, ElementName=Self}"
+				<StackPanel Orientation="Horizontal">
+					<Image Height="256" Width="256" 
+                           Source="{Binding PPPRank, ElementName=Self}"
                            ToolTip="{Binding PPPRankName, ElementName=Self}" />
-                    <Image
+					<Image
                         Margin="30,0"
                         Height="256" Width="256"
                         Source="{Binding PPRank, ElementName=Self}"
                         ToolTip="{Binding PPRankName, ElementName=Self}" />
-                    <Image Height="256" Width="256"
+					<Image Height="256" Width="256"
                            Source="{Binding PRank, ElementName=Self}"
                            ToolTip="{Binding PRankName, ElementName=Self}" />
-                </StackPanel>
-            </Viewbox>
+				</StackPanel>
+			</Viewbox>
 
-            <Viewbox
+			<Viewbox
                 Grid.Row="0"
                 Grid.Column="1"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Stretch="Uniform">
-                <StackPanel Orientation="Horizontal">
-                    <Border CornerRadius="50"
+				<StackPanel Orientation="Horizontal">
+					<Border CornerRadius="50"
                             Width="30"
                             Height="30"
                             Padding="4,4,4,5"
                             Margin="0, 2"
                             Background="{Binding PPPMatchColour, ElementName=Self}"
                             BorderThickness="0">
-                        <TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed" Text="{Binding PPPMatch, ElementName=Self}" Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
-                    <Border CornerRadius="50"
+						<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed" Text="{Binding PPPMatch, ElementName=Self}" Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+					</Border>
+					<Border CornerRadius="50"
                             Width="30"
                             Height="30"
                             Margin="8, 2"
                             Padding="4,4,4,5"
                             Background="{Binding PPMatchColour, ElementName=Self}"
                             BorderThickness="0">
-                        <TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed" Text="{Binding PPMatch, ElementName=Self}" Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
-                    <Border CornerRadius="50"
+						<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed" Text="{Binding PPMatch, ElementName=Self}" Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+					</Border>
+					<Border CornerRadius="50"
                             Width="30"
                             Height="30"
                             Padding="4,4,4,5"
                             Margin="0, 2"
                             Background="{Binding PMatchColour, ElementName=Self}"
                             BorderThickness="0">
-                        <TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed" Text="{Binding PMatch, ElementName=Self}" Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
-                </StackPanel>
-            </Viewbox>
+						<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed" Text="{Binding PMatch, ElementName=Self}" Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+					</Border>
+				</StackPanel>
+			</Viewbox>
 
-            <Border
+			<Border
 				Grid.Row="0"
 				Grid.RowSpan="3"
 				Grid.Column="2"
 				Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
 				Margin="10,0,0,10"
 				HorizontalAlignment="Right"
-                ToolTip="{Binding RankName, ElementName=Self}">
+				ToolTip="{Binding RankName, ElementName=Self}">
+				<Border.Background>
+					<ImageBrush RenderOptions.BitmapScalingMode="HighQuality" ImageSource="{Binding Rank, ElementName=Self}" />
+				</Border.Background>
+			</Border>
 
-                <Border.Background>
-                    <ImageBrush RenderOptions.BitmapScalingMode="HighQuality" ImageSource="{Binding Rank, ElementName=Self}" />
-                </Border.Background>
-            
-</Border>
-            <Border Grid.Row="2" BorderThickness="1" Margin="10,0,0,0"
+			<Border Grid.Row="2" BorderThickness="1" Margin="10,0,0,0"
                     VerticalAlignment="Bottom" BorderBrush="Gray" ToolTip="{Binding RankProgress, ElementName=Self}"
                     Grid.Column="2" Height="5.5" CornerRadius="2">
-                <ProgressBar
+				<ProgressBar
                     BorderThickness="0"
                     Background="Transparent"
                     Foreground="#32e2b2"
                     Maximum="{Binding MaxRR, ElementName=Self}"
                     Minimum="0"
                     Value="{Binding RankProgress, ElementName=Self}" />
-            </Border>
+			</Border>
 
-            <Grid Grid.RowSpan="3" Grid.Row="0" Grid.Column="2" Margin="-15">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
+			<Grid Grid.RowSpan="3" Grid.Row="0" Grid.Column="2" Margin="-15">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="4*"/>
+					<ColumnDefinition Width="1*"/>
+				</Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="4*"/>
-                </Grid.RowDefinitions>
-                <Border  Background="{Binding PartyColour, ElementName=Self}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="0" CornerRadius="0 20 0 10">
-                    <Image Margin="6">
-                        <Image.Source>
-                            <DrawingImage>
-                                <DrawingImage.Drawing>
-                                <DrawingGroup ClipGeometry="M0,0 V512 H640 V0 H0 Z">
-                                    <GeometryDrawing Brush="{Binding BackgroundColour, ElementName=Self}" Geometry="F1 M640,512z M0,0z M96,224C131.3,224 160,195.3 160,160 160,124.7 131.3,96 96,96 60.7,96 32,124.7 32,160 32,195.3 60.7,224 96,224z M544,224C579.3,224 608,195.3 608,160 608,124.7 579.3,96 544,96 508.7,96 480,124.7 480,160 480,195.3 508.7,224 544,224z M576,256L512,256C494.4,256 478.5,263.1 466.9,274.6 507.2,296.7 535.8,336.6 542,384L608,384C625.7,384,640,369.7,640,352L640,320C640,284.7,611.3,256,576,256z M320,256C381.9,256 432,205.9 432,144 432,82.1 381.9,32 320,32 258.1,32 208,82.1 208,144 208,205.9 258.1,256 320,256z M396.8,288L388.5,288C367.7,298 344.6,304 320,304 295.4,304 272.4,298 251.5,288L243.2,288C179.6,288,128,339.6,128,403.2L128,432C128,458.5,149.5,480,176,480L464,480C490.5,480,512,458.5,512,432L512,403.2C512,339.6,460.4,288,396.8,288z M173.1,274.6C161.5,263.1,145.6,256,128,256L64,256C28.7,256,0,284.7,0,320L0,352C0,369.7,14.3,384,32,384L97.9,384C104.2,336.6,132.8,296.7,173.1,274.6z" />
-                                </DrawingGroup>
-                                </DrawingImage.Drawing>
-                            </DrawingImage>
-                        </Image.Source>
-                </Image>
-                </Border>
-            </Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1*"/>
+					<RowDefinition Height="4*"/>
+				</Grid.RowDefinitions>
+				<Border  Background="{Binding PartyColour, ElementName=Self}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="0" CornerRadius="0 20 0 10">
+					<Image Margin="6">
+						<Image.Source>
+							<DrawingImage>
+								<DrawingImage.Drawing>
+									<DrawingGroup ClipGeometry="M0,0 V512 H640 V0 H0 Z">
+										<GeometryDrawing Brush="{Binding BackgroundColour, ElementName=Self}" Geometry="F1 M640,512z M0,0z M96,224C131.3,224 160,195.3 160,160 160,124.7 131.3,96 96,96 60.7,96 32,124.7 32,160 32,195.3 60.7,224 96,224z M544,224C579.3,224 608,195.3 608,160 608,124.7 579.3,96 544,96 508.7,96 480,124.7 480,160 480,195.3 508.7,224 544,224z M576,256L512,256C494.4,256 478.5,263.1 466.9,274.6 507.2,296.7 535.8,336.6 542,384L608,384C625.7,384,640,369.7,640,352L640,320C640,284.7,611.3,256,576,256z M320,256C381.9,256 432,205.9 432,144 432,82.1 381.9,32 320,32 258.1,32 208,82.1 208,144 208,205.9 258.1,256 320,256z M396.8,288L388.5,288C367.7,298 344.6,304 320,304 295.4,304 272.4,298 251.5,288L243.2,288C179.6,288,128,339.6,128,403.2L128,432C128,458.5,149.5,480,176,480L464,480C490.5,480,512,458.5,512,432L512,403.2C512,339.6,460.4,288,396.8,288z M173.1,274.6C161.5,263.1,145.6,256,128,256L64,256C28.7,256,0,284.7,0,320L0,352C0,369.7,14.3,384,32,384L97.9,384C104.2,336.6,132.8,296.7,173.1,274.6z" />
+									</DrawingGroup>
+								</DrawingImage.Drawing>
+							</DrawingImage>
+						</Image.Source>
+					</Image>
+				</Border>
+			</Grid>
 
-            
-        </Grid>
 
-    </Border>
+		</Grid>
+
+	</Border>
 </UserControl>

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RestSharp;
+using Serilog.Core;
 
 namespace WAIUA.Helpers
 {
@@ -14,12 +13,13 @@ namespace WAIUA.Helpers
         public static string Region { get; set; }
         public static string Shard { get; set; }
         public static string Version { get; set; }
-        public static string CurrentPath { get; set; }
-        public static string PPUUID { get; set; }
-        public static string PPartyID { get; set; }
-        public static string Port { get; set; }
-        public static string LPassword { get; set; }
-        public static ConcurrentDictionary<string, string> UrlToBody = new();
+        public static string LocalAppDataPath { get; set; }
+        public static Guid PPUUID { get; set; }
+        public static Guid PPartyID { get; set; }
+        public static int Port { get; set; }
+        public static int LPassword { get; set; }
+        public static Logger Log { get; set; }
+        public static ConcurrentDictionary<string, RestResponse> UrlToBody = new();
         public static readonly Dictionary<string, string> GamePodsDictionary = new()
         {
             { "aresriot.aws-rclusterprod-mes1-1.eu-gp-bahrain-awsedge-1", "Bahrain" },

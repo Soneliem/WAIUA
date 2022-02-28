@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Threading;
 using System.Windows;
+using System.Windows.Threading;
 using AutoUpdaterDotNET;
 using MVVMEssentials.Services;
 using MVVMEssentials.Stores;
@@ -9,7 +10,8 @@ using MVVMEssentials.ViewModels;
 using WAIUA.Helpers;
 using WAIUA.Properties;
 using WAIUA.ViewModels;
-using static WAIUA.Helpers.ValAPI;
+using Serilog;
+using static WAIUA.Helpers.ValApi;
 
 namespace WAIUA
 {
@@ -20,7 +22,7 @@ namespace WAIUA
 
         public App()
         {
-            //this.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+            this.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
             _navigationStore = new NavigationStore();
             _modalNavigationStore = new ModalNavigationStore();
 
@@ -38,9 +40,15 @@ namespace WAIUA
             }
         }
 
+        private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            Constants.Log.Error("Unhandeled Exception: {Message}, {Stacktrace}", e.Exception.Message, e.Exception.StackTrace);
+            e.Handled = true;
+        }
+
         protected override async void OnStartup(StartupEventArgs e)
         {
-            Constants.CurrentPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA";
+            Constants.LocalAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA";
             var navigationService = CreateHomeNavigationService();
             navigationService.Navigate();
 
@@ -49,6 +57,10 @@ namespace WAIUA
                 DataContext = new MainViewModel(_navigationStore, _modalNavigationStore)
             };
 
+            Constants.Log = new LoggerConfiguration()
+                .WriteTo.Async(a => a.File(Constants.LocalAppDataPath+"\\logs\\log.txt", shared:true, rollingInterval:RollingInterval.Day))
+                .CreateLogger();
+            Constants.Log.Information("Application Start");
             MainWindow.Show();
             base.OnStartup(e);
             AutoUpdater.ShowSkipButton = false;

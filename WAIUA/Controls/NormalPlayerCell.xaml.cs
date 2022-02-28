@@ -8,9 +8,6 @@ namespace WAIUA.Controls
 {
     public partial class NormalPlayerCell : UserControl
     {
-        public static readonly DependencyProperty CardProperty =
-            DependencyProperty.Register("Card", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata("/Assets/empty.png"));
-
         public static readonly DependencyProperty LevelProperty =
             DependencyProperty.Register("Level", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(""));
 
@@ -128,12 +125,6 @@ namespace WAIUA.Controls
         {
             get => (string) GetValue(BackgroundColourProperty);
             set => SetValue(BackgroundColourProperty, value);
-        }
-
-        public string Card
-        {
-            get => (string) GetValue(CardProperty);
-            set => SetValue(CardProperty, value);
         }
 
         public string Level

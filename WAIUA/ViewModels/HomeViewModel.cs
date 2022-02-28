@@ -20,15 +20,15 @@ public class HomeViewModel : ViewModelBase
 
     private DispatcherTimer _countTimer;
     private LiveMatch _newMatch;
-    private string[] _player0Prop;
+    private object[] _player0Prop;
 
-    private string[] _player1Prop;
+    private object[] _player1Prop;
 
-    private string[] _player2Prop;
+    private object[] _player2Prop;
 
-    private string[] _player3Prop;
+    private object[] _player3Prop;
 
-    private string[] _player4Prop;
+    private object[] _player4Prop;
     private string _queueTime = "-";
 
     private string _refreshTime = "-";
@@ -69,31 +69,31 @@ public class HomeViewModel : ViewModelBase
     public ICommand PassiveDisabledCommand { get; }
     public ICommand UpdateChecksCommand { get; }
 
-    public string[] Player0
+    public object[] Player0
     {
         get => _player0Prop;
         set => SetProperty(ref _player0Prop, value, nameof(Player0));
     }
 
-    public string[] Player1
+    public object[] Player1
     {
         get => _player1Prop;
         set => SetProperty(ref _player1Prop, value, nameof(Player1));
     }
 
-    public string[] Player2
+    public object[] Player2
     {
         get => _player2Prop;
         set => SetProperty(ref _player2Prop, value, nameof(Player2));
     }
 
-    public string[] Player3
+    public object[] Player3
     {
         get => _player3Prop;
         set => SetProperty(ref _player3Prop, value, nameof(Player3));
     }
 
-    public string[] Player4
+    public object[] Player4
     {
         get => _player4Prop;
         set => SetProperty(ref _player4Prop, value, nameof(Player4));
@@ -308,7 +308,7 @@ public class HomeViewModel : ViewModelBase
     public class Player
     {
         public static Player[] players;
-        public string[] Data;
+        public object[] Data;
 
         static Player()
         {
@@ -316,10 +316,10 @@ public class HomeViewModel : ViewModelBase
             for (sbyte x = 0; x < 5; x++) players[x] = new Player();
         }
 
-        public static string[] Player0 => players[0].Data;
-        public static string[] Player1 => players[1].Data;
-        public static string[] Player2 => players[2].Data;
-        public static string[] Player3 => players[3].Data;
-        public static string[] Player4 => players[4].Data;
+        public static object[] Player0 => players[0].Data;
+        public static object[] Player1 => players[1].Data;
+        public static object[] Player2 => players[2].Data;
+        public static object[] Player3 => players[3].Data;
+        public static object[] Player4 => players[4].Data;
     }
 }

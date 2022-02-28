@@ -13,7 +13,7 @@ using AutoUpdaterDotNET;
 using WAIUA.Helpers;
 using WAIUA.Properties;
 using static WAIUA.Helpers.Login;
-using static WAIUA.Helpers.ValAPI;
+using static WAIUA.Helpers.ValApi;
 
 namespace WAIUA.Views
 {
@@ -80,16 +80,12 @@ namespace WAIUA.Views
 
         private async void Button_Click4Async(object sender, RoutedEventArgs e)
         {
-            Mouse.OverrideCursor = Cursors.Wait;
             await CheckAndUpdateJsonAsync().ConfigureAwait(false);
-            Mouse.OverrideCursor = Cursors.Arrow;
         }
 
         private async void Button_Click5Async(object sender, RoutedEventArgs e)
         {
-            Mouse.OverrideCursor = Cursors.Wait;
             await UpdateFilesAsync().ConfigureAwait(false);
-            Mouse.OverrideCursor = Cursors.Arrow;
         }
 
         private async void ListBox_SelectedAsync(object sender, SelectionChangedEventArgs e)

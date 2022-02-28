@@ -60,16 +60,11 @@
 				Margin="0,0,10,0"
 				CornerRadius="10">
                 <Border.Background>
-                    <ImageBrush ImageSource="{Binding Card, ElementName=Self}" />
+                    <ImageBrush ImageSource="{Binding AgentPicture, ElementName=Self}" />
                 </Border.Background>
             </Border>
-            <Grid Grid.Row="0" Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Image Grid.Column="0" Source="{Binding AgentPicture, ElementName=Self}" />
-                <Viewbox Grid.Column="1" HorizontalAlignment="Left">
+
+				<Viewbox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
                     <TextBlock
 						Background="Transparent"
                         FontFamily="{StaticResource Nunito}"
@@ -77,9 +72,7 @@
 						Foreground="#32e2b2"
                         Text="{Binding Agent, ElementName=Self}" />
                 </Viewbox>
-
-            </Grid>
-            <Viewbox
+	        <Viewbox
 				Grid.Row="1"
 				Grid.Column="1"
 				Margin="0"

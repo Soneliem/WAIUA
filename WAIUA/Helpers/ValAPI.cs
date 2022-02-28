@@ -1,249 +1,287 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using RestSharp;
+using WAIUA.Models;
 using WAIUA.Properties;
 
 namespace WAIUA.Helpers;
 
-public static class ValAPI
+public static class ValApi
 {
-	private static List<Urls> _urlsTxt;
+    private static readonly RestClient Client;
+    private static readonly RestClient MediaClient;
 
-	public static readonly Dictionary<string, string> ValApiLanguages = new()
-	{
-		{"ar", "ar-AE"},
-		{"de", "de-DE"},
-		{"en", "en-US"},
-		{"es", "es-ES"},
-		{"fr", "fr-FR"},
-		{"id", "id-ID"},
-		{"it", "it-IT"},
-		{"ja", "ja-JP"},
-		{"ko", "ko-KR"},
-		{"pl", "pl-PL"},
-		{"pt", "pt-BR"},
-		{"ru", "ru-RU"},
-		{"th", "th-TH"},
-		{"tr", "tr-TR"},
-		{"vi", "vi-VN"},
-		{"zh", "zh-CN"},
-		{"hi", "en-US"}
-	};
+    private static Urls _mapsInfo;
+    private static Urls _agentsInfo;
+    private static Urls _ranksInfo;
+    private static Urls _versionInfo;
+    private static Urls _skinsInfo;
+    private static List<Urls> _allInfo;
 
-	private static async Task<string> GetValApiVersionAsync()
-	{
-		RestClient client = new(new Uri("https://valorant-api.com/v1/version"));
-		RestRequest request = new(Method.GET);
-		var response = await client.ExecuteGetAsync(request).ConfigureAwait(false);
-		var content = response.Content;
-		var responsevar = JsonConvert.DeserializeObject(content);
-		if (responsevar == null) return "";
-		JToken responseObj = JObject.FromObject(responsevar);
-		return responseObj["data"]["buildDate"].Value<string>();
-	}
+    private static readonly Dictionary<string, string> ValApiLanguages = new()
+    {
+        {"ar", "ar-AE"},
+        {"de", "de-DE"},
+        {"en", "en-US"},
+        {"es", "es-ES"},
+        {"fr", "fr-FR"},
+        {"id", "id-ID"},
+        {"it", "it-IT"},
+        {"ja", "ja-JP"},
+        {"ko", "ko-KR"},
+        {"pl", "pl-PL"},
+        {"pt", "pt-BR"},
+        {"ru", "ru-RU"},
+        {"th", "th-TH"},
+        {"tr", "tr-TR"},
+        {"vi", "vi-VN"},
+        {"zh", "zh-CN"},
+        {"hi", "en-US"}
+    };
 
-	private static async Task<string> GetLocalValApiVersionAsync()
-	{
-        string[] lines = await File.ReadAllLinesAsync(Constants.CurrentPath + "\\ValAPI\\version.txt").ConfigureAwait(false);
-		return lines[1];
-	}
+    static ValApi()
+    {
+        Client = new RestClient("https://valorant-api.com/v1");
+        MediaClient = new RestClient();
+    }
 
-	private static Task GetUrlsAsync()
-	{
-		var language = ValApiLanguages.GetValueOrDefault(Settings.Default.Language);
-		_urlsTxt = new List<Urls>
-		{
-			new()
-			{
-				Name = "Agents",
-				Filepath = Constants.CurrentPath + "\\ValAPI\\agents.txt",
-				Url = $"https://valorant-api.com/v1/agents?language={language}"
-			},
-			new()
-			{
-				Name = "Maps",
-				Filepath = Constants.CurrentPath + "\\ValAPI\\maps.txt",
-				Url = $"https://valorant-api.com/v1/maps?language={language}"
-			},
-			new()
-			{
-				Name = "PlayerCards",
-				Filepath = Constants.CurrentPath + "\\ValAPI\\cards.txt",
-				Url = "https://valorant-api.com/v1/playercards"
-			},
-			new()
-			{
-				Name = "Skins",
-				Filepath = Constants.CurrentPath + "\\ValAPI\\skinchromas.txt",
-				Url = $"https://valorant-api.com/v1/weapons/skinchromas?language={language}"
-			},
-			new()
-			{
-				Name = "Ranks",
-				Filepath = Constants.CurrentPath + "\\ValAPI\\competitivetiers.txt",
-				Url = $"https://valorant-api.com/v1/competitivetiers?language={language}"
-			},
-			new()
-			{
-				Name = "Version",
-				Filepath = Constants.CurrentPath + "\\ValAPI\\version.txt",
-				Url = "https://valorant-api.com/v1/version"
-			}
-		};
-		return Task.CompletedTask;
-	}
+    private static async Task<string> GetValApiVersionAsync()
+    {
+        var request = new RestRequest("/version");
+        var response = await Client.ExecuteGetAsync<VAPIVersionResponse>(request).ConfigureAwait(false);
+        if (!response.IsSuccessful )
+        {
+            return null;
+        }
+        return response.Data.Data.BuildDate;
+    }
 
-	public static async Task UpdateFilesAsync()
-	{
-		try
-		{
-			var client = new RestClient();
+    private static async Task<string> GetLocalValApiVersionAsync()
+    {
+        if (File.Exists(Constants.LocalAppDataPath + "\\ValAPI\\version.txt"))
+        {
+            var lines = await File.ReadAllLinesAsync(Constants.LocalAppDataPath + "\\ValAPI\\version.txt")
+                .ConfigureAwait(false);
+            return lines[1];
+        }
+        else return null;
 
-			await GetUrlsAsync().ConfigureAwait(false);
-			if (!Directory.Exists(Constants.CurrentPath + "\\ValAPI"))
-				Directory.CreateDirectory(Constants.CurrentPath + "\\ValAPI");
+    }
 
-			var txtTasks = _urlsTxt.Select(async url =>
-			{
-				client.BaseUrl = new Uri(url.Url);
-				RestRequest request = new(Method.GET);
-				var response = await client.ExecuteGetAsync(request).ConfigureAwait(false);
-				if (response.IsSuccessful)
-				{
-					Dictionary<string, string[]> valuesConcurrentDictionary = new();
-					dynamic content = JsonConvert.DeserializeObject(response.Content);
-					if (content != null)
-					{
-                        if (url.Name != "Version")
-                        {
-                            foreach (var entry in content.data)
-                                switch (url.Name)
-                                {
-                                    case "Maps":
-                                        valuesConcurrentDictionary.TryAdd((string) entry.mapUrl,
-                                            new[] {(string) entry.displayName, (string) entry.listViewIcon});
-                                        break;
-                                    case "Agents":
-                                        valuesConcurrentDictionary.TryAdd((string) entry.uuid,
-                                            new[] {(string) entry.displayName, (string) entry.killfeedPortrait});
-                                        break;
-                                    case "PlayerCards":
-                                        valuesConcurrentDictionary.TryAdd((string) entry.uuid,
-                                            new[] {(string) entry.smallArt});
-                                        break;
-                                    case "Skins":
-                                        valuesConcurrentDictionary.TryAdd((string) entry.uuid,
-                                            new[] {(string) entry.displayName, (string) entry.displayIcon});
-                                        break;
-                                }
+    private static Task GetUrlsAsync()
+    {
+        var language = ValApiLanguages.GetValueOrDefault(Settings.Default.Language);
+        _mapsInfo = new Urls
+        {
+            Name = "Maps",
+            Filepath = Constants.LocalAppDataPath + "\\ValAPI\\maps.txt",
+            Url = $"/maps?language={language}"
+        };
+        _agentsInfo = new Urls
+        {
+            Name = "Agents",
+            Filepath = Constants.LocalAppDataPath + "\\ValAPI\\agents.txt",
+            Url = $"/agents?language={language}"
+        };
+        _skinsInfo = new Urls
+        {
+            Name = "Skins",
+            Filepath = Constants.LocalAppDataPath + "\\ValAPI\\skinchromas.txt",
+            Url = $"/weapons/skinchromas?language={language}"
+        };
+        _ranksInfo = new Urls
+        {
+            Name = "Ranks",
+            Filepath = Constants.LocalAppDataPath + "\\ValAPI\\competitivetiers.txt",
+            Url = $"/competitivetiers?language={language}"
+        };
+        _versionInfo = new Urls
+        {
+            Name = "Version",
+            Filepath = Constants.LocalAppDataPath + "\\ValAPI\\version.txt",
+            Url = "/version"
+        };
+        _allInfo = new() {_mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo};
+        return Task.CompletedTask;
+    }
 
-                            if (url.Name == "Ranks")
-                                foreach (var entry in content.data[3].tiers)
-                                {
-                                    valuesConcurrentDictionary.TryAdd((string) entry.tier, new[] {(string) entry.tierName, (string) entry.largeIcon});
-                                }
+    public static async Task UpdateFilesAsync()
+    {
+        try
+        {
+            await GetUrlsAsync().ConfigureAwait(false);
+            if (!Directory.Exists(Constants.LocalAppDataPath + "\\ValAPI"))
+                Directory.CreateDirectory(Constants.LocalAppDataPath + "\\ValAPI");
 
-                            await File.WriteAllTextAsync(url.Filepath,
-                                JsonConvert.SerializeObject(valuesConcurrentDictionary)).ConfigureAwait(false);
-                        }
-                        else
-                        {
-                            string[] lines =
-                            {
-                                (string)content["data"]["riotClientVersion"], (string)content["data"]["buildDate"]
-                            };
-							await File.WriteAllLinesAsync(url.Filepath, lines).ConfigureAwait(false);
-                        }
+            async Task UpdateVersion()
+            {
+                var versionRequest = new RestRequest(_versionInfo.Url);
+                var versionResponse =
+                    await Client.ExecuteGetAsync<VAPIVersionResponse>(versionRequest).ConfigureAwait(false);
+                if (versionResponse.IsSuccessful)
+                {
+                    string[] lines =
+                    {
+                        versionResponse.Data.Data.RiotClientVersion, versionResponse.Data.Data.BuildDate
+                    };
+                    await File.WriteAllLinesAsync(_versionInfo.Filepath, lines).ConfigureAwait(false);
+                }
+                else
+                {
+                    Constants.Log.Error("updateVersion Failed, Response:{error}", versionResponse.ErrorException);
+                }
+            }
+
+            async Task UpdateMapsDictionary()
+            {
+                var mapsRequest = new RestRequest(_mapsInfo.Url);
+                var mapsResponse = await Client.ExecuteGetAsync<ValApiMapsResponse>(mapsRequest).ConfigureAwait(false);
+                if (mapsResponse.IsSuccessful)
+                {
+                    Dictionary<string, string> mapsDictionary = new();
+                    if (!Directory.Exists(Constants.LocalAppDataPath + "\\ValAPI\\mapsimg"))
+                        Directory.CreateDirectory(Constants.LocalAppDataPath + "\\ValAPI\\mapsimg");
+                    foreach (var map in mapsResponse.Data.Data)
+                    {
+                        mapsDictionary.TryAdd(map.MapUrl, map.DisplayName);
+                        var fileName = Constants.LocalAppDataPath + $"\\ValAPI\\mapsimg\\{map.Uuid}.png";
+                        var request = new RestRequest(map.ListViewIcon);
+                        var response = await MediaClient.DownloadDataAsync(request);
+                        if (response != null)
+                            await File.WriteAllBytesAsync(fileName, response).ConfigureAwait(false);
                     }
-				}
-			});
-            await Task.WhenAll(txtTasks).ConfigureAwait(false);
+                    await File.WriteAllTextAsync(_mapsInfo.Filepath, JsonSerializer.Serialize(mapsDictionary)).ConfigureAwait(false);
+                }
+                else
+                {
+                    Constants.Log.Error("updateMapsDictionary Failed, Response:{error}", mapsResponse.ErrorException);
+                }
+                
+                    
+            }
+            async Task UpdateAgentsDictionary()
+            {
+                var agentsRequest = new RestRequest(_agentsInfo.Url);
+                var agentsResponse = await Client.ExecuteGetAsync<ValApiAgentsResponse>(agentsRequest).ConfigureAwait(false);
+                if (agentsResponse.IsSuccessful)
+                {
+                    Dictionary<Guid, string> agentsDictionary = new();
+                    if (!Directory.Exists(Constants.LocalAppDataPath + "\\ValAPI\\agentsimg"))
+                        Directory.CreateDirectory(Constants.LocalAppDataPath + "\\ValAPI\\agentsimg");
+                    foreach (var agent in agentsResponse.Data.Data)
+                    {
+                        agentsDictionary.TryAdd(agent.Uuid, agent.DisplayName);
 
-			var content = await LoadDictionaryFromFileAsync("\\ValAPI\\competitivetiers.txt").ConfigureAwait(false);
-			var content2 = await LoadDictionaryFromFileAsync("\\ValAPI\\agents.txt").ConfigureAwait(false);
+                        var fileName = Constants.LocalAppDataPath + $"\\ValAPI\\agentsimg\\{agent.Uuid}.png";
+                        var request = new RestRequest(agent.DisplayIcon);
+                        var response = await MediaClient.DownloadDataAsync(request).ConfigureAwait(false);
+                        if (response != null)
+                            await File.WriteAllBytesAsync(fileName, response)
+                                .ConfigureAwait(false);
+                    }
+                    await File.WriteAllTextAsync(_agentsInfo.Filepath,JsonSerializer.Serialize(agentsDictionary)).ConfigureAwait(false);
+                }
+                else
+                {
+                    Constants.Log.Error("updateAgentsDictionary Failed, Response:{error}", agentsResponse.ErrorException);
+                }
 
-			if (!Directory.Exists(Constants.CurrentPath + "\\ValAPI\\agentsimg"))
-				Directory.CreateDirectory(Constants.CurrentPath + "\\ValAPI\\agentsimg");
-			foreach (var agent in content2)
-			{
-				client.BaseUrl = new Uri(agent.Value[1]);
-				RestRequest request = new(Method.GET);
-				var fileName = Constants.CurrentPath + $"\\ValAPI\\agentsimg\\{agent.Key}.png";
-				var response = client.DownloadData(request);
-				if (response.Length > 0) await File.WriteAllBytesAsync(fileName, response).ConfigureAwait(false);
-			}
+            }
+            async Task UpdateSkinsDictionary()
+            {
+                var skinsRequest = new RestRequest(_skinsInfo.Url);
+                var skinsResponse = await Client.ExecuteGetAsync<ValApiSkinsResponse>(skinsRequest).ConfigureAwait(false);
+                if (skinsResponse.IsSuccessful)
+                {
+                    Dictionary<Guid, Tuple<string, Uri>> skinsDictionary = new();
+                    if (!Directory.Exists(Constants.LocalAppDataPath + "\\ValAPI\\skinsimg"))
+                        Directory.CreateDirectory(Constants.LocalAppDataPath + "\\ValAPI\\skinsimg");
+                    foreach (var skin in skinsResponse.Data.Data)
+                    {
+                        skinsDictionary.TryAdd(skin.Uuid, new Tuple<string, Uri>(skin.DisplayName, skin.FullRender));
+                    }
+                    await File.WriteAllTextAsync(_skinsInfo.Filepath, JsonSerializer.Serialize(skinsDictionary)).ConfigureAwait(false);
+                }
+                else
+                {
+                    Constants.Log.Error("updateSkinsDictionary Failed, Response:{error}", skinsResponse.ErrorException);
+                }
+            }
+            async Task UpdateRanksDictionary()
+            {
+                var ranksRequest = new RestRequest(_ranksInfo.Url);
+                var ranksResponse =
+                    await Client.ExecuteGetAsync<ValApiRanksResponse>(ranksRequest).ConfigureAwait(false);
+                if (ranksResponse.IsSuccessful)
+                {
+                    Dictionary<int, string> ranksDictionary = new();
+                    if (!Directory.Exists(Constants.LocalAppDataPath + "\\ValAPI\\ranksimg"))
+                        Directory.CreateDirectory(Constants.LocalAppDataPath + "\\ValAPI\\ranksimg");
+                    foreach (var rank in ranksResponse.Data.Data.Last().Tiers)
+                    {
+                        var tier = rank.TierTier;
+                        ranksDictionary.TryAdd(tier, rank.TierName);
 
-			if (!Directory.Exists(Constants.CurrentPath + "\\ValAPI\\ranksimg"))
-				Directory.CreateDirectory(Constants.CurrentPath + "\\ValAPI\\ranksimg");
-			foreach (var rank in content)
-			{
-				string url2;
+                        if (tier == 0)
+                        {
+                            File.Copy(Directory.GetCurrentDirectory() + "\\Assets\\0.png",
+                                Constants.LocalAppDataPath + "\\ValAPI\\ranksimg\\0.png", true);
+                            continue;
+                        }
 
-				if (rank.Key == "0")
-				{
-					File.Copy(Directory.GetCurrentDirectory() +"\\Assets\\0.png", Constants.CurrentPath + "\\ValAPI\\ranksimg\\0.png");
-					continue;
-				}
+                        if (tier is 1 or 2)
+                            continue;
 
-				if (rank.Key is "1" or "2")
-					continue;
-				url2 = rank.Value[1];
+                        var fileName = Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{tier}.png";
 
-				client.BaseUrl = new Uri(url2);
-				var fileName = Constants.CurrentPath + $"\\ValAPI\\ranksimg\\{rank.Key}.png";
+                        var request = new RestRequest(rank.LargeIcon);
+                        var response = await MediaClient.DownloadDataAsync(request).ConfigureAwait(false);
 
-				RestRequest request = new(Method.GET);
-				var response = client.DownloadData(request);
-				if (response.Length > 0) await File.WriteAllBytesAsync(fileName, response).ConfigureAwait(false);
-			}
-		}
-		catch (Exception)
-		{
-		}
-	}
+                        // if (response.IsCompletedSuccessfully)
+                        if (response != null)
+                            await File.WriteAllBytesAsync(fileName, response)
+                                .ConfigureAwait(false);
+                    }
+                    await File.WriteAllTextAsync(_ranksInfo.Filepath, JsonSerializer.Serialize(ranksDictionary)).ConfigureAwait(false);
+                }
+                else
+                {
+                    Constants.Log.Error("updateRanksDictionary Failed, Response:{error}", ranksResponse.ErrorException);
+                }
+            }
+            // await Task.WhenAll(updateAgentsDictionary, updateRanksDictionary, updateMapsDictionary, updateVersion, updateSkinsDictionary).ConfigureAwait(false);
+            await Task.WhenAll(UpdateVersion(), UpdateRanksDictionary(), UpdateAgentsDictionary(), UpdateMapsDictionary(), UpdateSkinsDictionary()).ConfigureAwait(false);
+        }
+        catch (Exception e)
+        {
+            Constants.Log.Error("UpdateFilesAsync Failed, Response:{error}", e);
+        }
+    }
 
-    public static async Task<Dictionary<string, string[]>> LoadDictionaryFromFileAsync(string filepath)
-	{
-		var currentPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA";
-		var dictionary = JsonConvert.DeserializeObject<Dictionary<string, string[]>>
-			(await File.ReadAllTextAsync(currentPath + filepath).ConfigureAwait(false));
-		return dictionary;
-	}
+    public static async Task CheckAndUpdateJsonAsync()
+    {
+        try
+        {
+            await GetUrlsAsync().ConfigureAwait(false);
 
-	public static async Task CheckAndUpdateJsonAsync()
-	{
-		try
-		{
-			await GetUrlsAsync().ConfigureAwait(false);
+            if (await GetValApiVersionAsync().ConfigureAwait(false) !=
+                await GetLocalValApiVersionAsync().ConfigureAwait(false))
+            {
+                await UpdateFilesAsync().ConfigureAwait(false);
+                return;
+            }
 
-			if (await GetValApiVersionAsync().ConfigureAwait(false) != await GetLocalValApiVersionAsync().ConfigureAwait(false))
-			{
-				await UpdateFilesAsync().ConfigureAwait(false);
-				return;
-			}
-
-			foreach (var path in _urlsTxt)
-				if (!File.Exists(path.Filepath))
-				{
-					await UpdateFilesAsync().ConfigureAwait(false);
-					break;
-				}
-		}
-		catch (Exception)
-		{
-		}
-	}
-
-	private class Urls
-	{
-		public string Name { get; init; }
-		public string Filepath { get; init; }
-		public string Url { get; init; }
-	}
+            if (_allInfo.Any(url => !File.Exists(url.Filepath)))
+            {
+                await UpdateFilesAsync().ConfigureAwait(false);
+            }
+        }
+        catch (Exception)
+        {
+        }
+    }
 }

@@ -15,16 +15,7 @@ namespace Demo.Controls
 			InitializeComponent();
 		}
 
-		public string Card
-		{
-			get { return (string)GetValue(CardProperty); }
-			set { SetValue(CardProperty, value); }
-		}
-
-		public static readonly DependencyProperty CardProperty =
-			DependencyProperty.Register("Card", typeof(string), typeof(NormalPlayerCell), new PropertyMetadata(null));
-
-		public string Level
+        public string Level
 		{
 			get { return (string)GetValue(LevelProperty); }
 			set { SetValue(LevelProperty, value); }

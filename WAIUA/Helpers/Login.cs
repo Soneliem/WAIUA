@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Net.Security;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using RestSharp;
+using WAIUA.Models;
 
 namespace WAIUA.Helpers;
 
@@ -13,82 +13,90 @@ public static class Login
 {
     public static async Task<bool> GetSetPpuuidAsync()
     {
-        // When I decide to update RestSharp
-        // var client = new RestClient("https://auth.riotgames.com/userinfo");
-        // var request = new RestRequest(Method.POST)
-        //     .AddHeader("Authorization", $"Bearer {Constants.AccessToken}")
-        //     .AddBody("{}");
-        //  var response = await client.PostAsync<RestResponse>(request).ConfigureAwait(false);
-
         var client = new RestClient("https://auth.riotgames.com/userinfo");
-        var request = new RestRequest(Method.POST);
-        request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
-        request.AddJsonBody("{}");
-        
-        var response = await client.ExecuteAsync(request).ConfigureAwait(false);
-        if (!response.IsSuccessful) return false;
+        var request = new RestRequest()
+            .AddHeader("Authorization", $"Bearer {Constants.AccessToken}")
+            .AddBody("{}");
+        var response = await client.ExecutePostAsync<UserInfoResponse>(request).ConfigureAwait(false);
+        if (!response.IsSuccessful)
+        {
+            Constants.Log.Error("GetSetPpuuidAsync() failed. Response: {Response}", response.ErrorException);
+            return false;
+        }
 
-        var content = response.Content;
-		var playerInfo = JsonConvert.DeserializeObject(content);
-		JToken PUUIDObj = JObject.FromObject(playerInfo);
-		Constants.PPUUID = PUUIDObj["sub"].Value<string>();
-        
-		return true;
-	}
-
-	public static async Task<bool> CheckLocalAsync()
-	{
-		var lockfileLocation =
-			$@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Riot Games\Riot Client\Config\lockfile";
-
-        if (!File.Exists(lockfileLocation)) return false;
-        await using FileStream fileStream = new(lockfileLocation, FileMode.Open, FileAccess.Read,
-            FileShare.ReadWrite);
-        using StreamReader sr = new(fileStream);
-        var parts = (await sr.ReadToEndAsync().ConfigureAwait(false)).Split(":");
-        Constants.Port = parts[2];
-        Constants.LPassword = parts[3];
+        Constants.PPUUID = response.Data.Sub;
         return true;
-
     }
 
-	public static async Task LocalLoginAsync()
-	{
-		await GetLatestVersionAsync().ConfigureAwait(false);
-		RestClient client = new(new Uri($"https://127.0.0.1:{Constants.Port}/entitlements/v1/token"));
-		RestRequest request = new(Method.GET);
-		client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
-		request.AddHeader("Authorization",
-			$"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{Constants.LPassword}"))}");
-		request.AddHeader("X-Riot-ClientPlatform",
-			"ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
-		request.AddHeader("X-Riot-ClientVersion", Constants.Version);
-		request.RequestFormat = DataFormat.Json;
-        var content = (await client.ExecuteAsync(request).ConfigureAwait(false)).Content;
-        var responsevar = JsonConvert.DeserializeObject(content);
-		JToken responseObj = JObject.FromObject(responsevar);
-		Constants.AccessToken = responseObj["accessToken"].Value<string>();
-		Constants.EntitlementToken = responseObj["token"].Value<string>();
-	}
+    public static async Task<bool> CheckLocalAsync()
+    {
+        var lockfileLocation =
+            $@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Riot Games\Riot Client\Config\lockfile";
 
-	public static async Task LocalRegionAsync()
-	{
-		RestClient client = new(new Uri($"https://127.0.0.1:{Constants.Port}/product-session/v1/external-sessions"));
-		RestRequest request = new(Method.GET);
-		client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
-		request.AddHeader("Authorization",
-			$"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{Constants.LPassword}"))}");
-		request.AddHeader("X-Riot-ClientPlatform",
-			"ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
-		request.AddHeader("X-Riot-ClientVersion", Constants.Version);
-		request.RequestFormat = DataFormat.Json;
-        var content = (await client.ExecuteAsync(request).ConfigureAwait(false)).Content;
-		var root = JObject.Parse(content);
-		var property = (JProperty)root.First;
-		var fullstring = property.Value["launchConfiguration"]["arguments"][3];
-		var parts = fullstring.ToString().Split('=', '&');
-		var output = parts[1];
-		switch (output)
+        if (!File.Exists(lockfileLocation))
+        {
+            Constants.Log.Error("Valorant Not detected");
+            return false;
+        }
+
+        string lockFileString;
+        using (var File = new FileStream(lockfileLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+        {
+            using (var Reader = new StreamReader(File, Encoding.UTF8))
+            {
+                lockFileString = (string) Reader.ReadToEnd().Clone();
+                File.Close();
+                Reader.Close();
+            }
+        }
+
+        var parts = lockFileString.Split(":");
+        Constants.Port = Convert.ToInt32(parts[1]);
+        Constants.LPassword = Convert.ToInt32((parts[2]));
+        return true;
+    }
+
+    public static async Task<bool> LocalLoginAsync()
+    {
+        await GetLatestVersionAsync().ConfigureAwait(false);
+        // var options = new RestClientOptions(RemoteCertificateValidationCallback(sender, certificate, chain, sslPolicyErrors));
+        var client = new RestClient($"https://127.0.0.1:{Constants.Port}/entitlements/v1/token");
+        var request = new RestRequest()
+            .AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{Constants.LPassword}"))}");
+        // .AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
+        // .AddHeader("X-Riot-ClientVersion", Constants.Version);
+        // client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+        var response = await client.ExecuteGetAsync<EntitlementsResponse>(request).ConfigureAwait(false);
+        if (!response.IsSuccessful)
+        {
+            Constants.Log.Error("LocalLoginAsync Failed");
+            return false;
+        }
+        Constants.AccessToken = response.Data.AccessToken;
+        Constants.EntitlementToken = response.Data.Token;
+        return true;
+    }
+
+    public static async Task LocalRegionAsync()
+    {
+        var options = new RestClientOptions(new Uri($"https://127.0.0.1:{Constants.Port}/product-session/v1/external-sessions"))
+        {
+            RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
+        };
+            
+        var client = new RestClient(options);
+        var request = new RestRequest().AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{Constants.LPassword}"))}")
+            .AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
+            .AddHeader("X-Riot-ClientVersion", Constants.Version);
+        // client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+        var response = await client.ExecuteGetAsync<ExternalSessionsResponse>(request).ConfigureAwait(false);
+        if (!response.IsSuccessful)
+        {
+            Constants.Log.Error("LocalRegionAsync Failed: {e}", response.ErrorException);
+            return;
+        }
+        var parts = response.Data.randString.First().Value.LaunchConfiguration.Arguments[3].Split('=', '&');
+        switch (parts[1])
         {
             case "latam":
                 Constants.Region = "na";
@@ -99,99 +107,69 @@ public static class Login
                 Constants.Shard = "br";
                 break;
             default:
-                Constants.Region = output;
-                Constants.Shard = output;
+                Constants.Region = parts[1];
+                Constants.Shard = parts[1];
                 break;
         }
-	}
+    }
 
     public static async Task<bool> CheckMatchIdAsync()
     {
         var url =
             $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/players/{Constants.PPUUID}";
         RestClient client = new(url);
-        RestRequest request = new(Method.GET);
+        var request = new RestRequest();
         request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
         request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
-        var response = await client.ExecuteAsync(request).ConfigureAwait(false);
-        if (!response.IsSuccessful) return false;
-        return true;
+        var response = await client.ExecuteGetAsync(request).ConfigureAwait(false);
+        if (response.IsSuccessful) return true;
+        Constants.Log.Error("CheckMatchIdAsync Failed: {e}", response.ErrorException);
+        return false;
     }
 
-    public static async Task<string> GetIgUsernameAsync(string puuid)
+    public static async Task<string> GetIgUsernameAsync(Guid puuid)
     {
-        var ign = "";
-        try
+        var client = new RestClient($"https://pd.{Constants.Region}.a.pvp.net/name-service/v2/players");
+        RestRequest request = new()
         {
-            var url = $"https://pd.{Constants.Region}.a.pvp.net/name-service/v2/players";
-            RestClient client = new(url);
-            RestRequest request = new(Method.PUT)
-            {
-                RequestFormat = DataFormat.Json
-            };
+            RequestFormat = DataFormat.Json
+        };
 
-            string[] body = { puuid };
-            request.AddJsonBody(body);
+        string[] body = {puuid.ToString()};
+        request.AddJsonBody(body);
 
-            var content = (await client.ExecuteAsync(request).ConfigureAwait(false)).Content;
-
-            content = content.Replace("[", "");
-            content = content.Replace("]", "");
-
-            var uinfo = JsonConvert.DeserializeObject(content);
-            JToken uinfoObj = JObject.FromObject(uinfo);
-            ign = uinfoObj["GameName"].Value<string>() + "#" + uinfoObj["TagLine"].Value<string>();
+        var response = await client.ExecutePutAsync<NameServiceResponse>(request).ConfigureAwait(false);
+        if (response.IsSuccessful)
+        {
+            return response.Data.DisplayName + "#" + response.Data.TagLine;
         }
-        catch (Exception)
+        else
         {
-            // ignored
+            Constants.Log.Error("GetIgUsernameAsync Failed: {e}", response.ErrorException);
+            return "";
+            
         }
 
-        return ign;
+        // content = content.Replace("[", "");
+        // content = content.Replace("]", "");
     }
 
-	private static async Task GetLatestVersionAsync()
-	{
-        string[] lines = await File.ReadAllLinesAsync(Constants.CurrentPath + "\\ValAPI\\version.txt").ConfigureAwait(false);
+
+    private static async Task GetLatestVersionAsync()
+    {
+        var lines = await File.ReadAllLinesAsync(Constants.LocalAppDataPath + "\\ValAPI\\version.txt").ConfigureAwait(false);
         Constants.Version = lines[0];
     }
 
-    public static string DoCachedRequest(Method method, string url, bool addRiotAuth, bool bypassCache = false)
-    {
-        var attemptCache = method == Method.GET && !bypassCache;
-        if (attemptCache)
-            if (Constants.UrlToBody.TryGetValue(url, out var res))
-                return res;
-
-        RestClient client = new(url);
-        RestRequest request = new(method);
-        if (addRiotAuth)
-        {
-            request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
-            request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
-            request.AddHeader("X-Riot-ClientPlatform",
-                "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
-            request.AddHeader("X-Riot-ClientVersion", Constants.Version);
-        }
-
-        var resp = client.Execute(request);
-        if (!resp.IsSuccessful) return null;
-        var cont = resp.Content;
-
-        if (attemptCache) Constants.UrlToBody.TryAdd(url, cont);
-        return cont;
-    }
-
-    public static async Task<string> DoCachedRequestAsync(Method method, string url, bool addRiotAuth,
+    public static async Task<RestResponse> DoCachedRequestAsync(Method method, string url, bool addRiotAuth,
         bool bypassCache = false)
     {
-        var attemptCache = method == Method.GET && !bypassCache;
+        var attemptCache = method == Method.Get && !bypassCache;
         if (attemptCache)
             if (Constants.UrlToBody.TryGetValue(url, out var res))
                 return res;
-
-        RestClient client = new(url);
-        RestRequest request = new(method);
+        var client = new RestClient(url);
+        var request = new RestRequest();
         if (addRiotAuth)
         {
             request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
@@ -200,14 +178,14 @@ public static class Login
                 "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
             request.AddHeader("X-Riot-ClientVersion", Constants.Version);
         }
+        var response = await client.ExecuteAsync(request, method).ConfigureAwait(false);
+        if (!response.IsSuccessful)
+        {
+            Constants.Log.Error("Request to {url} Failed: {e}",url, response.ErrorException);
+            return response;
+        }
 
-        var resp = await client.ExecuteAsync(request).ConfigureAwait(false);
-        if (!resp.IsSuccessful) return null;
-        var cont = resp.Content;
-
-        if (attemptCache) Constants.UrlToBody.TryAdd(url, cont);
-        return cont;
-
+        if (attemptCache) Constants.UrlToBody.TryAdd(url, response);
+        return response;
     }
-
 }
