@@ -5,9 +5,11 @@ using System.IO;
 using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
 using RestSharp;
+using RestSharp.Serializers.Json;
 using WAIUA.Models;
 using static WAIUA.Helpers.ValApi;
 using static WAIUA.Helpers.Login;
@@ -23,15 +25,14 @@ namespace WAIUA.Helpers
 		internal string Map { get; set; }
 		internal Uri MapImage { get; set; }
 		internal string GameMode { get; set; }
-
 		private static Guid Matchid { get; set; }
 		private static Guid CurrentSeason { get; set; }
 		private static Guid PSeason { get; set; }
 		private static Guid PPSeason { get; set; }
-		private static Guid PPPSeason { get; set; }
+		private static Guid PppSeason { get; set; }
 		private static string[] PlayerList { get; } = new string[10];
-		private static Guid[] PUUIDList { get; set; } = new Guid[10];
-		private static Guid[] AgentUUIDList { get; set; } = new Guid[10];
+		private static Guid[] PuuidList { get; set; } = new Guid[10];
+		private static Guid[] AgentUuidList { get; set; } = new Guid[10];
         private static Uri[] AgentList { get; set; } = new Uri[10];
 		private static Uri[] AgentPList { get; } = new Uri[10];
         private static int[] LevelList { get; set; } = new int[10];
@@ -39,22 +40,22 @@ namespace WAIUA.Helpers
 		private static int[] MaxRRList { get; } = new int[10];
 		private static Uri[] PRankList { get; } = new Uri[10];
 		private static Uri[] PPRankList { get; } = new Uri[10];
-		private static Uri[] PPPRankList { get; } = new Uri[10];
+		private static Uri[] PppRankList { get; } = new Uri[10];
 		private static string[] RankNameList { get; } = new string[10];
 		private static string[] PRankNameList { get; } = new string[10];
 		private static string[] PPRankNameList { get; } = new string[10];
-		private static string[] PPPRankNameList { get; } = new string[10];
-		private static long[] RankProgList { get; } = new long[10];
-		private static string[] PGList { get; } = new string[10];
-		private static string[] PPGList { get; } = new string[10];
-		private static string[] PPPGList { get; } = new string[10];
-		private static string[] PGColourList { get; } = new string[10];
-		private static string[] PPGColourList { get; } = new string[10];
-		private static string[] PPPGColourList { get; } = new string[10];
+		private static string[] PppRankNameList { get; } = new string[10];
+		private static int[] RankProgList { get; } = new int[10];
+		private static int[] PgList { get; } = new int[10];
+		private static int[] PpgList { get; } = new int[10];
+		private static int[] PppgList { get; } = new int[10];
+		private static string[] PgColourList { get; } = new string[10];
+		private static string[] PpgColourList { get; } = new string[10];
+		private static string[] PppgColourList { get; } = new string[10];
 		private static bool[] IsIncognito { get; set; } = new bool[10];
 		private static Uri[] TrackerUrlList { get; } = new Uri[10];
-		private static string[] TrackerEnabledList { get; } = new string[10];
-		private static string[] TrackerDisabledList { get; } = new string[10];
+		private static Visibility[] TrackerEnabledList { get; } = new Visibility[10];
+		private static Visibility[] TrackerDisabledList { get; } = new Visibility[10];
 		private static Uri[] VandalList { get; } = new Uri[10];
 		private static Uri[] PhantomList { get; } = new Uri[10];
 		private static string[] VandalNameList { get; } = new string[10];
@@ -66,12 +67,16 @@ namespace WAIUA.Helpers
 
         private static async Task<bool> LiveMatchIdAsync()
 		{
-            var client = new RestClient($"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/players/{Constants.PPUUID}");
+            var client = new RestClient($"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/players/{Constants.Ppuuid}");
 			var request = new RestRequest();
 			request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
 			request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
 			var response = await client.ExecuteGetAsync<LivePlayersResponse>(request).ConfigureAwait(false);
-			if (!response.IsSuccessful) return false;
+            if (!response.IsSuccessful)
+            {
+                Constants.Log.Error("LiveMatchIdAsync() failed. Response: {Response}", response.ErrorException);
+				return false;
+            }
             Matchid = response.Data.MatchId;
 			return true;
 		}
@@ -129,7 +134,7 @@ namespace WAIUA.Helpers
 			return output;
 		}
 
-		public async Task LiveMatchSetupAsync()
+        private async Task LiveMatchSetupAsync()
         {
             var getseason = GetSeasonsAsync();
             var getpresense = GetPresencesAsync();
@@ -141,8 +146,12 @@ namespace WAIUA.Helpers
 			request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
 			request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
 			var response = await client.ExecuteGetAsync<LiveMatchResponse>(request).ConfigureAwait(false);
-            var playerno = new sbyte[10];
-			var puuid = new Guid[10];
+            if (!response.IsSuccessful)
+            {
+                Constants.Log.Error("LiveMatchSetupAsync() failed. Response: {Response}", response.ErrorException);
+				return;
+            }
+            var puuid = new Guid[10];
 			var agent = new Guid[10];
             var level = new int[10];
 			var incognito = new bool[10];
@@ -150,8 +159,7 @@ namespace WAIUA.Helpers
 			foreach (var entry in response.Data.Players)
 				if (entry.IsCoach == false)
 				{
-					playerno[index] = index;
-					puuid[index] = entry.Subject;
+                    puuid[index] = entry.Subject;
 					agent[index] = entry.CharacterId;
                     level[index] = entry.PlayerIdentity.AccountLevel;
 					if (entry.PlayerIdentity.Incognito == true) incognito[index] = true;
@@ -160,91 +168,121 @@ namespace WAIUA.Helpers
 					if (index == 10) break;
 				}
 
-			PUUIDList = puuid;
-			AgentUUIDList = agent;
+			PuuidList = puuid;
+			AgentUuidList = agent;
             LevelList = level;
 			IsIncognito = incognito;
 			Constants.LocalAppDataPath =
 				Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA";
 			string gamePod = response.Data.GamePodId;
-			if (Constants.GamePodsDictionary.TryGetValue(gamePod, out var ServerName)) Server = ServerName;
+			if (Constants.GamePodsDictionary.TryGetValue(gamePod, out var serverName)) Server = serverName;
 		}
 
-		public async Task<object[]> LiveMatchOutputAsync(sbyte playerno)
+		public async Task<List<PlayerNew>> LiveMatchOutputAsync()
         {
-            var one = GetIgcUsernameAsync(playerno);
-            var two = GetAgentInfoAsync(AgentUUIDList[playerno], playerno);
-            var four = GetSkinInfoAsync(playerno);
-            var five = GetCompHistoryAsync(PUUIDList[playerno], playerno);
-            var six = GetPlayerHistoryAsync(PUUIDList[playerno], playerno);
-            var seven = GetPresenceInfoAsync(PUUIDList[playerno], playerno);
+            var playerList = new List<PlayerNew>();
+            var playerTasks = new List<Task>();
+
+            for (sbyte playerno = 0; playerno < 10; playerno++)
+                playerTasks.Add(new Task(async () =>
+                {
+					var one = GetIgcUsernameAsync(playerno);
+                    var two = GetAgentInfoAsync(AgentUuidList[playerno], playerno);
+                    var four = GetSkinInfoAsync(playerno);
+                    var five = GetCompHistoryAsync(PuuidList[playerno], playerno);
+                    var six = GetPlayerHistoryAsync(PuuidList[playerno], playerno);
+                    var seven = GetPresenceInfoAsync(PuuidList[playerno], playerno);
 
 
-           await Task.WhenAll(one, two, four, five, six, seven).ConfigureAwait(false);
+                    await Task.WhenAll(one, two, four, five, six, seven).ConfigureAwait(false);
 
-			object[] output =
-			{
-				AgentList[playerno],
-				AgentPList[playerno],
-                AgentPList[playerno],
-				PlayerList[playerno],
-				LevelList[playerno],
-				MaxRRList[playerno],
-				PGList[playerno],
-				PPGList[playerno],
-				PPPGList[playerno],
-				PPPRankList[playerno],
-				PPPRankNameList[playerno],
-				PPRankList[playerno],
-				PPRankNameList[playerno],
-				PRankList[playerno],
-				PRankNameList[playerno],
-				PhantomList[playerno],
-				PhantomNameList[playerno],
-				RankList[playerno],
-				RankNameList[playerno],
-				RankProgList[playerno],
-				TrackerDisabledList[playerno],
-				TrackerEnabledList[playerno],
-				TrackerUrlList[playerno],
-				VandalList[playerno],
-				VandalNameList[playerno],
-				PGColourList[playerno],
-				PPGColourList[playerno],
-				PPPGColourList[playerno],
-				PartyList[playerno],
-				BackgroundColour[playerno]
-			};
-			return output;
+                    playerList.Add(new PlayerNew()
+                    {
+                        AgentName = AgentList[playerno],
+                        AgentImage = AgentPList[playerno],
+                        PlayerName = PlayerList[playerno],
+                        AccountLevel = LevelList[playerno],
+                        MaxRR = MaxRRList[playerno],
+                        PreviousGameMmr = PgList[playerno],
+                        PreviousGameMmrColour = PgColourList[playerno],
+                        PreviousPreviousGameMmr = PpgList[playerno],
+                        PreviousPreviousGameMmrColour = PpgColourList[playerno],
+                        PreviousPreviousPreviousGameMmr = PppgList[playerno],
+                        PreviousPreviousPreviousGameMmrColour = PppgColourList[playerno],
+                        RankProgress = RankProgList[playerno],
+                        Rank = RankList[playerno],
+                        RankName = RankNameList[playerno],
+                        PreviousRank = PRankList[playerno],
+                        PreviousRankName = PRankNameList[playerno],
+                        PreviousPreviousRank = PPRankList[playerno],
+                        PreviousPreviousRankName = PPRankNameList[playerno],
+                        PreviousPreviousPreviousRank = PppRankList[playerno],
+                        PreviousPreviousPreviousRankName = PppRankNameList[playerno],
+                        VandalImage = VandalList[playerno],
+                        VandalName = VandalNameList[playerno],
+                        PhantomImage = PhantomList[playerno],
+                        PhantomName = PhantomNameList[playerno],
+                        TrackerEnabled = TrackerEnabledList[playerno],
+                        TrackerDisabled = TrackerDisabledList[playerno],
+                        TrackerUri = TrackerUrlList[playerno],
+                        PartyUuid = PartyList[playerno],
+                        BackgroundColour = BackgroundColour[playerno]
+                    });
+				}));
+            await Task.WhenAll(playerTasks).ConfigureAwait(false);
+
+            var colours = new List<string>
+                {"Red", "#32e2b2", "DarkOrange", "White", "DeepSkyBlue", "MediumPurple", "SaddleBrown"};
+
+            string[] newArray = { "Transparent", "Transparent", "Transparent", "Transparent", "Transparent", "Transparent", "Transparent", "Transparent", "Transparent", "Transparent" };
+
+            for (var i = 0; i < 10; i++)
+            {
+                var colourused = false;
+                var id = playerList[i].PartyUuid;
+                for (var j = i + 1; j < 10; j++)
+                    if (playerList[j].PartyUuid == id && id != Guid.Empty)
+                    {
+                        newArray[i] = newArray[j] = colours[0];
+                        colourused = true;
+                    }
+
+                if (colourused) colours.RemoveAt(0);
+            }
+
+            for (var i = 0; i < playerList.Count; i++) playerList[i].PartyColour = newArray[i];
+
+			return playerList;
+
 		}
 
 		private async Task GetIgcUsernameAsync(sbyte playerno)
 		{
-			if (IsIncognito[playerno] && PartyList[playerno] != Constants.PPartyID)
+			if (IsIncognito[playerno] && PartyList[playerno] != Constants.PPartyId)
 			{
 				PlayerList[playerno] = "----";
-				TrackerEnabledList[playerno] = "Hidden";
-				TrackerDisabledList[playerno] = "Visible";
+				TrackerEnabledList[playerno] = Visibility.Hidden;
+				TrackerDisabledList[playerno] = Visibility.Visible;
 			}
 			else
 			{
-				PlayerList[playerno] = await GetIgUsernameAsync(PUUIDList[playerno]).ConfigureAwait(false);
+				PlayerList[playerno] = await GetIgUsernameAsync(PuuidList[playerno]).ConfigureAwait(false);
 				if (await TrackerAsync(PlayerList[playerno], playerno).ConfigureAwait(false))
 				{
-					TrackerEnabledList[playerno] = "Visible";
-					TrackerDisabledList[playerno] = "Collapsed";
+					TrackerEnabledList[playerno] = Visibility.Hidden;
+					TrackerDisabledList[playerno] = Visibility.Visible;
 				}
 				else
 				{
-					TrackerEnabledList[playerno] = "Hidden";
-					TrackerDisabledList[playerno] = "Visible";
+					TrackerEnabledList[playerno] = Visibility.Hidden;
+					TrackerDisabledList[playerno] = Visibility.Visible;
 				}
 			}
 		}
 
 		private async Task GetAgentInfoAsync(Guid agentid, sbyte playerno)
 		{
-			if (agentid != Guid.Empty && agentid != null)
+			if (agentid != Guid.Empty)
 			{
 				AgentPList[playerno] = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\agentsimg\\{agentid}.png");
 				var agents = JsonSerializer.Deserialize<Dictionary<Guid, Uri>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\agents.txt").ConfigureAwait(false));
@@ -252,7 +290,7 @@ namespace WAIUA.Helpers
             }
 			else
             {
-                AgentPList[playerno] = new Uri("");
+                AgentPList[playerno] = null;
                 AgentList[playerno] = null;
 			}
 		}
@@ -262,7 +300,7 @@ namespace WAIUA.Helpers
 			try
 			{
 				
-				if (PUUIDList[playerno] == Guid.Empty)
+				if (PuuidList[playerno] != Guid.Empty)
 				{
 					var response = await DoCachedRequestAsync(Method.Get,
                         $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/matches/{Matchid}/loadouts",
@@ -277,10 +315,10 @@ namespace WAIUA.Helpers
                             .Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
                             .Item.Id;
 
-                        var Skins = JsonSerializer.Deserialize<Dictionary<Guid, Tuple<string, Uri>>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\skinchromas.txt").ConfigureAwait(false));
+                        var skins = JsonSerializer.Deserialize<Dictionary<Guid, Tuple<string, Uri>>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\skinchromas.txt").ConfigureAwait(false));
 						
-                        Skins.TryGetValue(phantomchroma, out var phantomTuple);
-                        Skins.TryGetValue(vandalchroma, out var vandalTuple);
+                        skins.TryGetValue(phantomchroma, out var phantomTuple);
+                        skins.TryGetValue(vandalchroma, out var vandalTuple);
 
                         PhantomNameList[playerno] = phantomTuple.Item1;
                         VandalNameList[playerno] = vandalTuple.Item1;
@@ -325,14 +363,19 @@ namespace WAIUA.Helpers
 						Constants.Log.Error("GetCompHistoryAsync request failed: {e}", response.ErrorException);
                         return;
                     }
-                    var content = JsonSerializer.Deserialize<CompetitiveUpdatesResponse>(response.Content);
+
+                    var options = new JsonSerializerOptions
+                    {
+						DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+                    };
+                    var content = JsonSerializer.Deserialize<CompetitiveUpdatesResponse>(response.Content, options);
 
 					if (0 < content?.Matches.Length)
                     {
                         RankProgList[playerno] = content.Matches[0].RankedRatingAfterUpdate;
                         var pmatch = content.Matches[0].RankedRatingEarned;
-                        PGList[playerno] = pmatch.ToString("+#;-#;0");
-                        PGColourList[playerno] = pmatch switch
+                        PgList[playerno] = pmatch;
+                        PgColourList[playerno] = pmatch switch
                         {
                             > 0 => "#32e2b2",
                             < 0 => "#ff4654",
@@ -343,8 +386,8 @@ namespace WAIUA.Helpers
                     if (1 < content?.Matches.Length)
 					{
 						var ppmatch = content.Matches[1].RankedRatingEarned;
-						PPGList[playerno] = ppmatch.ToString("+#;-#;0");
-                        PPGColourList[playerno] = ppmatch switch
+						PpgList[playerno] = ppmatch;
+                        PpgColourList[playerno] = ppmatch switch
                         {
                             > 0 => "#32e2b2",
                             < 0 => "#ff4654",
@@ -355,8 +398,8 @@ namespace WAIUA.Helpers
                     if (2 < content?.Matches.Length)
 					{
 						var pppmatch = content.Matches[2].RankedRatingEarned;
-						PPPGList[playerno] = pppmatch.ToString("+#;-#;0");
-                        PPPGColourList[playerno] = pppmatch switch
+						PppgList[playerno] = pppmatch;
+                        PppgColourList[playerno] = pppmatch switch
                         {
                             > 0 => "#32e2b2",
                             < 0 => "#ff4654",
@@ -366,9 +409,8 @@ namespace WAIUA.Helpers
 				}
                 else
                 {
-                    RankProgList[playerno] = 0;
-                    PGList[playerno] = PPGList[playerno] = PPPGList[playerno] = "";
-                    PGColourList[playerno] = PPGColourList[playerno] = PPPGColourList[playerno] = "Transparent";
+                    RankProgList[playerno] = PgList[playerno] = PpgList[playerno] = PppgList[playerno] = 0;
+                    PgColourList[playerno] = PpgColourList[playerno] = PppgColourList[playerno] = "Transparent";
                     Constants.Log.Error("GetCompHistoryAsync Puuid is null");
                 }
 			}
@@ -380,9 +422,9 @@ namespace WAIUA.Helpers
 
 		private async Task GetPlayerHistoryAsync(Guid puuid, sbyte playerno)
         {
-            RankList[playerno] = PRankList[playerno] = PPRankList[playerno] = PPPRankList[playerno] = null;
+            RankList[playerno] = PRankList[playerno] = PPRankList[playerno] = PppRankList[playerno] = null;
 			RankNameList[playerno] = PRankNameList[playerno] =
-				PPRankNameList[playerno] = PPPRankNameList[playerno] = "";
+				PPRankNameList[playerno] = PppRankNameList[playerno] = "";
 			if (puuid != Guid.Empty)
 			{
 				int rank, prank, pprank, ppprank;
@@ -391,12 +433,20 @@ namespace WAIUA.Helpers
                     true,
                     true).ConfigureAwait(false);
 
-				if (!response.IsSuccessful)
+				if (response.IsSuccessful)
 				{
-                    var content = JsonSerializer.Deserialize<MmrResponse>(response.Content);
+                    var options = new JsonSerializerOptions
+                    {
+                        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+                    };
+					var content = JsonSerializer.Deserialize<MmrResponse>(response.Content, options);
+                    // var content = JsonSerializer.Deserialize<Dictionary<Guid, ActInfo>>(allcontent.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.Keys);
 					try
                     {
-                        content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(CurrentSeason, out ActInfo CurrentAct);
+                        
+
+                        content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(CurrentSeason.ToString(), out JsonElement currentActJsonElement);
+                        var CurrentAct = currentActJsonElement.Deserialize<ActInfo>();
 						rank = CurrentAct.CompetitiveTier;
 						if (rank is 1 or 2) rank = 0;
 					}
@@ -407,7 +457,8 @@ namespace WAIUA.Helpers
 
 					try
 					{
-                        content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(PSeason, out ActInfo PAct);
+                        content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(PSeason.ToString(), out JsonElement pActJsonElement);
+                        var PAct = pActJsonElement.Deserialize<ActInfo>();
 						prank = PAct.CompetitiveTier;
 						if (prank is 1 or 2) prank = 0;
 					}
@@ -418,7 +469,8 @@ namespace WAIUA.Helpers
 
 					try
 					{
-                        content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(PPSeason, out ActInfo PPAct);
+                        content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(PPSeason.ToString(), out JsonElement ppActJsonElement);
+                        var PPAct = ppActJsonElement.Deserialize<ActInfo>();
 						pprank = PPAct.CompetitiveTier;
 						if (pprank is 1 or 2) pprank = 0;
 					}
@@ -429,7 +481,8 @@ namespace WAIUA.Helpers
 
 					try
 					{
-                        content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(PPPSeason, out ActInfo PPPAct);
+                        content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(PppSeason.ToString(), out JsonElement pppActJsonElement);
+                        var PPPAct = pppActJsonElement.Deserialize<ActInfo>();
 						ppprank = PPPAct.CompetitiveTier;
 						if (ppprank is 1 or 2) ppprank = 0;
 					}
@@ -472,6 +525,10 @@ namespace WAIUA.Helpers
                     .AddHeader("X-Riot-ClientPlatform",
 					"ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
                     .AddHeader("X-Riot-ClientVersion", Constants.Version);
+                client.UseSystemTextJson(new JsonSerializerOptions
+                {
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+                });
 				var response = await client.ExecuteGetAsync<ContentResponse>(request).ConfigureAwait(false);
                 sbyte index = 0;
 				sbyte currentindex = 0;
@@ -479,7 +536,7 @@ namespace WAIUA.Helpers
 				if (!response.IsSuccessful) return;
 				foreach (var season in response.Data.Seasons)
 				{
-					if ((season.IsActive) & (season.Type == TypeEnum.Act))
+					if ((season.IsActive) & (season.Type == "act"))
 					{
 						CurrentSeason = season.Id;
 						currentindex = index;
@@ -490,7 +547,7 @@ namespace WAIUA.Helpers
 				}
 
 				currentindex--;
-				if (response.Data.Seasons[currentindex].Type == TypeEnum.Act)
+				if (response.Data.Seasons[currentindex].Type == "act")
 				{
 					PSeason = response.Data.Seasons[currentindex].Id;
 				}
@@ -501,7 +558,7 @@ namespace WAIUA.Helpers
 				}
 
 				currentindex--;
-				if (response.Data.Seasons[currentindex].Type == TypeEnum.Act)
+				if (response.Data.Seasons[currentindex].Type == "act")
 				{
 					PPSeason = response.Data.Seasons[currentindex].Id;
 				}
@@ -512,14 +569,14 @@ namespace WAIUA.Helpers
 				}
 
 				currentindex--;
-				if (response.Data.Seasons[currentindex].Type == TypeEnum.Act)
+				if (response.Data.Seasons[currentindex].Type == "act")
 				{
-					PPPSeason = response.Data.Seasons[currentindex].Id;
+					PppSeason = response.Data.Seasons[currentindex].Id;
 				}
 				else
 				{
 					currentindex--;
-					PPPSeason = response.Data.Seasons[currentindex].Id;
+					PppSeason = response.Data.Seasons[currentindex].Id;
 				}
 			}
 			catch (Exception)
@@ -533,20 +590,20 @@ namespace WAIUA.Helpers
             var ranks = JsonSerializer.Deserialize<Dictionary<int, string>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\competitivetiers.txt").ConfigureAwait(false));
 
             ranks.TryGetValue(rank, out var rank0);
-            RankList[playerno] = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\agentsimg\\{rank}.png");
+            RankList[playerno] = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{rank}.png");
 			RankNameList[playerno] = rank0;
 
             ranks.TryGetValue(prank, out var rank1);
-            PRankList[playerno] = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\agentsimg\\{prank}.png");
+            PRankList[playerno] = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{prank}.png");
 			PRankNameList[playerno] = rank1;
 
             ranks.TryGetValue(pprank, out var rank2);
-            PPRankList[playerno] = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\agentsimg\\{pprank}.png");
+            PPRankList[playerno] = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{pprank}.png");
 			PPRankNameList[playerno] = rank2;
 
             ranks.TryGetValue(ppprank, out var rank3);
-            PPPRankList[playerno] = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\agentsimg\\{ppprank}.png");
-			PPPRankNameList[playerno] = rank3;
+            PppRankList[playerno] = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{ppprank}.png");
+			PppRankNameList[playerno] = rank3;
 
 		}
 
@@ -583,7 +640,11 @@ namespace WAIUA.Helpers
 
 		private async Task GetPresencesAsync()
 		{
-			var client = new RestClient($"https://127.0.0.1:{Constants.Port}/chat/v4/presences");
+            var options = new RestClientOptions($"https://127.0.0.1:{Constants.Port}/chat/v4/presences")
+            {
+                RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
+            };
+			var client = new RestClient(options);
 
 			// client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
             var request = new RestRequest().AddHeader("Authorization",
@@ -591,6 +652,10 @@ namespace WAIUA.Helpers
 			.AddHeader("X-Riot-ClientPlatform",
 				"ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
 			.AddHeader("X-Riot-ClientVersion", Constants.Version);
+            client.UseSystemTextJson(new JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+            });
 			var response = await client.ExecuteGetAsync<PresencesResponse>(request).ConfigureAwait(false);
 			if (response.IsSuccessful) Presences = response.Data;
         }
@@ -606,15 +671,15 @@ namespace WAIUA.Helpers
                         var json = Encoding.UTF8.GetString(Convert.FromBase64String(friend.Private));
 						var content = JsonSerializer.Deserialize<PresencesPrivate>(json);
                         PartyList[playerno] = content.PartyId;
-						if (puuid == Constants.PPUUID)
+						if (puuid == Constants.Ppuuid)
 						{
-							var Maps = JsonSerializer.Deserialize<Dictionary<string, string>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\maps.txt").ConfigureAwait(false));
+							var maps = JsonSerializer.Deserialize<Dictionary<string, string>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\maps.txt").ConfigureAwait(false));
 
-							Maps.TryGetValue((string) content.MatchMap, out var mapName);
+							maps.TryGetValue((string) content.MatchMap, out var mapName);
 							Map = mapName;
-							MapImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\agentsimg\\{content.MatchMap}.png");
+							MapImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\mapsimg\\{content.MatchMap}.png");
 							BackgroundColour[playerno] = "#181E34";
-							Constants.PPartyID = content.PartyId;
+							Constants.PPartyId = content.PartyId;
 
 							if (content?.ProvisioningFlow == "customGame")
 							{

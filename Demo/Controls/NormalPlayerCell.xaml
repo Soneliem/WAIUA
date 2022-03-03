@@ -35,7 +35,7 @@
 	</UserControl.Resources>
 
 	<Border
-		Background="{Binding BackgroundColour, ElementName=Self}"
+		Background="{Binding Player, ElementName=Self}"
         BorderThickness="0"
 		CornerRadius="20">
 		<Grid Margin="15">

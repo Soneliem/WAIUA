@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows;
 
@@ -11,13 +12,13 @@ public class PlayerNew
     public Uri AgentName { get; set; }
     public string PlayerName { get; set; }
     public int AccountLevel { get; set; }
-    public int MaxRR { get; set; }
-    public int PreviousGameMMR { get; set; }
-    public int PreviousPreviousGameMMR { get; set; }
-    public int PreviousPreviousPreviousGameMMR { get; set; }
-    public string PreviousGameMMRColour { get; set; }
-    public string PreviousPreviousGameMMRColour { get; set; }
-    public string PreviousPreviousPreviousGameMMRColour { get; set; }
+    public int MaxRR { get; set; } = 100;
+    public int PreviousGameMmr { get; set; }
+    public int PreviousPreviousGameMmr { get; set; }
+    public int PreviousPreviousPreviousGameMmr { get; set; }
+    public string PreviousGameMmrColour { get; set; }
+    public string PreviousPreviousGameMmrColour { get; set; }
+    public string PreviousPreviousPreviousGameMmrColour { get; set; }
     public int RankProgress { get; set; }
     public Uri Rank { get; set; }
     public Uri PreviousRank { get; set; }
@@ -31,8 +32,10 @@ public class PlayerNew
     public Uri VandalImage { get; set; }
     public string PhantomName { get; set; }
     public string VandalName { get; set; }
+    public Uri TrackerUri { get; set; }
     public Visibility TrackerDisabled { get; set; }
     public Visibility TrackerEnabled { get; set; }
+    public Guid PartyUuid { get; set; }
     public string PartyColour { get; set; }
     public string BackgroundColour { get; set; }
 }
@@ -58,10 +61,12 @@ public class EntitlementsResponse
 
 public class ExternalSessionsResponse
 {
-    [JsonExtensionData] public Dictionary<string, ExternalSessions> randString { get; set; }
+    // [JsonExtensionData] public Dictionary<string, ExternalSessions> RandString { get; set; }
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 }
 
-public class ExternalSessions
+public partial class ExternalSessions
 {
     [JsonPropertyName("exitCode")] public int ExitCode { get; set; }
 
@@ -149,9 +154,9 @@ public class ConnectionDetails
     [JsonPropertyName("GameServerPort")] public int GameServerPort { get; set; }
 
     [JsonPropertyName("GameServerObfuscatedIP")]
-    public int GameServerObfuscatedIp { get; set; }
+    public long GameServerObfuscatedIp { get; set; }
 
-    [JsonPropertyName("GameClientHash")] public int GameClientHash { get; set; }
+    [JsonPropertyName("GameClientHash")] public long GameClientHash { get; set; }
 
     [JsonPropertyName("PlayerKey")] public string PlayerKey { get; set; }
 }
@@ -202,6 +207,7 @@ public class SeasonalBadgeInfo
 
     [JsonPropertyName("LeaderboardRank")] public int LeaderboardRank { get; set; }
 }
+
 
 public class NameServiceResponse
 {
@@ -309,7 +315,7 @@ public partial class CompetitiveUpdatesMatch
     public Guid SeasonId { get; set; }
 
     [JsonPropertyName("MatchStartTime")]
-    public int MatchStartTime { get; set; }
+    public long MatchStartTime { get; set; }
 
     [JsonPropertyName("TierAfterUpdate")]
     public int TierAfterUpdate { get; set; }
@@ -373,7 +379,7 @@ public partial class LatestCompetitiveUpdate
     public Guid SeasonId { get; set; }
 
     [JsonPropertyName("MatchStartTime")]
-    public int MatchStartTime { get; set; }
+    public long MatchStartTime { get; set; }
 
     [JsonPropertyName("TierAfterUpdate")]
     public int TierAfterUpdate { get; set; }
@@ -451,7 +457,7 @@ public partial class Competitive
 public partial class SeasonalInfoBySeasonId
 {
     [JsonExtensionData]
-    public Dictionary<Guid, ActInfo> Act { get; set; }
+    public Dictionary<string, JsonElement> Act { get; set; }
 }
 
 public partial class ActInfo
@@ -605,10 +611,8 @@ public partial class Event
     public bool DevelopmentOnly { get; set; }
 
     [JsonPropertyName("Type"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public TypeEnum? Type { get; set; }
+    public string? Type { get; set; }
 }
-
-public enum TypeEnum { Act, Episode };
 
 public partial class PresencesResponse
 {
@@ -675,8 +679,8 @@ public partial class Presence
     [JsonPropertyName("summary")]
     public string Summary { get; set; }
 
-    [JsonPropertyName("time")]
-    public int Time { get; set; }
+    [JsonPropertyName("time"), JsonIgnore]
+    public long Time { get; set; }
 }
 
 public partial class PresencesPrivate
@@ -751,7 +755,7 @@ public partial class PresencesPrivate
     public string RosterId { get; set; }
 
     [JsonPropertyName("partyVersion")]
-    public int PartyVersion { get; set; }
+    public long PartyVersion { get; set; }
 
     [JsonPropertyName("queueEntryTime")]
     public string QueueEntryTime { get; set; }
@@ -759,7 +763,7 @@ public partial class PresencesPrivate
     [JsonPropertyName("playerCardId")]
     public Guid PlayerCardId { get; set; }
 
-    [JsonPropertyName("playerTitleId")]
+    [JsonPropertyName("playerTitleId"), JsonIgnore]
     public Guid PlayerTitleId { get; set; }
 
     [JsonPropertyName("preferredLevelBorderId")]

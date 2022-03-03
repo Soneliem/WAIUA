@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Security;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using RestSharp;
 using WAIUA.Models;
@@ -24,7 +26,7 @@ public static class Login
             return false;
         }
 
-        Constants.PPUUID = response.Data.Sub;
+        Constants.Ppuuid = response.Data.Sub;
         return true;
     }
 
@@ -40,35 +42,35 @@ public static class Login
         }
 
         string lockFileString;
-        using (var File = new FileStream(lockfileLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+        await using (var file = new FileStream(lockfileLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
         {
-            using (var Reader = new StreamReader(File, Encoding.UTF8))
-            {
-                lockFileString = (string) Reader.ReadToEnd().Clone();
-                File.Close();
-                Reader.Close();
-            }
+            using var reader = new StreamReader(file, Encoding.UTF8);
+            lockFileString = (string) reader.ReadToEnd().Clone();
+            file.Close();
+            reader.Close();
         }
 
         var parts = lockFileString.Split(":");
-        Constants.Port = Convert.ToInt32(parts[1]);
-        Constants.LPassword = Convert.ToInt32((parts[2]));
+        Constants.Port = parts[2];
+        Constants.LPassword = parts[3];
         return true;
     }
 
     public static async Task<bool> LocalLoginAsync()
     {
         await GetLatestVersionAsync().ConfigureAwait(false);
-        // var options = new RestClientOptions(RemoteCertificateValidationCallback(sender, certificate, chain, sslPolicyErrors));
-        var client = new RestClient($"https://127.0.0.1:{Constants.Port}/entitlements/v1/token");
+         var options = new RestClientOptions($"https://127.0.0.1:{Constants.Port}/entitlements/v1/token"){
+             RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
+         };
+        var client = new RestClient(options);
         var request = new RestRequest()
             .AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{Constants.LPassword}"))}");
-        // .AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
-        // .AddHeader("X-Riot-ClientVersion", Constants.Version);
-        // client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+         // .AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
+         // .AddHeader("X-Riot-ClientVersion", Constants.Version);
         var response = await client.ExecuteGetAsync<EntitlementsResponse>(request).ConfigureAwait(false);
         if (!response.IsSuccessful)
         {
+            Debugger.Break();
             Constants.Log.Error("LocalLoginAsync Failed");
             return false;
         }
@@ -89,13 +91,16 @@ public static class Login
             .AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
             .AddHeader("X-Riot-ClientVersion", Constants.Version);
         // client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+        var response2 = await client.ExecuteGetAsync(request).ConfigureAwait(false);
         var response = await client.ExecuteGetAsync<ExternalSessionsResponse>(request).ConfigureAwait(false);
-        if (!response.IsSuccessful)
+        if (!response.IsSuccessful && response.Content == "{}")
         {
+            Debugger.Break();
             Constants.Log.Error("LocalRegionAsync Failed: {e}", response.ErrorException);
             return;
         }
-        var parts = response.Data.randString.First().Value.LaunchConfiguration.Arguments[3].Split('=', '&');
+
+        var parts = JsonSerializer.Deserialize<ExternalSessions>(response.Data.ExtensionData.First().Value).LaunchConfiguration.Arguments[3].Split('=', '&');
         switch (parts[1])
         {
             case "latam":
@@ -116,7 +121,7 @@ public static class Login
     public static async Task<bool> CheckMatchIdAsync()
     {
         var url =
-            $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/players/{Constants.PPUUID}";
+            $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/players/{Constants.Ppuuid}";
         RestClient client = new(url);
         var request = new RestRequest();
         request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
@@ -129,6 +134,7 @@ public static class Login
 
     public static async Task<string> GetIgUsernameAsync(Guid puuid)
     {
+        if(puuid == Guid.Empty) return null;
         var client = new RestClient($"https://pd.{Constants.Region}.a.pvp.net/name-service/v2/players");
         RestRequest request = new()
         {
@@ -137,14 +143,16 @@ public static class Login
 
         string[] body = {puuid.ToString()};
         request.AddJsonBody(body);
-
-        var response = await client.ExecutePutAsync<NameServiceResponse>(request).ConfigureAwait(false);
+        var response = await client.ExecutePutAsync(request).ConfigureAwait(false);
         if (response.IsSuccessful)
         {
-            return response.Data.DisplayName + "#" + response.Data.TagLine;
+            var incorrectContent = response.Content.Replace("[", string.Empty).Replace("]", string.Empty).Replace("\n", string.Empty);
+            var content = JsonSerializer.Deserialize<NameServiceResponse>(incorrectContent);
+            return content.GameName + "#" + content.TagLine;
         }
         else
         {
+            Debugger.Break();
             Constants.Log.Error("GetIgUsernameAsync Failed: {e}", response.ErrorException);
             return "";
             

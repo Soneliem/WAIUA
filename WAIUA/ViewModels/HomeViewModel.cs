@@ -286,11 +286,11 @@ public class HomeViewModel : ViewModelBase
         try
         {
             var newMatch = new LiveMatch();
-            Parallel.For(0, 5, i => { Player.players[i].Data = null; });
+            Parallel.For(0, 5, i => { Player.Players[i].Data = null; });
 
             try
             {
-                Parallel.For(0, 5, async i => { Player.players[i].Data = await newMatch.LiveMatchOutputAsync((sbyte) i).ConfigureAwait(false); });
+                // Parallel.For(0, 5, async i => { Player.players[i].Data = await newMatch.LiveMatchOutputAsync((sbyte) i).ConfigureAwait(false); });
             }
             catch (Exception)
             {
@@ -307,19 +307,19 @@ public class HomeViewModel : ViewModelBase
 
     public class Player
     {
-        public static Player[] players;
+        public static Player[] Players;
         public object[] Data;
 
         static Player()
         {
-            players = new Player[5];
-            for (sbyte x = 0; x < 5; x++) players[x] = new Player();
+            Players = new Player[5];
+            for (sbyte x = 0; x < 5; x++) Players[x] = new Player();
         }
 
-        public static object[] Player0 => players[0].Data;
-        public static object[] Player1 => players[1].Data;
-        public static object[] Player2 => players[2].Data;
-        public static object[] Player3 => players[3].Data;
-        public static object[] Player4 => players[4].Data;
+        public static object[] Player0 => Players[0].Data;
+        public static object[] Player1 => Players[1].Data;
+        public static object[] Player2 => Players[2].Data;
+        public static object[] Player3 => Players[3].Data;
+        public static object[] Player4 => Players[4].Data;
     }
 }

@@ -5,13 +5,13 @@ namespace WAIUA.Commands
 {
     public class RelayCommand : ICommand
     {
-        private readonly Func<object, bool> canExecute;
-        private readonly Action<object> execute;
+        private readonly Func<object, bool> _canExecute;
+        private readonly Action<object> _execute;
 
         public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {
-            this.execute = execute;
-            this.canExecute = canExecute;
+            this._execute = execute;
+            this._canExecute = canExecute;
         }
 
         public event EventHandler CanExecuteChanged
@@ -22,12 +22,12 @@ namespace WAIUA.Commands
 
         public bool CanExecute(object parameter)
         {
-            return canExecute == null || canExecute(parameter);
+            return _canExecute == null || _canExecute(parameter);
         }
 
         public void Execute(object parameter)
         {
-            execute(parameter);
+            _execute(parameter);
         }
     }
 }

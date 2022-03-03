@@ -52,7 +52,7 @@ public static class ValApi
     private static async Task<string> GetValApiVersionAsync()
     {
         var request = new RestRequest("/version");
-        var response = await Client.ExecuteGetAsync<VAPIVersionResponse>(request).ConfigureAwait(false);
+        var response = await Client.ExecuteGetAsync<VapiVersionResponse>(request).ConfigureAwait(false);
         if (!response.IsSuccessful )
         {
             return null;
@@ -121,7 +121,7 @@ public static class ValApi
             {
                 var versionRequest = new RestRequest(_versionInfo.Url);
                 var versionResponse =
-                    await Client.ExecuteGetAsync<VAPIVersionResponse>(versionRequest).ConfigureAwait(false);
+                    await Client.ExecuteGetAsync<VapiVersionResponse>(versionRequest).ConfigureAwait(false);
                 if (versionResponse.IsSuccessful)
                 {
                     string[] lines =

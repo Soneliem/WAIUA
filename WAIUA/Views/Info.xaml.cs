@@ -24,8 +24,8 @@ namespace WAIUA.Views
 
         private void ImageClickAsync(object sender, RoutedEventArgs e)
         {
-            var _button = (Button) sender;
-            Process.Start(new ProcessStartInfo(_button.Tag.ToString()) {UseShellExecute = true});
+            var button = (Button) sender;
+            Process.Start(new ProcessStartInfo(button.Tag.ToString()) {UseShellExecute = true});
             e.Handled = true;
         }
     }

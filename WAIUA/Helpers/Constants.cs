@@ -14,10 +14,10 @@ namespace WAIUA.Helpers
         public static string Shard { get; set; }
         public static string Version { get; set; }
         public static string LocalAppDataPath { get; set; }
-        public static Guid PPUUID { get; set; }
-        public static Guid PPartyID { get; set; }
-        public static int Port { get; set; }
-        public static int LPassword { get; set; }
+        public static Guid Ppuuid { get; set; }
+        public static Guid PPartyId { get; set; }
+        public static string Port { get; set; }
+        public static string LPassword { get; set; }
         public static Logger Log { get; set; }
         public static ConcurrentDictionary<string, RestResponse> UrlToBody = new();
         public static readonly Dictionary<string, string> GamePodsDictionary = new()

@@ -11,17 +11,17 @@ namespace WAIUA.Models
         public string Filepath { get; init; }
         public string Url { get; init; }
     }
-    public class VAPIVersionResponse
+    public class VapiVersionResponse
     {
         [JsonPropertyName("status")]
         public int Status { get; set; }
 
         [JsonPropertyName("data")]
-        public VAPIVersion Data { get; set; }
+        public VapiVersion Data { get; set; }
 
     }
 
-    public class VAPIVersion
+    public class VapiVersion
     {
         [JsonPropertyName("manifestId")]
         public string ManifestId { get; set; }
@@ -48,10 +48,10 @@ namespace WAIUA.Models
         public int Status { get; set; }
 
         [JsonPropertyName("data")]
-        public VAPIMaps[] Data { get; set; }
+        public VapiMaps[] Data { get; set; }
     }
 
-    public partial class VAPIMaps
+    public partial class VapiMaps
     {
         [JsonPropertyName("uuid")]
         public Guid Uuid { get; set; }
