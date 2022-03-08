@@ -290,7 +290,7 @@ public class HomeViewModel : ViewModelBase
 
             try
             {
-                // Parallel.For(0, 5, async i => { Player.players[i].Data = await newMatch.LiveMatchOutputAsync((sbyte) i).ConfigureAwait(false); });
+                // Parallel.For(0, 5, async i => { RiotPlayer.players[i].Data = await newMatch.LiveMatchOutputAsync((sbyte) i).ConfigureAwait(false); });
             }
             catch (Exception)
             {

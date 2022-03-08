@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using RestSharp;
-using WAIUA.Models;
+using WAIUA.Objects;
 using WAIUA.Properties;
 
 namespace WAIUA.Helpers;

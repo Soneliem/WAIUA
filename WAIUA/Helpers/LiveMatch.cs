@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using RestSharp;
 using RestSharp.Serializers.Json;
-using WAIUA.Models;
+using WAIUA.Objects;
 using static WAIUA.Helpers.ValApi;
 using static WAIUA.Helpers.Login;
 using WAIUA.Properties;
@@ -20,12 +20,9 @@ namespace WAIUA.Helpers
 {
 
 	public class LiveMatch
-	{
-		internal string Server { get; set; }
-		internal string Map { get; set; }
-		internal Uri MapImage { get; set; }
-		internal string GameMode { get; set; }
-		private static Guid Matchid { get; set; }
+    {
+        public MatchDetails MatchInfo { get; set; } = new();
+        public static Guid Matchid { get; set; }
 		private static Guid CurrentSeason { get; set; }
 		private static Guid PSeason { get; set; }
 		private static Guid PPSeason { get; set; }
@@ -81,7 +78,9 @@ namespace WAIUA.Helpers
 			return true;
 		}
 
-		public async Task<bool> LiveMatchChecksAsync(bool isSilent)
+        
+
+        public async Task<bool> LiveMatchChecksAsync(bool isSilent)
 		{
 			bool output;
 
@@ -175,12 +174,12 @@ namespace WAIUA.Helpers
 			Constants.LocalAppDataPath =
 				Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA";
 			string gamePod = response.Data.GamePodId;
-			if (Constants.GamePodsDictionary.TryGetValue(gamePod, out var serverName)) Server = serverName;
+			if (Constants.GamePodsDictionary.TryGetValue(gamePod, out var serverName)) MatchInfo.Server = serverName;
 		}
 
-		public async Task<List<PlayerNew>> LiveMatchOutputAsync()
+		public async Task<List<Player>> LiveMatchOutputAsync()
         {
-            var playerList = new List<PlayerNew>();
+            var playerList = new List<Player>();
             var playerTasks = new List<Task>();
 
             for (sbyte playerno = 0; playerno < 10; playerno++)
@@ -196,7 +195,7 @@ namespace WAIUA.Helpers
 
                     await Task.WhenAll(one, two, four, five, six, seven).ConfigureAwait(false);
 
-                    playerList.Add(new PlayerNew()
+                    playerList.Add(new Player()
                     {
                         AgentName = AgentList[playerno],
                         AgentImage = AgentPList[playerno],
@@ -676,19 +675,19 @@ namespace WAIUA.Helpers
 							var maps = JsonSerializer.Deserialize<Dictionary<string, string>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\maps.txt").ConfigureAwait(false));
 
 							maps.TryGetValue((string) content.MatchMap, out var mapName);
-							Map = mapName;
-							MapImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\mapsimg\\{content.MatchMap}.png");
+							MatchInfo.Map = mapName;
+							MatchInfo.MapImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\mapsimg\\{content.MatchMap}.png");
 							BackgroundColour[playerno] = "#181E34";
 							Constants.PPartyId = content.PartyId;
 
 							if (content?.ProvisioningFlow == "customGame")
 							{
-								GameMode = "Custom";
+                                MatchInfo.GameMode = "Custom";
 							}
 							else
 							{
 								var textInfo = new CultureInfo("en-US", false).TextInfo;
-								GameMode = (string) content?.QueueId switch
+                                MatchInfo.GameMode = (string) content?.QueueId switch
 								{
 									"ggteam" => "Escalation",
 									"spikerush" => "Spike Rush",

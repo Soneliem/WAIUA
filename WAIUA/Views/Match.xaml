@@ -61,10 +61,10 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="SemiBold" Margin="10"
 							   Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
-							   Text="{Binding Path=GameMode}" />
+							   Text="{Binding Path=Match.GameMode}" />
                     <TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="SemiBold" Margin="10"
 							   Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
-							   Text="{Binding Path=Server}" />
+							   Text="{Binding Path=Match.Server}" />
                 </StackPanel>
 
 
@@ -76,25 +76,25 @@
 				CornerRadius="10">
 
                 <Border.Background>
-                    <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Path=MapImg}" />
+					<ImageBrush Stretch="UniformToFill" ImageSource="{Binding Path=Match.MapImage}" />
                 </Border.Background>
 
                 <TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="Bold" Margin="10"
 						   Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
-						   Text="{Binding Path=Map}" />
+						   Text="{Binding Path=Match.Map}" />
 
 
             </Border>
 
         </Grid>
-		<xctk:BusyIndicator Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" BorderThickness="0" Foreground="White" IsBusy="{Binding Path=IsBusy}" Background="#FF252A40">
+		<xctk:BusyIndicator Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" BorderThickness="0" Foreground="White" IsBusy="{Binding Path=Overlay.IsBusy}" Background="#FF252A40">
             <xctk:BusyIndicator.BusyContentTemplate>
                 <DataTemplate>
-                    <StackPanel Margin="0">
-                        <TextBlock Text="Loading Players" FontWeight="Bold" HorizontalAlignment="Center" />
-                        <StackPanel Margin="4">
-                            <TextBlock Text="Player: 4/10..." />
-                            <ProgressBar Style="{DynamicResource CustomProgressBar}" Value="40" Height="10" />
+                    <StackPanel Margin="5">
+                        <TextBlock Text="{Binding Overlay.Header}" FontWeight="Bold" Padding="5" HorizontalAlignment="Center" />
+                        <StackPanel Margin="4" >
+							<TextBlock Padding="5" Text="{Binding Overlay.Content}" />
+							<ProgressBar Padding="5" Style="{DynamicResource CustomProgressBar}" Value="{Binding Overlay.Progress}" Height="10" />
                         </StackPanel>
 
                         <Button Template="{StaticResource ButtonTemplate}" Foreground="White" Content="Pause"
@@ -128,19 +128,19 @@
                     </Grid.RowDefinitions>
                     <controls:NormalPlayerCell
 						Grid.Row="0" Margin="0 5"
-						Player="{Binding Path=PlayerList[0]}" />
+						PlayerCell="{Binding Path=PlayerList[0]}" />
                     <controls:NormalPlayerCell
 						Grid.Row="1" Margin="0 5"
-						Player="{Binding Path=PlayerList[1]}"/>
+						PlayerCell="{Binding Path=PlayerList[1]}"/>
                     <controls:NormalPlayerCell
 						Grid.Row="2" Margin="0 5"
-						Player="{Binding Path=PlayerList[2]}"/>
+						PlayerCell="{Binding Path=PlayerList[2]}"/>
                     <controls:NormalPlayerCell
 						Grid.Row="3" Margin="0 5"
-						Player="{Binding Path=PlayerList[3]}"/>
+						PlayerCell="{Binding Path=PlayerList[3]}"/>
                     <controls:NormalPlayerCell
 						Grid.Row="4" Margin="0 5"
-						Player="{Binding Path=PlayerList[4]}"/>
+						PlayerCell="{Binding Path=PlayerList[4]}"/>
                 </Grid>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
@@ -163,19 +163,19 @@
 
                     <controls:NormalPlayerCell
 						Grid.Row="0" Margin="0 5"
-						Player="{Binding Path=PlayerList[5]}"/>
+						PlayerCell="{Binding Path=PlayerList[5]}"/>
                     <controls:NormalPlayerCell
 						Grid.Row="1" Margin="0 5"
-						Player="{Binding Path=PlayerList[6]}"/>
+						PlayerCell="{Binding Path=PlayerList[6]}"/>
                     <controls:NormalPlayerCell
 						Grid.Row="2" Margin="0 5"
-						Player="{Binding Path=PlayerList[7]}"/>
+						PlayerCell="{Binding Path=PlayerList[7]}"/>
                     <controls:NormalPlayerCell
 						Grid.Row="3" Margin="0 5"
-						Player="{Binding Path=PlayerList[8]}"/>
+						PlayerCell="{Binding Path=PlayerList[8]}"/>
                     <controls:NormalPlayerCell
 						Grid.Row="4" Margin="0 5"
-						Player="{Binding Path=PlayerList[9]}"/>
+						PlayerCell="{Binding Path=PlayerList[9]}"/>
                 </Grid>
             </Grid>
         </xctk:BusyIndicator>

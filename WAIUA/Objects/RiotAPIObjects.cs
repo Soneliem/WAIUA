@@ -2,43 +2,9 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Windows;
 
-namespace WAIUA.Models;
+namespace WAIUA.Objects;
 
-public class PlayerNew
-{
-    public Uri AgentImage { get; set; }
-    public Uri AgentName { get; set; }
-    public string PlayerName { get; set; }
-    public int AccountLevel { get; set; }
-    public int MaxRR { get; set; } = 100;
-    public int PreviousGameMmr { get; set; }
-    public int PreviousPreviousGameMmr { get; set; }
-    public int PreviousPreviousPreviousGameMmr { get; set; }
-    public string PreviousGameMmrColour { get; set; }
-    public string PreviousPreviousGameMmrColour { get; set; }
-    public string PreviousPreviousPreviousGameMmrColour { get; set; }
-    public int RankProgress { get; set; }
-    public Uri Rank { get; set; }
-    public Uri PreviousRank { get; set; }
-    public Uri PreviousPreviousRank { get; set; }
-    public Uri PreviousPreviousPreviousRank { get; set; }
-    public string RankName { get; set; }
-    public string PreviousRankName { get; set; }
-    public string PreviousPreviousRankName { get; set; }
-    public string PreviousPreviousPreviousRankName { get; set; }
-    public Uri PhantomImage { get; set; }
-    public Uri VandalImage { get; set; }
-    public string PhantomName { get; set; }
-    public string VandalName { get; set; }
-    public Uri TrackerUri { get; set; }
-    public Visibility TrackerDisabled { get; set; }
-    public Visibility TrackerEnabled { get; set; }
-    public Guid PartyUuid { get; set; }
-    public string PartyColour { get; set; }
-    public string BackgroundColour { get; set; }
-}
 public class UserInfoResponse
 {
     [JsonPropertyName("sub")] public Guid Sub { get; set; }
@@ -140,7 +106,7 @@ public class LiveMatchResponse
 
     [JsonPropertyName("PostGameDetails")] public object PostGameDetails { get; set; }
 
-    [JsonPropertyName("Players")] public Player[] Players { get; set; }
+    [JsonPropertyName("Players")] public RiotPlayer[] Players { get; set; }
 
     [JsonPropertyName("MatchmakingData")] public object MatchmakingData { get; set; }
 }
@@ -161,7 +127,7 @@ public class ConnectionDetails
     [JsonPropertyName("PlayerKey")] public string PlayerKey { get; set; }
 }
 
-public class Player
+public class RiotPlayer
 {
     [JsonPropertyName("Subject")] public Guid Subject { get; set; }
 

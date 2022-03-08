@@ -3,22 +3,22 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Navigation;
-using WAIUA.Models;
+using WAIUA.Objects;
 
 namespace WAIUA.Controls
 {
     public partial class NormalPlayerCell : UserControl
     {
         public static readonly DependencyProperty PlayerProperty =
-            DependencyProperty.Register("Player", typeof(PlayerNew), typeof(NormalPlayerCell), new PropertyMetadata(new PlayerNew()));
+            DependencyProperty.Register("PlayerCell", typeof(Player), typeof(NormalPlayerCell), new PropertyMetadata(new Player()));
 
         public NormalPlayerCell()
         {
             InitializeComponent();
         }
-        public PlayerNew Player
+        public Player PlayerCell
         {
-            get => (PlayerNew) GetValue(PlayerProperty);
+            get => (Player) GetValue(PlayerProperty);
             set => SetValue(PlayerProperty, value);
         }
 
