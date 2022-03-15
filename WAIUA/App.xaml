@@ -2,9 +2,8 @@
     x:Class="WAIUA.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Exit="Application_Exit"
-    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    StartupUri="MainWindow.xaml"
+    Exit="Application_Exit">
     <Application.Resources>
         <FontFamily  x:Key="Nunito">/Assets/#Nunito</FontFamily>
         <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">

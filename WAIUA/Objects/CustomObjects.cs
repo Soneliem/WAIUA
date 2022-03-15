@@ -1,17 +1,16 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace WAIUA.Objects;
 
-
-public class MatchDetails
+[INotifyPropertyChanged]
+public partial class MatchDetails
 {
-    public string GameMode { get; set; }
-    public string Map { get; set; }
-    public Uri MapImage { get; set; }
-    public string Server { get; set; }
+    [ObservableProperty] public string gameMode;
+    [ObservableProperty] public string map;
+    [ObservableProperty] public Uri mapImage;
+    [ObservableProperty] public string server;
 }
 public class Player
 {
@@ -47,53 +46,16 @@ public class Player
     public string BackgroundColour { get; set; }
 }
 
-public class LoadingOverlay : INotifyPropertyChanged
+[INotifyPropertyChanged]
+public partial class LoadingOverlay
 {
+    [ObservableProperty]
     private bool _isBusy;
+    [ObservableProperty]
     private double _progress;
+    [ObservableProperty]
     private string _header;
+    [ObservableProperty]
     private string _content;
 
-    public bool IsBusy
-    {
-        get => _isBusy;
-        set
-        {
-            _isBusy = value;
-            OnPropertyChanged("IsBusy");
-        }
-    }
-
-    public double Progress
-    {
-        get => _progress;
-        set
-        {
-            _progress = value;
-            OnPropertyChanged("Progress");
-        }
-    }
-
-    public string Header {
-        get => _header;
-        set
-        {
-            _header = value;
-            OnPropertyChanged("Header");
-        }
-    }
-    public string Content {
-        get => _content;
-        set
-        {
-            _content = value;
-            OnPropertyChanged("Content");
-        }
-    }
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
 }

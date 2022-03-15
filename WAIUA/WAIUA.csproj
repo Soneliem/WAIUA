@@ -170,9 +170,10 @@
 
     <ItemGroup>
         <PackageReference Include="Autoupdater.NET.Official" Version="1.7.0" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
         <PackageReference Include="Extended.Wpf.Toolkit" Version="4.2.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
         <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
-        <PackageReference Include="MVVMEssentials.WPF" Version="1.0.3" />
         <PackageReference Include="RestSharp" Version="107.3.0" />
         <PackageReference Include="Serilog" Version="2.10.0" />
         <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />

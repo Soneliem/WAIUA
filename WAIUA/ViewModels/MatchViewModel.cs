@@ -4,57 +4,33 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using MVVMEssentials.Commands;
-using MVVMEssentials.Services;
-using MVVMEssentials.ViewModels;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using WAIUA.Commands;
 using WAIUA.Helpers;
 using WAIUA.Objects;
 
 namespace WAIUA.ViewModels;
 
-public class MatchViewModel : ViewModelBase
+public partial class MatchViewModel : ViewModelBase
 {
-    private MatchDetails _match;
-    private LoadingOverlay _overlay;
-    private List<Player> _playerList;
-
-    public MatchViewModel(INavigationService homeNavigationService, INavigationService matchNavigationService)
+    public MatchViewModel()
     {
-        GetPlayerInfoCommand = new RelayCommand(o => { GetPlayerInfoAsync().ConfigureAwait(false); }, o => true);
-        NavigateHomeCommand = new NavigateCommand(homeNavigationService);
-        NavigateMatchCommand = new NavigateCommand(matchNavigationService);
+
         Match = new MatchDetails();
         Overlay = new LoadingOverlay();
         PlayerList = new List<Player>();
     }
 
-    public ICommand GetPlayerInfoCommand { get; }
-    
-
-    public MatchDetails Match
-    {
-        get => _match;
-        set => SetProperty(ref _match, value, nameof(Match));
-    }
-
-    public LoadingOverlay Overlay
-    {
-        get => _overlay;
-        set => SetProperty(ref _overlay, value, nameof(Overlay));
-    } 
-
-    public ICommand NavigateHomeCommand { get; }
-    public ICommand NavigateMatchCommand { get; }
-
-    public List<Player> PlayerList
-    {
-        get => _playerList;
-        set => SetProperty(ref _playerList, value, nameof(PlayerList));
-    }
+    [ObservableProperty]
+    private MatchDetails _match;
+    [ObservableProperty]
+    private LoadingOverlay _overlay;
+    [ObservableProperty]
+    private List<Player> _playerList;
+    [ICommand]
     private async Task GetPlayerInfoAsync()
     {
-
         Overlay.IsBusy = true;
         Overlay.Header = "Loading"; 
 
@@ -80,10 +56,4 @@ public class MatchViewModel : ViewModelBase
         }
     }
 
-
-    private void SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-    {
-        field = newValue;
-        OnPropertyChanged(propertyName);
-    }
 }

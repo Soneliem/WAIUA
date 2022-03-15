@@ -1,22 +1,12 @@
 ﻿using System.Windows.Input;
-using MVVMEssentials.Commands;
-using MVVMEssentials.Services;
-using MVVMEssentials.ViewModels;
+using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace WAIUA.ViewModels
+namespace WAIUA.ViewModels;
+
+    public class SettingsViewModel : ViewModelBase
 {
-    internal class SettingsViewModel : ViewModelBase
-    {
-        public SettingsViewModel(INavigationService homeNavigationService, INavigationService infoNavigationService,
-            INavigationService settingsNavigationService)
+        public SettingsViewModel()
         {
-            NavigateHomeCommand = new NavigateCommand(homeNavigationService);
-            NavigateInfoCommand = new NavigateCommand(infoNavigationService);
-            NavigateSettingsCommand = new NavigateCommand(settingsNavigationService);
-        }
 
-        public ICommand NavigateHomeCommand { get; }
-        public ICommand NavigateInfoCommand { get; }
-        public ICommand NavigateSettingsCommand { get; }
+        }
     }
-}

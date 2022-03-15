@@ -52,6 +52,7 @@
             <Button
                 Grid.Column="0" Cursor="Hand" Width="60"
                 HorizontalAlignment="Left" VerticalAlignment="Center"
+                DataContext="MainViewModel"
                 Command="{Binding NavigateSettingsCommand}"
                 Template="{StaticResource ButtonTemplate}">
 

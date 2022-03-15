@@ -645,7 +645,6 @@ namespace WAIUA.Helpers
             };
 			var client = new RestClient(options);
 
-			// client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
             var request = new RestRequest().AddHeader("Authorization",
 				$"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{Constants.LPassword}"))}")
 			.AddHeader("X-Riot-ClientPlatform",
@@ -687,7 +686,7 @@ namespace WAIUA.Helpers
 							else
 							{
 								var textInfo = new CultureInfo("en-US", false).TextInfo;
-                                MatchInfo.GameMode = (string) content?.QueueId switch
+                                MatchInfo.GameMode = content?.QueueId switch
 								{
 									"ggteam" => "Escalation",
 									"spikerush" => "Spike Rush",
