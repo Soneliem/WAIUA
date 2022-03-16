@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace WAIUA.ViewModels
 {
-    internal class InfoViewModel: ViewModelBase
+    internal class InfoViewModel: ObservableObject
     {
         public InfoViewModel()
         {

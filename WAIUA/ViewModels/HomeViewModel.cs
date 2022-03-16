@@ -1,62 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Media;
+using System.Windows.Automation.Peers;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using WAIUA.Helpers;
+using WAIUA.Objects;
+using WAIUA.Views;
 using static WAIUA.Helpers.Login;
 
 namespace WAIUA.ViewModels;
 
-public partial class HomeViewModel : ViewModelBase
+public partial class HomeViewModel : ObservableObject
 {
+    private static readonly Uri question = new("pack://application:,,,/Assets/question.png");
+    private static readonly Uri refresh = new("pack://application:,,,/Assets/refresh.png");
+    private static readonly Uri check = new("pack://application:,,,/Assets/check.png");
+    private static readonly Uri cross = new("pack://application:,,,/Assets/cross.png");
+
     [ObservableProperty]
     private int countdownTime = 15;
     [ObservableProperty]
     private DispatcherTimer _countTimer;
     [ObservableProperty]
-    private LiveMatch _newMatch;
+    private LiveMatch _newMatch = new();
     [ObservableProperty]
-    private List<Objects.Player> _playerList;
+    private List<Player> _playerList = new(5);
     [ObservableProperty]
     private string _queueTime = "-";
     [ObservableProperty]
     private string _refreshTime = "-";
     [ObservableProperty]
-    private string _toggleBtnTxt;
+    private string _toggleBtnTxt = "Wait for Next Match";
     [ObservableProperty]
-    private string _accountStatus;
+    private Uri _accountStatus = question;
     [ObservableProperty]
-    private string _gameStatus;
+    private Uri _gameStatus = question;
     [ObservableProperty]
-    private string _matchStatus;
+    private Uri _matchStatus = question;
 
+    public delegate void EventAction();
+    public event EventAction GoMatchEvent;
     public HomeViewModel()
     {
-        GameStatus = "/Assets/question.png";
-        AccountStatus = "/Assets/question.png";
-        MatchStatus = "/Assets/question.png";
-        ToggleBtnTxt = "Wait for Next Match";
 
     }
 
     [ICommand]
     private async Task LoadNowAsync()
     {
-        _newMatch ??= new LiveMatch();
-
-        if (!await _newMatch.LiveMatchChecksAsync(false).ConfigureAwait(false)) return;
-        if (NavigateMatchCommand.CanExecute(null))
-        {
-            _countTimer?.Stop();
-            
-            NavigateMatchCommand.Execute(null);
-        }
+        GoMatchEvent?.Invoke();
+        if (!await NewMatch.LiveMatchChecksAsync(false).ConfigureAwait(false)) return;
+        GoMatchEvent?.Invoke();
         await UpdateChecksAsync().ConfigureAwait(false);
     }
 
@@ -70,11 +68,7 @@ public partial class HomeViewModel : ViewModelBase
         _countTimer.Start();
         _newMatch = new LiveMatch();
         if (await _newMatch.LiveMatchChecksAsync(true).ConfigureAwait(false))
-            if (NavigateMatchCommand.CanExecute(null))
-            {
-                _countTimer.Stop();
-                NavigateMatchCommand.Execute(null);
-            }
+            GoMatchEvent?.Invoke();
         ToggleBtnTxt = "Waiting for match";
 
         
@@ -107,33 +101,32 @@ public partial class HomeViewModel : ViewModelBase
         CountdownTime--;
     }
 
+
     [ICommand]
     private async Task UpdateChecksAsync()
     {
-        GameStatus = "/Assets/refresh.png";
-        AccountStatus = "/Assets/question.png";
-        MatchStatus = "/Assets/question.png";
+        GameStatus = refresh;
+        AccountStatus = question;
+        MatchStatus = question;
         if (await CheckLocalAsync().ConfigureAwait(false))
         {
-            GameStatus = "/Assets/check.png";
-            AccountStatus = "/Assets/refresh.png";
+            GameStatus = check;
+            AccountStatus = refresh;
             if (await GetSetPpuuidAsync().ConfigureAwait(false))
             {
-                AccountStatus = "/Assets/check.png";
-                MatchStatus = "/Assets/refresh.png";
+                AccountStatus = check;
+                MatchStatus = refresh;
                 if (await CheckMatchIdAsync().ConfigureAwait(false))
                 {
-                    MatchStatus = "/Assets/check.png";
-                    if (NavigateMatchCommand.CanExecute(null))
-                    {
-                        _countTimer?.Stop();
-                        NavigateMatchCommand.Execute(null);
-                    }
-                        
+                    MatchStatus = check;
+                    _countTimer?.Stop();
+
+                    GoMatchEvent?.Invoke();
+
                 }
                 else
                 {
-                    MatchStatus = "/Assets/cross.png";
+                    MatchStatus = cross;
                 }
             }
             else
@@ -142,38 +135,39 @@ public partial class HomeViewModel : ViewModelBase
                 await LocalRegionAsync().ConfigureAwait(false);
                 if (await GetSetPpuuidAsync().ConfigureAwait(false))
                 {
-                    AccountStatus = "/Assets/check.png";
-                    MatchStatus = "/Assets/refresh.png";
+                    AccountStatus = check;
+                    MatchStatus = refresh;
                     if (await CheckMatchIdAsync().ConfigureAwait(false))
                     {
-                        MatchStatus = "/Assets/check.png";
-                        if (NavigateMatchCommand.CanExecute(null))
-                        {
-
-                            _countTimer?.Stop();
-                            NavigateMatchCommand.Execute(null);
-                        }
+                        MatchStatus = check;
+                        // if (NavigateMatchCommand.CanExecute(null))
+                        // {
+                        //
+                        //     _countTimer?.Stop();
+                        //     NavigateMatchCommand.Execute(null);
+                        // }
                     }
                     else
                     {
-                        MatchStatus = "/Assets/cross.png";
+                        MatchStatus = cross;
                     }
                 }
                 else
                 {
-                    AccountStatus = "/Assets/cross.png";
-                    MatchStatus = "/Assets/cross.png";
+                    AccountStatus = cross;
+                    MatchStatus = cross;
                 }
                     
             }
         }
         else
         {
-            GameStatus = "/Assets/cross.png";
-            AccountStatus = "/Assets/cross.png";
-            MatchStatus = "/Assets/cross.png";
+            GameStatus = cross;
+            AccountStatus = cross;
+            MatchStatus = cross;
         }
     }
+
 
     public async Task UpdatePartyAsync()
     {

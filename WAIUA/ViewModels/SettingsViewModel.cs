@@ -3,10 +3,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace WAIUA.ViewModels;
 
-    public class SettingsViewModel : ViewModelBase
+    public class SettingsViewModel : ObservableObject
 {
         public SettingsViewModel()
         {
-
         }
     }

@@ -40,7 +40,7 @@
             <Button
 				Grid.Column="0"
 				Margin="7"
-				Command="{Binding NavigateHomeCommand}"
+				Command="{Binding NavigateHomeCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 				Template="{StaticResource ButtonTemplate}">
 
                 <Image Margin="10" Source="/Assets/back.png" />
@@ -48,7 +48,7 @@
             <Button
 				Grid.Column="1"
 				Margin="7"
-				Command="{Binding NavigateMatchCommand}"
+				Command="{Binding NavigateMatchCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 				Template="{StaticResource ButtonTemplate}">
 
                 <Image Margin="10" Source="/Assets/refresh.png" />

@@ -7,43 +7,44 @@ namespace WAIUA.Objects;
 [INotifyPropertyChanged]
 public partial class MatchDetails
 {
-    [ObservableProperty] public string gameMode;
-    [ObservableProperty] public string map;
-    [ObservableProperty] public Uri mapImage;
-    [ObservableProperty] public string server;
+    [ObservableProperty] private string gameMode;
+    [ObservableProperty] private string map;
+    [ObservableProperty] private Uri mapImage;
+    [ObservableProperty] private string server;
 }
-public class Player
+[INotifyPropertyChanged]
+public partial class Player
 {
-    public Uri AgentImage { get; set; }
-    public Uri AgentName { get; set; }
-    public string PlayerName { get; set; }
-    public int AccountLevel { get; set; }
-    public int MaxRR { get; set; } = 100;
-    public int PreviousGameMmr { get; set; }
-    public int PreviousPreviousGameMmr { get; set; }
-    public int PreviousPreviousPreviousGameMmr { get; set; }
-    public string PreviousGameMmrColour { get; set; }
-    public string PreviousPreviousGameMmrColour { get; set; }
-    public string PreviousPreviousPreviousGameMmrColour { get; set; }
-    public int RankProgress { get; set; }
-    public Uri Rank { get; set; }
-    public Uri PreviousRank { get; set; }
-    public Uri PreviousPreviousRank { get; set; }
-    public Uri PreviousPreviousPreviousRank { get; set; }
-    public string RankName { get; set; }
-    public string PreviousRankName { get; set; }
-    public string PreviousPreviousRankName { get; set; }
-    public string PreviousPreviousPreviousRankName { get; set; }
-    public Uri PhantomImage { get; set; }
-    public Uri VandalImage { get; set; }
-    public string PhantomName { get; set; }
-    public string VandalName { get; set; }
-    public Uri TrackerUri { get; set; }
-    public Visibility TrackerDisabled { get; set; }
-    public Visibility TrackerEnabled { get; set; }
-    public Guid PartyUuid { get; set; }
-    public string PartyColour { get; set; }
-    public string BackgroundColour { get; set; }
+    [ObservableProperty] private Uri agentImage;
+    [ObservableProperty] private Uri agentName;
+    [ObservableProperty] private string playerName;
+    [ObservableProperty] private int accountLevel;
+    [ObservableProperty] private int maxRR = 100;
+    [ObservableProperty] private int previousGameMmr;
+    [ObservableProperty] private int previousPreviousGameMmr;
+    [ObservableProperty] private int previousPreviousPreviousGameMmr;
+    [ObservableProperty] private string previousGameMmrColour;
+    [ObservableProperty] private string previousPreviousGameMmrColour;
+    [ObservableProperty] private string previousPreviousPreviousGameMmrColour;
+    [ObservableProperty] private int rankProgress;
+    [ObservableProperty] private Uri rank;
+    [ObservableProperty] private Uri previousRank;
+    [ObservableProperty] private Uri previousPreviousRank;
+    [ObservableProperty] private Uri previousPreviousPreviousRank;
+    [ObservableProperty] private string rankName;
+    [ObservableProperty] private string previousRankName;
+    [ObservableProperty] private string previousPreviousRankName;
+    [ObservableProperty] private string previousPreviousPreviousRankName;
+    [ObservableProperty] private Uri phantomImage;
+    [ObservableProperty] private Uri vandalImage;
+    [ObservableProperty] private string phantomName;
+    [ObservableProperty] private string vandalName;
+    [ObservableProperty] private Uri trackerUri;
+    [ObservableProperty] private Visibility trackerDisabled;
+    [ObservableProperty] private Visibility trackerEnabled;
+    [ObservableProperty] private Guid partyUuid;
+    [ObservableProperty] private string partyColour;
+    [ObservableProperty] private string backgroundColour;
 }
 
 [INotifyPropertyChanged]

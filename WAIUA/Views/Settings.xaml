@@ -223,7 +223,7 @@
                 <Button
                 Grid.Column="1" Cursor="Hand"
                 Margin="25 0"
-                Command="{Binding NavigateHomeCommand}"
+                Command="{Binding DataContext.NavigateHomeCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                 Template="{StaticResource ButtonTemplate}">
 
                     <Viewbox
@@ -242,7 +242,7 @@
 
                 <Button
                 Grid.Column="2" Cursor="Hand"
-                Command="{Binding NavigateInfoCommand}"
+                Command="{Binding DataContext.NavigateInfoCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                 Template="{StaticResource ButtonTemplate}">
 
                     <Image Margin="10" Source="/Assets/info.png" />

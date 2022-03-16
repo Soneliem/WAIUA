@@ -37,7 +37,7 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition  />
+            <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
@@ -49,17 +49,21 @@
                 <ColumnDefinition />
                 <ColumnDefinition  />
             </Grid.ColumnDefinitions>
-            <Button
+	        <Button
                 Grid.Column="0" Cursor="Hand" Width="60"
                 HorizontalAlignment="Left" VerticalAlignment="Center"
-                DataContext="MainViewModel"
-                Command="{Binding NavigateSettingsCommand}"
+                Command="{Binding DataContext.NavigateSettingsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                 Template="{StaticResource ButtonTemplate}">
 
                 <Image Margin="10" Source="/Assets/settings.png" />
             </Button>
+			<Button
+		        Grid.Column="0" Name="GoMatch"
+		        Command="{Binding DataContext.NavigateSettingsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+		        Visibility="Collapsed">
+			</Button>
 
-            <Button
+			<Button
                 Grid.Row="0" Grid.Column="2" Cursor="Hand" 
                 HorizontalAlignment="Right"
                 Command="{Binding LoadNowCommand}"
@@ -79,7 +83,7 @@
             <Button
                 Grid.Row="0" Grid.Column="4" Cursor="Hand" Width="60"
                 HorizontalAlignment="Right"
-                Command="{Binding NavigateInfoCommand}"
+                Command="{Binding DataContext.NavigateInfoCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                 Template="{StaticResource ButtonTemplate}" >
                 <Image Margin="10" Source="/Assets/info.png" />
             </Button>
@@ -102,16 +106,16 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <c:NormalPlayerCell x:Name="Player0" Grid.Row="0" Margin="0 5"
-                                 />
+            <c:NormalPlayerCell Grid.Row="0" Margin="0 5"
+             PlayerCell="{Binding PlayerList[0]}"                    />
             <c:NormalPlayerCell Grid.Row="1" Margin="0 5"
-                               />
+                                PlayerCell="{Binding PlayerList[1]}"      />
             <c:NormalPlayerCell Grid.Row="2" Margin="0 5"
-                                 />
+                                PlayerCell="{Binding PlayerList[2]}"              />
             <c:NormalPlayerCell Grid.Row="3" Margin="0 5"
-                                 />
+                                PlayerCell="{Binding PlayerList[3]}"          />
             <c:NormalPlayerCell Grid.Row="4" Margin="0 5 0 0"
-                                 />
+                                PlayerCell="{Binding PlayerList[4]}"           />
 
         </Grid>
 
@@ -229,10 +233,10 @@
                         <ToggleButton Template="{StaticResource ToggleButtonTemplate}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Checked">
-                                    <i:InvokeCommandAction Command="{Binding Path=PassiveEnabledCommand}"/>
+                                    <i:InvokeCommandAction Command="{Binding Path=PassiveLoadCommand}"/>
                                 </i:EventTrigger>
                                 <i:EventTrigger EventName="Unchecked">
-                                    <i:InvokeCommandAction Command="{Binding Path=PassiveDisabledCommand}"/>
+                                    <i:InvokeCommandAction Command="{Binding Path=StopPassiveLoadCommand}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <Viewbox>

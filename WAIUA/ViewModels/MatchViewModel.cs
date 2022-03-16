@@ -12,11 +12,10 @@ using WAIUA.Objects;
 
 namespace WAIUA.ViewModels;
 
-public partial class MatchViewModel : ViewModelBase
+public partial class MatchViewModel : ObservableObject
 {
     public MatchViewModel()
     {
-
         Match = new MatchDetails();
         Overlay = new LoadingOverlay();
         PlayerList = new List<Player>();
@@ -37,7 +36,6 @@ public partial class MatchViewModel : ViewModelBase
         try
         {
             var newMatch = new LiveMatch();
-
             Overlay.Content = "Getting Match Details";
             if (await newMatch.LiveMatchChecksAsync(false).ConfigureAwait(false))
             {
@@ -54,6 +52,7 @@ public partial class MatchViewModel : ViewModelBase
             Debugger.Break();
             Overlay.IsBusy = false;
         }
+        Overlay.IsBusy = false;
     }
 
 }

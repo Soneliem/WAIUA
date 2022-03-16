@@ -93,6 +93,7 @@
 						FontWeight="Normal"
 						Foreground="#9f97b0"
 						ToolTip="{x:Static p:Resources.TrackerToolTip}"
+						ToolTipService.InitialShowDelay="0"
 						Visibility="{Binding PlayerCell.TrackerEnabled, ElementName=Self}">
 						<Hyperlink
 							NavigateUri="{Binding PlayerCell.TrackerUri, ElementName=Self}"
@@ -136,9 +137,11 @@
                     <Image
 						Margin="0,0,50,0"
 						Source="{Binding PlayerCell.VandalImage, ElementName=Self}"
-						ToolTip="{Binding PlayerCell.VandalName, ElementName=Self}" />
+						ToolTip="{Binding PlayerCell.VandalName, ElementName=Self}" 
+						ToolTipService.InitialShowDelay="0"/>
 					<Image Source="{Binding PlayerCell.PhantomImage, ElementName=Self}"
-					       ToolTip="{Binding PlayerCell.PhantomName, ElementName=Self}" />
+					       ToolTip="{Binding PlayerCell.PhantomName, ElementName=Self}" 
+					       ToolTipService.InitialShowDelay="0"/>
                 </StackPanel>
             </Viewbox>
 
@@ -151,15 +154,18 @@
                 <StackPanel Orientation="Horizontal">
                     <Image Height="256" Width="256" 
                            Source="{Binding PlayerCell.PreviousPreviousPreviousRank, ElementName=Self}"
-                           ToolTip="{Binding PlayerCell.PreviousPreviousPreviousRankName, ElementName=Self}" />
+                           ToolTip="{Binding PlayerCell.PreviousPreviousPreviousRankName, ElementName=Self}" 
+                           ToolTipService.InitialShowDelay="0"/>
                     <Image
                         Margin="30,0"
                         Height="256" Width="256"
                         Source="{Binding PlayerCell.PreviousPreviousRank, ElementName=Self}"
-                        ToolTip="{Binding PlayerCell.PreviousPreviousRankName, ElementName=Self}" />
+                        ToolTip="{Binding PlayerCell.PreviousPreviousRankName, ElementName=Self}" 
+                        ToolTipService.InitialShowDelay="0"/>
                     <Image Height="256" Width="256"
                            Source="{Binding PlayerCell.PreviousRank, ElementName=Self}"
-                           ToolTip="{Binding PlayerCell.PreviousRankName, ElementName=Self}" />
+                           ToolTip="{Binding PlayerCell.PreviousRankName, ElementName=Self}" 
+                           ToolTipService.InitialShowDelay="0"/>
                 </StackPanel>
             </Viewbox>
 
@@ -207,7 +213,8 @@
 				Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
 				Margin="10,0,0,10"
 				HorizontalAlignment="Right"
-				ToolTip="{Binding PlayerCell.RankName, ElementName=Self}">
+				ToolTip="{Binding PlayerCell.RankName, ElementName=Self}"
+				ToolTipService.InitialShowDelay="0">
                 <Border.Background>
 					<ImageBrush RenderOptions.BitmapScalingMode="HighQuality" ImageSource="{Binding PlayerCell.Rank, ElementName=Self}" />
                 </Border.Background>
@@ -215,6 +222,7 @@
 
             <Border Grid.Row="2" BorderThickness="1" Margin="10,0,0,0"
                     VerticalAlignment="Bottom" BorderBrush="Gray" ToolTip="{Binding PlayerCell.RankProgress, ElementName=Self}"
+                    ToolTipService.InitialShowDelay="0"
                     Grid.Column="2" Height="5.5" CornerRadius="2">
                 <ProgressBar
                     BorderThickness="0"

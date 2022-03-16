@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using WAIUA.ViewModels;
 
@@ -11,5 +12,7 @@ namespace WAIUA
             InitializeComponent();
             DataContext = Ioc.Default.GetRequiredService<MainViewModel>();
         }
+
+        
     }
 }
