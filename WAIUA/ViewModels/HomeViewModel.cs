@@ -52,7 +52,6 @@ public partial class HomeViewModel : ObservableObject
     [ICommand]
     private async Task LoadNowAsync()
     {
-        GoMatchEvent?.Invoke();
         if (!await NewMatch.LiveMatchChecksAsync(false).ConfigureAwait(false)) return;
         GoMatchEvent?.Invoke();
         await UpdateChecksAsync().ConfigureAwait(false);

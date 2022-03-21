@@ -58,8 +58,8 @@
                 <Image Margin="10" Source="/Assets/settings.png" />
             </Button>
 			<Button
-		        Grid.Column="0" Name="GoMatch"
-		        Command="{Binding DataContext.NavigateSettingsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+		        Grid.Column="0" x:Name="GoMatch"
+		        Command="{Binding DataContext.NavigateMatchCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 		        Visibility="Collapsed">
 			</Button>
 
