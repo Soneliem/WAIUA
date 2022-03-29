@@ -14,9 +14,9 @@
     Background="#2E3349"
     mc:Ignorable="d">
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding UpdateChecksCommand}" />
-        </i:EventTrigger>
+        <!-- <i:EventTrigger EventName="Loaded"> -->
+        <!--     <i:InvokeCommandAction Command="{Binding UpdateChecksCommand}" /> -->
+        <!-- </i:EventTrigger> -->
     </i:Interaction.Triggers>
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="Loaded">

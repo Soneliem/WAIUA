@@ -11,6 +11,7 @@ using WAIUA.Helpers;
 using WAIUA.Objects;
 using WAIUA.Views;
 using static WAIUA.Helpers.Login;
+using Match = WAIUA.Helpers.Match;
 
 namespace WAIUA.ViewModels;
 
@@ -26,7 +27,7 @@ public partial class HomeViewModel : ObservableObject
     [ObservableProperty]
     private DispatcherTimer _countTimer;
     [ObservableProperty]
-    private LiveMatch _newMatch = new();
+    private Match _newMatch = new();
     [ObservableProperty]
     private List<Player> _playerList = new(5);
     [ObservableProperty]
@@ -52,7 +53,7 @@ public partial class HomeViewModel : ObservableObject
     [ICommand]
     private async Task LoadNowAsync()
     {
-        if (!await NewMatch.LiveMatchChecksAsync(false).ConfigureAwait(false)) return;
+        if (!await Match.LiveMatchChecksAsync(false).ConfigureAwait(false)) return;
         GoMatchEvent?.Invoke();
         await UpdateChecksAsync().ConfigureAwait(false);
     }
@@ -65,8 +66,8 @@ public partial class HomeViewModel : ObservableObject
         _countTimer.Interval = new TimeSpan(0, 0, 1);
 
         _countTimer.Start();
-        _newMatch = new LiveMatch();
-        if (await _newMatch.LiveMatchChecksAsync(true).ConfigureAwait(false))
+        _newMatch = new Match();
+        if (await Match.LiveMatchChecksAsync(true).ConfigureAwait(false))
             GoMatchEvent?.Invoke();
         ToggleBtnTxt = "Waiting for match";
 
@@ -77,7 +78,7 @@ public partial class HomeViewModel : ObservableObject
     [ICommand]
     private Task StopPassiveLoadAsync()
     {
-        _countTimer.Stop();
+        CountTimer.Stop();
         ToggleBtnTxt = "Wait for Next Match";
         RefreshTime = "-";
         CountdownTime = 15;
@@ -118,7 +119,7 @@ public partial class HomeViewModel : ObservableObject
                 if (await CheckMatchIdAsync().ConfigureAwait(false))
                 {
                     MatchStatus = check;
-                    _countTimer?.Stop();
+                    CountTimer?.Stop();
 
                     GoMatchEvent?.Invoke();
 
@@ -139,12 +140,8 @@ public partial class HomeViewModel : ObservableObject
                     if (await CheckMatchIdAsync().ConfigureAwait(false))
                     {
                         MatchStatus = check;
-                        // if (NavigateMatchCommand.CanExecute(null))
-                        // {
-                        //
-                        //     _countTimer?.Stop();
-                        //     NavigateMatchCommand.Execute(null);
-                        // }
+                        CountTimer?.Stop();
+                        GoMatchEvent?.Invoke();
                     }
                     else
                     {
@@ -186,7 +183,7 @@ public partial class HomeViewModel : ObservableObject
         var output = false;
         try
         {
-            // var newMatch = new LiveMatch();
+            // var newMatch = new Match();
             // Parallel.For(0, 5, i => { Player.Players[i].Data = null; });
             //
             // try

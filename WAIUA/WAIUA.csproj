@@ -90,6 +90,7 @@
     <ItemGroup>
         <None Remove="Assets\arrow.png" />
         <None Remove="Assets\back.png" />
+        <None Remove="Assets\cat.gif" />
         <None Remove="Assets\Check.png" />
         <None Remove="Assets\cross.png" />
         <None Remove="Assets\discord.png" />
@@ -113,6 +114,9 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
         <Resource Include="Assets\back.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\cat.gif">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
         <Resource Include="Assets\check.png">
@@ -171,13 +175,13 @@
     <ItemGroup>
         <PackageReference Include="Autoupdater.NET.Official" Version="1.7.0" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
-        <PackageReference Include="Extended.Wpf.Toolkit" Version="4.2.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
         <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
         <PackageReference Include="RestSharp" Version="107.3.0" />
         <PackageReference Include="Serilog" Version="2.10.0" />
         <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
         <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+        <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
     </ItemGroup>
 
     <ItemGroup>
@@ -192,7 +196,7 @@
         <None Update="Assets\0.png">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="Assets\matchdemo.json">
+	    <None Update="Assets\matchdemo.json">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </None>
         <None Update="Properties\Settings.settings">

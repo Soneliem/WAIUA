@@ -17,42 +17,54 @@ public partial class MatchViewModel : ObservableObject
     public MatchViewModel()
     {
         Match = new MatchDetails();
-        Overlay = new LoadingOverlay();
-        PlayerList = new List<Player>();
+        Overlay = new LoadingOverlay()
+        {
+            Header = "Loading", Content = "Getting Match Details"
+        };
+        PlayerList = new List<Player>(new List<Player>(10));
     }
 
-    [ObservableProperty]
-    private MatchDetails _match;
-    [ObservableProperty]
-    private LoadingOverlay _overlay;
-    [ObservableProperty]
-    private List<Player> _playerList;
+    [ObservableProperty] private MatchDetails _match;
+    [ObservableProperty] private LoadingOverlay _overlay;
+    [ObservableProperty] private List<Player> _playerList;
+
     [ICommand]
     private async Task GetPlayerInfoAsync()
     {
         Overlay.IsBusy = true;
-        Overlay.Header = "Loading"; 
+        Overlay.Header = "Loading";
+        Overlay.Progress = 0;
 
         try
         {
-            var newMatch = new LiveMatch();
-            Overlay.Content = "Getting Match Details";
-            if (await newMatch.LiveMatchChecksAsync(false).ConfigureAwait(false))
+            var newMatch = new Match();
+            if (await Helpers.Match.LiveMatchChecksAsync(false).ConfigureAwait(false))
             {
                 Overlay.Content = "Getting Player Details";
-                PlayerList = await newMatch.LiveMatchOutputAsync().ConfigureAwait(false);
+                PlayerList = await newMatch.LiveMatchOutputAsync(UpdatePercentage).ConfigureAwait(false);
 
-                if (newMatch.MatchInfo != null) Match = newMatch.MatchInfo;
+                if (newMatch.MatchInfo != null)
+                    Match = newMatch.MatchInfo;
 
                 Overlay.IsBusy = false;
             }
         }
         catch (Exception)
         {
+            Overlay.IsBusy = false;
             Debugger.Break();
+        }
+        finally
+        {
             Overlay.IsBusy = false;
         }
         Overlay.IsBusy = false;
+
     }
 
+    private void UpdatePercentage(int percentage)
+    {
+        Overlay.Progress = percentage;
+    }
+    
 }

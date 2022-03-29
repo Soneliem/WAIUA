@@ -21,6 +21,11 @@ public static class Login
         var response = await client.ExecutePostAsync<UserInfoResponse>(request).ConfigureAwait(false);
         if (!response.IsSuccessful)
         {
+            if (Constants.AccessToken is null)
+            {
+                bool isToken = false;
+                Constants.Log.Error("GetSetPpuuidAsync() failed. Response(Accesstoken {isToken}): {Response}", isToken, response.ErrorException);
+            }
             Constants.Log.Error("GetSetPpuuidAsync() failed. Response: {Response}", response.ErrorException);
             return false;
         }
@@ -69,7 +74,6 @@ public static class Login
         var response = await client.ExecuteGetAsync<EntitlementsResponse>(request).ConfigureAwait(false);
         if (!response.IsSuccessful)
         {
-            Debugger.Break();
             Constants.Log.Error("LocalLoginAsync Failed");
             return false;
         }
@@ -90,11 +94,9 @@ public static class Login
             .AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
             .AddHeader("X-Riot-ClientVersion", Constants.Version);
         // client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
-        var response2 = await client.ExecuteGetAsync(request).ConfigureAwait(false);
         var response = await client.ExecuteGetAsync<ExternalSessionsResponse>(request).ConfigureAwait(false);
-        if (!response.IsSuccessful && response.Content == "{}")
+        if (!response.IsSuccessful || response.Content == "{}")
         {
-            Debugger.Break();
             Constants.Log.Error("LocalRegionAsync Failed: {e}", response.ErrorException);
             return;
         }
@@ -131,10 +133,14 @@ public static class Login
         return false;
     }
 
-    public static async Task<string> GetIgUsernameAsync(Guid puuid)
+    public static async Task<string> GetNameServiceGetUsernameAsync(Guid puuid)
     {
         if(puuid == Guid.Empty) return null;
-        var client = new RestClient($"https://pd.{Constants.Region}.a.pvp.net/name-service/v2/players");
+        var options = new RestClientOptions(new Uri($"https://pd.{Constants.Region}.a.pvp.net/name-service/v2/players"))
+        {
+            RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
+        };
+        var client = new RestClient(options);
         RestRequest request = new()
         {
             RequestFormat = DataFormat.Json
@@ -152,13 +158,10 @@ public static class Login
         else
         {
             Debugger.Break();
-            Constants.Log.Error("GetIgUsernameAsync Failed: {e}", response.ErrorException);
+            Constants.Log.Error("GetNameServiceGetUsernameAsync Failed: {e}", response.ErrorException);
             return "";
             
         }
-
-        // content = content.Replace("[", "");
-        // content = content.Replace("]", "");
     }
 
 

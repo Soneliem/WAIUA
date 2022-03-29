@@ -7,9 +7,18 @@ namespace WAIUA.Objects;
 
 public class UserInfoResponse
 {
+    [JsonPropertyName("country")] public string Country { get; set; }
     [JsonPropertyName("sub")] public Guid Sub { get; set; }
-
+    [JsonPropertyName("email_verified")] public bool Email_verified { get; set; }
+    [JsonPropertyName("player_plocale")] public string Player_plocale { get; set; }
+    [JsonPropertyName("country_at")] public long? Country_at { get; set; }
+    [JsonPropertyName("phone_number_verified")] public bool Phone_number_verified { get; set; }
+    [JsonPropertyName("account_verified")] public bool Account_verified { get; set; }
+    [JsonPropertyName("ppid")] public Guid? Ppid { get; set; }
+    [JsonPropertyName("player_locale")] public string Player_locale { get; set; }
+    [JsonPropertyName("age")] public int Age { get; set; }
     [JsonPropertyName("jti")] public string Jti { get; set; }
+    [JsonExtensionData] public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 }
 
 public class EntitlementsResponse

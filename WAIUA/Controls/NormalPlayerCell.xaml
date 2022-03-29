@@ -38,8 +38,8 @@
     </UserControl.Resources>
 
     <Border
-		Visibility="{Binding PlayerCell.PlayerName , ElementName=Self, Converter={StaticResource EmptyToVisibilityConverter}}"
-        Background="{Binding PlayerCell.BackgroundColour, ElementName=Self}"
+		Visibility="{Binding PlayerCell.IgnData.Username , ElementName=Self, Converter={StaticResource EmptyToVisibilityConverter}}"
+        Background="{Binding PlayerCell.PlayerUiData.BackgroundColour, ElementName=Self}"
         BorderThickness="0"
 		CornerRadius="20">
         <Grid Margin="15">
@@ -60,7 +60,7 @@
 				Margin="0,0,10,0"
 				CornerRadius="10">
                 <Border.Background>
-					<ImageBrush ImageSource="{Binding PlayerCell.AgentImage, ElementName=Self}" />
+					<ImageBrush ImageSource="{Binding PlayerCell.AgentData.Image, ElementName=Self}" />
                 </Border.Background>
             </Border>
 
@@ -70,7 +70,7 @@
                         FontFamily="{StaticResource Nunito}"
 						FontWeight="Bold"
 						Foreground="#32e2b2"
-                        Text="{Binding PlayerCell.AgentName, ElementName=Self}" />
+                        Text="{Binding PlayerCell.AgentData.Name, ElementName=Self}" />
                 </Viewbox>
 	        <Viewbox
 				Grid.Row="1"
@@ -87,20 +87,20 @@
 						FontWeight="Normal"
 						Foreground="#9f97b0"
 						IsReadOnly="True"
-						Text="{Binding PlayerCell.PlayerName, ElementName=Self}"
-						Visibility="{Binding PlayerCell.TrackerDisabled, ElementName=Self}" />
+						Text="{Binding PlayerCell.IgnData.Username, ElementName=Self}"
+						Visibility="{Binding PlayerCell.IgnData.TrackerDisabled, ElementName=Self}" />
                     <TextBlock
 						FontWeight="Normal"
 						Foreground="#9f97b0"
 						ToolTip="{x:Static p:Resources.TrackerToolTip}"
 						ToolTipService.InitialShowDelay="0"
-						Visibility="{Binding PlayerCell.TrackerEnabled, ElementName=Self}">
+						Visibility="{Binding PlayerCell.IgnData.TrackerEnabled, ElementName=Self}">
 						<Hyperlink
-							NavigateUri="{Binding PlayerCell.TrackerUri, ElementName=Self}"
+							NavigateUri="{Binding PlayerCell.IgnData.TrackerUri, ElementName=Self}"
 							RequestNavigate="HandleLinkClick"
 							TextDecorations="">
 							<Hyperlink.Inlines>
-								<Run Text="{Binding PlayerCell.PlayerName, ElementName=Self}" />
+								<Run Text="{Binding PlayerCell.IgnData.Username, ElementName=Self}" />
 							</Hyperlink.Inlines>
 						</Hyperlink>
                     </TextBlock>
@@ -136,11 +136,11 @@
                 <StackPanel Orientation="Horizontal">
                     <Image
 						Margin="0,0,50,0"
-						Source="{Binding PlayerCell.VandalImage, ElementName=Self}"
-						ToolTip="{Binding PlayerCell.VandalName, ElementName=Self}" 
+						Source="{Binding PlayerCell.SkinData.VandalImage, ElementName=Self}"
+						ToolTip="{Binding PlayerCell.SkinData.VandalName, ElementName=Self}" 
 						ToolTipService.InitialShowDelay="0"/>
-					<Image Source="{Binding PlayerCell.PhantomImage, ElementName=Self}"
-					       ToolTip="{Binding PlayerCell.PhantomName, ElementName=Self}" 
+					<Image Source="{Binding PlayerCell.SkinData.PhantomImage, ElementName=Self}"
+					       ToolTip="{Binding PlayerCell.SkinData.PhantomName, ElementName=Self}" 
 					       ToolTipService.InitialShowDelay="0"/>
                 </StackPanel>
             </Viewbox>
@@ -153,18 +153,18 @@
                 Stretch="Uniform">
                 <StackPanel Orientation="Horizontal">
                     <Image Height="256" Width="256" 
-                           Source="{Binding PlayerCell.PreviousPreviousPreviousRank, ElementName=Self}"
-                           ToolTip="{Binding PlayerCell.PreviousPreviousPreviousRankName, ElementName=Self}" 
+                           Source="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankImage, ElementName=Self}"
+                           ToolTip="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankName, ElementName=Self}" 
                            ToolTipService.InitialShowDelay="0"/>
                     <Image
                         Margin="30,0"
                         Height="256" Width="256"
-                        Source="{Binding PlayerCell.PreviousPreviousRank, ElementName=Self}"
-                        ToolTip="{Binding PlayerCell.PreviousPreviousRankName, ElementName=Self}" 
+                        Source="{Binding PlayerCell.RankData.PreviouspreviousrankImage, ElementName=Self}"
+                        ToolTip="{Binding PlayerCell.RankData.PreviouspreviousrankName, ElementName=Self}" 
                         ToolTipService.InitialShowDelay="0"/>
                     <Image Height="256" Width="256"
-                           Source="{Binding PlayerCell.PreviousRank, ElementName=Self}"
-                           ToolTip="{Binding PlayerCell.PreviousRankName, ElementName=Self}" 
+                           Source="{Binding PlayerCell.RankData.PreviousrankImage, ElementName=Self}"
+                           ToolTip="{Binding PlayerCell.RankData.PreviousrankName, ElementName=Self}" 
                            ToolTipService.InitialShowDelay="0"/>
                 </StackPanel>
             </Viewbox>
@@ -181,27 +181,27 @@
                             Height="30"
                             Padding="4,4,4,5"
                             Margin="0, 2"
-                            Background="{Binding PlayerCell.PreviousPreviousPreviousGameMmrColour, ElementName=Self}"
+                            Background="{Binding PlayerCell.MatchHistoryData.PreviouspreviouspreviousGameColour, ElementName=Self}"
                             BorderThickness="0">
-						<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed" Text="{Binding PlayerCell.PreviousPreviousPreviousGameMmr, ElementName=Self}" Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+						<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed" Text="{Binding PlayerCell.MatchHistoryData.PreviouspreviouspreviousGame, ElementName=Self}" Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                     <Border CornerRadius="50"
                             Width="30"
                             Height="30"
                             Margin="8, 2"
                             Padding="4,4,4,5"
-                            Background="{Binding PlayerCell.PreviousPreviousGameMmrColour, ElementName=Self}"
+                            Background="{Binding PlayerCell.MatchHistoryData.PreviouspreviousGameColour, ElementName=Self}"
                             BorderThickness="0">
-						<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed" Text="{Binding PlayerCell.PreviousPreviousGameMmr, ElementName=Self}" Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+						<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed" Text="{Binding PlayerCell.MatchHistoryData.PreviouspreviousGame, ElementName=Self}" Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                     <Border CornerRadius="50"
                             Width="30"
                             Height="30"
                             Padding="4,4,4,5"
                             Margin="0, 2"
-                            Background="{Binding PlayerCell.PreviousGameMmrColour, ElementName=Self}"
+                            Background="{Binding PlayerCell.MatchHistoryData.PreviousGameColour, ElementName=Self}"
                             BorderThickness="0">
-						<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed" Text="{Binding PlayerCell.PreviousGameMmr, ElementName=Self}" Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+						<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed" Text="{Binding PlayerCell.MatchHistoryData.PreviousGame, ElementName=Self}" Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                 </StackPanel>
             </Viewbox>
@@ -213,24 +213,24 @@
 				Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
 				Margin="10,0,0,10"
 				HorizontalAlignment="Right"
-				ToolTip="{Binding PlayerCell.RankName, ElementName=Self}"
+				ToolTip="{Binding PlayerCell.RankData.RankName, ElementName=Self}"
 				ToolTipService.InitialShowDelay="0">
                 <Border.Background>
-					<ImageBrush RenderOptions.BitmapScalingMode="HighQuality" ImageSource="{Binding PlayerCell.Rank, ElementName=Self}" />
+					<ImageBrush RenderOptions.BitmapScalingMode="HighQuality" ImageSource="{Binding PlayerCell.RankData.RankImage, ElementName=Self}" />
                 </Border.Background>
             </Border>
 
             <Border Grid.Row="2" BorderThickness="1" Margin="10,0,0,0"
-                    VerticalAlignment="Bottom" BorderBrush="Gray" ToolTip="{Binding PlayerCell.RankProgress, ElementName=Self}"
+                    VerticalAlignment="Bottom" BorderBrush="Gray" ToolTip="{Binding PlayerCell.MatchHistoryData.RankProgress, ElementName=Self}"
                     ToolTipService.InitialShowDelay="0"
                     Grid.Column="2" Height="5.5" CornerRadius="2">
                 <ProgressBar
                     BorderThickness="0"
                     Background="Transparent"
                     Foreground="#32e2b2"
-                    Maximum="{Binding PlayerCell.MaxRR, ElementName=Self}"
+                    Maximum="{Binding PlayerCell.RankData.MaxRr, ElementName=Self}"
                     Minimum="0"
-                    Value="{Binding PlayerCell.RankProgress, ElementName=Self}" />
+                    Value="{Binding PlayerCell.MatchHistoryData.RankProgress, ElementName=Self}" />
             </Border>
 
             <Grid Grid.RowSpan="3" Grid.Row="0" Grid.Column="2" Margin="-15">

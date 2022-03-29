@@ -32,7 +32,7 @@ namespace WAIUA.Views
             AuthStatusBox.Text = Properties.Resources.Refreshing;
             if (!await GetSetPpuuidAsync().ConfigureAwait(false))
                 AuthStatusBox.Text = Properties.Resources.AuthStatusFail;
-            else AuthStatusBox.Text = $"{Properties.Resources.AuthStatusAuthAs} {await GetIgUsernameAsync(Constants.Ppuuid).ConfigureAwait(false)}";
+            else AuthStatusBox.Text = $"{Properties.Resources.AuthStatusAuthAs} {await GetNameServiceGetUsernameAsync(Constants.Ppuuid).ConfigureAwait(false)}";
             Mouse.OverrideCursor = Cursors.Arrow;
         }
 
