@@ -30,8 +30,8 @@ public partial class MainViewModel : ObservableObject
         SelectedViewModel = Ioc.Default.GetRequiredService<SettingsViewModel>();
     }
     [ICommand]
-    public void NavigateMatch()
+    public void NavigateNormalmatch()
     {
-        SelectedViewModel = Ioc.Default.GetRequiredService<MatchViewModel>();
+        SelectedViewModel = Ioc.Default.GetRequiredService<NormalmatchViewModel>();
     }
 }

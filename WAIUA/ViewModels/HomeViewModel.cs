@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
@@ -54,6 +55,7 @@ public partial class HomeViewModel : ObservableObject
     private async Task LoadNowAsync()
     {
         if (!await Match.LiveMatchChecksAsync(false).ConfigureAwait(false)) return;
+        var matchDets = await Match.GetLiveMatchDetailsAsync().ConfigureAwait(false);
         GoMatchEvent?.Invoke();
         await UpdateChecksAsync().ConfigureAwait(false);
     }

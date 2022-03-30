@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WAIUA.Views.Match"
+﻿<UserControl x:Class="WAIUA.Views.Normalmatch"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -7,13 +7,13 @@
              xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
-             d:DataContext="{d:DesignInstance Type=viewmodels:MatchViewModel}"
+             d:DataContext="{d:DesignInstance Type=viewmodels:NormalmatchViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="754"
              d:DesignWidth="1536">
 	<i:Interaction.Triggers>
 		<i:EventTrigger EventName="Loaded">
-			<i:InvokeCommandAction Command="{Binding GetPlayerInfoCommand}" />
+			<i:InvokeCommandAction Command="{Binding GetMatchInfoCommand}" />
 		</i:EventTrigger>
 	</i:Interaction.Triggers>
 	<UserControl.Resources>
@@ -49,7 +49,7 @@
 			<Button
 				Grid.Column="1"
 				Margin="7"
-				Command="{Binding GetPlayerInfoCommand}"
+				Command="{Binding GetMatchInfoCommand}"
 				Template="{StaticResource ButtonTemplate}">
 
 				<Image Margin="10" Source="/Assets/refresh.png" />
@@ -145,8 +145,8 @@
 					Grid.Row="1" Margin="0 5"
 					PlayerCell="{Binding Path=PlayerList[6]}" />
 				<controls:NormalPlayerCell
-					Grid.Row="2" Margin="0,5,0,5"
-					PlayerCell="{Binding Path=PlayerList[7]}" HorizontalAlignment="Right" Width="745" />
+					Grid.Row="2" Margin="0,5"
+					PlayerCell="{Binding Path=PlayerList[7]}" />
 				<controls:NormalPlayerCell
 					Grid.Row="3" Margin="0 5"
 					PlayerCell="{Binding Path=PlayerList[8]}" />

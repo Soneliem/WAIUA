@@ -77,7 +77,7 @@ public class LaunchConfiguration
     [JsonPropertyName("workingDirectory")] public string WorkingDirectory { get; set; }
 }
 
-public class LivePlayersResponse
+public class LiveMatchIDResponse
 {
     [JsonPropertyName("Subject")] public Guid Subject { get; set; }
 

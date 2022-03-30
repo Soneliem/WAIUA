@@ -60,7 +60,7 @@ namespace WAIUA
                     // //Page ViewModels
                     .AddTransient<HomeViewModel>()
                     .AddTransient<InfoViewModel>()
-                    .AddTransient<MatchViewModel>()
+                    .AddTransient<NormalmatchViewModel>()
                     .AddTransient<SettingsViewModel>()
                     //WPF
                     .AddSingleton<MainViewModel>()

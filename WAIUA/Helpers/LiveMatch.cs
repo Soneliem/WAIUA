@@ -24,16 +24,16 @@ public class Match
     public MatchDetails MatchInfo { get; set; } = new();
     public static Guid Matchid { get; set; }
 
-    private static async Task<bool> LiveMatchIdAsync()
+    private static async Task<bool> CheckAndSetLiveMatchIdAsync()
     {
         var client = new RestClient($"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/players/{Constants.Ppuuid}");
         var request = new RestRequest();
         request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
         request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
-        var response = await client.ExecuteGetAsync<LivePlayersResponse>(request).ConfigureAwait(false);
+        var response = await client.ExecuteGetAsync<LiveMatchIDResponse>(request).ConfigureAwait(false);
         if (!response.IsSuccessful)
         {
-            Constants.Log.Error("LiveMatchIdAsync() failed. Response: {Response}", response.ErrorException);
+            Constants.Log.Error("CheckAndSetLiveMatchIdAsync() failed. Response: {Response}", response.ErrorException);
             return false;
         }
 
@@ -47,7 +47,7 @@ public class Match
         if (await GetSetPpuuidAsync().ConfigureAwait(false))
         {
             await LocalRegionAsync().ConfigureAwait(false);
-            if (await LiveMatchIdAsync().ConfigureAwait(false)) return true;
+            if (await CheckAndSetLiveMatchIdAsync().ConfigureAwait(false)) return true;
 
             if (!isSilent)
                 MessageBox.Show(Resources.NoMatch, Resources.Error, MessageBoxButton.OK,
@@ -61,7 +61,7 @@ public class Match
             await GetSetPpuuidAsync().ConfigureAwait(false);
             await LocalRegionAsync().ConfigureAwait(false);
 
-            if (await LiveMatchIdAsync().ConfigureAwait(false)) return true;
+            if (await CheckAndSetLiveMatchIdAsync().ConfigureAwait(false)) return true;
 
             if (!isSilent)
                 MessageBox.Show(Resources.NoMatch, Resources.Error, MessageBoxButton.OK,
@@ -75,14 +75,8 @@ public class Match
         return false;
     }
 
-
-    public async Task<List<Player>> LiveMatchOutputAsync(UpdateProgress updateProgress)
+    public static async Task<LiveMatchResponse> GetLiveMatchDetailsAsync()
     {
-        var playerList = new List<Player>();
-        var playerTasks = new List<Task>();
-        var seasonData = new SeasonData();
-        var presencesResponse = new PresencesResponse();
-
         var url = $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
         RestClient client = new(url);
         RestRequest request = new();
@@ -91,19 +85,30 @@ public class Match
         var response = await client.ExecuteGetAsync<LiveMatchResponse>(request).ConfigureAwait(false);
         if (!response.IsSuccessful)
         {
-            Constants.Log.Error("LiveMatchSetupAsync() failed. Response: {Response}", response.ErrorException);
-            return playerList;
+            Constants.Log.Error("GetLiveMatchID() failed. Response: {Response}", response.ErrorException);
+            return null;
         }
 
+        return response.Data;
+    }
+
+    public async Task<List<Player>> LiveMatchOutputAsync(UpdateProgress updateProgress)
+    {
+        var playerList = new List<Player>();
+        var playerTasks = new List<Task>();
+        var seasonData = new SeasonData();
+        var presencesResponse = new PresencesResponse();
+
+        LiveMatchResponse MatchIDInfo = await GetLiveMatchDetailsAsync().ConfigureAwait(false);
         
-        if (response.Data != null)
+        if (MatchIDInfo != null)
         {
             Task sTask = Task.Run(async () => seasonData = await GetSeasonsAsync().ConfigureAwait(false));
             Task pTask = Task.Run(async () => presencesResponse = await GetPresencesAsync().ConfigureAwait(false));
             await Task.WhenAll(sTask, pTask).ConfigureAwait(false);
             sbyte index = -1;
 
-            foreach (var riotPlayer in response.Data.Players)
+            foreach (var riotPlayer in MatchIDInfo.Players)
             {
                 if (!riotPlayer.IsCoach)
                 {
@@ -131,7 +136,7 @@ public class Match
                 index++;
             }
 
-            var gamePod = response.Data.GamePodId;
+            var gamePod = MatchIDInfo.GamePodId;
             if (Constants.GamePodsDictionary.TryGetValue(gamePod, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
             await Task.WhenAll(playerTasks).ConfigureAwait(false);
         }

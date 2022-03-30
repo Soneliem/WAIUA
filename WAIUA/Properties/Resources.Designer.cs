@@ -178,7 +178,7 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
             get {

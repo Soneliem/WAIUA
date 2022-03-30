@@ -12,16 +12,20 @@ using WAIUA.Objects;
 
 namespace WAIUA.ViewModels;
 
-public partial class MatchViewModel : ObservableObject
+public partial class NormalmatchViewModel : ObservableObject
 {
-    public MatchViewModel()
+    public NormalmatchViewModel()
     {
         Match = new MatchDetails();
         Overlay = new LoadingOverlay()
         {
             Header = "Loading", Content = "Getting Match Details"
         };
-        PlayerList = new List<Player>(new List<Player>(10));
+        
+        PlayerList = new List<Player>
+        {
+            new(), new(), new(), new(), new(), new(), new(), new(), new(), new()
+        };
     }
 
     [ObservableProperty] private MatchDetails _match;
@@ -29,7 +33,7 @@ public partial class MatchViewModel : ObservableObject
     [ObservableProperty] private List<Player> _playerList;
 
     [ICommand]
-    private async Task GetPlayerInfoAsync()
+    private async Task GetMatchInfoAsync()
     {
         Overlay.IsBusy = true;
         Overlay.Header = "Loading";

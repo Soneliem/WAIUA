@@ -4,11 +4,11 @@ using WAIUA.ViewModels;
 namespace WAIUA.Views
 {
     /// <summary>
-    ///     Interaction logic for Match.xaml
+    ///     Interaction logic for Normalmatch.xaml
     /// </summary>
-    public partial class Match : UserControl
+    public partial class Normalmatch : UserControl
     {
-        public Match()
+        public Normalmatch()
         {
             InitializeComponent();
         }

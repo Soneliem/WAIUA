@@ -7,440 +7,167 @@
         mc:Ignorable="d"
         Title="WAIUA DEMO" d:DesignHeight="754"
 		d:DesignWidth="1536"
-		Background="#2E3349">
-    <Window.Resources>
-        
-        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
-			<Border Name="RootElement" CornerRadius="10">
-				<Border.Background>
-					<SolidColorBrush x:Name="ButtonBackground" Color="#181E34" />
-				</Border.Background>
-				<ContentPresenter
-					Margin="5"
-					HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-					VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-				<VisualStateManager.VisualStateGroups>
-					<VisualStateGroup x:Name="CommonStates">
-						<VisualState x:Name="Normal" />
-						<VisualState x:Name="MouseOver">
-							<Storyboard>
-								<ColorAnimation
-									Storyboard.TargetName="ButtonBackground"
-									Storyboard.TargetProperty="Color"
-									To="#234d96"
-									Duration="0:0:0.5" />
-							</Storyboard>
-						</VisualState>
-						<VisualState x:Name="Pressed">
-							<Storyboard>
-								<ColorAnimation
-									Storyboard.TargetName="ButtonBackground"
-									Storyboard.TargetProperty="Color"
-									To="#89B4FF" />
-							</Storyboard>
-						</VisualState>
-					</VisualStateGroup>
-				</VisualStateManager.VisualStateGroups>
-			</Border>
-		</ControlTemplate>
+		Background="#2E3349" d:DataContext="{d:DesignData MainWindow}">
+	<Window.Resources>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 	</Window.Resources>
 	<Grid>
+
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="70" />
 			<RowDefinition />
 		</Grid.RowDefinitions>
+		<Grid Grid.ColumnSpan="3">
 
-        <Grid Grid.ColumnSpan="3" Margin="5 5 5 0" >
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="70" />
+				<ColumnDefinition Width="70" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70" />
-                <ColumnDefinition Width="70" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+			<Button
+				Grid.Column="0"
+				Margin="7"
+				
+				Template="{StaticResource ButtonTemplate}">
 
-            <Button
-                Grid.Column="0"
-                Margin="7"
-                Command="{Binding NavigateHomeCommand}"
-                Template="{StaticResource ButtonTemplate}">
+				<Image Margin="10" Source="/images/Assets/back.png" />
+			</Button>
+			<Button
+				Grid.Column="1"
+				Margin="7"
+				Template="{StaticResource ButtonTemplate}">
 
-                <Image Margin="10" Source="/images/Assets/back.png" />
-            </Button>
-            <Button
-                Grid.Column="1"
-                Margin="7"
-                Command="{Binding NavigateMatchCommand}"
-                Template="{StaticResource ButtonTemplate}">
+				<Image Margin="10" Source="/images/Assets/refresh.png" />
+			</Button>
 
-                <Image Margin="10" Source="/images/Assets/refresh.png" />
-            </Button>
-
-            <Border
-                Grid.Column="2" HorizontalAlignment="Right"
-                Margin="7"
-                CornerRadius="10">
-
-                <TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="SemiBold" Margin="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Text="🏅 Competitive    🌍 Sydney-2"></TextBlock>
-
-
-            </Border>
-
-            <Border
-                Grid.Column="3" HorizontalAlignment="Right" Width="234"
-                Margin="7"
-                CornerRadius="10">
-
-                    <Border.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="https://media.valorant-api.com/maps/7eaecc1b-4337-bbf6-6ab9-04b8f06b3319/listviewicon.png"/>
-                    </Border.Background>
-
-                <TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="Bold" Margin="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">Ascent</TextBlock>
-                
-
-            </Border>
-
-        </Grid>
-        
+			<Border
+				Grid.Column="2" HorizontalAlignment="Right"
+				Margin="7"
+				CornerRadius="10">
+				<StackPanel Orientation="Horizontal">
+					<TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="SemiBold" Margin="10"
+					           Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
+					           Text="{Binding Path=Match.GameMode}" />
+					<TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="SemiBold" Margin="10"
+					           Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
+					           Text="{Binding Path=Match.Server}" />
+				</StackPanel>
 
 
-  <!--       <Grid -->
-		<!-- 	Grid.Row="1" -->
-		<!-- 	Grid.Column="0" -->
-		<!-- 	Margin="10,0,5,10"> -->
-		<!-- 	<Grid.RowDefinitions> -->
-		<!-- 		<RowDefinition /> -->
-		<!-- 		<RowDefinition /> -->
-		<!-- 		<RowDefinition /> -->
-		<!-- 		<RowDefinition /> -->
-		<!-- 		<RowDefinition /> -->
-		<!-- 	</Grid.RowDefinitions> -->
-		<!-- 	<c:NormalPlayerCell -->
-  <!--               Grid.Row="0" Margin="0 5" -->
-		<!-- 		Agent="Sova" -->
-		<!-- 		AgentPicture="/images/agentsimg/320b2a48-4d9b-a075-30f1-1f93a9b638fa.png" -->
-  <!--               IGN="GAE Soneliem#69420" -->
-		<!-- 		Level="144" -->
-		<!-- 		MaxRR="100" -->
-		<!-- 		PMatch="+20" -->
-		<!-- 		PPMatch="-2" -->
-		<!-- 		PPPMatch="+18" -->
-		<!-- 		PMatchColour="#32e2b2" -->
-		<!-- 		PPMatchColour="#ff4654" -->
-		<!-- 		PPPMatchColour="#32e2b2" -->
-		<!-- 		PPPRank="/images/ranksimg/13.png" -->
-		<!-- 		PPPRankName="" -->
-		<!-- 		PPRank="/images/ranksimg/14.png" -->
-		<!-- 		PPRankName="" -->
-		<!-- 		PRank="/images/ranksimg/15.png" -->
-		<!-- 		PRankName="" -->
-		<!-- 		PhantomSkin="https://media.valorant-api.com/weaponskinchromas/b9c9eb56-4cbd-04b7-06a8-329dc6f1e73a/fullrender.png" -->
-		<!-- 		PhantomSkinName="" -->
-		<!-- 		Rank="/images/ranksimg/16.png" -->
-		<!-- 		RankName="" -->
-		<!-- 		RankProgress="50" -->
-		<!-- 		TrackerDisabled="Collapsed" -->
-		<!-- 		TrackerEnabled="Visible" -->
-		<!-- 		TrackerUrl="" -->
-		<!-- 		VandalSkin="https://media.valorant-api.com/weaponskinchromas/a26e0d1d-4886-7d62-6b4f-1996e706463d/fullrender.png" -->
-		<!-- 		VandalSkinName="" -->
-		<!-- 		PartyColour="Red"  -->
-  <!--               BackgroundColour="#181E34"/> -->
-		<!-- 	<c:NormalPlayerCell -->
-		<!-- 		Grid.Row="1" Margin="0 5" -->
-		<!-- 		Agent="Viper" -->
-		<!-- 		AgentPicture="/images/agentsimg/707eab51-4836-f488-046a-cda6bf494859.png" -->
-		<!-- 		IGN="GAE Exploosion#1313" -->
-		<!-- 		Level="918" -->
-		<!-- 		MaxRR="100" -->
-		<!-- 		PMatch="-12" -->
-		<!-- 		PPMatch="-26" -->
-		<!-- 		PPPMatch="-2" -->
-		<!-- 		PMatchColour="#ff4654" -->
-		<!-- 		PPMatchColour="#ff4654" -->
-		<!-- 		PPPMatchColour="#ff4654" -->
-		<!-- 		PPPRank="/images/ranksimg/14.png" -->
-		<!-- 		PPPRankName="" -->
-		<!-- 		PPRank="/images/ranksimg/13.png" -->
-		<!-- 		PPRankName="" -->
-		<!-- 		PRank="/images/ranksimg/12.png" -->
-		<!-- 		PRankName="" -->
-		<!-- 		PhantomSkin="https://media.valorant-api.com/weaponskinchromas/e9014a77-4a74-4ea7-999c-44b0d0f84daa/fullrender.png" -->
-		<!-- 		PhantomSkinName="" -->
-		<!-- 		Rank="/images/ranksimg/11.png" -->
-		<!-- 		RankName="" -->
-		<!-- 		RankProgress="10" -->
-		<!-- 		TrackerDisabled="Collapsed" -->
-		<!-- 		TrackerEnabled="Visible" -->
-		<!-- 		TrackerUrl="" -->
-		<!-- 		VandalSkin="https://media.valorant-api.com/weaponskinchromas/05dc58f4-4170-c088-ba23-fd9a2ddcfa9d/fullrender.png" -->
-		<!-- 		VandalSkinName="" -->
-		<!-- 		PartyColour="Red" /> -->
-		<!-- 	<c:NormalPlayerCell -->
-		<!-- 		Grid.Row="2" Margin="0 5" -->
-		<!-- 		Agent="Jett" -->
-		<!-- 		AgentPicture="/images/agentsimg/add6443a-41bd-e414-f6ad-e58d267f4e95.png" -->
-		<!-- 		IGN="GAE ladams#yabot" -->
-		<!-- 		Level="72" -->
-		<!-- 		MaxRR="100" -->
-		<!-- 		PMatch="+20" -->
-		<!-- 		PPMatch="+2" -->
-		<!-- 		PPPMatch="+18" -->
-		<!-- 		PMatchColour="#32e2b2" -->
-		<!-- 		PPMatchColour="#32e2b2" -->
-		<!-- 		PPPMatchColour="#ff4654" -->
-		<!-- 		PPPRank="/images/ranksimg/13.png" -->
-		<!-- 		PPPRankName="" -->
-		<!-- 		PPRank="/images/ranksimg/14.png" -->
-		<!-- 		PPRankName="" -->
-		<!-- 		PRank="/images/ranksimg/14.png" -->
-		<!-- 		PRankName="" -->
-		<!-- 		PhantomSkin="https://media.valorant-api.com/weaponskinchromas/c805c92a-4424-69f2-a0f2-8c8c9bb33a4a/fullrender.png" -->
-		<!-- 		PhantomSkinName="" -->
-		<!-- 		Rank="/images/ranksimg/15.png" -->
-		<!-- 		RankName="" -->
-		<!-- 		RankProgress="60" -->
-		<!-- 		TrackerDisabled="Visible" -->
-		<!-- 		TrackerEnabled="Collapsed" -->
-		<!-- 		TrackerUrl="" -->
-		<!-- 		VandalSkin="https://media.valorant-api.com/weaponskinchromas/b2619c1c-4974-4f06-f37b-c68b1d6d7bd1/fullrender.png" -->
-		<!-- 		VandalSkinName="" -->
-		<!-- 		PartyColour="Red" /> -->
-		<!-- 	<c:NormalPlayerCell -->
-		<!-- 		Grid.Row="3" Margin="0 5" -->
-		<!-- 		Agent="Reyna" -->
-		<!-- 		AgentPicture="/images/agentsimg/a3bfb853-43b2-7238-a4f1-ad90e9e46bcc.png" -->
-		<!-- 		IGN="GAE laskin#69420" -->
-		<!-- 		Level="69" -->
-		<!-- 		MaxRR="100" -->
-		<!-- 		PMatch="+17" -->
-		<!-- 		PPMatch="-12" -->
-		<!-- 		PPPMatch="-15" -->
-		<!-- 		PMatchColour="#32e2b2" -->
-		<!-- 		PPMatchColour="#ff4654" -->
-		<!-- 		PPPMatchColour="#ff4654" -->
-		<!-- 		PPPRank="/images/ranksimg/17.png" -->
-		<!-- 		PPPRankName="" -->
-		<!-- 		PPRank="/images/ranksimg/18.png" -->
-		<!-- 		PPRankName="" -->
-		<!-- 		PRank="/images/ranksimg/21.png" -->
-		<!-- 		PRankName="" -->
-		<!-- 		PhantomSkin="https://media.valorant-api.com/weaponskinchromas/b9c9eb56-4cbd-04b7-06a8-329dc6f1e73a/fullrender.png" -->
-		<!-- 		PhantomSkinName="" -->
-		<!-- 		Rank="/images/ranksimg/20.png" -->
-		<!-- 		RankName="" -->
-		<!-- 		RankProgress="20" -->
-		<!-- 		TrackerDisabled="Visible" -->
-		<!-- 		TrackerEnabled="Collapsed" -->
-		<!-- 		TrackerUrl="" -->
-		<!-- 		VandalSkin="https://media.valorant-api.com/weaponskinchromas/6153bc01-4807-c705-e576-63beb9c8e930/fullrender.png" -->
-		<!-- 		VandalSkinName="" -->
-		<!-- 		PartyColour="Red" /> -->
-		<!-- 	<c:NormalPlayerCell -->
-		<!-- 		Grid.Row="4" Margin="0 5" -->
-		<!-- 		Agent="Astra" -->
-		<!-- 		AgentPicture="/images/agentsimg/41fb69c1-4189-7b37-f117-bcaf1e96f1bf.png" -->
-		<!-- 		IGN="GAE PantryWizard#3922" -->
-		<!-- 		Level="89" -->
-		<!-- 		MaxRR="100" -->
-		<!-- 		PMatch="0" -->
-		<!-- 		PPMatch="+17" -->
-		<!-- 		PPPMatch="+12" -->
-		<!-- 		PMatchColour="#7f7f7f" -->
-		<!-- 		PPMatchColour="#32e2b2" -->
-		<!-- 		PPPMatchColour="#32e2b2" -->
-		<!-- 		PPPRank="/images/ranksimg/14.png" -->
-		<!-- 		PPPRankName="" -->
-		<!-- 		PPRank="/images/ranksimg/13.png" -->
-		<!-- 		PPRankName="" -->
-		<!-- 		PRank="/images/ranksimg/14.png" -->
-		<!-- 		PRankName="" -->
-		<!-- 		PhantomSkin="https://media.valorant-api.com/weaponskinchromas/32dfe871-4906-d2ce-4835-2d99aaa52f84/fullrender.png" -->
-		<!-- 		PhantomSkinName="" -->
-		<!-- 		Rank="/images/ranksimg/15.png" -->
-		<!-- 		RankName="" -->
-		<!-- 		RankProgress="70" -->
-		<!-- 		TrackerDisabled="Collapsed" -->
-		<!-- 		TrackerEnabled="Visible" -->
-		<!-- 		TrackerUrl="" -->
-		<!-- 		VandalSkin="https://media.valorant-api.com/weaponskinchromas/689e54c0-4089-2d91-de26-61aa4286d6cf/fullrender.png" -->
-		<!-- 		VandalSkinName="" -->
-		<!-- 		PartyColour="Red" /> -->
-		<!-- </Grid> -->
+			</Border>
 
-        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-            <Separator Width="4" Margin="6 20 6 30" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"  Background="#181E34" BorderThickness="0" />
-        </StackPanel>
+			<Border
+				Grid.Column="3" HorizontalAlignment="Right" Width="234"
+				Margin="7"
+				CornerRadius="10">
 
-  <!--       <Grid -->
-		<!-- 	Grid.Row="1" -->
-		<!-- 	Grid.Column="2" -->
-		<!-- 	Margin="5,0,10,10"> -->
-  <!-- -->
-		<!-- 	<Grid.RowDefinitions> -->
-		<!-- 		<RowDefinition /> -->
-		<!-- 		<RowDefinition /> -->
-		<!-- 		<RowDefinition /> -->
-		<!-- 		<RowDefinition /> -->
-		<!-- 		<RowDefinition /> -->
-		<!-- 	</Grid.RowDefinitions> -->
-  <!-- -->
-		<!-- 	<c:NormalPlayerCell -->
-		<!-- 		Grid.Row="0" Margin="0 5" -->
-		<!-- 		Agent="Omen" -->
-		<!-- 		AgentPicture="/images/agentsimg/8e253930-4c05-31dd-1b6c-968525494517.png" -->
-		<!-- 		IGN="NXT TenZ#b3tter" -->
-		<!-- 		Level="95" -->
-		<!-- 		MaxRR="100" -->
-		<!-- 		PMatch="+26" -->
-		<!-- 		PPMatch="-2" -->
-		<!-- 		PPPMatch="+18" -->
-		<!-- 		PMatchColour="#32e2b2" -->
-		<!-- 		PPMatchColour="#ff4654" -->
-		<!-- 		PPPMatchColour="#32e2b2" -->
-		<!-- 		PPPRank="/images/ranksimg/17.png" -->
-		<!-- 		PPPRankName="" -->
-		<!-- 		PPRank="/images/ranksimg/18.png" -->
-		<!-- 		PPRankName="" -->
-		<!-- 		PRank="/images/ranksimg/19.png" -->
-		<!-- 		PRankName="" -->
-		<!-- 		PhantomSkin="https://media.valorant-api.com/weaponskinchromas/7e10eabf-476b-0bcb-5847-e8958d6f1132/fullrender.png" -->
-		<!-- 		PhantomSkinName="" -->
-		<!-- 		Rank="/images/ranksimg/19.png" -->
-		<!-- 		RankName="" -->
-		<!-- 		RankProgress="5" -->
-		<!-- 		TrackerDisabled="Collapsed" -->
-		<!-- 		TrackerEnabled="Visible" -->
-		<!-- 		TrackerUrl="" -->
-		<!-- 		VandalSkin="https://media.valorant-api.com/weaponskinchromas/86f3352f-49b1-603f-6752-60bdfcddf318/fullrender.png" -->
-		<!-- 		VandalSkinName="" -->
-		<!-- 		PartyColour="Green" /> -->
-		<!-- 	<c:NormalPlayerCell -->
-		<!-- 		Grid.Row="1" Margin="0 5" -->
-		<!-- 		Agent="Cypher" -->
-		<!-- 		AgentPicture="/images/agentsimg/117ed9e3-49f3-6512-3ccf-0cada7e3823b.png" -->
-		<!-- 		IGN="WatchFlank#3454" -->
-		<!-- 		Level="87" -->
-		<!-- 		MaxRR="100" -->
-		<!-- 		PMatch="-17" -->
-		<!-- 		PPMatch="+12" -->
-		<!-- 		PPPMatch="+17" -->
-		<!-- 		PMatchColour="#ff4654" -->
-		<!-- 		PPMatchColour="#32e2b2" -->
-		<!-- 		PPPMatchColour="#32e2b2" -->
-		<!-- 		PPPRank="/images/ranksimg/16.png" -->
-		<!-- 		PPPRankName="" -->
-		<!-- 		PPRank="/images/ranksimg/18.png" -->
-		<!-- 		PPRankName="" -->
-		<!-- 		PRank="/images/ranksimg/17.png" -->
-		<!-- 		PRankName="" -->
-		<!-- 		PhantomSkin="https://media.valorant-api.com/weaponskinchromas/388dada2-4bbd-0cd9-f9a9-4c9b66c64240/fullrender.png" -->
-		<!-- 		PhantomSkinName="" -->
-		<!-- 		Rank="/images/ranksimg/18.png" -->
-		<!-- 		RankName="" -->
-		<!-- 		RankProgress="60" -->
-		<!-- 		TrackerDisabled="Visible" -->
-		<!-- 		TrackerEnabled="Collapsed" -->
-		<!-- 		TrackerUrl="" -->
-		<!-- 		VandalSkin="https://media.valorant-api.com/weaponskinchromas/31c816c4-4e19-9a57-4103-4194723eb6f1/fullrender.png" -->
-		<!-- 		VandalSkinName="" -->
-		<!-- 		PartyColour="Green" /> -->
-		<!-- 	<c:NormalPlayerCell -->
-		<!-- 		Grid.Row="2" Margin="0 5" -->
-  <!-- -->
-		<!-- 	Agent="Sage" -->
-		<!-- 		AgentPicture="/images/agentsimg/569fdd95-4d10-43ab-ca70-79becc718b46.png" -->
-		<!-- 		IGN="ToxinGamer#1111" -->
-		<!-- 		Level="52" -->
-		<!-- 		MaxRR="100" -->
-		<!-- 		PMatch="+12" -->
-		<!-- 		PPMatch="0" -->
-		<!-- 		PPPMatch="+18" -->
-		<!-- 		PMatchColour="#32e2b2" -->
-		<!-- 		PPMatchColour="#7f7f7f" -->
-		<!-- 		PPPMatchColour="#32e2b2" -->
-		<!-- 		PPPRank="/images/ranksimg/15.png" -->
-		<!-- 		PPPRankName="" -->
-		<!-- 		PPRank="/images/ranksimg/0.png" -->
-		<!-- 		PPRankName="" -->
-		<!-- 		PRank="/images/ranksimg/15.png" -->
-		<!-- 		PRankName="" -->
-		<!-- 		PhantomSkin="https://media.valorant-api.com/weaponskinchromas/171f9591-4efd-9fde-d555-d3b570f64d14/fullrender.png" -->
-		<!-- 		PhantomSkinName="" -->
-		<!-- 		Rank="/images/ranksimg/15.png" -->
-		<!-- 		RankName="" -->
-		<!-- 		RankProgress="70" -->
-		<!-- 		TrackerDisabled="Visible" -->
-		<!-- 		TrackerEnabled="Collapsed" -->
-		<!-- 		TrackerUrl="" -->
-		<!-- 		VandalSkin="https://media.valorant-api.com/weaponskinchromas/a26e0d1d-4886-7d62-6b4f-1996e706463d/fullrender.png" -->
-		<!-- 		VandalSkinName="" -->
-		<!-- 		PartyColour="Transparent" /> -->
-		<!-- 	<c:NormalPlayerCell -->
-		<!-- 		Grid.Row="3" Margin="0 5" -->
-		<!-- 		Agent="Reyna" -->
-		<!-- 		AgentPicture="/images/agentsimg/a3bfb853-43b2-7238-a4f1-ad90e9e46bcc.png" -->
-		<!-- 		IGN="TotallyNot#smurf" -->
-		<!-- 		Level="3" -->
-		<!-- 		MaxRR="100" -->
-		<!-- 		PMatch="+18" -->
-		<!-- 		PPMatch="+26" -->
-		<!-- 		PPPMatch="+24" -->
-		<!-- 		PMatchColour="#32e2b2" -->
-		<!-- 		PPMatchColour="#32e2b2" -->
-		<!-- 		PPPMatchColour="#32e2b2" -->
-		<!-- 		PPPRank="/images/ranksimg/0.png" -->
-		<!-- 		PPPRankName="" -->
-		<!-- 		PPRank="/images/ranksimg/0.png" -->
-		<!-- 		PPRankName="" -->
-		<!-- 		PRank="/images/ranksimg/7.png" -->
-		<!-- 		PRankName="" -->
-		<!-- 		PhantomSkin="/images/assets/phantom.png" -->
-		<!-- 		PhantomSkinName="" -->
-		<!-- 		Rank="/images/ranksimg/9.png" -->
-		<!-- 		RankName="" -->
-		<!-- 		RankProgress="30" -->
-		<!-- 		TrackerDisabled="Visible" -->
-		<!-- 		TrackerEnabled="Collapsed" -->
-		<!-- 		TrackerUrl="" -->
-		<!-- 		VandalSkin="/images/assets/vandal.png" -->
-		<!-- 		VandalSkinName="" -->
-		<!-- 		PartyColour="DarkOrange" /> -->
-		<!-- 	<c:NormalPlayerCell -->
-		<!-- 		Grid.Row="4" Margin="0 5" -->
-		<!-- 		Agent="Raze" -->
-		<!-- 		AgentPicture="/images/agentsimg/f94c3b30-42be-e959-889c-5aa313dba261.png" -->
-		<!-- 		IGN="Potato#1212" -->
-		<!-- 		Level="76" -->
-		<!-- 		MaxRR="100" -->
-		<!-- 		PMatch="+12" -->
-		<!-- 		PPMatch="-26" -->
-		<!-- 		PPPMatch="-18" -->
-		<!-- 		PMatchColour="#32e2b2" -->
-		<!-- 		PPMatchColour="#ff4654" -->
-		<!-- 		PPPMatchColour="#ff4654" -->
-		<!-- 		PPPRank="/images/ranksimg/13.png" -->
-		<!-- 		PPPRankName="" -->
-		<!-- 		PPRank="/images/ranksimg/13.png" -->
-		<!-- 		PPRankName="" -->
-		<!-- 		PRank="/images/ranksimg/13.png" -->
-		<!-- 		PRankName="" -->
-		<!-- 		PhantomSkin="https://media.valorant-api.com/weaponskinchromas/b9c9eb56-4cbd-04b7-06a8-329dc6f1e73a/fullrender.png" -->
-		<!-- 		PhantomSkinName="" -->
-		<!-- 		Rank="/images/ranksimg/14.png" -->
-		<!-- 		RankName="" -->
-		<!-- 		RankProgress="80" -->
-		<!-- 		TrackerDisabled="Visible" -->
-		<!-- 		TrackerEnabled="Collapsed" -->
-		<!-- 		TrackerUrl="" -->
-		<!-- 		VandalSkin="https://media.valorant-api.com/weaponskinchromas/742740d0-4e50-57e1-af32-f991c7c640f8/fullrender.png" -->
-		<!-- 		VandalSkinName="" -->
-		<!-- 		PartyColour="DarkOrange" /> -->
-		<!-- </Grid> -->
+				<Border.Background>
+					<ImageBrush Stretch="UniformToFill" ImageSource="{Binding Path=Match.MapImage}" />
+				</Border.Background>
+
+				<TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="Bold" Margin="10"
+				           Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
+				           Text="{Binding Path=Match.Map}" />
+
+
+			</Border>
+
+		</Grid>
+
+		<Grid Grid.Row="1" Grid.ColumnSpan="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Column="0" Margin="10,0,5,0">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<c:NormalPlayerCell
+					Grid.Row="0" Margin="0 5"
+					PlayerCell="{Binding Path=PlayerList[0]}" />
+				<c:NormalPlayerCell
+					Grid.Row="1" Margin="0 5"
+					PlayerCell="{Binding Path=PlayerList[1]}" />
+				<c:NormalPlayerCell
+					Grid.Row="2" Margin="0 5"
+					PlayerCell="{Binding Path=PlayerList[2]}" />
+				<c:NormalPlayerCell
+					Grid.Row="3" Margin="0 5"
+					PlayerCell="{Binding Path=PlayerList[3]}" />
+				<c:NormalPlayerCell
+					Grid.Row="4" Margin="0 5"
+					PlayerCell="{Binding Path=PlayerList[4]}" />
+			</Grid>
+
+			<StackPanel Grid.Column="1" Orientation="Horizontal">
+				<Separator Width="4" Margin="6 20 6 30"
+				           Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Background="#181E34"
+				           BorderThickness="0" />
+			</StackPanel>
+
+			<Grid
+				Grid.Column="2"
+				Margin="5,0,10,0">
+
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+
+				<c:NormalPlayerCell
+					Grid.Row="0" Margin="0 5"
+					PlayerCell="{Binding Path=PlayerList[5]}" />
+				<c:NormalPlayerCell
+					Grid.Row="1" Margin="0 5"
+					PlayerCell="{Binding Path=PlayerList[6]}" />
+				<c:NormalPlayerCell
+					Grid.Row="2" Margin="0,5"
+					PlayerCell="{Binding Path=PlayerList[7]}" />
+				<c:NormalPlayerCell
+					Grid.Row="3" Margin="0 5"
+					PlayerCell="{Binding Path=PlayerList[8]}" />
+				<c:NormalPlayerCell
+					Grid.Row="4" Margin="0 5"
+					PlayerCell="{Binding Path=PlayerList[9]}" />
+			</Grid>
+		</Grid>
+		<Grid Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Background="#2E3349"
+			Visibility="{Binding Overlay.IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+			<Border VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" Height="Auto"
+			        Background="#252A40" Padding="10px"
+			        CornerRadius="20">
+				<StackPanel Margin="5">
+					<TextBlock Text="{Binding Overlay.Header}" FontSize="25" FontWeight="Bold" Foreground="#32e2b2" Padding="5"
+					           HorizontalAlignment="Center" />
+					<!-- <Image Height="200px" Width="200px" gif:ImageBehavior.AnimatedSource="/Assets/cat.gif"></Image> -->
+
+					<TextBlock  Margin="5" Text="{Binding Overlay.Content}" Foreground="White" FontSize="15"
+					            HorizontalAlignment="Center" />
+						<ProgressBar Margin="5" Style="{DynamicResource CustomProgressBar}" Value="{Binding Overlay.Progress}"
+						             Height="10" Width="200" />
+
+
+					<Button Template="{StaticResource ButtonTemplate}" Foreground="White" Content="Pause"
+					        HorizontalAlignment="Center" Margin="5" />
+				</StackPanel>
+			</Border>
+
+		</Grid>
 	</Grid>
 </Window>
