@@ -1,61 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows.Automation.Peers;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using WAIUA.Helpers;
 using WAIUA.Objects;
-using WAIUA.Views;
 using static WAIUA.Helpers.Login;
-using Match = WAIUA.Helpers.Match;
 
 namespace WAIUA.ViewModels;
 
 public partial class HomeViewModel : ObservableObject
 {
+    public delegate void EventAction();
+
     private static readonly Uri question = new("pack://application:,,,/Assets/question.png");
     private static readonly Uri refresh = new("pack://application:,,,/Assets/refresh.png");
     private static readonly Uri check = new("pack://application:,,,/Assets/check.png");
     private static readonly Uri cross = new("pack://application:,,,/Assets/cross.png");
 
-    [ObservableProperty]
-    private int countdownTime = 15;
-    [ObservableProperty]
-    private DispatcherTimer _countTimer;
-    [ObservableProperty]
-    private Match _newMatch = new();
-    [ObservableProperty]
-    private List<Player> _playerList = new(5);
-    [ObservableProperty]
-    private string _queueTime = "-";
-    [ObservableProperty]
-    private string _refreshTime = "-";
-    [ObservableProperty]
-    private string _toggleBtnTxt = "Wait for Next Match";
-    [ObservableProperty]
-    private Uri _accountStatus = question;
-    [ObservableProperty]
-    private Uri _gameStatus = question;
-    [ObservableProperty]
-    private Uri _matchStatus = question;
+    [ObservableProperty] private Uri _accountStatus = question;
 
-    public delegate void EventAction();
+    [ObservableProperty] private DispatcherTimer _countTimer;
+
+    [ObservableProperty] private Uri _gameStatus = question;
+
+    [ObservableProperty] private Uri _matchStatus = question;
+
+    [ObservableProperty] private Match _newMatch = new();
+
+    [ObservableProperty] private List<Player> _playerList = new(5);
+
+    [ObservableProperty] private string _queueTime = "-";
+
+    [ObservableProperty] private string _refreshTime = "-";
+
+    [ObservableProperty] private string _toggleBtnTxt = "Wait for Next Match";
+
+    [ObservableProperty] private int countdownTime = 15;
+
     public event EventAction GoMatchEvent;
-    public HomeViewModel()
-    {
-
-    }
 
     [ICommand]
     private async Task LoadNowAsync()
     {
         if (!await Match.LiveMatchChecksAsync(false).ConfigureAwait(false)) return;
-        var matchDets = await Match.GetLiveMatchDetailsAsync().ConfigureAwait(false);
+        // var matchDets = await Match.GetLiveMatchDetailsAsync().ConfigureAwait(false);
         GoMatchEvent?.Invoke();
         await UpdateChecksAsync().ConfigureAwait(false);
     }
@@ -73,7 +63,7 @@ public partial class HomeViewModel : ObservableObject
             GoMatchEvent?.Invoke();
         ToggleBtnTxt = "Waiting for match";
 
-        
+
         await UpdateChecksAsync().ConfigureAwait(false);
     }
 
@@ -124,7 +114,6 @@ public partial class HomeViewModel : ObservableObject
                     CountTimer?.Stop();
 
                     GoMatchEvent?.Invoke();
-
                 }
                 else
                 {
@@ -155,7 +144,6 @@ public partial class HomeViewModel : ObservableObject
                     AccountStatus = cross;
                     MatchStatus = cross;
                 }
-                    
             }
         }
         else

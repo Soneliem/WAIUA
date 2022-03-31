@@ -23,9 +23,10 @@ public static class Login
         {
             if (Constants.AccessToken is null)
             {
-                bool isToken = false;
+                var isToken = false;
                 Constants.Log.Error("GetSetPpuuidAsync() failed. Response(Accesstoken {isToken}): {Response}", isToken, response.ErrorException);
             }
+
             Constants.Log.Error("GetSetPpuuidAsync() failed. Response: {Response}", response.ErrorException);
             return false;
         }
@@ -63,20 +64,22 @@ public static class Login
     public static async Task<bool> LocalLoginAsync()
     {
         await GetLatestVersionAsync().ConfigureAwait(false);
-         var options = new RestClientOptions($"https://127.0.0.1:{Constants.Port}/entitlements/v1/token"){
-             RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
-         };
+        var options = new RestClientOptions($"https://127.0.0.1:{Constants.Port}/entitlements/v1/token")
+        {
+            RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
+        };
         var client = new RestClient(options);
         var request = new RestRequest()
             .AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{Constants.LPassword}"))}");
-         // .AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
-         // .AddHeader("X-Riot-ClientVersion", Constants.Version);
+        // .AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
+        // .AddHeader("X-Riot-ClientVersion", Constants.Version);
         var response = await client.ExecuteGetAsync<EntitlementsResponse>(request).ConfigureAwait(false);
         if (!response.IsSuccessful)
         {
             Constants.Log.Error("LocalLoginAsync Failed");
             return false;
         }
+
         Constants.AccessToken = response.Data.AccessToken;
         Constants.EntitlementToken = response.Data.Token;
         return true;
@@ -88,7 +91,7 @@ public static class Login
         {
             RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
         };
-            
+
         var client = new RestClient(options);
         var request = new RestRequest().AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{Constants.LPassword}"))}")
             .AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
@@ -101,7 +104,7 @@ public static class Login
             return;
         }
 
-        var parts = JsonSerializer.Deserialize<ExternalSessions>(response.Data.ExtensionData.First().Value).LaunchConfiguration.Arguments[3].Split('=', '&');
+        var parts = response.Data.ExtensionData.First().Value.Deserialize<ExternalSessions>().LaunchConfiguration.Arguments[3].Split('=', '&');
         switch (parts[1])
         {
             case "latam":
@@ -135,7 +138,7 @@ public static class Login
 
     public static async Task<string> GetNameServiceGetUsernameAsync(Guid puuid)
     {
-        if(puuid == Guid.Empty) return null;
+        if (puuid == Guid.Empty) return null;
         var options = new RestClientOptions(new Uri($"https://pd.{Constants.Region}.a.pvp.net/name-service/v2/players"))
         {
             RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
@@ -155,13 +158,10 @@ public static class Login
             var content = JsonSerializer.Deserialize<NameServiceResponse>(incorrectContent);
             return content.GameName + "#" + content.TagLine;
         }
-        else
-        {
-            Debugger.Break();
-            Constants.Log.Error("GetNameServiceGetUsernameAsync Failed: {e}", response.ErrorException);
-            return "";
-            
-        }
+
+        Debugger.Break();
+        Constants.Log.Error("GetNameServiceGetUsernameAsync Failed: {e}", response.ErrorException);
+        return "";
     }
 
 
@@ -188,10 +188,11 @@ public static class Login
                 "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
             request.AddHeader("X-Riot-ClientVersion", Constants.Version);
         }
+
         var response = await client.ExecuteAsync(request, method).ConfigureAwait(false);
         if (!response.IsSuccessful)
         {
-            Constants.Log.Error("Request to {url} Failed: {e}",url, response.ErrorException);
+            Constants.Log.Error("Request to {url} Failed: {e}", url, response.ErrorException);
             return response;
         }
 

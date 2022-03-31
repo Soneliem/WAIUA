@@ -1,269 +1,268 @@
 ﻿<UserControl
-    x:Class="WAIUA.Views.Home"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:c="clr-namespace:WAIUA.Controls"
-    xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
-    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:p="clr-namespace:WAIUA.Properties"
-    d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}"
-    d:DesignHeight="754"
-    d:DesignWidth="1536"
-    Background="#2E3349"
-    mc:Ignorable="d">
-    <i:Interaction.Triggers>
-        <!-- <i:EventTrigger EventName="Loaded"> -->
-        <!--     <i:InvokeCommandAction Command="{Binding UpdateChecksCommand}" /> -->
-        <!-- </i:EventTrigger> -->
-    </i:Interaction.Triggers>
-    <UserControl.Triggers>
-        <EventTrigger RoutedEvent="Loaded">
-            <BeginStoryboard>
-                <Storyboard>
-                    <DoubleAnimation
-                        Storyboard.TargetProperty="Opacity"
-                        From="0.0" To="1.0" Duration="0:0:0.75" />
-                </Storyboard>
-            </BeginStoryboard>
-        </EventTrigger>
-    </UserControl.Triggers>
+	x:Class="WAIUA.Views.Home"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:c="clr-namespace:WAIUA.Controls"
+	xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
+	xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+	xmlns:p="clr-namespace:WAIUA.Properties"
+	d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}"
+	d:DesignHeight="754"
+	d:DesignWidth="1536"
+	Background="#2E3349"
+	mc:Ignorable="d">
+	<i:Interaction.Triggers>
+		<!-- <i:EventTrigger EventName="Loaded"> -->
+		<!--     <i:InvokeCommandAction Command="{Binding UpdateChecksCommand}" /> -->
+		<!-- </i:EventTrigger> -->
+	</i:Interaction.Triggers>
+	<UserControl.Triggers>
+		<EventTrigger RoutedEvent="Loaded">
+			<BeginStoryboard>
+				<Storyboard>
+					<DoubleAnimation
+						Storyboard.TargetProperty="Opacity"
+						From="0.0" To="1.0" Duration="0:0:0.75" />
+				</Storyboard>
+			</BeginStoryboard>
+		</EventTrigger>
+	</UserControl.Triggers>
 
-    <Grid Margin="15">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+	<Grid Margin="15">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="60" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" Grid.ColumnSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition  />
-                <ColumnDefinition />
-                <ColumnDefinition  />
-                <ColumnDefinition />
-                <ColumnDefinition  />
-            </Grid.ColumnDefinitions>
-	        <Button
-                Grid.Column="0" Cursor="Hand" Width="60"
-                HorizontalAlignment="Left" VerticalAlignment="Center"
-                Command="{Binding DataContext.NavigateSettingsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                Template="{StaticResource ButtonTemplate}">
-
-                <Image Margin="10" Source="/Assets/settings.png" />
-            </Button>
+		<Grid Grid.Row="0" Grid.ColumnSpan="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
 			<Button
-		        Grid.Column="0" x:Name="GoMatch"
-		        Command="{Binding DataContext.NavigateMatchCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-		        Visibility="Collapsed">
+				Grid.Column="0" Cursor="Hand" Width="60"
+				HorizontalAlignment="Left" VerticalAlignment="Center"
+				Command="{Binding DataContext.NavigateSettingsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+				Template="{StaticResource ButtonTemplate}">
+
+				<Image Margin="10" Source="/Assets/settings.png" />
+			</Button>
+			<Button
+				Grid.Column="0" x:Name="GoMatch"
+				Command="{Binding DataContext.NavigateNormalmatchCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+				Visibility="Collapsed" />
+
+			<Button
+				Grid.Row="0" Grid.Column="2" Cursor="Hand"
+				HorizontalAlignment="Right"
+				Command="{Binding LoadNowCommand}"
+				Template="{StaticResource ButtonTemplate}">
+				<Viewbox>
+					<TextBlock
+						Padding="5"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						FontWeight="Normal"
+						Foreground="#007EF9"
+						FontFamily="{StaticResource Nunito}"
+						Text="{x:Static p:Resources.RefreshMatch}" />
+				</Viewbox>
 			</Button>
 
 			<Button
-                Grid.Row="0" Grid.Column="2" Cursor="Hand" 
-                HorizontalAlignment="Right"
-                Command="{Binding LoadNowCommand}"
-                Template="{StaticResource ButtonTemplate}">
-                <Viewbox>
-                    <TextBlock
-                        Padding="5"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontWeight="Normal"
-                        Foreground="#007EF9"
-                        FontFamily="{StaticResource Nunito}"
-                        Text="{x:Static p:Resources.RefreshMatch}"/>
-                </Viewbox>
-            </Button>
+				Grid.Row="0" Grid.Column="4" Cursor="Hand" Width="60"
+				HorizontalAlignment="Right"
+				Command="{Binding DataContext.NavigateInfoCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+				Template="{StaticResource ButtonTemplate}">
+				<Image Margin="10" Source="/Assets/info.png" />
+			</Button>
+			<TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" FontSize="35" VerticalAlignment="Center"
+			           FontWeight="SemiBold" FontFamily="{StaticResource Nunito}"
+			           Foreground="White" Text="Your Party" />
 
-            <Button
-                Grid.Row="0" Grid.Column="4" Cursor="Hand" Width="60"
-                HorizontalAlignment="Right"
-                Command="{Binding DataContext.NavigateInfoCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                Template="{StaticResource ButtonTemplate}" >
-                <Image Margin="10" Source="/Assets/info.png" />
-            </Button>
-            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" FontSize="35" VerticalAlignment="Center" 
-                       FontWeight="SemiBold"  FontFamily="{StaticResource Nunito}"
-                       Foreground="White" Text="Your Party" />
-
-            <TextBlock FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Right"
-                       FontWeight="SemiBold" Grid.Row="0" Grid.Column="3" FontFamily="{StaticResource Nunito}"
-                       Foreground="White" Text="Status"  />
-        </Grid>
-
-        
-        <Grid Grid.Row="1" Grid.Column="0" Margin="0,15,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-
-            <c:NormalPlayerCell Grid.Row="0" Margin="0 5"
-             PlayerCell="{Binding PlayerList[0]}"                    />
-            <c:NormalPlayerCell Grid.Row="1" Margin="0 5"
-                                PlayerCell="{Binding PlayerList[1]}"      />
-            <c:NormalPlayerCell Grid.Row="2" Margin="0 5"
-                                PlayerCell="{Binding PlayerList[2]}"              />
-            <c:NormalPlayerCell Grid.Row="3" Margin="0 5"
-                                PlayerCell="{Binding PlayerList[3]}"          />
-            <c:NormalPlayerCell Grid.Row="4" Margin="0 5 0 0"
-                                PlayerCell="{Binding PlayerList[4]}"           />
-
-        </Grid>
+			<TextBlock FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Right"
+			           FontWeight="SemiBold" Grid.Row="0" Grid.Column="3" FontFamily="{StaticResource Nunito}"
+			           Foreground="White" Text="Status" />
+		</Grid>
 
 
-        <Grid Grid.Row="1" Grid.Column="1" Height="664" VerticalAlignment="Center" Grid.ColumnSpan="2">
+		<Grid Grid.Row="1" Grid.Column="0" Margin="0,15,0,0">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
 
-            <Grid Grid.Row="0"
-                  Margin="5 15 0 0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+			<c:PlayerControl Grid.Row="0" Margin="0 5"
+			                    PlayerCell="{Binding PlayerList[0]}" />
+			<c:PlayerControl Grid.Row="1" Margin="0 5"
+			                    PlayerCell="{Binding PlayerList[1]}" />
+			<c:PlayerControl Grid.Row="2" Margin="0 5"
+			                    PlayerCell="{Binding PlayerList[2]}" />
+			<c:PlayerControl Grid.Row="3" Margin="0 5"
+			                    PlayerCell="{Binding PlayerList[3]}" />
+			<c:PlayerControl Grid.Row="4" Margin="0 5 0 0"
+			                    PlayerCell="{Binding PlayerList[4]}" />
 
-                <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                            Orientation="Horizontal">
-                    <Border Background="#252A40" Margin="20" Width="Auto"
-                            CornerRadius="20">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Margin="25"
-                                       FontSize="20"
-                                       HorizontalAlignment="Center"
-                                       FontFamily="{StaticResource Nunito}"
-                                       VerticalAlignment="Center"
-                                       FontWeight="Normal"
-                                       Foreground="White"
-                                       Text="Valorant" />
-                            <Image Margin="25" Width="30" Grid.Column="1" Source="{Binding GameStatus}" />
+		</Grid>
 
 
-                            <TextBlock Margin="25" Grid.Row="1"
-                                       FontSize="20"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontFamily="{StaticResource Nunito}"
-                                       FontWeight="Normal"
-                                       Foreground="White"
-                                       Text="Account" />
-                            <Image Margin="25" Width="30" Grid.Row="1" Grid.Column="1" Source="{Binding AccountStatus}" />
+		<Grid Grid.Row="1" Grid.Column="1" Height="664" VerticalAlignment="Center" Grid.ColumnSpan="2">
 
-                            <TextBlock Margin="25" Grid.Row="2" Grid.Column="0"
-                                       FontSize="20"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontFamily="{StaticResource Nunito}"
-                                       FontWeight="Normal"
-                                       Foreground="White"
-                                       Text="Match" />
-                            <Image Margin="25" Width="30" Grid.Row="2" Grid.Column="1" Source="{Binding MatchStatus}" />
-                        </Grid>
-                    </Border>
+			<Grid Grid.Row="0"
+			      Margin="5 15 0 0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
 
-                    <Border Background="#252A40" Margin="20" Width="Auto" Height="Auto" VerticalAlignment="Center"
-                            CornerRadius="20">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Margin="25"
-                                       FontSize="20"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontFamily="{StaticResource Nunito}"
-                                       FontWeight="Normal"
-                                       Foreground="White"
-                                       Text="Queue Time:" />
-                            <TextBlock Margin="25"
-                                       FontSize="20" Grid.Row="0" Grid.Column="1"
-                                       HorizontalAlignment="Center"
-                                       FontFamily="{StaticResource Nunito}"
-                                       VerticalAlignment="Center"
-                                       FontWeight="Normal"
-                                       Foreground="#007EF9" 
-                                       Text="{Binding QueueTime}"/>
-
-                            <TextBlock Margin="25" Grid.Row="1" Grid.Column="0"
-                                       FontSize="20"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontWeight="Normal"
-                                       Foreground="White"
-                                       FontFamily="{StaticResource Nunito}"
-                                       Text="Refreshing In:" />
-                            <TextBlock Margin="25" Grid.Row="1"
-                                       FontSize="20" Grid.Column="1"
-                                       HorizontalAlignment="Center"
-                                       FontFamily="{StaticResource Nunito}"
-                                       VerticalAlignment="Center"
-                                       FontWeight="Normal"
-                                       Foreground="#007EF9"
-                                       Text="{Binding RefreshTime}" />
+				<StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
+				            Orientation="Horizontal">
+					<Border Background="#252A40" Margin="20" Width="Auto"
+					        CornerRadius="20">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+							<TextBlock Margin="25"
+							           FontSize="20"
+							           HorizontalAlignment="Center"
+							           FontFamily="{StaticResource Nunito}"
+							           VerticalAlignment="Center"
+							           FontWeight="Normal"
+							           Foreground="White"
+							           Text="Valorant" />
+							<Image Margin="25" Width="30" Grid.Column="1" Source="{Binding GameStatus}" />
 
 
-                        </Grid>
-                    </Border>
-                </StackPanel>
+							<TextBlock Margin="25" Grid.Row="1"
+							           FontSize="20"
+							           HorizontalAlignment="Center"
+							           VerticalAlignment="Center"
+							           FontFamily="{StaticResource Nunito}"
+							           FontWeight="Normal"
+							           Foreground="White"
+							           Text="Account" />
+							<Image Margin="25" Width="30" Grid.Row="1" Grid.Column="1" Source="{Binding AccountStatus}" />
+
+							<TextBlock Margin="25" Grid.Row="2" Grid.Column="0"
+							           FontSize="20"
+							           HorizontalAlignment="Center"
+							           VerticalAlignment="Center"
+							           FontFamily="{StaticResource Nunito}"
+							           FontWeight="Normal"
+							           Foreground="White"
+							           Text="Match" />
+							<Image Margin="25" Width="30" Grid.Row="2" Grid.Column="1" Source="{Binding MatchStatus}" />
+						</Grid>
+					</Border>
+
+					<Border Background="#252A40" Margin="20" Width="Auto" Height="Auto" VerticalAlignment="Center"
+					        CornerRadius="20">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+							<TextBlock Margin="25"
+							           FontSize="20"
+							           HorizontalAlignment="Center"
+							           VerticalAlignment="Center"
+							           FontFamily="{StaticResource Nunito}"
+							           FontWeight="Normal"
+							           Foreground="White"
+							           Text="Queue Time:" />
+							<TextBlock Margin="25"
+							           FontSize="20" Grid.Row="0" Grid.Column="1"
+							           HorizontalAlignment="Center"
+							           FontFamily="{StaticResource Nunito}"
+							           VerticalAlignment="Center"
+							           FontWeight="Normal"
+							           Foreground="#007EF9"
+							           Text="{Binding QueueTime}" />
+
+							<TextBlock Margin="25" Grid.Row="1" Grid.Column="0"
+							           FontSize="20"
+							           HorizontalAlignment="Center"
+							           VerticalAlignment="Center"
+							           FontWeight="Normal"
+							           Foreground="White"
+							           FontFamily="{StaticResource Nunito}"
+							           Text="Refreshing In:" />
+							<TextBlock Margin="25" Grid.Row="1"
+							           FontSize="20" Grid.Column="1"
+							           HorizontalAlignment="Center"
+							           FontFamily="{StaticResource Nunito}"
+							           VerticalAlignment="Center"
+							           FontWeight="Normal"
+							           Foreground="#007EF9"
+							           Text="{Binding RefreshTime}" />
 
 
-                <StackPanel Height="90" Margin="30,20" Grid.Row="1" Orientation="Horizontal"
-                            HorizontalAlignment="Center">
-                    <Viewbox>
-                        <ToggleButton Template="{StaticResource ToggleButtonTemplate}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Checked">
-                                    <i:InvokeCommandAction Command="{Binding Path=PassiveLoadCommand}"/>
-                                </i:EventTrigger>
-                                <i:EventTrigger EventName="Unchecked">
-                                    <i:InvokeCommandAction Command="{Binding Path=StopPassiveLoadCommand}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <Viewbox>
-                                <TextBlock
-                                    Padding="5"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    FontWeight="Normal"
-                                    Foreground="#007EF9"
-                                    FontFamily="{StaticResource Nunito}"
-                                    Text="{Binding ToggleBtnTxt}"/>
-                            </Viewbox>
-                        </ToggleButton>
-                    </Viewbox>
-                    <Separator Width="20" Background="Transparent" />
-                    <Button Cursor="Hand" Width="90" Height="90"
-                            HorizontalAlignment="Right"
+						</Grid>
+					</Border>
+				</StackPanel>
 
-                            Command="{Binding LoadNowCommand}"
-                            Template="{StaticResource ButtonTemplate}">
 
-                        <Image Margin="15" Source="/Assets/refresh.png" />
-                    </Button>
-                </StackPanel>
+				<StackPanel Height="90" Margin="30,20" Grid.Row="1" Orientation="Horizontal"
+				            HorizontalAlignment="Center">
+					<Viewbox>
+						<ToggleButton Template="{StaticResource ToggleButtonTemplate}">
+							<i:Interaction.Triggers>
+								<i:EventTrigger EventName="Checked">
+									<i:InvokeCommandAction Command="{Binding Path=PassiveLoadCommand}" />
+								</i:EventTrigger>
+								<i:EventTrigger EventName="Unchecked">
+									<i:InvokeCommandAction Command="{Binding Path=StopPassiveLoadCommand}" />
+								</i:EventTrigger>
+							</i:Interaction.Triggers>
+							<Viewbox>
+								<TextBlock
+									Padding="5"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									FontWeight="Normal"
+									Foreground="#007EF9"
+									FontFamily="{StaticResource Nunito}"
+									Text="{Binding ToggleBtnTxt}" />
+							</Viewbox>
+						</ToggleButton>
+					</Viewbox>
+					<Separator Width="20" Background="Transparent" />
+					<Button Cursor="Hand" Width="90" Height="90"
+					        HorizontalAlignment="Right"
 
-            </Grid>
-        </Grid>
+					        Command="{Binding LoadNowCommand}"
+					        Template="{StaticResource ButtonTemplate}">
 
-    </Grid>
+						<Image Margin="15" Source="/Assets/refresh.png" />
+					</Button>
+				</StackPanel>
+
+			</Grid>
+		</Grid>
+
+	</Grid>
 </UserControl>

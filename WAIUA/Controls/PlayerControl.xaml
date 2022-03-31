@@ -1,13 +1,14 @@
 ﻿<UserControl
-	x:Class="Demo.Controls.NormalPlayerCell"
+	x:Class="WAIUA.Controls.PlayerControl"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:p="clr-namespace:WAIUA.Properties"
 	x:Name="Self"
 	d:DesignHeight="450"
-	d:DesignWidth="1700"
-	mc:Ignorable="d">
+	d:DesignWidth="2000"
+	mc:Ignorable="d" d:DataContext="{d:DesignData NormalPlayerCell}">
 	<UserControl.Resources>
 		<Style TargetType="Button">
 			<Setter Property="Template">
@@ -35,9 +36,13 @@
 	</UserControl.Resources>
 
 	<Border
+		Visibility="{Binding PlayerCell.Active, ElementName=Self}"
 		Background="{Binding PlayerCell.PlayerUiData.BackgroundColour, ElementName=Self}"
 		BorderThickness="0"
 		CornerRadius="20">
+		<Border.Effect>
+			<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+		</Border.Effect>
 		<Grid Margin="15">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
@@ -88,7 +93,7 @@
 					<TextBlock
 						FontWeight="Normal"
 						Foreground="#9f97b0"
-						ToolTip="Tracker"
+						ToolTip="{x:Static p:Resources.TrackerToolTip}"
 						ToolTipService.InitialShowDelay="0"
 						Visibility="{Binding PlayerCell.IgnData.TrackerEnabled, ElementName=Self}">
 						<Hyperlink

@@ -3,11 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:c="clr-namespace:Demo.Controls"
+        xmlns:c="clr-namespace:Demo.Controls"
         mc:Ignorable="d"
         Title="WAIUA DEMO" d:DesignHeight="754"
-		d:DesignWidth="1536"
-		Background="#2E3349" d:DataContext="{d:DesignData MainWindow}">
+        d:DesignWidth="1536"
+        Background="#2E3349" d:DataContext="{d:DesignData MainWindow}">
 	<Window.Resources>
 		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 	</Window.Resources>
@@ -33,7 +33,7 @@
 			<Button
 				Grid.Column="0"
 				Margin="7"
-				
+
 				Template="{StaticResource ButtonTemplate}">
 
 				<Image Margin="10" Source="/images/Assets/back.png" />
@@ -147,7 +147,7 @@
 			</Grid>
 		</Grid>
 		<Grid Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Background="#2E3349"
-			Visibility="{Binding Overlay.IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}">
+		      Visibility="{Binding Overlay.IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}">
 
 			<Border VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" Height="Auto"
 			        Background="#252A40" Padding="10px"
@@ -157,10 +157,10 @@
 					           HorizontalAlignment="Center" />
 					<!-- <Image Height="200px" Width="200px" gif:ImageBehavior.AnimatedSource="/Assets/cat.gif"></Image> -->
 
-					<TextBlock  Margin="5" Text="{Binding Overlay.Content}" Foreground="White" FontSize="15"
-					            HorizontalAlignment="Center" />
-						<ProgressBar Margin="5" Style="{DynamicResource CustomProgressBar}" Value="{Binding Overlay.Progress}"
-						             Height="10" Width="200" />
+					<TextBlock Margin="5" Text="{Binding Overlay.Content}" Foreground="White" FontSize="15"
+					           HorizontalAlignment="Center" />
+					<ProgressBar Margin="5" Style="{DynamicResource CustomProgressBar}" Value="{Binding Overlay.Progress}"
+					             Height="10" Width="200" />
 
 
 					<Button Template="{StaticResource ButtonTemplate}" Foreground="White" Content="Pause"

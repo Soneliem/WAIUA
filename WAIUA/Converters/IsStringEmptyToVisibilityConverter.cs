@@ -4,25 +4,24 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
 
-namespace WAIUA.Converters
+namespace WAIUA.Converters;
+
+public class IsStringEmptyToVisibilityConverter : MarkupExtension, IValueConverter
 {
-    public class IsStringEmptyToVisibilityConverter : MarkupExtension, IValueConverter
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return string.IsNullOrEmpty(value as string)
-                ? Visibility.Collapsed
-                : Visibility.Visible;
-        }
+        return string.IsNullOrEmpty(value as string)
+            ? Visibility.Collapsed
+            : Visibility.Visible;
+    }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return null;
+    }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return this;
-        }
+    public override object ProvideValue(IServiceProvider serviceProvider)
+    {
+        return this;
     }
 }

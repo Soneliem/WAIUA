@@ -53,10 +53,7 @@ public static class ValApi
     {
         var request = new RestRequest("/version");
         var response = await Client.ExecuteGetAsync<VapiVersionResponse>(request).ConfigureAwait(false);
-        if (!response.IsSuccessful )
-        {
-            return null;
-        }
+        if (!response.IsSuccessful) return null;
         return response.Data.Data.BuildDate;
     }
 
@@ -68,8 +65,8 @@ public static class ValApi
                 .ConfigureAwait(false);
             return lines[1];
         }
-        else return null;
 
+        return null;
     }
 
     private static Task GetUrlsAsync()
@@ -105,7 +102,7 @@ public static class ValApi
             Filepath = Constants.LocalAppDataPath + "\\ValAPI\\version.txt",
             Url = "/version"
         };
-        _allInfo = new() {_mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo};
+        _allInfo = new List<Urls> {_mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo};
         return Task.CompletedTask;
     }
 
@@ -154,23 +151,21 @@ public static class ValApi
                         });
                         var fileName = Constants.LocalAppDataPath + $"\\ValAPI\\mapsimg\\{map.Uuid}.png";
                         var request = new RestRequest(map.ListViewIcon);
-                        var response = await MediaClient.DownloadDataAsync(request).ConfigureAwait(false); 
+                        var response = await MediaClient.DownloadDataAsync(request).ConfigureAwait(false);
                         if (response != null)
                             await File.WriteAllBytesAsync(fileName, response).ConfigureAwait(false);
                     }
                     // await File.WriteAllTextAsync(_mapsInfo.Filepath, JsonSerializer.Serialize(mapsDictionary)).ConfigureAwait(false);
 
-                    var ToStr = JsonSerializer.Serialize<Dictionary<string, ValMap>>(mapsDictionary);
+                    var ToStr = JsonSerializer.Serialize(mapsDictionary);
                     await File.WriteAllTextAsync(_mapsInfo.Filepath, ToStr).ConfigureAwait(false);
-
                 }
                 else
                 {
                     Constants.Log.Error("updateMapsDictionary Failed, Response:{error}", mapsResponse.ErrorException);
                 }
-                
-                    
             }
+
             async Task UpdateAgentsDictionary()
             {
                 var agentsRequest = new RestRequest(_agentsInfo.Url);
@@ -191,14 +186,15 @@ public static class ValApi
                             await File.WriteAllBytesAsync(fileName, response)
                                 .ConfigureAwait(false);
                     }
-                    await File.WriteAllTextAsync(_agentsInfo.Filepath,JsonSerializer.Serialize(agentsDictionary)).ConfigureAwait(false);
+
+                    await File.WriteAllTextAsync(_agentsInfo.Filepath, JsonSerializer.Serialize(agentsDictionary)).ConfigureAwait(false);
                 }
                 else
                 {
                     Constants.Log.Error("updateAgentsDictionary Failed, Response:{error}", agentsResponse.ErrorException);
                 }
-
             }
+
             async Task UpdateSkinsDictionary()
             {
                 var skinsRequest = new RestRequest(_skinsInfo.Url);
@@ -208,10 +204,7 @@ public static class ValApi
                     Dictionary<Guid, ValSkin> skinsDictionary = new();
                     if (!Directory.Exists(Constants.LocalAppDataPath + "\\ValAPI\\skinsimg"))
                         Directory.CreateDirectory(Constants.LocalAppDataPath + "\\ValAPI\\skinsimg");
-                    foreach (var skin in skinsResponse.Data.Data)
-                    {
-                        skinsDictionary.TryAdd(skin.Uuid, new ValSkin(){Name= skin.DisplayName, Image = skin.FullRender});
-                    }
+                    foreach (var skin in skinsResponse.Data.Data) skinsDictionary.TryAdd(skin.Uuid, new ValSkin {Name = skin.DisplayName, Image = skin.FullRender});
                     await File.WriteAllTextAsync(_skinsInfo.Filepath, JsonSerializer.Serialize(skinsDictionary)).ConfigureAwait(false);
                 }
                 else
@@ -219,6 +212,7 @@ public static class ValApi
                     Constants.Log.Error("updateSkinsDictionary Failed, Response:{error}", skinsResponse.ErrorException);
                 }
             }
+
             async Task UpdateRanksDictionary()
             {
                 var ranksRequest = new RestRequest(_ranksInfo.Url);
@@ -254,6 +248,7 @@ public static class ValApi
                             await File.WriteAllBytesAsync(fileName, response)
                                 .ConfigureAwait(false);
                     }
+
                     await File.WriteAllTextAsync(_ranksInfo.Filepath, JsonSerializer.Serialize(ranksDictionary)).ConfigureAwait(false);
                 }
                 else
@@ -261,6 +256,7 @@ public static class ValApi
                     Constants.Log.Error("updateRanksDictionary Failed, Response:{error}", ranksResponse.ErrorException);
                 }
             }
+
             await Task.WhenAll(UpdateVersion(), UpdateRanksDictionary(), UpdateAgentsDictionary(), UpdateMapsDictionary(), UpdateSkinsDictionary()).ConfigureAwait(false);
         }
         catch (Exception e)
@@ -282,10 +278,7 @@ public static class ValApi
                 return;
             }
 
-            if (_allInfo.Any(url => !File.Exists(url.Filepath)))
-            {
-                await UpdateFilesAsync().ConfigureAwait(false);
-            }
+            if (_allInfo.Any(url => !File.Exists(url.Filepath))) await UpdateFilesAsync().ConfigureAwait(false);
         }
         catch (Exception)
         {

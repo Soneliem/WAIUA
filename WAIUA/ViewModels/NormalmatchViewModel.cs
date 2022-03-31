@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using WAIUA.Commands;
 using WAIUA.Helpers;
 using WAIUA.Objects;
 
@@ -14,23 +12,22 @@ namespace WAIUA.ViewModels;
 
 public partial class NormalmatchViewModel : ObservableObject
 {
-    public NormalmatchViewModel()
-    {
-        Match = new MatchDetails();
-        Overlay = new LoadingOverlay()
-        {
-            Header = "Loading", Content = "Getting Match Details"
-        };
-        
-        PlayerList = new List<Player>
-        {
-            new(), new(), new(), new(), new(), new(), new(), new(), new(), new()
-        };
-    }
-
     [ObservableProperty] private MatchDetails _match;
     [ObservableProperty] private LoadingOverlay _overlay;
     [ObservableProperty] private List<Player> _playerList;
+
+    public NormalmatchViewModel()
+    {
+        Match = new MatchDetails();
+        Overlay = new LoadingOverlay
+        {
+            Header = "Loading",
+            Content = "Getting Match Details",
+            IsBusy = false
+        };
+
+        PlayerList = new List<Player>();
+    }
 
     [ICommand]
     private async Task GetMatchInfoAsync()
@@ -41,11 +38,16 @@ public partial class NormalmatchViewModel : ObservableObject
 
         try
         {
-            var newMatch = new Match();
+            Match newMatch = new();
             if (await Helpers.Match.LiveMatchChecksAsync(false).ConfigureAwait(false))
             {
                 Overlay.Content = "Getting Player Details";
+                Debug.WriteLine("test");
                 PlayerList = await newMatch.LiveMatchOutputAsync(UpdatePercentage).ConfigureAwait(false);
+                var deltaSize = 10 - PlayerList.Count;
+
+                if (deltaSize > 0)
+                    PlayerList.AddRange(Enumerable.Repeat(new Player(), deltaSize));
 
                 if (newMatch.MatchInfo != null)
                     Match = newMatch.MatchInfo;
@@ -62,13 +64,13 @@ public partial class NormalmatchViewModel : ObservableObject
         {
             Overlay.IsBusy = false;
         }
-        Overlay.IsBusy = false;
 
+        Overlay.IsBusy = false;
+        GC.Collect();
     }
 
     private void UpdatePercentage(int percentage)
     {
         Overlay.Progress = percentage;
     }
-    
 }

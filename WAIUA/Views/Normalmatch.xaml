@@ -7,6 +7,8 @@
              xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             xmlns:converters="clr-namespace:WAIUA.Converters"
+             xmlns:p="clr-namespace:WAIUA.Properties"
              d:DataContext="{d:DesignInstance Type=viewmodels:NormalmatchViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="754"
@@ -18,6 +20,7 @@
 	</i:Interaction.Triggers>
 	<UserControl.Resources>
 		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+		<converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
 	</UserControl.Resources>
 	<Grid>
 
@@ -47,6 +50,7 @@
 				<Image Margin="10" Source="/Assets/back.png" />
 			</Button>
 			<Button
+				IsEnabled="{Binding Path=Overlay.IsBusy, Converter={StaticResource InverseBooleanConverter}}"
 				Grid.Column="1"
 				Margin="7"
 				Command="{Binding GetMatchInfoCommand}"
@@ -103,19 +107,19 @@
 					<RowDefinition />
 					<RowDefinition />
 				</Grid.RowDefinitions>
-				<controls:NormalPlayerCell
+				<controls:PlayerControl
 					Grid.Row="0" Margin="0 5"
 					PlayerCell="{Binding Path=PlayerList[0]}" />
-				<controls:NormalPlayerCell
+				<controls:PlayerControl
 					Grid.Row="1" Margin="0 5"
 					PlayerCell="{Binding Path=PlayerList[1]}" />
-				<controls:NormalPlayerCell
+				<controls:PlayerControl
 					Grid.Row="2" Margin="0 5"
 					PlayerCell="{Binding Path=PlayerList[2]}" />
-				<controls:NormalPlayerCell
+				<controls:PlayerControl
 					Grid.Row="3" Margin="0 5"
 					PlayerCell="{Binding Path=PlayerList[3]}" />
-				<controls:NormalPlayerCell
+				<controls:PlayerControl
 					Grid.Row="4" Margin="0 5"
 					PlayerCell="{Binding Path=PlayerList[4]}" />
 			</Grid>
@@ -138,45 +142,27 @@
 					<RowDefinition />
 				</Grid.RowDefinitions>
 
-				<controls:NormalPlayerCell
+				<controls:PlayerControl
 					Grid.Row="0" Margin="0 5"
 					PlayerCell="{Binding Path=PlayerList[5]}" />
-				<controls:NormalPlayerCell
+				<controls:PlayerControl
 					Grid.Row="1" Margin="0 5"
 					PlayerCell="{Binding Path=PlayerList[6]}" />
-				<controls:NormalPlayerCell
+				<controls:PlayerControl
 					Grid.Row="2" Margin="0,5"
 					PlayerCell="{Binding Path=PlayerList[7]}" />
-				<controls:NormalPlayerCell
+				<controls:PlayerControl
 					Grid.Row="3" Margin="0 5"
 					PlayerCell="{Binding Path=PlayerList[8]}" />
-				<controls:NormalPlayerCell
+				<controls:PlayerControl
 					Grid.Row="4" Margin="0 5"
 					PlayerCell="{Binding Path=PlayerList[9]}" />
 			</Grid>
 		</Grid>
-		<Grid Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Background="#2E3349"
+		<controls:OverlayControl Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" 
+			Style="{StaticResource VisibleAnimation}"
+			Overlay="{Binding Path=Overlay}"
 			Visibility="{Binding Overlay.IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}">
-
-			<Border VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" Height="Auto"
-			        Background="#252A40" Padding="10px"
-			        CornerRadius="20">
-				<StackPanel Margin="5">
-					<TextBlock Text="{Binding Overlay.Header}" FontSize="25" FontWeight="Bold" Foreground="#32e2b2" Padding="5"
-					           HorizontalAlignment="Center" />
-					<Image Height="200px" Width="200px" gif:ImageBehavior.AnimatedSource="/Assets/cat.gif"></Image>
-
-					<TextBlock  Margin="5" Text="{Binding Overlay.Content}" Foreground="White" FontSize="15"
-					            HorizontalAlignment="Center" />
-						<ProgressBar Margin="5" Style="{DynamicResource CustomProgressBar}" Value="{Binding Overlay.Progress}"
-						             Height="10" Width="200" />
-
-
-					<Button Template="{StaticResource ButtonTemplate}" Foreground="White" Content="Pause"
-					        HorizontalAlignment="Center" Margin="5" />
-				</StackPanel>
-			</Border>
-
-		</Grid>
+		</controls:OverlayControl>
 	</Grid>
 </UserControl>

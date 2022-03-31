@@ -1,13 +1,7 @@
-﻿using System.Windows.Input;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
+namespace WAIUA.ViewModels;
 
-namespace WAIUA.ViewModels
+internal class InfoViewModel : ObservableObject
 {
-    internal class InfoViewModel: ObservableObject
-    {
-        public InfoViewModel()
-        {
-        }
-    }
 }

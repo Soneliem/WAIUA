@@ -1,16 +1,16 @@
-﻿using System.Windows.Controls;
-using WAIUA.ViewModels;
+﻿using System.Diagnostics;
+using System.Windows;
+using System.Windows.Controls;
 
-namespace WAIUA.Views
+namespace WAIUA.Views;
+
+/// <summary>
+///     Interaction logic for Normalmatch.xaml
+/// </summary>
+public partial class Normalmatch : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for Normalmatch.xaml
-    /// </summary>
-    public partial class Normalmatch : UserControl
+    public Normalmatch()
     {
-        public Normalmatch()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

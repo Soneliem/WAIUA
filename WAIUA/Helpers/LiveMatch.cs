@@ -24,6 +24,7 @@ public class Match
     public MatchDetails MatchInfo { get; set; } = new();
     public static Guid Matchid { get; set; }
 
+
     private static async Task<bool> CheckAndSetLiveMatchIdAsync()
     {
         var client = new RestClient($"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/players/{Constants.Ppuuid}");
@@ -83,84 +84,100 @@ public class Match
         request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
         request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
         var response = await client.ExecuteGetAsync<LiveMatchResponse>(request).ConfigureAwait(false);
-        if (!response.IsSuccessful)
-        {
-            Constants.Log.Error("GetLiveMatchID() failed. Response: {Response}", response.ErrorException);
-            return null;
-        }
-
-        return response.Data;
+        if (response.IsSuccessful) return response.Data;
+        Constants.Log.Error("GetLiveMatchID() failed. Response: {Response}", response.ErrorException);
+        return null;
     }
 
     public async Task<List<Player>> LiveMatchOutputAsync(UpdateProgress updateProgress)
     {
         var playerList = new List<Player>();
-        var playerTasks = new List<Task>();
+        var playerTasks = new List<Task<Player>>();
         var seasonData = new SeasonData();
         var presencesResponse = new PresencesResponse();
 
-        LiveMatchResponse MatchIDInfo = await GetLiveMatchDetailsAsync().ConfigureAwait(false);
-        
+        var MatchIDInfo = await GetLiveMatchDetailsAsync().ConfigureAwait(false);
+
         if (MatchIDInfo != null)
         {
             Task sTask = Task.Run(async () => seasonData = await GetSeasonsAsync().ConfigureAwait(false));
             Task pTask = Task.Run(async () => presencesResponse = await GetPresencesAsync().ConfigureAwait(false));
             await Task.WhenAll(sTask, pTask).ConfigureAwait(false);
-            sbyte index = -1;
+            sbyte index = 0;
 
             foreach (var riotPlayer in MatchIDInfo.Players)
             {
                 if (!riotPlayer.IsCoach)
                 {
-                    playerTasks.Add(Task.Run(async () =>
+                    async Task<Player> GetPlayerInfo()
                     {
                         var progress = 10;
                         // updateProgress(90 / 10 + progress);
                         // progress += 90 / 10;
                         Player player = new();
+                        Debug.WriteLine(index);
 
-                        Task t1 = Task.Run(async () => player.AgentData = await GetAgentInfoAsync(riotPlayer.CharacterId).ConfigureAwait(false));
-                        Task t3 = Task.Run(async () => player.MatchHistoryData = await GetCompHistoryAsync(riotPlayer.Subject).ConfigureAwait(false));
-                        Task t4 = Task.Run(async () => player.RankData = await GetPlayerHistoryAsync(riotPlayer.Subject, seasonData).ConfigureAwait(false));
-                        Task t5 = Task.Run(async () => player.SkinData = await GetSkinInfoAsync(index).ConfigureAwait(false));
-                        var t6 = Task.Run(async () => player.PlayerUiData = await GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse).ConfigureAwait(false));
+                        var t1 = GetAgentInfoAsync(riotPlayer.CharacterId);
+                        var t3 = GetCompHistoryAsync(riotPlayer.Subject);
+                        var t4 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
+                        var t5 = GetSkinInfoAsync(index);
+                        var t6 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
 
                         await Task.WhenAll(t1, t3, t4, t5, t6).ConfigureAwait(false);
+
+                        player.AgentData = await t1.ConfigureAwait(false);
+                        player.MatchHistoryData = await t3.ConfigureAwait(false);
+                        player.RankData = await t4;
+                        player.SkinData = await t5;
+                        player.PlayerUiData = await t6;
                         player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
                         player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
+                        player.Active = Visibility.Visible;
+                        return player;
+                    }
 
-                        playerList.Add(player);
-                    }));
-                    
+                    playerTasks.Add(GetPlayerInfo());
                 }
+
                 index++;
             }
 
             var gamePod = MatchIDInfo.GamePodId;
             if (Constants.GamePodsDictionary.TryGetValue(gamePod, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
-            await Task.WhenAll(playerTasks).ConfigureAwait(false);
+            var results = await Task.WhenAll(playerTasks).ConfigureAwait(false);
+            playerList.AddRange(results);
         }
-        
+
         var colours = new List<string>
             {"Red", "#32e2b2", "DarkOrange", "White", "DeepSkyBlue", "MediumPurple", "SaddleBrown"};
 
-        string[] newArray = {"Transparent", "Transparent", "Transparent", "Transparent", "Transparent", "Transparent", "Transparent", "Transparent", "Transparent", "Transparent"};
+        List<string> newArray = new();
+        newArray.AddRange(Enumerable.Repeat("Transparent", playerList.Count));
 
-        for (var i = 0; i < playerList.Count; i++)
+        try
         {
-            var colourused = false;
-            var id = playerList[i].PlayerUiData.PartyUuid;
-            for (var j = i + 1; j < playerList.Count; j++)
-                if (playerList[j].PlayerUiData.PartyUuid == id && id != Guid.Empty)
+            for (var i = 0; i < playerList.Count; i++)
+            {
+                if (playerList[i].PlayerUiData is null) continue;
+                var colourused = false;
+                var id = playerList[i].PlayerUiData.PartyUuid;
+                for (var j = i + 1; j < playerList.Count; j++)
                 {
+                    if (playerList[j].PlayerUiData is null) continue;
+                    if (playerList[j].PlayerUiData?.PartyUuid != id || id == Guid.Empty) continue;
                     newArray[i] = newArray[j] = colours[0];
                     colourused = true;
                 }
 
-            if (colourused) colours.RemoveAt(0);
-        }
+                if (colourused) colours.RemoveAt(0);
+            }
 
-        for (var i = 0; i < playerList.Count; i++) playerList[i].PartyColour = newArray[i];
+            for (var i = 0; i < playerList.Count; i++) playerList[i].PartyColour = newArray[i];
+        }
+        catch (Exception)
+        {
+            Constants.Log.Error("LiveMatchOutputAsync() party colour  failed.");
+        }
 
 
         return playerList;
@@ -169,7 +186,7 @@ public class Match
     private static async Task<IgnData> GetIgcUsernameAsync(Guid puuid, bool isIncognito, Guid partyId)
     {
         IgnData ignData = new();
-        if (isIncognito && (partyId != Constants.PPartyId))
+        if (isIncognito && partyId != Constants.PPartyId)
         {
             ignData.Username = "----";
             ignData.TrackerEnabled = Visibility.Hidden;
@@ -178,12 +195,12 @@ public class Match
         else
         {
             ignData.Username = await GetNameServiceGetUsernameAsync(puuid).ConfigureAwait(false);
-            var TrackerUri = await TrackerAsync(ignData.Username).ConfigureAwait(false);
-            if (TrackerUri != null)
+            var trackerUri = await TrackerAsync(ignData.Username).ConfigureAwait(false);
+            if (trackerUri != null)
             {
                 ignData.TrackerEnabled = Visibility.Visible;
                 ignData.TrackerDisabled = Visibility.Collapsed;
-                ignData.TrackerUri = TrackerUri;
+                ignData.TrackerUri = trackerUri;
             }
             else
             {
@@ -246,10 +263,6 @@ public class Match
         else
         {
             Constants.Log.Error("GetSkinInfoAsync Failed: {e}", response.ErrorException);
-            skinData.PhantomImage = null;
-            skinData.PhantomName = "";
-            skinData.PhantomImage = null;
-            skinData.VandalName = "";
         }
 
         return skinData;
@@ -329,6 +342,7 @@ public class Match
 
     private static async Task<RankData> GetPlayerHistoryAsync(Guid puuid, SeasonData seasonData)
     {
+        Debug.WriteLine(puuid);
         var rankData = new RankData();
         if (puuid != Guid.Empty)
         {
@@ -338,99 +352,98 @@ public class Match
                 true,
                 true).ConfigureAwait(false);
 
-            if (response.IsSuccessful)
-            {
-                var options = new JsonSerializerOptions
-                {
-                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
-                };
-                var content = JsonSerializer.Deserialize<MmrResponse>(response.Content, options);
-                // var content = JsonSerializer.Deserialize<Dictionary<Guid, ActInfo>>(allcontent.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.Keys);
-                try
-                {
-                    content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.CurrentSeason.ToString(), out var currentActJsonElement);
-                    var CurrentAct = currentActJsonElement.Deserialize<ActInfo>();
-                    rank = CurrentAct.CompetitiveTier;
-                    if (rank is 1 or 2) rank = 0;
-                }
-                catch (Exception)
-                {
-                    rank = 0;
-                }
-
-                try
-                {
-                    content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.PreviousSeason.ToString(), out var pActJsonElement);
-                    var PAct = pActJsonElement.Deserialize<ActInfo>();
-                    prank = PAct.CompetitiveTier;
-                    if (prank is 1 or 2) prank = 0;
-                }
-                catch (Exception)
-                {
-                    prank = 0;
-                }
-
-                try
-                {
-                    content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.PreviouspreviousSeason.ToString(), out var ppActJsonElement);
-                    var PPAct = ppActJsonElement.Deserialize<ActInfo>();
-                    pprank = PPAct.CompetitiveTier;
-                    if (pprank is 1 or 2) pprank = 0;
-                }
-                catch (Exception)
-                {
-                    pprank = 0;
-                }
-
-                try
-                {
-                    content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.PreviouspreviouspreviousSeason.ToString(), out var pppActJsonElement);
-                    var PPPAct = pppActJsonElement.Deserialize<ActInfo>();
-                    ppprank = PPPAct.CompetitiveTier;
-                    if (ppprank is 1 or 2) ppprank = 0;
-                }
-                catch (Exception)
-                {
-                    ppprank = 0;
-                }
-
-                if (rank is 21 or 22 or 23)
-                {
-                    var response2 = await DoCachedRequestAsync(Method.Get,
-                        $"https://pd.{Constants.Shard}.a.pvp.net/mmr/v1/leaderboards/affinity/{Constants.Region}/queue/competitive/season/{seasonData.CurrentSeason}?startIndex=0&size=0",
-                        true).ConfigureAwait(false);
-                    var content2 = JsonSerializer.Deserialize<LeaderboardsResponse>(response2.Content);
-                    rankData.MaxRr = rank switch
-                    {
-                        21 => content2.TierDetails["22"].RankedRatingThreshold,
-                        22 => content2.TierDetails["23"].RankedRatingThreshold,
-                        23 => content2.TierDetails["24"].RankedRatingThreshold,
-                        _ => 100
-                    };
-                }
-
-                var ranks = JsonSerializer.Deserialize<Dictionary<int, string>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\competitivetiers.txt").ConfigureAwait(false));
-
-                ranks.TryGetValue(rank, out var rank0);
-                rankData.RankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{rank}.png");
-                rankData.RankName = rank0;
-
-                ranks.TryGetValue(prank, out var rank1);
-                rankData.PreviousrankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{prank}.png");
-                rankData.PreviousrankName = rank1;
-
-                ranks.TryGetValue(pprank, out var rank2);
-                rankData.PreviouspreviousrankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{pprank}.png");
-                rankData.PreviouspreviousrankName = rank2;
-
-                ranks.TryGetValue(ppprank, out var rank3);
-                rankData.PreviouspreviouspreviousrankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{ppprank}.png");
-                rankData.PreviouspreviouspreviousrankName = rank3;
-            }
-            else
+            if (!response.IsSuccessful)
             {
                 Constants.Log.Error("GetPlayerHistoryAsync Failed: {e}", response.ErrorException);
+                return rankData;
             }
+
+            var options = new JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+            };
+            var content = JsonSerializer.Deserialize<MmrResponse>(response.Content, options);
+            // var content = JsonSerializer.Deserialize<Dictionary<Guid, ActInfo>>(allcontent.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.Keys);
+            try
+            {
+                content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.CurrentSeason.ToString(), out var currentActJsonElement);
+                var CurrentAct = currentActJsonElement.Deserialize<ActInfo>();
+                rank = CurrentAct.CompetitiveTier;
+                if (rank is 1 or 2) rank = 0;
+            }
+            catch (Exception)
+            {
+                rank = 0;
+            }
+
+            try
+            {
+                content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.PreviousSeason.ToString(), out var pActJsonElement);
+                var PAct = pActJsonElement.Deserialize<ActInfo>();
+                prank = PAct.CompetitiveTier;
+                if (prank is 1 or 2) prank = 0;
+            }
+            catch (Exception)
+            {
+                prank = 0;
+            }
+
+            try
+            {
+                content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.PreviouspreviousSeason.ToString(), out var ppActJsonElement);
+                var PPAct = ppActJsonElement.Deserialize<ActInfo>();
+                pprank = PPAct.CompetitiveTier;
+                if (pprank is 1 or 2) pprank = 0;
+            }
+            catch (Exception)
+            {
+                pprank = 0;
+            }
+
+            try
+            {
+                content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.PreviouspreviouspreviousSeason.ToString(), out var pppActJsonElement);
+                var PPPAct = pppActJsonElement.Deserialize<ActInfo>();
+                ppprank = PPPAct.CompetitiveTier;
+                if (ppprank is 1 or 2) ppprank = 0;
+            }
+            catch (Exception)
+            {
+                ppprank = 0;
+            }
+
+            if (rank is 21 or 22 or 23)
+            {
+                var response2 = await DoCachedRequestAsync(Method.Get,
+                    $"https://pd.{Constants.Shard}.a.pvp.net/mmr/v1/leaderboards/affinity/{Constants.Region}/queue/competitive/season/{seasonData.CurrentSeason}?startIndex=0&size=0",
+                    true).ConfigureAwait(false);
+                var content2 = JsonSerializer.Deserialize<LeaderboardsResponse>(response2.Content);
+                rankData.MaxRr = rank switch
+                {
+                    21 => content2.TierDetails["22"].RankedRatingThreshold,
+                    22 => content2.TierDetails["23"].RankedRatingThreshold,
+                    23 => content2.TierDetails["24"].RankedRatingThreshold,
+                    _ => 100
+                };
+            }
+
+            var ranks = JsonSerializer.Deserialize<Dictionary<int, string>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\competitivetiers.txt").ConfigureAwait(false));
+
+            ranks.TryGetValue(rank, out var rank0);
+            rankData.RankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{rank}.png");
+            rankData.RankName = rank0;
+
+            ranks.TryGetValue(prank, out var rank1);
+            rankData.PreviousrankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{prank}.png");
+            rankData.PreviousrankName = rank1;
+
+            ranks.TryGetValue(pprank, out var rank2);
+            rankData.PreviouspreviousrankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{pprank}.png");
+            rankData.PreviouspreviousrankName = rank2;
+
+            ranks.TryGetValue(ppprank, out var rank3);
+            rankData.PreviouspreviouspreviousrankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{ppprank}.png");
+            rankData.PreviouspreviouspreviousrankName = rank3;
         }
         else
         {
