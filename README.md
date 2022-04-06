@@ -18,8 +18,8 @@
     <a href="https://github.com/Soneliem/WAIUA/releases/latest/download/WAIUA.exe">
       <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Soneliem/WAIUA">
     </a>
+    <img alt="Contains Cat GIFs" src="https://img.shields.io/badge/Contains-Cat%20GIFs%20%F0%9F%98%BE-blue">
     </p>
-
   <br />
 
   ![Screenshot](Screenshots/main.png)
@@ -82,11 +82,10 @@ To get the app up and running follow these simple steps.
 
 ## Usage
 
-Please ensure you are in a match when you try to use it. I swear if you complain about it not working and you're not in a match...
-
-1. Ensure you are in a match (after selecting agents)
-2. Press the big "Click To Load Match Info" button and wait about 7 seconds
-3. Profit
+1. Open le beautiful app
+2. If you're in a match, a prompt to get the current match info will appear
+3. Press le prompt like a good boi
+4. Win games (unless you find out you're playing against a smurf. In that case RIP your RR)
 
 ## Roadmap and Known Bugs
 
@@ -101,8 +100,8 @@ I knew none of these things before making this lol
 
 #### Packages that I used/ recommend:
 * [RestSharp](https://restsharp.dev/)
-* [JSON.NET](https://www.newtonsoft.com/json)
-* [MVVMEssentials](https://www.nuget.org/packages/MVVMEssentials.WPF) by [SingletonSean](https://www.youtube.com/channel/UC7X9mQ_XtTYWzr9Tf_NYcIg). His WPF tutorials were a lifesaver.
+* [System.Text.Json](https://docs.microsoft.com/en-us/dotnet/api/system.text.json)
+* [Windows Community Toolkit MVVM](https://docs.microsoft.com/en-us/windows/communitytoolkit/mvvm/introduction)
 * [AutoUpdater.NET](https://github.com/ravibpatel/AutoUpdater.NET)
 * [Inno Setup](https://jrsoftware.org/isinfo.php)
 * [FontAwesome](https://fontawesome.com/license) for icons. I'm also supposed say that I changed the colours so here it is.
@@ -112,12 +111,13 @@ I knew none of these things before making this lol
 
 The main reason I made this was to detect smurfs. This app basically settles the debates between team members or the enemy. I have chosen the set of available features carefully to maintain the competitive integrity of the game. Many suggestions that I get are declined due to this.
 
-Another reason to making this was that I wanted some experience with .NET and GUI apps. This application uses C# as the backend, WPF as the frontend and .NET as the framework. I knew none of these when I began, so this was a fun journey. The code is still very messy but it does the job. I probably should have made it all asynchronously but I am lazy and I wanted to slowly get into C#. But mainly because I am lazy. 
+Another reason to making this was that I wanted some experience with .NET and GUI apps. This application uses C# as the backend, WPF as the frontend and .NET as the framework. I knew none of these when I began, so this was a fun journey. I've gained alot of experice of how to and how not to (mostly the latter) use WPF and C#. 
 
 ## Contributing
 
-I welcome any sort of contribution and am happy to take in any ~~hate/~~ feedback. Open source means open heart :) Also applogies for the code. In the near future I will definitely change the code to something that doesn't break every coding convention.
+I welcome any sort of contribution and am happy to take in any ~~hate/~~ feedback. Open source means open heart :)
 
+<!-- TODO: Fix -->
 <!-- ## Sponsors
 This project is sponsored by: --> 
 
