@@ -115,7 +115,6 @@ public class Match
                         // updateProgress(90 / 10 + progress);
                         // progress += 90 / 10;
                         Player player = new();
-                        Debug.WriteLine(index);
 
                         var t1 = GetAgentInfoAsync(riotPlayer.CharacterId);
                         var t3 = GetCompHistoryAsync(riotPlayer.Subject);
@@ -127,9 +126,9 @@ public class Match
 
                         player.AgentData = await t1.ConfigureAwait(false);
                         player.MatchHistoryData = await t3.ConfigureAwait(false);
-                        player.RankData = await t4;
-                        player.SkinData = await t5;
-                        player.PlayerUiData = await t6;
+                        player.RankData = await t4.ConfigureAwait(false);
+                        player.SkinData = await t5.ConfigureAwait(false);
+                        player.PlayerUiData = await t6.ConfigureAwait(false);
                         player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
                         player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
                         player.Active = Visibility.Visible;
