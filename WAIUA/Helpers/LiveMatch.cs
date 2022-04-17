@@ -197,15 +197,16 @@ public class Match
             var trackerUri = await TrackerAsync(ignData.Username).ConfigureAwait(false);
             if (trackerUri != null)
             {
-                ignData.TrackerEnabled = Visibility.Visible;
-                ignData.TrackerDisabled = Visibility.Collapsed;
-                ignData.TrackerUri = trackerUri;
+                return new IgnData
+                {
+                    TrackerEnabled = Visibility.Visible,
+                    TrackerDisabled = Visibility.Collapsed,
+                    TrackerUri = trackerUri,
+                    Username = ignData.Username + " 🔗"
+                };
             }
-            else
-            {
-                ignData.TrackerEnabled = Visibility.Hidden;
-                ignData.TrackerDisabled = Visibility.Visible;
-            }
+            ignData.TrackerEnabled = Visibility.Hidden;
+            ignData.TrackerDisabled = Visibility.Visible;
         }
 
         return ignData;
@@ -233,7 +234,6 @@ public class Match
 
     private static async Task<SkinData> GetSkinInfoAsync(sbyte playerno)
     {
-        SkinData skinData = new();
         var response = await DoCachedRequestAsync(Method.Get,
             $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/matches/{Matchid}/loadouts",
             true).ConfigureAwait(false);
@@ -252,19 +252,18 @@ public class Match
             skins.TryGetValue(phantomchroma, out var phantom);
             skins.TryGetValue(vandalchroma, out var vandal);
 
-            skinData.PhantomName = phantom.Name;
-            skinData.VandalName = vandal.Name;
-
-            skinData.VandalImage = vandalchroma == new Guid("19629ae1-4996-ae98-7742-24a240d41f99") ? new Uri("pack://application:,,,/Assets/vandal.png") : vandal.Image;
-
-            skinData.PhantomImage = phantomchroma == new Guid("52221ba2-4e4c-ec76-8c81-3483506d5242") ? new Uri("pack://application:,,,/Assets/phantom.png") : phantom.Image;
-        }
-        else
-        {
-            Constants.Log.Error("GetSkinInfoAsync Failed: {e}", response.ErrorException);
+            return new SkinData
+            {
+                PhantomImage = phantomchroma == new Guid("52221ba2-4e4c-ec76-8c81-3483506d5242") ? new Uri("pack://application:,,,/Assets/phantom.png") : phantom.Image,
+                PhantomName = phantom?.Name,
+                VandalImage = vandalchroma == new Guid("19629ae1-4996-ae98-7742-24a240d41f99") ? new Uri("pack://application:,,,/Assets/vandal.png") : vandal.Image,
+                VandalName = vandal?.Name
+            };
+            
         }
 
-        return skinData;
+        Constants.Log.Error("GetSkinInfoAsync Failed: {e}", response.ErrorException);
+        return new SkinData();
     }
 
     private static async Task<MatchHistoryData> GetCompHistoryAsync(Guid puuid)
@@ -341,7 +340,6 @@ public class Match
 
     private static async Task<RankData> GetPlayerHistoryAsync(Guid puuid, SeasonData seasonData)
     {
-        Debug.WriteLine(puuid);
         var rankData = new RankData();
         if (puuid != Guid.Empty)
         {
