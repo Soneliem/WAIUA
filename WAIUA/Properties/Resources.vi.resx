@@ -118,55 +118,55 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LoadMatchTitle" xml:space="preserve">
-    <value>Load Match</value>
+    <value>Tải trận đấu</value>
   </data>
   <data name="LoadMatchExplanation" xml:space="preserve">
-    <value>Loads live match data if available. This should take less than 10 seconds</value>
+    <value>Cố gắng tải dữ liệu trận đang diễn ra. Cần khoảng 10 giây.</value>
   </data>
   <data name="InfoTitle" xml:space="preserve">
-    <value>Info</value>
+    <value>Thông tin</value>
   </data>
   <data name="InfoExplanation" xml:space="preserve">
-    <value>You&apos;re on this page idiot</value>
+    <value>Bạn đã ở trang này rồi!</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
-    <value>Join my Discord</value>
+    <value>Tham gia server Discord</value>
   </data>
   <data name="JoinDiscordSub" xml:space="preserve">
-    <value>For support, etc.</value>
+    <value>Ủng hộ tác giả ...</value>
   </data>
   <data name="Author" xml:space="preserve">
-    <value>Made By Soneliem</value>
+    <value>Tạo bởi Soneliem</value>
   </data>
   <data name="Latestversion" xml:space="preserve">
-    <value>Latest Version: </value>
+    <value>Phiên bản mới nhất: </value>
   </data>
   <data name="CurrentVersion" xml:space="preserve">
-    <value>Current Version: </value>
+    <value>Phiên bản hiện tại: </value>
   </data>
   <data name="CheckUpdates" xml:space="preserve">
-    <value>Check for Updates</value>
+    <value>Cập nhật phần mềm</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Login</value>
+    <value>Đăng nhập</value>
   </data>
   <data name="SettingsInfoExplanation2" xml:space="preserve">
-    <value>All communication regarding your credentials is done directly with Riot servers with no storage of passwords being done locally or online.</value>
+    <value>Ứng dụng tương tác trực tiếp qua API của Riot, tác giả và app không hề lưu trữ bất kỳ thông tin nào về tài khoản của bạn!</value>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
-    <value>Authentication Status</value>
+    <value>Trạng thái xác thực TK</value>
   </data>
   <data name="AuthStatusDefault" xml:space="preserve">
-    <value>Click below to update</value>
+    <value>Click để cập nhật</value>
   </data>
   <data name="AuthStatusButton" xml:space="preserve">
-    <value>Check Authentication</value>
+    <value>Kiểm tra xác thực TK</value>
   </data>
   <data name="AuthStatusAuthAs" xml:space="preserve">
-    <value>Authenticated as:</value>
+    <value>Xác thực dưới tên:</value>
   </data>
   <data name="AutoLoginTitle" xml:space="preserve">
-    <value>Auto Login</value>
+    <value>Tự động đăng nhập</value>
   </data>
   <data name="AutoLoginExplanation" xml:space="preserve">
     <value>Note: Valorant needs to be running for this to work</value>
