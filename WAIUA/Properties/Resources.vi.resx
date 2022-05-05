@@ -121,7 +121,7 @@
     <value>Tải trận đấu</value>
   </data>
   <data name="LoadMatchExplanation" xml:space="preserve">
-    <value>Cố gắng tải dữ liệu trận đang diễn ra. Cần khoảng 10 giây.</value>
+    <value>Đang tải dữ liệu của trận đấu hiện tại. Xin chờ khoảng 10 giây.</value>
   </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>Thông tin</value>
@@ -136,7 +136,7 @@
     <value>Ủng hộ tác giả ...</value>
   </data>
   <data name="Author" xml:space="preserve">
-    <value>Tạo bởi Soneliem</value>
+    <value>Tác giả: Soneliem</value>
   </data>
   <data name="Latestversion" xml:space="preserve">
     <value>Phiên bản mới nhất: </value>
@@ -175,7 +175,7 @@
     <value>Xác minh thất bại</value>
   </data>
   <data name="Translator" xml:space="preserve">
-    <value>Dịch bởi Ozymo</value>
+    <value>Dịch bởi OzymoGit</value>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Làm mới trận đấu</value>
