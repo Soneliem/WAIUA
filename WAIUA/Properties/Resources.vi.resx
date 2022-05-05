@@ -169,51 +169,51 @@
     <value>Tự động đăng nhập</value>
   </data>
   <data name="AutoLoginExplanation" xml:space="preserve">
-    <value>Note: Valorant needs to be running for this to work</value>
+    <value>Chú ý: Tính năng này cần chạy Valorant trước.</value>
   </data>
   <data name="AuthStatusFail" xml:space="preserve">
-    <value>Not Authenticated</value>
+    <value>Xác minh thất bại</value>
   </data>
   <data name="Translator" xml:space="preserve">
-    <value>Translated into English By Soneliem</value>
+    <value>Dịch bởi Ozymo</value>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
-    <value>Click To Refresh Match</value>
+    <value>Làm mới trận đấu</value>
   </data>
   <data name="SettingsExplanation" xml:space="preserve">
-    <value>Find app and account settings here</value>
+    <value>Xem cài đặt app và tài khoản</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>Settings</value>
+    <value>Cài đặt</value>
   </data>
   <data name="SettingsInfoExplanation1" xml:space="preserve">
-    <value>This page lets you manually sign in, change the app language, etc.</value>
+    <value>Trang này để bạn đăng nhập thủ công, thay đổi ngôn ngữ,...</value>
   </data>
   <data name="SelLanguageTitle" xml:space="preserve">
-    <value>Select Language</value>
+    <value>Chọn ngôn ngữ</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Error</value>
+    <value>Lỗi</value>
   </data>
   <data name="Refreshing" xml:space="preserve">
-    <value>Refreshing...</value>
+    <value>Đang làm mới ...</value>
   </data>
   <data name="NoMatch" xml:space="preserve">
-    <value>No Match Detected</value>
+    <value>Không tìm thấy trận đấu</value>
   </data>
   <data name="NoValGame" xml:space="preserve">
-    <value>Please Open Valorant First</value>
+    <value>Mở Valorant trước</value>
   </data>
   <data name="TrackerToolTip" xml:space="preserve">
-    <value>Open Tracker.gg Profile</value>
+    <value>Mở hồ sơ Tracker.gg</value>
   </data>
   <data name="CheckDownloadTitle" xml:space="preserve">
-    <value>Check Downloaded Content</value>
+    <value>Kiểm tra nội dung tải xuống</value>
   </data>
   <data name="CheckDownloadButton" xml:space="preserve">
-    <value>Force Update</value>
+    <value>Buộc update</value>
   </data>
   <data name="SponsorsTitle" xml:space="preserve">
-    <value>Sponsors</value>
+    <value>Tài trợ/value>
   </data>
 </root>
