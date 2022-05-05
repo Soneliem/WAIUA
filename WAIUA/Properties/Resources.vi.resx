@@ -1,0 +1,218 @@
+xml version=1.0 encoding=utf-8
+root
+  !-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example
+    
+    ... ado.netXML headers & schema ...
+    resheader name=resmimetypetextmicrosoft-resxresheader
+    resheader name=version2.0resheader
+    resheader name=readerSystem.Resources.ResXResourceReader, System.Windows.Forms, ...resheader
+    resheader name=writerSystem.Resources.ResXResourceWriter, System.Windows.Forms, ...resheader
+    data name=Name1valuethis is my long stringvaluecommentthis is a commentcommentdata
+    data name=Color1 type=System.Drawing.Color, System.DrawingBluedata
+    data name=Bitmap1 mimetype=applicationx-microsoft.net.object.binary.base64
+        value[base64 mime encoded serialized .NET Framework object]value
+    data
+    data name=Icon1 type=System.Drawing.Icon, System.Drawing mimetype=applicationx-microsoft.net.object.bytearray.base64
+        value[base64 mime encoded string representing a byte array form of the .NET Framework object]value
+        commentThis is a commentcomment
+    data
+                
+    There are any number of resheader rows that contain simple 
+    namevalue pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    textvalue conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly
+    
+    Note - applicationx-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype applicationx-microsoft.net.object.binary.base64
+    value    The object must be serialized with 
+             System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+             and then encoded with base64 encoding.
+    
+    mimetype applicationx-microsoft.net.object.soap.base64
+    value    The object must be serialized with 
+             System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+             and then encoded with base64 encoding.
+    mimetype applicationx-microsoft.net.object.bytearray.base64
+    value    The object must be serialized into a byte array 
+             using a System.ComponentModel.TypeConverter
+             and then encoded with base64 encoding.
+    --
+  xsdschema id=root xmlns= xmlnsxsd=httpwww.w3.org2001XMLSchema xmlnsmsdata=urnschemas-microsoft-comxml-msdata
+    xsdimport namespace=httpwww.w3.orgXML1998namespace 
+    xsdelement name=root msdataIsDataSet=true
+      xsdcomplexType
+        xsdchoice maxOccurs=unbounded
+          xsdelement name=metadata
+            xsdcomplexType
+              xsdsequence
+                xsdelement name=value type=xsdstring minOccurs=0 
+              xsdsequence
+              xsdattribute name=name use=required type=xsdstring 
+              xsdattribute name=type type=xsdstring 
+              xsdattribute name=mimetype type=xsdstring 
+              xsdattribute ref=xmlspace 
+            xsdcomplexType
+          xsdelement
+          xsdelement name=assembly
+            xsdcomplexType
+              xsdattribute name=alias type=xsdstring 
+              xsdattribute name=name type=xsdstring 
+            xsdcomplexType
+          xsdelement
+          xsdelement name=data
+            xsdcomplexType
+              xsdsequence
+                xsdelement name=value type=xsdstring minOccurs=0 msdataOrdinal=1 
+                xsdelement name=comment type=xsdstring minOccurs=0 msdataOrdinal=2 
+              xsdsequence
+              xsdattribute name=name type=xsdstring use=required msdataOrdinal=1 
+              xsdattribute name=type type=xsdstring msdataOrdinal=3 
+              xsdattribute name=mimetype type=xsdstring msdataOrdinal=4 
+              xsdattribute ref=xmlspace 
+            xsdcomplexType
+          xsdelement
+          xsdelement name=resheader
+            xsdcomplexType
+              xsdsequence
+                xsdelement name=value type=xsdstring minOccurs=0 msdataOrdinal=1 
+              xsdsequence
+              xsdattribute name=name type=xsdstring use=required 
+            xsdcomplexType
+          xsdelement
+        xsdchoice
+      xsdcomplexType
+    xsdelement
+  xsdschema
+  resheader name=resmimetype
+    valuetextmicrosoft-resxvalue
+  resheader
+  resheader name=version
+    value2.0value
+  resheader
+  resheader name=reader
+    valueSystem.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089value
+  resheader
+  resheader name=writer
+    valueSystem.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089value
+  resheader
+  data name=LoadMatchTitle xmlspace=preserve
+    valueLoad Matchvalue
+  data
+  data name=LoadMatchExplanation xmlspace=preserve
+    valueLoads live match data if available. This should take less than 10 secondsvalue
+  data
+  data name=InfoTitle xmlspace=preserve
+    valueInfovalue
+  data
+  data name=InfoExplanation xmlspace=preserve
+    valueYou&apos;re on this page idiotvalue
+  data
+  data name=JoinDiscord xmlspace=preserve
+    valueJoin my Discordvalue
+  data
+  data name=JoinDiscordSub xmlspace=preserve
+    valueFor support, etc.value
+  data
+  data name=Author xmlspace=preserve
+    valueMade By Soneliemvalue
+  data
+  data name=Latestversion xmlspace=preserve
+    valueLatest Version value
+  data
+  data name=CurrentVersion xmlspace=preserve
+    valueCurrent Version value
+  data
+  data name=CheckUpdates xmlspace=preserve
+    valueCheck for Updatesvalue
+  data
+  data name=Login xmlspace=preserve
+    valueLoginvalue
+  data
+  data name=SettingsInfoExplanation2 xmlspace=preserve
+    valueAll communication regarding your credentials is done directly with Riot servers with no storage of passwords being done locally or online.value
+  data
+  data name=AuthStatusTitle xmlspace=preserve
+    valueAuthentication Statusvalue
+  data
+  data name=AuthStatusDefault xmlspace=preserve
+    valueClick below to updatevalue
+  data
+  data name=AuthStatusButton xmlspace=preserve
+    valueCheck Authenticationvalue
+  data
+  data name=AuthStatusAuthAs xmlspace=preserve
+    valueAuthenticated asvalue
+  data
+  data name=AutoLoginTitle xmlspace=preserve
+    valueAuto Loginvalue
+  data
+  data name=AutoLoginExplanation xmlspace=preserve
+    valueNote Valorant needs to be running for this to workvalue
+  data
+  data name=AuthStatusFail xmlspace=preserve
+    valueNot Authenticatedvalue
+  data
+  data name=Translator xmlspace=preserve
+    valueTranslated into English By Soneliemvalue
+  data
+  data name=RefreshMatch xmlspace=preserve
+    valueClick To Refresh Matchvalue
+  data
+  data name=SettingsExplanation xmlspace=preserve
+    valueFind app and account settings herevalue
+  data
+  data name=SettingsTitle xmlspace=preserve
+    valueSettingsvalue
+  data
+  data name=SettingsInfoExplanation1 xmlspace=preserve
+    valueThis page lets you manually sign in, change the app language, etc.value
+  data
+  data name=SelLanguageTitle xmlspace=preserve
+    valueSelect Languagevalue
+  data
+  data name=Error xmlspace=preserve
+    valueErrorvalue
+  data
+  data name=Refreshing xmlspace=preserve
+    valueRefreshing...value
+  data
+  data name=NoMatch xmlspace=preserve
+    valueNo Match Detectedvalue
+  data
+  data name=NoValGame xmlspace=preserve
+    valuePlease Open Valorant Firstvalue
+  data
+  data name=TrackerToolTip xmlspace=preserve
+    valueOpen Tracker.gg Profilevalue
+  data
+  data name=CheckDownloadTitle xmlspace=preserve
+    valueCheck Downloaded Contentvalue
+  data
+  data name=CheckDownloadButton xmlspace=preserve
+    valueForce Updatevalue
+  data
+  data name=SponsorsTitle xmlspace=preserve
+    valueSponsorsvalue
+  data
+root
