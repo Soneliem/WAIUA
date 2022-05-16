@@ -13,39 +13,6 @@
 	mc:Ignorable="d"
 	d:DataContext="{d:DesignInstance Type=viewModels:InfoViewModel}">
 	<UserControl.Resources>
-		<ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
-			<Border Name="RootElement" CornerRadius="10">
-				<Border.Background>
-					<SolidColorBrush x:Name="ButtonBackground" Color="#181E34" />
-				</Border.Background>
-				<ContentPresenter
-					Margin="5"
-					HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-					VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-				<VisualStateManager.VisualStateGroups>
-					<VisualStateGroup x:Name="CommonStates">
-						<VisualState x:Name="Normal" />
-						<VisualState x:Name="MouseOver">
-							<Storyboard>
-								<ColorAnimation
-									Storyboard.TargetName="ButtonBackground"
-									Storyboard.TargetProperty="Color"
-									To="#234d96"
-									Duration="0:0:0.5" />
-							</Storyboard>
-						</VisualState>
-						<VisualState x:Name="Pressed">
-							<Storyboard>
-								<ColorAnimation
-									Storyboard.TargetName="ButtonBackground"
-									Storyboard.TargetProperty="Color"
-									To="#89B4FF" />
-							</Storyboard>
-						</VisualState>
-					</VisualStateGroup>
-				</VisualStateManager.VisualStateGroups>
-			</Border>
-		</ControlTemplate>
 		<Style TargetType="ToolTip">
 			<Setter Property="Background" Value="#32e2b2" />
 			<Setter Property="FontWeight" Value="SemiBold" />
@@ -212,6 +179,9 @@
 				<Border Margin="5" Background="#6441A4"
 				        BorderThickness="1"
 				        CornerRadius="20">
+					<Border.Effect>
+						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+					</Border.Effect>
 					<StackPanel Orientation="Horizontal">
 						<Button Background="Transparent"
 						        BorderThickness="0"

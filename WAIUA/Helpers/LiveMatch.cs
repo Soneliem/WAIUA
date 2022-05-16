@@ -21,8 +21,8 @@ public class Match
 {
     public delegate void UpdateProgress(int percentage);
 
-    public MatchDetails MatchInfo { get; set; } = new();
-    public static Guid Matchid { get; set; }
+    public MatchDetails MatchInfo { get; } = new();
+    private static Guid Matchid { get; set; }
 
 
     private static async Task<bool> CheckAndSetLiveMatchIdAsync()
@@ -112,6 +112,7 @@ public class Match
                     async Task<Player> GetPlayerInfo()
                     {
                         var progress = 10;
+                        // TODO: Progress bar update
                         // updateProgress(90 / 10 + progress);
                         // progress += 90 / 10;
                         Player player = new();
@@ -602,18 +603,21 @@ public class Match
 
                         if (content?.ProvisioningFlow == "CustomGame")
                         {
-                            MatchInfo.GameMode = "🏅 Custom";
+                            MatchInfo.GameMode = "Custom";
                         }
                         else
                         {
                             var textInfo = new CultureInfo("en-US", false).TextInfo;
-                            MatchInfo.GameMode = "🏅 " + content?.QueueId switch
+                            MatchInfo.GameMode = content?.QueueId switch
                             {
-                                "ggteam" => "Escalation",
+                                "competitive" => "Competitive",
+                                "unrated" => "Unrated",
+                                "deathmatch" => "Deathmatch",                                
                                 "spikerush" => "Spike Rush",
+                                "ggteam" => "Escalation",
                                 "newmap" => "New Map",
                                 "onefa" => "Replication",
-                                "snowball" => "Replication",
+                                "snowball" => "Snowball Fight",
                                 _ => textInfo.ToTitleCase(content.QueueId)
                             };
                         }

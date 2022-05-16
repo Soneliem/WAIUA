@@ -63,6 +63,9 @@
 				Grid.Column="2" HorizontalAlignment="Right"
 				Margin="7"
 				CornerRadius="10">
+				<Border.Effect>
+					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+				</Border.Effect>
 				<StackPanel Orientation="Horizontal">
 					<TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="SemiBold" Margin="10"
 					           Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -76,9 +79,12 @@
 			</Border>
 
 			<Border
-				Grid.Column="3" HorizontalAlignment="Right" Width="234"
+				Grid.Column="3" HorizontalAlignment="Right" MinWidth="234"
 				Margin="7"
 				CornerRadius="10">
+				<Border.Effect>
+					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+				</Border.Effect>
 
 				<Border.Background>
 					<ImageBrush Stretch="UniformToFill" ImageSource="{Binding Path=Match.MapImage}" />

@@ -14,10 +14,13 @@
 	Background="#2E3349"
 	mc:Ignorable="d">
 	<i:Interaction.Triggers>
-		<!-- <i:EventTrigger EventName="Loaded"> -->
-		<!--     <i:InvokeCommandAction Command="{Binding UpdateChecksCommand}" /> -->
-		<!-- </i:EventTrigger> -->
+		<i:EventTrigger EventName="Loaded">
+		    <i:InvokeCommandAction Command="{Binding PassiveLoadCommand}" />
+		</i:EventTrigger>
 	</i:Interaction.Triggers>
+	<UserControl.Resources>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+	</UserControl.Resources>
 	<UserControl.Triggers>
 		<EventTrigger RoutedEvent="Loaded">
 			<BeginStoryboard>
@@ -63,23 +66,6 @@
 				Visibility="Collapsed" />
 
 			<Button
-				Grid.Row="0" Grid.Column="2" Cursor="Hand"
-				HorizontalAlignment="Right"
-				Command="{Binding LoadNowCommand}"
-				Template="{StaticResource ButtonTemplate}">
-				<Viewbox>
-					<TextBlock
-						Padding="5"
-						HorizontalAlignment="Center"
-						VerticalAlignment="Center"
-						FontWeight="Normal"
-						Foreground="#007EF9"
-						FontFamily="{StaticResource Nunito}"
-						Text="{x:Static p:Resources.RefreshMatch}" />
-				</Viewbox>
-			</Button>
-
-			<Button
 				Grid.Row="0" Grid.Column="4" Cursor="Hand" Width="60"
 				HorizontalAlignment="Right"
 				Command="{Binding DataContext.NavigateInfoCommand, RelativeSource={RelativeSource AncestorType=Window}}"
@@ -88,11 +74,11 @@
 			</Button>
 			<TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" FontSize="35" VerticalAlignment="Center"
 			           FontWeight="SemiBold" FontFamily="{StaticResource Nunito}"
-			           Foreground="White" Text="Your Party" />
+			           Foreground="White" Text="{x:Static p:Resources.YourParty}" />
 
 			<TextBlock FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Right"
 			           FontWeight="SemiBold" Grid.Row="0" Grid.Column="3" FontFamily="{StaticResource Nunito}"
-			           Foreground="White" Text="Status" />
+			           Foreground="White" Text="{x:Static p:Resources.Status}" />
 		</Grid>
 
 
@@ -119,7 +105,7 @@
 		</Grid>
 
 
-		<Grid Grid.Row="1" Grid.Column="1" Height="664" VerticalAlignment="Center" Grid.ColumnSpan="2">
+		<Grid Grid.Row="1" Grid.Column="1" Height="664" VerticalAlignment="Center">
 
 			<Grid Grid.Row="0"
 			      Margin="5 15 0 0">
@@ -132,6 +118,9 @@
 				            Orientation="Horizontal">
 					<Border Background="#252A40" Margin="20" Width="Auto"
 					        CornerRadius="20">
+						<Border.Effect>
+							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+						</Border.Effect>
 						<Grid>
 							<Grid.RowDefinitions>
 								<RowDefinition />
@@ -149,18 +138,18 @@
 							           VerticalAlignment="Center"
 							           FontWeight="Normal"
 							           Foreground="White"
-							           Text="Valorant" />
-							<Image Margin="25" Width="30" Grid.Column="1" Source="{Binding GameStatus}" />
+							           Text="{x:Static p:Resources.Valorant}" />
+							<Image Margin="25" Width="30" Grid.Row="0" Grid.Column="1" Source="{Binding GameStatus}" />
 
 
-							<TextBlock Margin="25" Grid.Row="1"
+							<TextBlock Margin="25" Grid.Row="1" Grid.Column="0"
 							           FontSize="20"
 							           HorizontalAlignment="Center"
 							           VerticalAlignment="Center"
 							           FontFamily="{StaticResource Nunito}"
 							           FontWeight="Normal"
 							           Foreground="White"
-							           Text="Account" />
+							           Text="{x:Static p:Resources.Account}" />
 							<Image Margin="25" Width="30" Grid.Row="1" Grid.Column="1" Source="{Binding AccountStatus}" />
 
 							<TextBlock Margin="25" Grid.Row="2" Grid.Column="0"
@@ -170,13 +159,16 @@
 							           FontFamily="{StaticResource Nunito}"
 							           FontWeight="Normal"
 							           Foreground="White"
-							           Text="Match" />
+							           Text="{x:Static p:Resources.Match}" />
 							<Image Margin="25" Width="30" Grid.Row="2" Grid.Column="1" Source="{Binding MatchStatus}" />
 						</Grid>
 					</Border>
 
 					<Border Background="#252A40" Margin="20" Width="Auto" Height="Auto" VerticalAlignment="Center"
 					        CornerRadius="20">
+						<Border.Effect>
+							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+						</Border.Effect>
 						<Grid>
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
@@ -224,45 +216,33 @@
 						</Grid>
 					</Border>
 				</StackPanel>
+				
+				<Button Grid.Row="1" Cursor="Hand" Height="90"
+				        HorizontalAlignment="Center"
 
-
-				<StackPanel Height="90" Margin="30,20" Grid.Row="1" Orientation="Horizontal"
-				            HorizontalAlignment="Center">
-					<Viewbox>
-						<ToggleButton Template="{StaticResource ToggleButtonTemplate}">
-							<i:Interaction.Triggers>
-								<i:EventTrigger EventName="Checked">
-									<i:InvokeCommandAction Command="{Binding Path=PassiveLoadCommand}" />
-								</i:EventTrigger>
-								<i:EventTrigger EventName="Unchecked">
-									<i:InvokeCommandAction Command="{Binding Path=StopPassiveLoadCommand}" />
-								</i:EventTrigger>
-							</i:Interaction.Triggers>
-							<Viewbox>
-								<TextBlock
-									Padding="5"
-									HorizontalAlignment="Center"
-									VerticalAlignment="Center"
-									FontWeight="Normal"
-									Foreground="#007EF9"
-									FontFamily="{StaticResource Nunito}"
-									Text="{Binding ToggleBtnTxt}" />
-							</Viewbox>
-						</ToggleButton>
-					</Viewbox>
-					<Separator Width="20" Background="Transparent" />
-					<Button Cursor="Hand" Width="90" Height="90"
-					        HorizontalAlignment="Right"
-
-					        Command="{Binding LoadNowCommand}"
-					        Template="{StaticResource ButtonTemplate}">
-
-						<Image Margin="15" Source="/Assets/refresh.png" />
-					</Button>
-				</StackPanel>
+				        Command="{Binding LoadNowCommand}"
+				        Template="{StaticResource ButtonTemplate}">
+					<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+									<TextBlock
+										Padding="5"
+										VerticalAlignment="Center"
+										FontWeight="Normal"
+										Foreground="#007EF9"
+										FontSize="24"
+										FontFamily="{StaticResource Nunito}"
+										Text="{x:Static p:Resources.Refresh}" />
+					<Image Margin="15"  Source="/Assets/refresh.png" />
+					</StackPanel>
+				</Button>
 
 			</Grid>
 		</Grid>
+		<c:OverlayControl Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"
+		                         Style="{StaticResource VisibleAnimation}"
+		                         Overlay="{Binding Path=Overlay}"
+		                         Visibility="{Binding Overlay.IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}">
+		</c:OverlayControl>
 
 	</Grid>
+	
 </UserControl>

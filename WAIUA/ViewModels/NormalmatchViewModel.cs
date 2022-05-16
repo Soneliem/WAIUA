@@ -42,7 +42,6 @@ public partial class NormalmatchViewModel : ObservableObject
             if (await Helpers.Match.LiveMatchChecksAsync(false).ConfigureAwait(false))
             {
                 Overlay.Content = "Getting Player Details";
-                Debug.WriteLine("test");
                 PlayerList = await newMatch.LiveMatchOutputAsync(UpdatePercentage).ConfigureAwait(false);
                 var deltaSize = 10 - PlayerList.Count;
 

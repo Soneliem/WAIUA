@@ -12,6 +12,16 @@ namespace WAIUA.ViewModels;
 
 public partial class HomeViewModel : ObservableObject
 {
+    public HomeViewModel()
+    {
+        Overlay = new LoadingOverlay
+        {
+            Header = "Refreshing",
+            Content = "",
+            IsBusy = false
+        };
+    }
+    
     public delegate void EventAction();
 
     private static readonly Uri question = new("pack://application:,,,/Assets/question.png");
@@ -35,11 +45,12 @@ public partial class HomeViewModel : ObservableObject
 
     [ObservableProperty] private string _refreshTime = "-";
 
-    [ObservableProperty] private string _toggleBtnTxt = "Wait for Next Match";
-
     [ObservableProperty] private int countdownTime = 15;
+    [ObservableProperty] private LoadingOverlay _overlay;
 
     public event EventAction GoMatchEvent;
+
+    
 
     [ICommand]
     private async Task LoadNowAsync()
@@ -61,8 +72,6 @@ public partial class HomeViewModel : ObservableObject
         _newMatch = new Match();
         if (await Match.LiveMatchChecksAsync(true).ConfigureAwait(false))
             GoMatchEvent?.Invoke();
-        ToggleBtnTxt = "Waiting for match";
-
 
         await UpdateChecksAsync().ConfigureAwait(false);
     }
@@ -71,7 +80,6 @@ public partial class HomeViewModel : ObservableObject
     private Task StopPassiveLoadAsync()
     {
         CountTimer.Stop();
-        ToggleBtnTxt = "Wait for Next Match";
         RefreshTime = "-";
         CountdownTime = 15;
         return Task.CompletedTask;
@@ -84,10 +92,7 @@ public partial class HomeViewModel : ObservableObject
         if (CountdownTime == 0)
         {
             CountdownTime = 15;
-            ToggleBtnTxt = "Refreshing";
-
             await UpdateChecksAsync().ConfigureAwait(false);
-            ToggleBtnTxt = "Waiting for match";
         }
 
         CountdownTime--;
@@ -97,6 +102,7 @@ public partial class HomeViewModel : ObservableObject
     [ICommand]
     private async Task UpdateChecksAsync()
     {
+        Overlay.IsBusy = true;
         GameStatus = refresh;
         AccountStatus = question;
         MatchStatus = question;
@@ -112,7 +118,7 @@ public partial class HomeViewModel : ObservableObject
                 {
                     MatchStatus = check;
                     CountTimer?.Stop();
-
+                    Overlay.IsBusy = false;
                     GoMatchEvent?.Invoke();
                 }
                 else
@@ -132,6 +138,7 @@ public partial class HomeViewModel : ObservableObject
                     {
                         MatchStatus = check;
                         CountTimer?.Stop();
+                        Overlay.IsBusy = false;
                         GoMatchEvent?.Invoke();
                     }
                     else
@@ -152,6 +159,7 @@ public partial class HomeViewModel : ObservableObject
             AccountStatus = cross;
             MatchStatus = cross;
         }
+        Overlay.IsBusy = false;
     }
 
 

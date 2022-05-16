@@ -255,6 +255,9 @@
 			Margin="0 25 25 25"
 			Background="#252A40"
 			CornerRadius="20">
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+			</Border.Effect>
 			<Viewbox>
 				<Grid Margin="10">
 					<Grid.RowDefinitions>
@@ -297,6 +300,9 @@
 			Margin="0 25 25 0"
 			Background="#252A40"
 			CornerRadius="20">
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+			</Border.Effect>
 			<Grid Margin="10">
 				<Grid.RowDefinitions>
 					<RowDefinition />
@@ -362,6 +368,9 @@
 			Margin="25"
 			Background="#252A40"
 			CornerRadius="20">
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+			</Border.Effect>
 			<Grid Margin="10">
 				<Grid.RowDefinitions>
 					<RowDefinition />
@@ -416,6 +425,9 @@
 			Margin="25 25 0 25"
 			Background="#252A40"
 			CornerRadius="20">
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+			</Border.Effect>
 			<Grid Margin="10">
 				<Grid.RowDefinitions>
 					<RowDefinition />
@@ -474,6 +486,9 @@
 		        Margin="25 25 0 0"
 		        Background="#252A40"
 		        CornerRadius="20">
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+			</Border.Effect>
 			<Grid Margin="10">
 				<Grid.RowDefinitions>
 					<RowDefinition />
@@ -561,6 +576,9 @@
 			Margin="25 25 25 0"
 			Background="#252A40"
 			CornerRadius="20">
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+			</Border.Effect>
 			<Grid Margin="10">
 				<Grid.RowDefinitions>
 					<RowDefinition />

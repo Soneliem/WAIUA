@@ -30,7 +30,6 @@
 			<Button
 				Grid.Column="0"
 				Margin="7"
-
 				Template="{StaticResource ButtonTemplate}">
 
 				<Image Margin="10" Source="/images/Assets/back.png" />
@@ -85,7 +84,7 @@
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
-			<Grid Grid.Column="0" Margin="10,0,5,0">
+			<Grid Grid.Column="0" Margin="7,0,5,7">
 				<Grid.RowDefinitions>
 					<RowDefinition />
 					<RowDefinition />
@@ -118,7 +117,7 @@
 
 			<Grid
 				Grid.Column="2"
-				Margin="5,0,10,0">
+				Margin="5,0,7,7">
 
 				<Grid.RowDefinitions>
 					<RowDefinition />

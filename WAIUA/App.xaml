@@ -11,6 +11,9 @@
 				<Border.Background>
 					<SolidColorBrush x:Name="ButtonBackground" Color="#181E34" />
 				</Border.Background>
+				<Border.Effect>
+					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+				</Border.Effect>
 				<ContentPresenter
 					Margin="5"
 					HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"

@@ -87,6 +87,7 @@ public class ValSkin
 public partial class MatchDetails
 {
     [ObservableProperty] private string _gameMode;
+    [ObservableProperty] private Uri _gameModeImage;
     [ObservableProperty] private string _map;
     [ObservableProperty] private Uri _mapImage;
     [ObservableProperty] private string _server;

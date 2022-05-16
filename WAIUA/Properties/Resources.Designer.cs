@@ -61,6 +61,15 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account.
+        /// </summary>
+        public static string Account {
+            get {
+                return ResourceManager.GetString("Account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Made By Soneliem.
         /// </summary>
         public static string Author {
@@ -241,6 +250,15 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Match.
+        /// </summary>
+        public static string Match {
+            get {
+                return ResourceManager.GetString("Match", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No Match Detected.
         /// </summary>
         public static string NoMatch {
@@ -255,6 +273,15 @@ namespace WAIUA.Properties {
         public static string NoValGame {
             get {
                 return ResourceManager.GetString("NoValGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        public static string Refresh {
+            get {
+                return ResourceManager.GetString("Refresh", resourceCulture);
             }
         }
         
@@ -322,6 +349,15 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Tracker.gg Profile.
         /// </summary>
         public static string TrackerToolTip {
@@ -336,6 +372,24 @@ namespace WAIUA.Properties {
         public static string Translator {
             get {
                 return ResourceManager.GetString("Translator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valorant.
+        /// </summary>
+        public static string Valorant {
+            get {
+                return ResourceManager.GetString("Valorant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Party.
+        /// </summary>
+        public static string YourParty {
+            get {
+                return ResourceManager.GetString("YourParty", resourceCulture);
             }
         }
     }

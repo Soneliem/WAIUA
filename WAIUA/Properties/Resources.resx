@@ -210,4 +210,22 @@
   <data name="Home" xml:space="preserve">
 	  <value>Home</value>
   </data>
+  <data name="YourParty" xml:space="preserve">
+	  <value>Your Party</value>
+  </data>
+  <data name="Valorant" xml:space="preserve">
+	  <value>Valorant</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+	  <value>Match</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+	  <value>Account</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+	  <value>Status</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+	  <value>Refresh</value>
+  </data>
 </root>
