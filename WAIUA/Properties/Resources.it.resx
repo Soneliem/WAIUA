@@ -120,8 +120,14 @@
   <data name="LoadMatchTitle" xml:space="preserve">
     <value>Caricamento partita</value>
   </data>
+  <data name="LoadMatchExplanation" xml:space="preserve">
+    <value>Caricamendo informazioni partita diretta se disponibile. Dovrebbe richiedere meno di 10 secondi</value>
+  </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>Info</value>
+  </data>
+  <data name="InfoExplanation" xml:space="preserve">
+    <value>Sei su questa pagina idiota</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>Entra sul mio Discord</value>
@@ -173,6 +179,9 @@
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Clicca per riaggiornare la tua partita</value>
+  </data>
+  <data name="SettingsExplanation" xml:space="preserve">
+    <value>Qui potrai trovare le impostazioni del tuo account</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Impostazioni</value>

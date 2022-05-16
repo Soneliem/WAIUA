@@ -120,8 +120,14 @@
   <data name="LoadMatchTitle" xml:space="preserve">
     <value>लोड मैच</value>
   </data>
+  <data name="LoadMatchExplanation" xml:space="preserve">
+    <value>यदि उपलब्ध हो तो Live match डेटा लोड करता है।. इसमें 10 सेकंड से कम समय लगना चाहिए</value>
+  </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>जानकारी</value>
+  </data>
+  <data name="InfoExplanation" xml:space="preserve">
+    <value>इस ही पेज पर हो बेवकुफ</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>मेरे Discord से जुड़ें</value>
@@ -173,6 +179,9 @@
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>मैच को ताज़ा करने के लिए क्लिक करें</value>
+  </data>
+  <data name="SettingsExplanation" xml:space="preserve">
+    <value>यहां app और account सेटिंग ढूंढें</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>सेटिंग</value>

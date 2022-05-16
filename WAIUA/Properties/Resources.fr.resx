@@ -120,8 +120,14 @@
   <data name="LoadMatchTitle" xml:space="preserve">
     <value>Charger Match</value>
   </data>
+  <data name="LoadMatchExplanation" xml:space="preserve">
+    <value>Charge les données du match actuel si disponible. Cela devrait prendre moins de 10 secondes</value>
+  </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>Info</value>
+  </data>
+  <data name="InfoExplanation" xml:space="preserve">
+    <value>Vous êtes sur cette page idiot</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>Rejoignez notre Discord</value>
@@ -173,6 +179,9 @@
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Cliquer Pour Rafraîchir le Match</value>
+  </data>
+  <data name="SettingsExplanation" xml:space="preserve">
+    <value>Trouvez les paramètres de l&apos;application et de compte ici</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Paramètres</value>

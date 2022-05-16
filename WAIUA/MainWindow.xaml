@@ -5,18 +5,29 @@
 	xmlns:commands="clr-namespace:WAIUA.Commands"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:waiua="clr-namespace:WAIUA"
-	xmlns:viewModels="clr-namespace:WAIUA.ViewModels"
-	Title="Who Am I Up Against? (WAIUA)"
+	xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
+	xmlns:views="clr-namespace:WAIUA.Views"
+	Title="WAIUA"
 	Width="{commands:SettingBinding Width}"
 	Height="{commands:SettingBinding Height}"
 	d:DesignHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}"
 	d:DesignWidth="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Width}"
-	d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
 	Background="#2E3349"
 	Left="{commands:SettingBinding Left}"
 	Top="{commands:SettingBinding Top}"
 	WindowState="{commands:SettingBinding WindowState}"
 	mc:Ignorable="d">
-	<waiua:ViewModelPresenter ViewModel="{Binding SelectedViewModel}" />
+	<ContentControl Content="{Binding CurrentViewModel}">
+		<ContentControl.Resources>
+			<DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+				<views:Home />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type viewmodels:InfoViewModel}">
+				<views:Info />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type viewmodels:SettingsViewModel}">
+				<views:Settings />
+			</DataTemplate>
+		</ContentControl.Resources>
+	</ContentControl>
 </Window>
