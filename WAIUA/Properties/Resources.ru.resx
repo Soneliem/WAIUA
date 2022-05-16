@@ -120,14 +120,8 @@
   <data name="LoadMatchTitle" xml:space="preserve">
     <value>Загрузить матч</value>
   </data>
-  <data name="LoadMatchExplanation" xml:space="preserve">
-    <value>Загружает данные о матчах в реальном времени, если таковые имеются. Это должно занять менее 10 секунд.</value>
-  </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>Информация</value>
-  </data>
-  <data name="InfoExplanation" xml:space="preserve">
-    <value>Ты уже на этой странице, идиот</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>Присоединяйтесь к моему дискорд серверу</value>
@@ -179,9 +173,6 @@
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Нажмите, чтобы обновить матч</value>
-  </data>
-  <data name="SettingsExplanation" xml:space="preserve">
-    <value>Настройки приложения и учетной записи можно найти здесь</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Настройки</value>

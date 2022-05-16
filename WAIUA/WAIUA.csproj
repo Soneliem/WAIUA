@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net5.0-windows10.0.22000.0</TargetFramework>
+        <TargetFramework>net6.0-windows</TargetFramework>
         <UseWPF>true</UseWPF>
         <ApplicationIcon>logo.ico</ApplicationIcon>
         <Version>1.4.0.1</Version>
@@ -19,11 +19,11 @@
         <Authors>Soneliem</Authors>
         <PackageLicenseFile></PackageLicenseFile>
         <IsPackable>false</IsPackable>
-        <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <RepositoryType>git</RepositoryType>
         <AssemblyVersion>1.4.0.1</AssemblyVersion>
         <FileVersion>1.4.0.1</FileVersion>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -37,10 +37,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Remove="Models\**" />
-      <EmbeddedResource Remove="Models\**" />
-      <None Remove="Models\**" />
-      <Page Remove="Models\**" />
+      <Compile Remove="ValAPI\**" />
+      <EmbeddedResource Remove="ValAPI\**" />
+      <None Remove="ValAPI\**" />
+      <Page Remove="ValAPI\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -89,14 +89,23 @@
 
     <ItemGroup>
         <None Remove="Assets\arrow.png" />
+        <None Remove="Assets\back.png" />
+        <None Remove="Assets\cat.gif" />
+        <None Remove="Assets\Check.png" />
+        <None Remove="Assets\cross.png" />
         <None Remove="Assets\discord.png" />
+        <None Remove="Assets\empty.png" />
         <None Remove="Assets\icon.ico" />
         <None Remove="Assets\info.png" />
         <None Remove="Assets\logo.ico" />
         <None Remove="Assets\logo.png" />
+        <None Remove="Assets\Nunito-Regular.ttf" />
         <None Remove="Assets\phantom.png" />
+        <None Remove="Assets\question.png" />
+        <None Remove="Assets\refresh.png" />
         <None Remove="Assets\settings.png" />
         <None Remove="Assets\Soneliem.png" />
+        <None Remove="Assets\splash.png" />
         <None Remove="Assets\vandal.png" />
     </ItemGroup>
 
@@ -104,20 +113,45 @@
         <Resource Include="Assets\arrow.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
+        <Resource Include="Assets\back.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\cat.gif">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\check.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\cross.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
         <Resource Include="Assets\discord.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\empty.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
         <Resource Include="Assets\info.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
+        <SplashScreen Include="Assets\splash.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </SplashScreen>
         <Resource Include="Assets\logo.ico">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
         <Resource Include="Assets\logo.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
+        <Resource Include="Assets\Nunito-Regular.ttf" />
         <Resource Include="Assets\phantom.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\question.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Assets\refresh.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
         <Resource Include="Assets\vandal.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -140,9 +174,14 @@
 
     <ItemGroup>
         <PackageReference Include="Autoupdater.NET.Official" Version="1.7.0" />
-        <PackageReference Include="MVVMEssentials.WPF" Version="1.0.3" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-        <PackageReference Include="RestSharp" Version="106.13.0" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+        <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+        <PackageReference Include="RestSharp" Version="107.3.0" />
+        <PackageReference Include="Serilog" Version="2.10.0" />
+        <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+        <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+        <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
     </ItemGroup>
 
     <ItemGroup>
@@ -154,18 +193,16 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="Assets\matchdemo.json">
+        <None Update="Assets\0.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+	    <None Update="Assets\matchdemo.json">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </None>
         <None Update="Properties\Settings.settings">
             <Generator>PublicSettingsSingleFileGenerator</Generator>
             <LastGenOutput>Settings.Designer.cs</LastGenOutput>
         </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="ValAPI\agentsimg\" />
-      <Folder Include="ValAPI\ranksimg\" />
     </ItemGroup>
 
 </Project>

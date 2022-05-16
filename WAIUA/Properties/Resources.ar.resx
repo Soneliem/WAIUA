@@ -120,14 +120,8 @@
   <data name="LoadMatchTitle" xml:space="preserve">
     <value>حمِّل المُباراة</value>
   </data>
-  <data name="LoadMatchExplanation" xml:space="preserve">
-    <value>من المفترض ان يحمل بِأقل من  عشر ثواني</value>
-  </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>معلومات</value>
-  </data>
-  <data name="InfoExplanation" xml:space="preserve">
-    <value>انت على هذه الصفحة غبي…</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>ادخل على الديسكورد سيرفر</value>
@@ -180,9 +174,6 @@
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>ادغط لتحديث المباراة</value>
-  </data>
-  <data name="SettingsExplanation" xml:space="preserve">
-    <value>ابحث عن إعدادات التطبيق والحساب هنا</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>اعدادات</value>

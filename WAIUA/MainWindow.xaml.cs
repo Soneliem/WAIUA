@@ -1,12 +1,14 @@
 ﻿using System.Windows;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using WAIUA.ViewModels;
 
-namespace WAIUA
+namespace WAIUA;
+
+public partial class MainWindow : Window
 {
-	public partial class MainWindow : Window
-	{
-		public MainWindow()
-		{
-			InitializeComponent();
-		}
-	}
+    public MainWindow()
+    {
+        InitializeComponent();
+        DataContext = Ioc.Default.GetRequiredService<MainViewModel>();
+    }
 }
