@@ -197,7 +197,6 @@ public class Match
             ignData.Username = await GetNameServiceGetUsernameAsync(puuid).ConfigureAwait(false);
             var trackerUri = await TrackerAsync(ignData.Username).ConfigureAwait(false);
             if (trackerUri != null)
-            {
                 return new IgnData
                 {
                     TrackerEnabled = Visibility.Visible,
@@ -205,7 +204,6 @@ public class Match
                     TrackerUri = trackerUri,
                     Username = ignData.Username + " 🔗"
                 };
-            }
             ignData.TrackerEnabled = Visibility.Hidden;
             ignData.TrackerDisabled = Visibility.Visible;
         }
@@ -260,7 +258,6 @@ public class Match
                 VandalImage = vandalchroma == new Guid("19629ae1-4996-ae98-7742-24a240d41f99") ? new Uri("pack://application:,,,/Assets/vandal.png") : vandal.Image,
                 VandalName = vandal?.Name
             };
-            
         }
 
         Constants.Log.Error("GetSkinInfoAsync Failed: {e}", response.ErrorException);
@@ -612,7 +609,7 @@ public class Match
                             {
                                 "competitive" => "Competitive",
                                 "unrated" => "Unrated",
-                                "deathmatch" => "Deathmatch",                                
+                                "deathmatch" => "Deathmatch",
                                 "spikerush" => "Spike Rush",
                                 "ggteam" => "Escalation",
                                 "newmap" => "New Map",

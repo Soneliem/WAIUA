@@ -1,77 +1,78 @@
 ﻿<UserControl x:Class="WAIUA.Controls.OverlayControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WAIUA.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:p="clr-namespace:WAIUA.Properties"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignData  OverlayControl}">
 
 	<Grid>
 		<Border VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" Height="Auto"
 		        Background="#252A40" Padding="10px"
 		        CornerRadius="20">
-				<Border.Effect>
-					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
-				</Border.Effect>
-				<StackPanel Margin="5">
-					<TextBlock Text="{Binding Overlay.Header, ElementName=Self}" FontSize="25" FontWeight="Bold" Foreground="#32e2b2" Padding="5"
-					           HorizontalAlignment="Center" />
-					<Image Height="200px" Width="200px" gif:ImageBehavior.AnimatedSource="/Assets/cat.gif" />
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+			</Border.Effect>
+			<StackPanel Margin="5">
+				<TextBlock Text="{Binding Overlay.Header, ElementName=Self}" FontSize="25" FontWeight="Bold" Foreground="#32e2b2"
+				           Padding="5"
+				           HorizontalAlignment="Center" />
+				<Image Height="200px" Width="200px" gif:ImageBehavior.AnimatedSource="/Assets/cat.gif" />
 
-					<TextBlock Margin="5" Text="{Binding Overlay.Content, ElementName=Self}" Foreground="White" FontSize="15"
-					           HorizontalAlignment="Center" />
-					<ProgressBar Margin="5" Style="{DynamicResource CustomProgressBar}" Value="{Binding Overlay.Progress, ElementName=Self}"
-					             Height="10" Width="200" />
+				<TextBlock Margin="5" Text="{Binding Overlay.Content, ElementName=Self}" Foreground="White" FontSize="15"
+				           HorizontalAlignment="Center" />
+				<ProgressBar Margin="5" Style="{DynamicResource CustomProgressBar}"
+				             Value="{Binding Overlay.Progress, ElementName=Self}"
+				             Height="10" Width="200" />
 
-					<TextBlock
-						Margin="0 10 0 0"
-						FontSize="20"
-						FontWeight="SemiBold"
-						Foreground="White"
-						FontFamily="{StaticResource Nunito}"
-						Text="{x:Static p:Resources.SponsorsTitle}"
-						TextAlignment="Center"
-						TextWrapping="Wrap" />
-					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-						<Border Margin="5" Background="#6441A4"
-						        BorderThickness="1"
-						        CornerRadius="20">
-							<StackPanel Orientation="Horizontal">
-								<Button Background="Transparent"
-								        BorderThickness="0"
-								        Margin="10"
-								        Click="ImageClickAsync"
-								        Cursor="Hand"
-								        Tag="https://www.twitch.tv/ladams_"
-								        ToolTip="Follow Ladams on Twitch"
-								        ToolTipService.InitialShowDelay="0">
-									<Ellipse Height="55"
-									         Width="55"
-									         HorizontalAlignment="Center">
-										<Ellipse.Fill>
-											<ImageBrush
-												ImageSource="https://static-cdn.jtvnw.net/jtv_user_pictures/506f4a87-036b-4995-98b2-5e8dee692617-profile_image-70x70.png" />
-										</Ellipse.Fill>
-									</Ellipse>
-								</Button>
-							</StackPanel>
-						</Border>
-						<Ellipse Height="55"
-						         Width="55"
-						         Margin="10"
-						         ToolTipService.InitialShowDelay="0"
-						         ToolTip="BrUnKx">
-							<Ellipse.Fill>
-								<ImageBrush
-									ImageSource="https://avatars.githubusercontent.com/u/78065750" />
-							</Ellipse.Fill>
-						</Ellipse>
-					</StackPanel>
+				<TextBlock
+					Margin="0 10 0 0"
+					FontSize="20"
+					FontWeight="SemiBold"
+					Foreground="White"
+					FontFamily="{StaticResource Nunito}"
+					Text="{x:Static p:Resources.SponsorsTitle}"
+					TextAlignment="Center"
+					TextWrapping="Wrap" />
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+					<Border Margin="5" Background="#6441A4"
+					        BorderThickness="1"
+					        CornerRadius="20">
+						<StackPanel Orientation="Horizontal">
+							<Button Background="Transparent"
+							        BorderThickness="0"
+							        Margin="10"
+							        Click="ImageClickAsync"
+							        Cursor="Hand"
+							        Tag="https://www.twitch.tv/ladams_"
+							        ToolTip="Follow Ladams on Twitch"
+							        ToolTipService.InitialShowDelay="0">
+								<Ellipse Height="55"
+								         Width="55"
+								         HorizontalAlignment="Center">
+									<Ellipse.Fill>
+										<ImageBrush
+											ImageSource="https://static-cdn.jtvnw.net/jtv_user_pictures/506f4a87-036b-4995-98b2-5e8dee692617-profile_image-70x70.png" />
+									</Ellipse.Fill>
+								</Ellipse>
+							</Button>
+						</StackPanel>
+					</Border>
+					<Ellipse Height="55"
+					         Width="55"
+					         Margin="10"
+					         ToolTipService.InitialShowDelay="0"
+					         ToolTip="BrUnKx">
+						<Ellipse.Fill>
+							<ImageBrush
+								ImageSource="https://avatars.githubusercontent.com/u/78065750" />
+						</Ellipse.Fill>
+					</Ellipse>
 				</StackPanel>
-			</Border>
+			</StackPanel>
+		</Border>
 
-		</Grid>
+	</Grid>
 </UserControl>

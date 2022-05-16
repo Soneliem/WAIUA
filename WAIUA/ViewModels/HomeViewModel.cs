@@ -12,16 +12,6 @@ namespace WAIUA.ViewModels;
 
 public partial class HomeViewModel : ObservableObject
 {
-    public HomeViewModel()
-    {
-        Overlay = new LoadingOverlay
-        {
-            Header = "Refreshing",
-            Content = "",
-            IsBusy = false
-        };
-    }
-    
     public delegate void EventAction();
 
     private static readonly Uri question = new("pack://application:,,,/Assets/question.png");
@@ -38,6 +28,7 @@ public partial class HomeViewModel : ObservableObject
     [ObservableProperty] private Uri _matchStatus = question;
 
     [ObservableProperty] private Match _newMatch = new();
+    [ObservableProperty] private LoadingOverlay _overlay;
 
     [ObservableProperty] private List<Player> _playerList = new(5);
 
@@ -46,11 +37,19 @@ public partial class HomeViewModel : ObservableObject
     [ObservableProperty] private string _refreshTime = "-";
 
     [ObservableProperty] private int countdownTime = 15;
-    [ObservableProperty] private LoadingOverlay _overlay;
+
+    public HomeViewModel()
+    {
+        Overlay = new LoadingOverlay
+        {
+            Header = "Refreshing",
+            Content = "",
+            IsBusy = false
+        };
+    }
 
     public event EventAction GoMatchEvent;
 
-    
 
     [ICommand]
     private async Task LoadNowAsync()
@@ -159,6 +158,7 @@ public partial class HomeViewModel : ObservableObject
             AccountStatus = cross;
             MatchStatus = cross;
         }
+
         Overlay.IsBusy = false;
     }
 
