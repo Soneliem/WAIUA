@@ -10,6 +10,7 @@
 	d:DesignHeight="754"
 	d:DesignWidth="1536"
 	mc:Ignorable="d">
+
 	<UserControl.Resources>
 		<ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
 			<Grid>
