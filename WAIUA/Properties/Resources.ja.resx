@@ -120,8 +120,14 @@
   <data name="LoadMatchTitle" xml:space="preserve">
     <value>試合をロード</value>
   </data>
+  <data name="LoadMatchExplanation" xml:space="preserve">
+    <value>可能であれば試合のデータをロードします。10秒以内には終わるはずです。</value>
+  </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>情報</value>
+  </data>
+  <data name="InfoExplanation" xml:space="preserve">
+    <value>このページだよバーカ</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>Discordに参加</value>
@@ -173,6 +179,9 @@
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>クリックで試合を更新</value>
+  </data>
+  <data name="SettingsExplanation" xml:space="preserve">
+    <value>アプリとアカウントの設定</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>設定</value>

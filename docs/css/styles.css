@@ -60,13 +60,9 @@ h2 {
 }
 h3 {
   color: #484848;
+}
+h3 {
   font-weight: 700;
-}
-th{
-  font-size: large;
-}
-td, th {
-  color: #d0cfcf;
 }
 .custom-btn {
   background: #eee;

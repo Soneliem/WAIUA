@@ -120,8 +120,14 @@
   <data name="LoadMatchTitle" xml:space="preserve">
     <value>Cargar Partida</value>
   </data>
+  <data name="LoadMatchExplanation" xml:space="preserve">
+    <value>Cargar los datos de partida en vivo si están disponibles. Debería tomar menos de 10 segundos.</value>
+  </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>Información</value>
+  </data>
+  <data name="InfoExplanation" xml:space="preserve">
+    <value>Ya estás en esta página, idiota</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>Únete a mi Discord</value>
@@ -173,6 +179,9 @@
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Haz clic aquí para actualizar el partido</value>
+  </data>
+  <data name="SettingsExplanation" xml:space="preserve">
+    <value>Aquí se encuentra la configuración de la aplicación y de cuenta</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Configuración</value>

@@ -120,8 +120,14 @@
   <data name="LoadMatchTitle" xml:space="preserve">
     <value>Lade Match</value>
   </data>
+  <data name="LoadMatchExplanation" xml:space="preserve">
+    <value>Lad die Matchdaten, wenn verfügbar. Dies sollte weniger als 10 Sekunden dauern</value>
+  </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>Info</value>
+  </data>
+  <data name="InfoExplanation" xml:space="preserve">
+    <value>Du bist auf dieser Seite</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>Tritt dem Discord bei</value>
@@ -175,6 +181,9 @@
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Hier klicken, um Matchdaten neu zu laden</value>
+  </data>
+  <data name="SettingsExplanation" xml:space="preserve">
+    <value>Hier Findest du die App und Account Einstellungen</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Einstellungen</value>

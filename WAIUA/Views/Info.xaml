@@ -5,41 +5,58 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:p="clr-namespace:WAIUA.Properties"
-	xmlns:viewModels="clr-namespace:WAIUA.ViewModels"
 	d:DesignHeight="754"
 	d:DesignWidth="1536"
 	Background="#2E3349"
 	UseLayoutRounding="True"
-	mc:Ignorable="d"
-	d:DataContext="{d:DesignInstance Type=viewModels:InfoViewModel}">
+	mc:Ignorable="d">
 	<UserControl.Resources>
+		<ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
+			<Border Name="RootElement" CornerRadius="10">
+				<Border.Background>
+					<SolidColorBrush x:Name="ButtonBackground" Color="#181E34" />
+				</Border.Background>
+				<ContentPresenter
+					Margin="5"
+					HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+					VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+				<VisualStateManager.VisualStateGroups>
+					<VisualStateGroup x:Name="CommonStates">
+						<VisualState x:Name="Normal" />
+						<VisualState x:Name="MouseOver">
+							<Storyboard>
+								<ColorAnimation
+									Storyboard.TargetName="ButtonBackground"
+									Storyboard.TargetProperty="Color"
+									To="#234d96"
+									Duration="0:0:0.5" />
+							</Storyboard>
+						</VisualState>
+						<VisualState x:Name="Pressed">
+							<Storyboard>
+								<ColorAnimation
+									Storyboard.TargetName="ButtonBackground"
+									Storyboard.TargetProperty="Color"
+									To="#89B4FF" />
+							</Storyboard>
+						</VisualState>
+					</VisualStateGroup>
+				</VisualStateManager.VisualStateGroups>
+			</Border>
+		</ControlTemplate>
 		<Style TargetType="ToolTip">
 			<Setter Property="Background" Value="#32e2b2" />
 			<Setter Property="FontWeight" Value="SemiBold" />
 			<Setter Property="Foreground" Value="Black" />
-			<Setter Property="FontFamily" Value="{StaticResource Nunito}" />
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="ToolTipService.InitialShowDelay" Value="0" />
 			<Setter Property="HasDropShadow" Value="False" />
 		</Style>
 	</UserControl.Resources>
-	<UserControl.Triggers>
-		<EventTrigger RoutedEvent="Loaded">
-			<BeginStoryboard>
-				<Storyboard>
-					<DoubleAnimation
-						Storyboard.TargetProperty="Opacity"
-						From="0.0" To="1.0" Duration="0:0:0.75" />
-				</Storyboard>
-			</BeginStoryboard>
-		</EventTrigger>
-	</UserControl.Triggers>
-
-	<Grid Margin="15">
+	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="60" />
+			<RowDefinition Height="70" />
 			<RowDefinition />
-			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
 		<Grid.ColumnDefinitions>
@@ -48,29 +65,27 @@
 			<ColumnDefinition Width="Auto" />
 		</Grid.ColumnDefinitions>
 
-		<Grid Grid.ColumnSpan="3">
+		<Grid Grid.ColumnSpan="3" Background="#181E34">
 
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="60" />
+				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="60" />
+				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
 
 			<Button
-				Grid.Column="0" Cursor="Hand"
-				ToolTip="{x:Static p:Resources.SettingsTitle}"
-				ToolTipService.InitialShowDelay="0"
-				Command="{Binding DataContext.NavigateSettingsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+				Grid.Column="0"
+				Margin="7"
+				Command="{Binding NavigateSettingsCommand}"
 				Template="{StaticResource ButtonTemplate}">
 
 				<Image Margin="10" Source="/Assets/settings.png" />
 			</Button>
 
 			<Button
-				Grid.Column="1" Cursor="Hand" ToolTip="{x:Static p:Resources.RefreshMatch}"
-				ToolTipService.InitialShowDelay="0"
-				Margin="25 0"
-				Command="{Binding DataContext.NavigateHomeCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+				Grid.Column="1"
+				Margin="7"
+				Command="{Binding NavigateHomeCommand}"
 				Template="{StaticResource ButtonTemplate}">
 
 				<Viewbox
@@ -80,29 +95,56 @@
 					<TextBlock
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
-						FontFamily="{StaticResource Nunito}"
+						FontFamily="Fonts/#RopaSans"
 						FontWeight="Medium"
 						Foreground="#007EF9"
-						Text="{x:Static p:Resources.Home}" />
+						Text="{x:Static p:Resources.RefreshMatch}" />
 				</Viewbox>
 			</Button>
 
-			<Image Grid.Column="2" Margin="13" Source="/Assets/info.png" />
+			<Button
+				Grid.Column="2"
+				Margin="7"
+				Command="{Binding NavigateInfoCommand}"
+				Template="{StaticResource ButtonTemplate}">
 
+				<Image Margin="10" Source="/Assets/info.png" />
+			</Button>
 		</Grid>
+
+		<StackPanel Grid.Row="1" Grid.Column="0" Margin="15">
+			<Image
+				Width="40"
+				HorizontalAlignment="Left"
+				Source="/Assets/arrow.png" />
+			<Image
+				Width="40"
+				HorizontalAlignment="Left" />
+			<TextBlock
+				FontSize="30"
+				FontWeight="SemiBold"
+				Foreground="White"
+				Text="{x:Static p:Resources.SettingsTitle}"
+				TextWrapping="Wrap" />
+			<TextBlock
+				FontSize="20"
+				Foreground="White"
+				Opacity="0.7"
+				Text="{x:Static p:Resources.SettingsExplanation}"
+				TextWrapping="Wrap" />
+		</StackPanel>
 		<StackPanel
-			Margin="0 5 5 0"
-			Grid.Row="2" Grid.Column="0"
+			Margin="15"
+			Grid.Row="1" Grid.Column="0"
 			Width="Auto"
 			VerticalAlignment="Bottom">
 			<Button Background="Transparent"
 			        Cursor="Hand"
 			        BorderThickness="0"
-			        FontFamily="{StaticResource Nunito}"
 			        Height="100"
 			        HorizontalAlignment="Left"
 			        RenderOptions.BitmapScalingMode="HighQuality"
-			        Click="ImageClickAsync"
+			        Click="ImageClick"
 			        Tag="https://discord.gg/X7CYCeZSRK">
 				<Image Source="/Assets/discord.png" />
 			</Button>
@@ -110,10 +152,9 @@
 				FontSize="30"
 				FontWeight="SemiBold"
 				Foreground="White"
-				FontFamily="{StaticResource Nunito}"
 				TextAlignment="left"
 				TextWrapping="Wrap">
-				<Hyperlink NavigateUri="https://discord.gg/X7CYCeZSRK" RequestNavigate="HandleLinkClickAsync">
+				<Hyperlink NavigateUri="https://discord.gg/X7CYCeZSRK" RequestNavigate="HandleLinkClick">
 					<Hyperlink.Inlines>
 						<Run Text="{x:Static p:Resources.JoinDiscord}" />
 					</Hyperlink.Inlines>
@@ -122,7 +163,6 @@
 			<TextBlock
 				Width="Auto"
 				FontSize="20"
-				FontFamily="{StaticResource Nunito}"
 				Foreground="White"
 				Opacity="0.7"
 				Text="{x:Static p:Resources.JoinDiscordSub}"
@@ -130,8 +170,29 @@
 				TextWrapping="Wrap" />
 		</StackPanel>
 
+		<StackPanel Margin="15" Grid.Row="1" Grid.Column="1">
+			<Image
+				Width="40"
+				HorizontalAlignment="Center"
+				Source="/Assets/arrow.png" />
+			<TextBlock
+				FontSize="30"
+				FontWeight="SemiBold"
+				Foreground="White"
+				Text="{x:Static p:Resources.LoadMatchTitle}"
+				TextAlignment="Center"
+				TextWrapping="Wrap" />
+			<TextBlock
+				FontSize="20"
+				Foreground="White"
+				Opacity="0.7"
+				Text="{x:Static p:Resources.LoadMatchExplanation}"
+				TextAlignment="Center"
+				TextWrapping="Wrap" />
+		</StackPanel>
+
 		<StackPanel
-			Margin="5"
+			Margin="15"
 			Grid.Row="1"
 			Grid.Column="0"
 			Grid.ColumnSpan="3"
@@ -143,7 +204,7 @@
 			        Cursor="Hand"
 			        HorizontalAlignment="Center"
 			        RenderOptions.BitmapScalingMode="HighQuality"
-			        Click="ImageClickAsync"
+			        Click="ImageClick"
 			        Tag="https://waiua.sonel.dev">
 				<Image Source="/Assets/logo.png" />
 			</Button>
@@ -152,7 +213,6 @@
 				FontSize="45"
 				FontWeight="SemiBold"
 				Foreground="White"
-				FontFamily="{StaticResource Nunito}"
 				TextWrapping="Wrap">
 				WAIUA
 			</TextBlock>
@@ -160,18 +220,16 @@
 				HorizontalAlignment="Center"
 				FontSize="25"
 				FontWeight="DemiBold"
-				FontFamily="{StaticResource Nunito}"
 				Foreground="#32e2b2"
 				Text="Who Am I Up Against?"
 				TextWrapping="Wrap" />
 		</StackPanel>
 
-		<StackPanel Margin="5 5 5 0" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom">
+		<StackPanel Margin="15" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom">
 			<TextBlock
 				FontSize="30"
 				FontWeight="SemiBold"
 				Foreground="White"
-				FontFamily="{StaticResource Nunito}"
 				Text="{x:Static p:Resources.SponsorsTitle}"
 				TextAlignment="Center"
 				TextWrapping="Wrap" />
@@ -179,24 +237,52 @@
 				<Border Margin="5" Background="#6441A4"
 				        BorderThickness="1"
 				        CornerRadius="20">
-					<Border.Effect>
-						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
-					</Border.Effect>
 					<StackPanel Orientation="Horizontal">
 						<Button Background="Transparent"
+						        Cursor="Hand"
 						        BorderThickness="0"
 						        Margin="10"
-						        Click="ImageClickAsync"
-						        Cursor="Hand"
-						        Tag="https://www.twitch.tv/ladams_"
-						        ToolTip="Follow Ladams on Twitch"
-						        ToolTipService.InitialShowDelay="0">
+						        Click="ImageClick"
+						        Tag="https://www.twitch.tv/laskin__"
+						        ToolTip="Follow Laskin on Twitch">
 							<Ellipse Height="75"
 							         Width="75"
 							         HorizontalAlignment="Center">
 								<Ellipse.Fill>
 									<ImageBrush
-										ImageSource="https://static-cdn.jtvnw.net/jtv_user_pictures/506f4a87-036b-4995-98b2-5e8dee692617-profile_image-70x70.png" />
+										ImageSource="https://static-cdn.jtvnw.net/jtv_user_pictures/3925e386-db57-4aa4-b0fa-20df6e287e93-profile_image-70x70.png" />
+								</Ellipse.Fill>
+							</Ellipse>
+						</Button>
+						<Button Background="Transparent"
+						        BorderThickness="0"
+						        Margin="10"
+						        Click="ImageClick"
+						        Cursor="Hand"
+						        Tag="https://www.twitch.tv/ladams_"
+						        ToolTip="Follow Ladams on Twitch">
+							<Ellipse Height="75"
+							         Width="75"
+							         HorizontalAlignment="Center">
+								<Ellipse.Fill>
+									<ImageBrush
+										ImageSource="https://static-cdn.jtvnw.net/jtv_user_pictures/c856e40c-fc1c-4d5b-97fd-e55b65029cd5-profile_image-70x70.png" />
+								</Ellipse.Fill>
+							</Ellipse>
+						</Button>
+						<Button Background="Transparent"
+						        BorderThickness="0"
+						        Margin="10"
+						        Click="ImageClick"
+						        Cursor="Hand"
+						        Tag="https://www.twitch.tv/jendrina22"
+						        ToolTip="Follow jendrina22 on Twitch">
+							<Ellipse Height="75"
+							         Width="75"
+							         HorizontalAlignment="Center">
+								<Ellipse.Fill>
+									<ImageBrush
+										ImageSource="https://static-cdn.jtvnw.net/jtv_user_pictures/4f5aa0bc-71bb-47ce-a7e9-6e0e5ac32ccd-profile_image-70x70.png" />
 								</Ellipse.Fill>
 							</Ellipse>
 						</Button>
@@ -205,17 +291,44 @@
 				<Ellipse Height="75"
 				         Width="75"
 				         Margin="10"
-				         ToolTipService.InitialShowDelay="0"
-				         ToolTip="BrUnKx">
+				         ToolTip="PantryWizard">
 					<Ellipse.Fill>
-						<ImageBrush
-							ImageSource="https://avatars.githubusercontent.com/u/78065750" />
+						<ImageBrush ImageSource="https://i.pinimg.com/originals/d5/8b/3b/d58b3bebacee938ee7bd91df82bdbdfd.jpg" />
+					</Ellipse.Fill>
+				</Ellipse>
+				<Ellipse Height="75"
+				         Width="75"
+				         Margin="10"
+				         ToolTip="NookiMinaj">
+					<Ellipse.Fill>
+						<ImageBrush ImageSource="https://avatars.githubusercontent.com/u/94875072?v=4" />
 					</Ellipse.Fill>
 				</Ellipse>
 			</StackPanel>
 		</StackPanel>
 
-		<StackPanel Margin="5 5 0 0" Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom">
+		<StackPanel Margin="15" Grid.Row="1" Grid.Column="2">
+			<Image
+				Width="40"
+				HorizontalAlignment="Right"
+				Source="/Assets/arrow.png" />
+			<TextBlock
+				FontSize="30"
+				FontWeight="SemiBold"
+				Foreground="White"
+				Text="{x:Static p:Resources.InfoTitle}"
+				TextAlignment="Right"
+				TextWrapping="Wrap" />
+			<TextBlock
+				FontSize="20"
+				Foreground="White"
+				Opacity="0.7"
+				Text="{x:Static p:Resources.InfoExplanation}"
+				TextAlignment="Right"
+				TextWrapping="Wrap" />
+		</StackPanel>
+
+		<StackPanel Margin="15" Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom">
 			<Button Background="Transparent"
 			        BorderThickness="0"
 			        Height="100"
@@ -223,7 +336,7 @@
 			        Cursor="Hand"
 			        HorizontalAlignment="Right"
 			        RenderOptions.BitmapScalingMode="HighQuality"
-			        Click="ImageClickAsync"
+			        Click="ImageClick"
 			        Tag="https://sonel.dev">
 				<Image Source="/Assets/Soneliem.png" />
 			</Button>
@@ -231,10 +344,9 @@
 				FontSize="30"
 				FontWeight="SemiBold"
 				Foreground="White"
-				FontFamily="{StaticResource Nunito}"
 				TextAlignment="Right"
 				TextWrapping="Wrap">
-				<Hyperlink NavigateUri="https://sonel.dev" RequestNavigate="HandleLinkClickAsync">
+				<Hyperlink NavigateUri="https://sonel.dev" RequestNavigate="HandleLinkClick">
 					<Hyperlink.Inlines>
 						<Run Text="{x:Static p:Resources.Author}" />
 					</Hyperlink.Inlines>
@@ -243,7 +355,6 @@
 			<TextBlock
 				FontSize="20"
 				Foreground="White"
-				FontFamily="{StaticResource Nunito}"
 				Opacity="0.7"
 				Text="{x:Static p:Resources.Translator}"
 				TextAlignment="Right"
