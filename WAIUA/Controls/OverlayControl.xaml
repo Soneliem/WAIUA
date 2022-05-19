@@ -19,7 +19,6 @@
 				<TextBlock Text="{Binding Overlay.Header, ElementName=Self}" FontSize="25" FontWeight="Bold" Foreground="#32e2b2"
 				           Padding="5"
 				           HorizontalAlignment="Center" />
-				<!-- <Image Height="200px" Width="200px" gif:ImageBehavior.AnimatedSource="/Assets/cat.gif" /> -->
 				<MediaElement Height="200px" Width="200px" Source="Assets\cat.gif" LoadedBehavior="Play" Visibility="Visible" />
 
 				<TextBlock Margin="5" Text="{Binding Overlay.Content, ElementName=Self}" Foreground="White" FontSize="15"

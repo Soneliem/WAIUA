@@ -21,16 +21,11 @@
 		<converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
 	</UserControl.Resources>
 	<Grid>
-
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*" />
-			<ColumnDefinition Width="*" />
-		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="70" />
 			<RowDefinition />
 		</Grid.RowDefinitions>
-		<Grid Grid.ColumnSpan="3">
+		<Grid >
 
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="70" />
@@ -98,7 +93,7 @@
 
 		</Grid>
 
-		<Grid Grid.Row="1" Grid.ColumnSpan="2">
+		<Grid Grid.Row="1" Grid.Column="0">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="Auto" />
@@ -164,7 +159,7 @@
 					PlayerCell="{Binding Path=PlayerList[9]}" />
 			</Grid>
 		</Grid>
-		<controls:OverlayControl Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"
+		<controls:OverlayControl Grid.Row="1" Grid.Column="0"
 		                         Style="{StaticResource VisibleAnimation}"
 		                         Overlay="{Binding Path=Overlay}"
 		                         Visibility="{Binding Overlay.IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />

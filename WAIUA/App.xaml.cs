@@ -6,7 +6,9 @@ using System.Windows.Threading;
 using AutoUpdaterDotNET;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using RestoreWindowPlace;
 using Serilog;
+using WAIUA;
 using WAIUA.Helpers;
 using WAIUA.Properties;
 using WAIUA.ViewModels;
@@ -16,22 +18,25 @@ namespace WAIUA;
 
 public partial class App : Application
 {
+    public WindowPlace WindowPlace { get; }
     public App()
     {
         Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+        
+        this.WindowPlace = new WindowPlace("placement.config");        
 
         if (string.IsNullOrEmpty(Settings.Default.Language))
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InstalledUICulture;
             Thread.CurrentThread.CurrentUICulture = CultureInfo.InstalledUICulture;
             Settings.Default.Language = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName;
-            Settings.Default.Save();
         }
         else
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo(Settings.Default.Language);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Default.Language);
         }
+        Settings.Default.Save();
     }
 
     private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -54,16 +59,11 @@ public partial class App : Application
 
         Ioc.Default.ConfigureServices(
             new ServiceCollection()
-                //Services
-                //.AddSingleton<ISettingsService, SettingsService>()
-                // //Page ViewModels
                 .AddTransient<HomeViewModel>()
                 .AddTransient<InfoViewModel>()
                 .AddTransient<NormalmatchViewModel>()
                 .AddTransient<SettingsViewModel>()
-                //WPF
                 .AddSingleton<MainViewModel>()
-                //.AddSingleton<IViewFactory>(mappingViewFactory)
                 .AddSingleton<IViewFactory>(conventionViewFactory)
                 .BuildServiceProvider());
 
@@ -76,5 +76,6 @@ public partial class App : Application
     private void Application_Exit(object sender, ExitEventArgs e)
     {
         Settings.Default.Save();
+        this.WindowPlace.Save();
     }
 }

@@ -10,5 +10,6 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         DataContext = Ioc.Default.GetRequiredService<MainViewModel>();
+        ((App)Application.Current).WindowPlace.Register(this);
     }
 }
