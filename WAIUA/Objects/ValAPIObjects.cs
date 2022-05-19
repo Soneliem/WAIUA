@@ -186,3 +186,47 @@ public class Tier
 
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 }
+
+public class ValApiGamemodeResponse
+{
+    [JsonPropertyName("status")]
+    public long Status { get; set; }
+
+    [JsonPropertyName("data")]
+    public ValApiGamemode[] Data { get; set; }
+}
+
+public class ValApiGamemode
+{
+    [JsonPropertyName("uuid")]
+    public Guid Uuid { get; set; }
+
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    [JsonPropertyName("duration")]
+    public string Duration { get; set; }
+
+    [JsonPropertyName("allowsMatchTimeouts")]
+    public bool AllowsMatchTimeouts { get; set; }
+
+    [JsonPropertyName("isTeamVoiceAllowed")]
+    public bool IsTeamVoiceAllowed { get; set; }
+
+    [JsonPropertyName("isMinimapHidden")]
+    public bool IsMinimapHidden { get; set; }
+
+    [JsonPropertyName("orbCount")]
+    public long OrbCount { get; set; }
+
+    [JsonPropertyName("teamRoles")]
+    public string[] TeamRoles { get; set; }
+
+    public Dictionary<string, JsonElement>? ExtensionData { get; set; }
+
+    [JsonPropertyName("displayIcon")]
+    public Uri DisplayIcon { get; set; }
+
+    [JsonPropertyName("assetPath")]
+    public string AssetPath { get; set; }
+}

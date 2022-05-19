@@ -34,7 +34,7 @@
 			<Setter Property="HasDropShadow" Value="False" />
 		</Style>
 	</UserControl.Resources>
-
+<!-- TODO: Add animation -->
 	<Border
 		Visibility="{Binding PlayerCell.Active, ElementName=Self}"
 		Background="{Binding PlayerCell.PlayerUiData.BackgroundColour, ElementName=Self}"

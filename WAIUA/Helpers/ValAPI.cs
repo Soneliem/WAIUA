@@ -20,6 +20,7 @@ public static class ValApi
     private static Urls _ranksInfo;
     private static Urls _versionInfo;
     private static Urls _skinsInfo;
+    private static Urls _gamemodeInfo;
     private static List<Urls> _allInfo;
 
     private static readonly Dictionary<string, string> ValApiLanguages = new()
@@ -39,8 +40,7 @@ public static class ValApi
         {"th", "th-TH"},
         {"tr", "tr-TR"},
         {"vi", "vi-VN"},
-        {"zh", "zh-CN"},
-        {"hi", "en-US"}
+        {"zh", "zh-CN"}
     };
 
     static ValApi()
@@ -53,8 +53,7 @@ public static class ValApi
     {
         var request = new RestRequest("/version");
         var response = await Client.ExecuteGetAsync<VapiVersionResponse>(request).ConfigureAwait(false);
-        if (!response.IsSuccessful) return null;
-        return response.Data.Data.BuildDate;
+        return !response.IsSuccessful ? null : response.Data.Data.BuildDate;
     }
 
     private static async Task<string> GetLocalValApiVersionAsync()
@@ -71,7 +70,7 @@ public static class ValApi
 
     private static Task GetUrlsAsync()
     {
-        var language = ValApiLanguages.GetValueOrDefault(Settings.Default.Language);
+        var language = ValApiLanguages.GetValueOrDefault(Settings.Default.Language, "en-US");
         _mapsInfo = new Urls
         {
             Name = "Maps",
@@ -102,7 +101,13 @@ public static class ValApi
             Filepath = Constants.LocalAppDataPath + "\\ValAPI\\version.txt",
             Url = "/version"
         };
-        _allInfo = new List<Urls> {_mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo};
+        _gamemodeInfo = new Urls
+        {
+            Name = "Gamemode",
+            Filepath = Constants.LocalAppDataPath + "\\ValAPI\\gamemode.txt",
+            Url = "/gamemodes"
+        };
+        _allInfo = new List<Urls> { _mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo, _gamemodeInfo };
         return Task.CompletedTask;
     }
 
@@ -155,10 +160,8 @@ public static class ValApi
                         if (response != null)
                             await File.WriteAllBytesAsync(fileName, response).ConfigureAwait(false);
                     }
-                    // await File.WriteAllTextAsync(_mapsInfo.Filepath, JsonSerializer.Serialize(mapsDictionary)).ConfigureAwait(false);
 
-                    var ToStr = JsonSerializer.Serialize(mapsDictionary);
-                    await File.WriteAllTextAsync(_mapsInfo.Filepath, ToStr).ConfigureAwait(false);
+                    await File.WriteAllTextAsync(_mapsInfo.Filepath, JsonSerializer.Serialize(mapsDictionary)).ConfigureAwait(false);
                 }
                 else
                 {
@@ -256,8 +259,37 @@ public static class ValApi
                     Constants.Log.Error("updateRanksDictionary Failed, Response:{error}", ranksResponse.ErrorException);
                 }
             }
+            
+            async Task UpdateGamemodeDictionary()
+            {
+                var gamemodeRequest = new RestRequest(_gamemodeInfo.Url);
+                var gamemodeResponse = await Client.ExecuteGetAsync<ValApiGamemodeResponse>(gamemodeRequest).ConfigureAwait(false);
+                if (gamemodeResponse.IsSuccessful)
+                {
+                    Dictionary<Guid, string> gamemodeDictionary = new();
+                    if (!Directory.Exists(Constants.LocalAppDataPath + "\\ValAPI\\gamemodeimg"))
+                        Directory.CreateDirectory(Constants.LocalAppDataPath + "\\ValAPI\\gamemodeimg");
+                    foreach (var gamemode in gamemodeResponse.Data.Data)
+                    {
+                        if (gamemode.DisplayIcon == null) continue;
+                        gamemodeDictionary.TryAdd(gamemode.Uuid, gamemode.DisplayName);
+                        
+                        var fileName = Constants.LocalAppDataPath + $"\\ValAPI\\gamemodeimg\\{gamemode.Uuid}.png";
+                        var request = new RestRequest(gamemode.DisplayIcon);
+                        var response = await MediaClient.DownloadDataAsync(request).ConfigureAwait(false);
+                        if (response != null)
+                            await File.WriteAllBytesAsync(fileName, response)
+                                .ConfigureAwait(false);
+                    }
+                    await File.WriteAllTextAsync(_gamemodeInfo.Filepath, JsonSerializer.Serialize(gamemodeDictionary)).ConfigureAwait(false);
+                }
+                else
+                {
+                    Constants.Log.Error("updateGamemodeDictionary Failed, Response:{error}", gamemodeResponse.ErrorException);
+                }
+            }
 
-            await Task.WhenAll(UpdateVersion(), UpdateRanksDictionary(), UpdateAgentsDictionary(), UpdateMapsDictionary(), UpdateSkinsDictionary()).ConfigureAwait(false);
+            await Task.WhenAll(UpdateVersion(), UpdateRanksDictionary(), UpdateAgentsDictionary(), UpdateMapsDictionary(), UpdateSkinsDictionary(), UpdateGamemodeDictionary()).ConfigureAwait(false);
         }
         catch (Exception e)
         {

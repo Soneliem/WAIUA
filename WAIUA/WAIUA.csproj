@@ -116,9 +116,9 @@
         <Resource Include="Assets\back.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
-        <Resource Include="Assets\cat.gif">
+        <Content Include="Assets\cat.gif">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
+        </Content>
         <Resource Include="Assets\check.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>

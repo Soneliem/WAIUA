@@ -601,22 +601,58 @@ public class Match
                         if (content?.ProvisioningFlow == "CustomGame")
                         {
                             MatchInfo.GameMode = "Custom";
+                            MatchInfo.GameModeImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\gamemodeimg\\96bd3920-4f36-d026-2b28-c683eb0bcac5.png");
                         }
                         else
                         {
                             var textInfo = new CultureInfo("en-US", false).TextInfo;
-                            MatchInfo.GameMode = content?.QueueId switch
+
+                            String gameModeName = "";
+                            Guid gameModeId = Guid.Parse("96bd3920-4f36-d026-2b28-c683eb0bcac5");
+                            switch (content?.QueueId)
                             {
-                                "competitive" => "Competitive",
-                                "unrated" => "Unrated",
-                                "deathmatch" => "Deathmatch",
-                                "spikerush" => "Spike Rush",
-                                "ggteam" => "Escalation",
-                                "newmap" => "New Map",
-                                "onefa" => "Replication",
-                                "snowball" => "Snowball Fight",
-                                _ => textInfo.ToTitleCase(content.QueueId)
-                            };
+                                case "competitive":
+                                    gameModeName = "Competitive";
+                                    break;
+                                case "unrated":
+                                    gameModeName = "Unrated";
+                                    break;
+                                case "deathmatch":
+                                    gameModeId = Guid.Parse("a8790ec5-4237-f2f0-e93b-08a8e89865b2");                                     
+                                    break;
+                                case "spikerush":
+                                    gameModeId = Guid.Parse("e921d1e6-416b-c31f-1291-74930c330b7b"); 
+                                    break;
+                                case "ggteam":
+                                    gameModeId = Guid.Parse("a4ed6518-4741-6dcb-35bd-f884aecdc859"); 
+                                    break;
+                                case "newmap":
+                                    gameModeName = "New Map";
+                                    break;
+                                case "onefa":
+                                    gameModeId = Guid.Parse("96bd3920-4f36-d026-2b28-c683eb0bcac5");
+                                    break;
+                                case "snowball":
+                                    gameModeId = Guid.Parse("57038d6d-49b1-3a74-c5ef-3395d9f23a97");                                    
+                                    break;
+                                default:
+                                    gameModeName = textInfo.ToTitleCase(content.QueueId);
+                                    break;
+                            }
+
+                            
+                            if (gameModeName == "") 
+                            {
+                                var gamemodes = JsonSerializer.Deserialize<Dictionary<Guid, string>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\gamemode.txt").ConfigureAwait(false));
+                                gamemodes.TryGetValue(gameModeId, out var gamemode);
+                                MatchInfo.GameMode = gamemode;
+                            }
+                            else
+                            {
+                                MatchInfo.GameMode = gameModeName;
+                            }
+
+                            MatchInfo.GameModeImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\gamemodeimg\\{gameModeId}.png");
                         }
                     }
                     else
