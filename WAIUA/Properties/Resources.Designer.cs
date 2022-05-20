@@ -232,15 +232,6 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Load Match.
-        /// </summary>
-        public static string LoadMatchTitle {
-            get {
-                return ResourceManager.GetString("LoadMatchTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string Login {
@@ -277,6 +268,15 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Queue Time:.
+        /// </summary>
+        public static string QueueTime {
+            get {
+                return ResourceManager.GetString("QueueTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Refresh.
         /// </summary>
         public static string Refresh {
@@ -291,6 +291,15 @@ namespace WAIUA.Properties {
         public static string Refreshing {
             get {
                 return ResourceManager.GetString("Refreshing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refreshing In:.
+        /// </summary>
+        public static string RefreshingIn {
+            get {
+                return ResourceManager.GetString("RefreshingIn", resourceCulture);
             }
         }
         

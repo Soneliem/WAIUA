@@ -27,7 +27,7 @@
 									Storyboard.TargetName="ButtonBackground"
 									Storyboard.TargetProperty="Color"
 									To="#234d96"
-									Duration="0:0:0.5" />
+									Duration="0:0:0.25" />
 							</Storyboard>
 						</VisualState>
 						<VisualState x:Name="Pressed">

@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LoadMatchTitle" xml:space="preserve">
-    <value>Load Match</value>
-  </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>Info</value>
   </data>
@@ -208,24 +205,30 @@
     <value>Sponsors</value>
   </data>
   <data name="Home" xml:space="preserve">
-	  <value>Home</value>
+    <value>Home</value>
   </data>
   <data name="YourParty" xml:space="preserve">
-	  <value>Your Party</value>
+    <value>Your Party</value>
   </data>
   <data name="Valorant" xml:space="preserve">
-	  <value>Valorant</value>
+    <value>Valorant</value>
   </data>
   <data name="Match" xml:space="preserve">
-	  <value>Match</value>
+    <value>Match</value>
   </data>
   <data name="Account" xml:space="preserve">
-	  <value>Account</value>
+    <value>Account</value>
   </data>
   <data name="Status" xml:space="preserve">
-	  <value>Status</value>
+    <value>Status</value>
   </data>
   <data name="Refresh" xml:space="preserve">
-	  <value>Refresh</value>
+    <value>Refresh</value>
+  </data>
+  <data name="QueueTime" xml:space="preserve">
+    <value>Queue Time:</value>
+  </data>
+  <data name="RefreshingIn" xml:space="preserve">
+    <value>Refreshing In:</value>
   </data>
 </root>

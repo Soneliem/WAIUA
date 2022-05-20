@@ -185,7 +185,7 @@
 							           FontFamily="{StaticResource Nunito}"
 							           FontWeight="Normal"
 							           Foreground="White"
-							           Text="Queue Time:" />
+							           Text="{x:Static p:Resources.QueueTime}" />
 							<TextBlock Margin="25"
 							           FontSize="20" Grid.Row="0" Grid.Column="1"
 							           HorizontalAlignment="Center"
@@ -202,7 +202,7 @@
 							           FontWeight="Normal"
 							           Foreground="White"
 							           FontFamily="{StaticResource Nunito}"
-							           Text="Refreshing In:" />
+							           Text="{x:Static p:Resources.RefreshingIn}" />
 							<TextBlock Margin="25" Grid.Row="1"
 							           FontSize="20" Grid.Column="1"
 							           HorizontalAlignment="Center"
