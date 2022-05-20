@@ -80,6 +80,9 @@
         <EmbeddedResource Update="Properties\Resources.ru.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
         </EmbeddedResource>
+        <EmbeddedResource Update="Properties\Resources.zh.resx">
+          <DependentUpon>Resources.resx</DependentUpon>
+        </EmbeddedResource>
         <Compile Update="Properties\Resources.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
