@@ -36,26 +36,26 @@ WPF apps like WAIUA use .resx (Microsoft .NET Managed Resource) files to handle 
 
 ## Credits:
 <ul>
-<b>German:</b>  
-- CemsA  
-- NNebus
-<b>Arabic:</b>  
-- Chica
-<b>French:</b>  
-- Rayjacker
-<b>Japanese:</b>  
+<li><b>German:</b>
+- CemsA
+- NNebus</li>
+<li><b>Arabic:</b>  
+- Chica</li>
+<li><b>French:</b>  
+- Rayjacker</li>
+<li><b>Japanese:</b>  
 - Aron  
-- nepixjp
-<b>Russian:</b>  
+- nepixjp</li>
+<li><b>Russian:</b>  
 - ZzyzxFox  
-- DXGames
-<b>Spanish:</b>  
+- DXGames</li>
+<li><b>Spanish:</b>  
 - ZzyzxFox  
-- FamiTom
-<b>Hindi:</b>  
-- cheemonster
-<b>Italian:</b>  
-- Zay
-<b>Portuguese:</b>  
-- Zay
+- FamiTom</li>
+<li><b>Hindi:</b>  
+- cheemonster</li>
+<li><b>Italian:</b>  
+- Zay</li>
+<li><b>Portuguese:</b>  
+- Zay</li>
  </ul>
