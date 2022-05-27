@@ -2,6 +2,10 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Security;
+using System.Security.Authentication;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -11,13 +15,20 @@ using WAIUA.Objects;
 namespace WAIUA.Helpers;
 
 public static class Login
-{
+{ 
     public static async Task<bool> GetSetPpuuidAsync()
     {
-        var client = new RestClient("https://auth.riotgames.com/userinfo");
-        var request = new RestRequest()
+        var client = new RestClient(new RestClientOptions("https://auth.riotgames.com/userinfo")
+        { RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true});
+       
+        var request = new RestRequest() {}
+            //.AddHeader("Accept-Encoding", "gzip, deflate, br")
+            //.AddHeader("Host", "auth.riotgames.com")
+            //.AddHeader("UserAgent", "RiotClient/43.0.1.4195386.4190634 rso-auth (Windows;10;;Professional, x64)")
             .AddHeader("Authorization", $"Bearer {Constants.AccessToken}")
             .AddBody("{}");
+            //.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
+            //.AddHeader("X-Riot-ClientVersion", Constants.Version);
         var response = await client.ExecutePostAsync<UserInfoResponse>(request).ConfigureAwait(false);
         if (!response.IsSuccessful)
         {

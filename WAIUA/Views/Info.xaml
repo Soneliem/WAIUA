@@ -104,7 +104,11 @@
 			        RenderOptions.BitmapScalingMode="HighQuality"
 			        Click="ImageClickAsync"
 			        Tag="https://discord.gg/X7CYCeZSRK">
-				<Image Source="/Assets/discord.png" />
+				<Image Source="/Assets/discord.png" >
+					<Image.Effect>
+						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+					</Image.Effect>
+				</Image>
 			</Button>
 			<TextBlock
 				FontSize="30"
@@ -146,6 +150,9 @@
 			        Click="ImageClickAsync"
 			        Tag="https://waiua.sonel.dev">
 				<Image Source="/Assets/logo.png" />
+				<Button.Effect>
+					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+				</Button.Effect>
 			</Button>
 			<TextBlock
 				HorizontalAlignment="Center"
@@ -194,6 +201,9 @@
 							<Ellipse Height="75"
 							         Width="75"
 							         HorizontalAlignment="Center">
+								<Ellipse.Effect>
+									<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+								</Ellipse.Effect>
 								<Ellipse.Fill>
 									<ImageBrush
 										ImageSource="https://static-cdn.jtvnw.net/jtv_user_pictures/506f4a87-036b-4995-98b2-5e8dee692617-profile_image-70x70.png" />
@@ -207,6 +217,9 @@
 				         Margin="10"
 				         ToolTipService.InitialShowDelay="0"
 				         ToolTip="BrUnKx">
+					<Ellipse.Effect>
+						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+					</Ellipse.Effect>
 					<Ellipse.Fill>
 						<ImageBrush
 							ImageSource="https://avatars.githubusercontent.com/u/78065750" />
@@ -225,7 +238,11 @@
 			        RenderOptions.BitmapScalingMode="HighQuality"
 			        Click="ImageClickAsync"
 			        Tag="https://sonel.dev">
-				<Image Source="/Assets/Soneliem.png" />
+				<Image Source="/Assets/Soneliem.png">
+					<Image.Effect>
+						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+					</Image.Effect>
+				</Image>
 			</Button>
 			<TextBlock
 				FontSize="30"

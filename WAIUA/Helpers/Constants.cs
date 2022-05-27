@@ -10,6 +10,7 @@ public static class Constants
 {
     public static ConcurrentDictionary<string, RestResponse> UrlToBody = new();
 
+    // TODO: Automate this with translations
     public static readonly Dictionary<string, string> GamePodsDictionary = new()
     {
         {"aresriot.aws-rclusterprod-mes1-1.eu-gp-bahrain-awsedge-1", "Bahrain"},

@@ -25,7 +25,11 @@
 				           HorizontalAlignment="Center" />
 				<ProgressBar Margin="5" Style="{DynamicResource CustomProgressBar}"
 				             Value="{Binding Overlay.Progress, ElementName=Self}"
-				             Height="10" Width="200" />
+				             Height="10" Width="200" >
+					<ProgressBar.Effect>
+						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+					</ProgressBar.Effect>
+				</ProgressBar>
 
 				<TextBlock
 					Margin="0 10 0 0"
@@ -40,6 +44,9 @@
 					<Border Margin="5" Background="#6441A4"
 					        BorderThickness="1"
 					        CornerRadius="20">
+						<Border.Effect>
+							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+						</Border.Effect>
 						<StackPanel Orientation="Horizontal">
 							<Button Background="Transparent"
 							        BorderThickness="0"
@@ -52,6 +59,9 @@
 								<Ellipse Height="55"
 								         Width="55"
 								         HorizontalAlignment="Center">
+									<Ellipse.Effect>
+										<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+									</Ellipse.Effect>
 									<Ellipse.Fill>
 										<ImageBrush
 											ImageSource="https://static-cdn.jtvnw.net/jtv_user_pictures/506f4a87-036b-4995-98b2-5e8dee692617-profile_image-70x70.png" />
@@ -65,9 +75,25 @@
 					         Margin="10"
 					         ToolTipService.InitialShowDelay="0"
 					         ToolTip="BrUnKx">
+						<Ellipse.Effect>
+							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+						</Ellipse.Effect>
 						<Ellipse.Fill>
 							<ImageBrush
 								ImageSource="https://avatars.githubusercontent.com/u/78065750" />
+						</Ellipse.Fill>
+					</Ellipse>
+					<Ellipse Height="55"
+					         Width="55"
+					         Margin="10"
+					         ToolTipService.InitialShowDelay="0"
+					         ToolTip="ibra-90">
+						<Ellipse.Effect>
+							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+						</Ellipse.Effect>
+						<Ellipse.Fill>
+							<ImageBrush
+								ImageSource="https://avatars.githubusercontent.com/u/106261439" />
 						</Ellipse.Fill>
 					</Ellipse>
 				</StackPanel>
