@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
         <TargetFramework>net5.0-windows10.0.22000.0</TargetFramework>
         <UseWPF>true</UseWPF>
         <ApplicationIcon>logo.ico</ApplicationIcon>
-        <Version>1.4.0.1</Version>
+        <Version>1.4.0.2</Version>
         <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
         <StartupObject>WAIUA.App</StartupObject>
         <Description>A Windows app to view player ranks and stats in a live Valorant Match</Description>
@@ -22,8 +22,8 @@
         <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <RepositoryType>git</RepositoryType>
-        <AssemblyVersion>1.4.0.1</AssemblyVersion>
-        <FileVersion>1.4.0.1</FileVersion>
+        <AssemblyVersion>1.4.0.2</AssemblyVersion>
+        <FileVersion>1.4.0.2</FileVersion>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

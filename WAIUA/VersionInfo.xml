@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <item>
-	<version>1.4.0.1</version>
+	<version>1.4.0.2</version>
 	<url>https://github.com/Soneliem/WAIUA/releases/latest/download/WAIUA.exe</url>
 	<changelog>https://github.com/Soneliem/WAIUA/releases/latest</changelog>
-	<mandatory>false</mandatory>
+	<mandatory>true</mandatory>
 </item>
