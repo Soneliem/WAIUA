@@ -109,7 +109,7 @@ public partial class HomeViewModel : ObservableObject
         {
             GameStatus = check;
             AccountStatus = refresh;
-            if (await GetSetPpuuidAsync().ConfigureAwait(false))
+            if (await CheckLoginAsync().ConfigureAwait(false))
             {
                 AccountStatus = check;
                 MatchStatus = refresh;
@@ -129,7 +129,7 @@ public partial class HomeViewModel : ObservableObject
             {
                 await LocalLoginAsync().ConfigureAwait(false);
                 await LocalRegionAsync().ConfigureAwait(false);
-                if (await GetSetPpuuidAsync().ConfigureAwait(false))
+                if (await CheckLoginAsync().ConfigureAwait(false))
                 {
                     AccountStatus = check;
                     MatchStatus = refresh;

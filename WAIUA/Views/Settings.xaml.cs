@@ -30,7 +30,7 @@ public partial class Settings : UserControl
     {
         Mouse.OverrideCursor = Cursors.Wait;
         AuthStatusBox.Text = Properties.Resources.Refreshing;
-        if (!await GetSetPpuuidAsync().ConfigureAwait(false))
+        if (!await CheckLoginAsync().ConfigureAwait(false))
             AuthStatusBox.Text = Properties.Resources.AuthStatusFail;
         else AuthStatusBox.Text = $"{Properties.Resources.AuthStatusAuthAs} {await GetNameServiceGetUsernameAsync(Constants.Ppuuid).ConfigureAwait(false)}";
         Mouse.OverrideCursor = Cursors.Arrow;

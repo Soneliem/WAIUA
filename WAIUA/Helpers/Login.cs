@@ -16,33 +16,32 @@ namespace WAIUA.Helpers;
 
 public static class Login
 { 
-    public static async Task<bool> GetSetPpuuidAsync()
+    public static async Task<bool> CheckLoginAsync()
     {
-        var client = new RestClient(new RestClientOptions("https://auth.riotgames.com/userinfo")
-        { RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true});
-       
-        var request = new RestRequest() {}
-            //.AddHeader("Accept-Encoding", "gzip, deflate, br")
-            //.AddHeader("Host", "auth.riotgames.com")
-            //.AddHeader("UserAgent", "RiotClient/43.0.1.4195386.4190634 rso-auth (Windows;10;;Professional, x64)")
-            .AddHeader("Authorization", $"Bearer {Constants.AccessToken}")
-            .AddBody("{}");
-            //.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
-            //.AddHeader("X-Riot-ClientVersion", Constants.Version);
-        var response = await client.ExecutePostAsync<UserInfoResponse>(request).ConfigureAwait(false);
-        if (!response.IsSuccessful)
-        {
-            if (Constants.AccessToken is null)
-            {
-                var isToken = false;
-                Constants.Log.Error("GetSetPpuuidAsync() failed. Response(Accesstoken {isToken}): {Response}", isToken, response.ErrorException);
-            }
+        // var client = new RestClient(new RestClientOptions("https://auth.riotgames.com/userinfo")
+        // { RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true});
+        //
+        // var request = new RestRequest() {}
+        //     .AddHeader("Authorization", $"Bearer {Constants.AccessToken}")
+        // //.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
+        //     .AddHeader("X-Riot-ClientVersion", Constants.Version);
+        // var response = await client.ExecutePostAsync<UserInfoResponse>(request).ConfigureAwait(false);
+        // if (!response.IsSuccessful)
+        // {
+        //     if (Constants.AccessToken is null)
+        //     {
+        //         var isToken = false;
+        //         Constants.Log.Error("CheckLoginAsync() failed. Response(Accesstoken {isToken}): {Response}", isToken, response.ErrorException);
+        //     }
+        //
+        //     Constants.Log.Error("CheckLoginAsync() failed. Response: {Response}", response.ErrorException);
+        //     return false;
+        // }
 
-            Constants.Log.Error("GetSetPpuuidAsync() failed. Response: {Response}", response.ErrorException);
+        if (Constants.Ppuuid == Guid.Empty)
+        {
             return false;
         }
-
-        Constants.Ppuuid = response.Data.Sub;
         return true;
     }
 
@@ -93,6 +92,7 @@ public static class Login
 
         Constants.AccessToken = response.Data.AccessToken;
         Constants.EntitlementToken = response.Data.Token;
+        Constants.Ppuuid = response.Data.Subject;
         return true;
     }
 

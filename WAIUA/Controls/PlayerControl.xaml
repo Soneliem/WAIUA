@@ -34,7 +34,7 @@
 			<Setter Property="HasDropShadow" Value="False" />
 		</Style>
 	</UserControl.Resources>
-<!-- TODO: Add animation -->
+	<!-- TODO: Add animation -->
 	<Border
 		Visibility="{Binding PlayerCell.Active, ElementName=Self}"
 		Background="{Binding PlayerCell.PlayerUiData.BackgroundColour, ElementName=Self}"
@@ -47,6 +47,7 @@
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
@@ -61,8 +62,13 @@
 				Margin="0,0,10,0"
 				CornerRadius="10">
 				<Border.Background>
-					<ImageBrush ImageSource="{Binding PlayerCell.AgentData.Image, ElementName=Self}" />
+					
+					<ImageBrush ImageSource="{Binding PlayerCell.AgentData.Image, ElementName=Self}"/>
+					
 				</Border.Background>
+				<Border.Effect>
+					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+				</Border.Effect>
 			</Border>
 
 			<Viewbox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
@@ -108,25 +114,23 @@
 
 				</StackPanel>
 			</Viewbox>
-			<Viewbox
+			<Border
 				Grid.Row="2"
 				Grid.Column="0"
-				Margin="0,10,0,0"
-				HorizontalAlignment="Left"
-				VerticalAlignment="Bottom"
-				Stretch="Uniform">
-				<Border Background="#32e2b2" CornerRadius="5">
-					<TextBox
-						Padding="2"
-						FontFamily="{StaticResource Nunito}"
-						Background="Transparent"
-						BorderThickness="0"
-						FontWeight="Normal"
-						Foreground="Black"
-						IsReadOnly="True"
-						Text="{Binding Path=PlayerCell.AccountLevel, ElementName=Self}" />
-				</Border>
-			</Viewbox>
+				Background="#32e2b2" CornerRadius="5"
+				HorizontalAlignment="Left" Padding="2"
+				VerticalAlignment="Bottom">
+				<TextBlock
+					Padding="2"
+					FontFamily="{StaticResource Nunito}"
+					Background="Transparent"
+					FontWeight="Normal"
+					Foreground="Black" FontSize="15"
+					Text="{Binding Path=PlayerCell.AccountLevel, ElementName=Self}" />
+				<Border.Effect>
+					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+				</Border.Effect>
+			</Border>
 			<Viewbox
 				Grid.Row="2"
 				Grid.Column="1"
@@ -139,84 +143,96 @@
 						Margin="0,0,50,0"
 						Source="{Binding PlayerCell.SkinData.VandalImage, ElementName=Self}"
 						ToolTip="{Binding PlayerCell.SkinData.VandalName, ElementName=Self}"
-						ToolTipService.InitialShowDelay="0" />
+						ToolTipService.InitialShowDelay="0">
+						<Image.Effect>
+							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+						</Image.Effect>
+					</Image>
 					<Image Source="{Binding PlayerCell.SkinData.PhantomImage, ElementName=Self}"
 					       ToolTip="{Binding PlayerCell.SkinData.PhantomName, ElementName=Self}"
-					       ToolTipService.InitialShowDelay="0" />
+					       ToolTipService.InitialShowDelay="0">
+						<Image.Effect>
+							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+						</Image.Effect>
+					</Image>
 				</StackPanel>
 			</Viewbox>
 
-			<Viewbox
+			<UniformGrid
 				Grid.Row="2"
-				Grid.Column="1"
-				HorizontalAlignment="Right"
-				VerticalAlignment="Bottom"
-				Stretch="Uniform">
-				<StackPanel Orientation="Horizontal">
-					<Image Height="256" Width="256"
-					       Source="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankImage, ElementName=Self}"
-					       ToolTip="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankName, ElementName=Self}"
-					       ToolTipService.InitialShowDelay="0" />
-					<Image
-						Margin="30,0"
-						Height="256" Width="256"
-						Source="{Binding PlayerCell.RankData.PreviouspreviousrankImage, ElementName=Self}"
-						ToolTip="{Binding PlayerCell.RankData.PreviouspreviousrankName, ElementName=Self}"
-						ToolTipService.InitialShowDelay="0" />
-					<Image Height="256" Width="256"
-					       Source="{Binding PlayerCell.RankData.PreviousrankImage, ElementName=Self}"
-					       ToolTip="{Binding PlayerCell.RankData.PreviousrankName, ElementName=Self}"
-					       ToolTipService.InitialShowDelay="0" />
-				</StackPanel>
-			</Viewbox>
+				Grid.Column="2"
+				VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Columns="3" Rows="1">
+				<Image
+					Source="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankImage, ElementName=Self}"
+					ToolTip="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankName, ElementName=Self}"
+					ToolTipService.InitialShowDelay="0">
+					<Image.Effect>
+						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+					</Image.Effect>
+				</Image>
+				<Image
 
-			<Viewbox
+					Source="{Binding PlayerCell.RankData.PreviouspreviousrankImage, ElementName=Self}"
+					ToolTip="{Binding PlayerCell.RankData.PreviouspreviousrankName, ElementName=Self}"
+					ToolTipService.InitialShowDelay="0">
+					<Image.Effect>
+						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+					</Image.Effect>
+				</Image>
+				<Image
+					Source="{Binding PlayerCell.RankData.PreviousrankImage, ElementName=Self}"
+					ToolTip="{Binding PlayerCell.RankData.PreviousrankName, ElementName=Self}"
+					ToolTipService.InitialShowDelay="0">
+					<Image.Effect>
+						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+					</Image.Effect>
+				</Image>
+
+			</UniformGrid>
+
+			<UniformGrid
 				Grid.Row="0"
-				Grid.Column="1"
-				HorizontalAlignment="Right"
-				VerticalAlignment="Top"
-				Stretch="Uniform">
-				<StackPanel Orientation="Horizontal">
-					<Border CornerRadius="50"
-					        Width="30"
-					        Height="30"
-					        Padding="4,4,4,5"
-					        Margin="0, 2"
-					        Background="{Binding PlayerCell.MatchHistoryData.PreviouspreviouspreviousGameColour, ElementName=Self}"
-					        BorderThickness="0">
-						<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed"
-						           Text="{Binding PlayerCell.MatchHistoryData.PreviouspreviouspreviousGame, ElementName=Self}"
-						           Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
-					</Border>
-					<Border CornerRadius="50"
-					        Width="30"
-					        Height="30"
-					        Margin="8, 2"
-					        Padding="4,4,4,5"
-					        Background="{Binding PlayerCell.MatchHistoryData.PreviouspreviousGameColour, ElementName=Self}"
-					        BorderThickness="0">
-						<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed"
-						           Text="{Binding PlayerCell.MatchHistoryData.PreviouspreviousGame, ElementName=Self}"
-						           Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
-					</Border>
-					<Border CornerRadius="50"
-					        Width="30"
-					        Height="30"
-					        Padding="4,4,4,5"
-					        Margin="0, 2"
-					        Background="{Binding PlayerCell.MatchHistoryData.PreviousGameColour, ElementName=Self}"
-					        BorderThickness="0">
-						<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed"
-						           Text="{Binding PlayerCell.MatchHistoryData.PreviousGame, ElementName=Self}" Foreground="#252A40"
-						           FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
-					</Border>
-				</StackPanel>
-			</Viewbox>
+				Grid.Column="2"
+				VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Columns="3" Rows="1" >
+				<Border CornerRadius="50" Margin="2"
+				        Background="{Binding PlayerCell.MatchHistoryData.PreviouspreviouspreviousGameColour, ElementName=Self}"
+				        BorderThickness="0">
+					<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed"
+					           Text="{Binding PlayerCell.MatchHistoryData.PreviouspreviouspreviousGame, ElementName=Self}"
+					           Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+					<Border.Effect>
+						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+					</Border.Effect>					
+				</Border>
+				<Border CornerRadius="50" Margin="2"
+
+				        Background="{Binding PlayerCell.MatchHistoryData.PreviouspreviousGameColour, ElementName=Self}"
+				        BorderThickness="0">
+					<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed"
+					           Text="{Binding PlayerCell.MatchHistoryData.PreviouspreviousGame, ElementName=Self}"
+					           Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+					<Border.Effect>
+						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+					</Border.Effect>
+				</Border>
+				<Border CornerRadius="50" Margin="2"
+
+				        Background="{Binding PlayerCell.MatchHistoryData.PreviousGameColour, ElementName=Self}"
+				        BorderThickness="0">
+					<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed"
+					           Text="{Binding PlayerCell.MatchHistoryData.PreviousGame, ElementName=Self}" Foreground="#252A40"
+					           FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+					<Border.Effect>
+						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+					</Border.Effect>
+				</Border>
+
+			</UniformGrid>
 
 			<Border
 				Grid.Row="0"
 				Grid.RowSpan="3"
-				Grid.Column="2"
+				Grid.Column="3"
 				Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
 				Margin="10,0,0,10"
 				HorizontalAlignment="Right"
@@ -226,13 +242,16 @@
 					<ImageBrush RenderOptions.BitmapScalingMode="HighQuality"
 					            ImageSource="{Binding PlayerCell.RankData.RankImage, ElementName=Self}" />
 				</Border.Background>
+				<Border.Effect>
+					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+				</Border.Effect>
 			</Border>
 
 			<Border Grid.Row="2" BorderThickness="1" Margin="10,0,0,0"
 			        VerticalAlignment="Bottom" BorderBrush="Gray"
 			        ToolTip="{Binding PlayerCell.MatchHistoryData.RankProgress, ElementName=Self}"
 			        ToolTipService.InitialShowDelay="0"
-			        Grid.Column="2" Height="5.5" CornerRadius="2">
+			        Grid.Column="3" Height="5.5" CornerRadius="2">
 				<ProgressBar
 					BorderThickness="0"
 					Background="Transparent"
@@ -242,7 +261,7 @@
 					Value="{Binding PlayerCell.MatchHistoryData.RankProgress, ElementName=Self}" />
 			</Border>
 
-			<Grid Grid.RowSpan="3" Grid.Row="0" Grid.Column="2" Margin="-15">
+			<Grid Grid.RowSpan="3" Grid.Row="0" Grid.Column="3" Margin="-15">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="4*" />
 					<ColumnDefinition Width="1*" />

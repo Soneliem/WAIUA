@@ -45,7 +45,7 @@ public class Match
 
     public static async Task<bool> LiveMatchChecksAsync(bool isSilent)
     {
-        if (await GetSetPpuuidAsync().ConfigureAwait(false))
+        if (await CheckLoginAsync().ConfigureAwait(false))
         {
             await LocalRegionAsync().ConfigureAwait(false);
             if (await CheckAndSetLiveMatchIdAsync().ConfigureAwait(false)) return true;
@@ -59,7 +59,7 @@ public class Match
         if (await CheckLocalAsync().ConfigureAwait(false))
         {
             await LocalLoginAsync().ConfigureAwait(false);
-            await GetSetPpuuidAsync().ConfigureAwait(false);
+            await CheckLoginAsync().ConfigureAwait(false);
             await LocalRegionAsync().ConfigureAwait(false);
 
             if (await CheckAndSetLiveMatchIdAsync().ConfigureAwait(false)) return true;

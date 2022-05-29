@@ -99,65 +99,41 @@
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
-			<Grid Grid.Column="0" Margin="10,0,5,5">
-				<Grid.RowDefinitions>
-					<RowDefinition />
-					<RowDefinition />
-					<RowDefinition />
-					<RowDefinition />
-					<RowDefinition />
-				</Grid.RowDefinitions>
-				<controls:PlayerControl
-					Grid.Row="0" Margin="0 5"
-					PlayerCell="{Binding Path=PlayerList[0]}" />
-				<controls:PlayerControl
-					Grid.Row="1" Margin="0 5"
-					PlayerCell="{Binding Path=PlayerList[1]}" />
-				<controls:PlayerControl
-					Grid.Row="2" Margin="0 5"
-					PlayerCell="{Binding Path=PlayerList[2]}" />
-				<controls:PlayerControl
-					Grid.Row="3" Margin="0 5"
-					PlayerCell="{Binding Path=PlayerList[3]}" />
-				<controls:PlayerControl
-					Grid.Row="4" Margin="0 5"
-					PlayerCell="{Binding Path=PlayerList[4]}" />
-			</Grid>
+			<ItemsControl ItemsSource="{Binding LeftPlayerList}" Margin="5">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<UniformGrid Columns="1" Margin="5"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+							<controls:PlayerControl MaxHeight="150"
+								Margin="0 5"
+								PlayerCell="{Binding}" />
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
 
 			<StackPanel Grid.Column="1" Orientation="Horizontal">
 				<Separator Width="4" Margin="6 20 6 30"
 				           Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Background="#181E34"
 				           BorderThickness="0" />
 			</StackPanel>
+			<ItemsControl Grid.Column="2" ItemsSource="{Binding RightPlayerList}" Margin="5">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<UniformGrid Columns="1" Margin="5"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<controls:PlayerControl MaxHeight="150px" 
+							                        Margin="0 5"
+							                        PlayerCell="{Binding}" />
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>				
 
-			<Grid
-				Grid.Column="2"
-				Margin="5,0,10,5">
-
-				<Grid.RowDefinitions>
-					<RowDefinition />
-					<RowDefinition />
-					<RowDefinition />
-					<RowDefinition />
-					<RowDefinition />
-				</Grid.RowDefinitions>
-
-				<controls:PlayerControl
-					Grid.Row="0" Margin="0 5"
-					PlayerCell="{Binding Path=PlayerList[5]}" />
-				<controls:PlayerControl
-					Grid.Row="1" Margin="0 5"
-					PlayerCell="{Binding Path=PlayerList[6]}" />
-				<controls:PlayerControl
-					Grid.Row="2" Margin="0,5"
-					PlayerCell="{Binding Path=PlayerList[7]}" />
-				<controls:PlayerControl
-					Grid.Row="3" Margin="0 5"
-					PlayerCell="{Binding Path=PlayerList[8]}" />
-				<controls:PlayerControl
-					Grid.Row="4" Margin="0 5"
-					PlayerCell="{Binding Path=PlayerList[9]}" />
-			</Grid>
 		</Grid>
 		<controls:OverlayControl Grid.Row="1" Grid.Column="0"
 		                         Style="{StaticResource VisibleAnimation}"
