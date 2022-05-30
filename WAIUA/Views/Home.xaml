@@ -82,30 +82,26 @@
 		</Grid>
 
 
-		<Grid Grid.Row="1" Grid.Column="0" Margin="0,15,0,0">
-			<Grid.RowDefinitions>
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-			</Grid.RowDefinitions>
 
-			<c:PlayerControl Grid.Row="0" Margin="0 5"
-			                 PlayerCell="{Binding PlayerList[0]}" />
-			<c:PlayerControl Grid.Row="1" Margin="0 5"
-			                 PlayerCell="{Binding PlayerList[1]}" />
-			<c:PlayerControl Grid.Row="2" Margin="0 5"
-			                 PlayerCell="{Binding PlayerList[2]}" />
-			<c:PlayerControl Grid.Row="3" Margin="0 5"
-			                 PlayerCell="{Binding PlayerList[3]}" />
-			<c:PlayerControl Grid.Row="4" Margin="0 5 0 0"
-			                 PlayerCell="{Binding PlayerList[4]}" />
-
-		</Grid>
+			
+			<ItemsControl Grid.Row="1" Grid.Column="0" Margin="0,15,0,0"
+			              ItemsSource="{Binding PlayerList}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<UniformGrid Columns="1" Margin="5"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<c:PlayerControl MaxHeight="150"
+						                        Margin="0 5"
+						                        PlayerCell="{Binding}" />
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
 
 
-		<Grid Grid.Row="1" Grid.Column="1" Height="664" VerticalAlignment="Center">
+		<Grid Grid.Row="1" Grid.Column="1">
 
 			<Grid Grid.Row="0"
 			      Margin="5 15 0 0">
@@ -171,21 +167,21 @@
 						</Border.Effect>
 						<Grid>
 							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
+								<!-- <RowDefinition Height="Auto" /> -->
 								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition />
 								<ColumnDefinition />
 							</Grid.ColumnDefinitions>
-							<TextBlock Margin="25"
-							           FontSize="20"
-							           HorizontalAlignment="Center"
-							           VerticalAlignment="Center"
-							           FontFamily="{StaticResource Nunito}"
-							           FontWeight="Normal"
-							           Foreground="White"
-							           Text="{x:Static p:Resources.QueueTime}" />
+							<!-- <TextBlock Margin="25" -->
+							<!--            FontSize="20" -->
+							<!--            HorizontalAlignment="Center" -->
+							<!--            VerticalAlignment="Center" -->
+							<!--            FontFamily="{StaticResource Nunito}" -->
+							<!--            FontWeight="Normal" -->
+							<!--            Foreground="White" -->
+							<!--            Text="{x:Static p:Resources.QueueTime}" /> -->
 							<TextBlock Margin="25"
 							           FontSize="20" Grid.Row="0" Grid.Column="1"
 							           HorizontalAlignment="Center"
@@ -236,9 +232,9 @@
 				</Button>
 
 			</Grid>
+
 		</Grid>
 		<c:OverlayControl Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"
-		                  Style="{StaticResource VisibleAnimation}"
 		                  Overlay="{Binding Path=Overlay}"
 		                  Visibility="{Binding Overlay.IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
 

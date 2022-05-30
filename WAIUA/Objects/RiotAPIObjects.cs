@@ -79,7 +79,7 @@ public class LaunchConfiguration
     [JsonPropertyName("workingDirectory")] public string WorkingDirectory { get; set; }
 }
 
-public class LiveMatchIDResponse
+public class MatchIDResponse
 {
     [JsonPropertyName("Subject")] public Guid Subject { get; set; }
 
@@ -112,15 +112,114 @@ public class LiveMatchResponse
 
     [JsonPropertyName("IsReconnectable")] public bool IsReconnectable { get; set; }
 
-    [JsonPropertyName("ConnectionDetails")]
-    public ConnectionDetails ConnectionDetails { get; set; }
+    [JsonPropertyName("ConnectionDetails")] public ConnectionDetails ConnectionDetails { get; set; }
 
     [JsonPropertyName("PostGameDetails")] public object PostGameDetails { get; set; }
 
-    [JsonPropertyName("Players")] public RiotPlayer[] Players { get; set; }
+    [JsonPropertyName("Players")] public RiotLivePlayer[] Players { get; set; }
 
     [JsonPropertyName("MatchmakingData")] public object MatchmakingData { get; set; }
 }
+
+public class PreMatchResponse
+    {
+        [JsonPropertyName("ID")]
+        public Guid Id { get; set; }
+
+        [JsonPropertyName("Version")]
+        public long Version { get; set; }
+
+        [JsonPropertyName("Teams")]
+        public PreTeam[] Teams { get; set; }
+
+        [JsonPropertyName("AllyTeam")]
+        public PreTeam AllyTeam { get; set; }
+
+        [JsonPropertyName("EnemyTeam")]
+        public object EnemyTeam { get; set; }
+
+        [JsonPropertyName("ObserverSubjects")]
+        public object[] ObserverSubjects { get; set; }
+
+        [JsonPropertyName("MatchCoaches")]
+        public object[] MatchCoaches { get; set; }
+
+        [JsonPropertyName("EnemyTeamSize")]
+        public long EnemyTeamSize { get; set; }
+
+        [JsonPropertyName("EnemyTeamLockCount")]
+        public long EnemyTeamLockCount { get; set; }
+
+        [JsonPropertyName("PregameState")]
+        public string PregameState { get; set; }
+
+        [JsonPropertyName("LastUpdated")]
+        public string LastUpdated { get; set; }
+
+        [JsonPropertyName("MapID")]
+        public string MapId { get; set; }
+
+        [JsonPropertyName("MapSelectPool")]
+        public object[] MapSelectPool { get; set; }
+
+        [JsonPropertyName("BannedMapIDs")]
+        public object[] BannedMapIDs { get; set; }
+
+        [JsonPropertyName("CastedVotes")]
+        public object CastedVotes { get; set; }
+
+        [JsonPropertyName("MapSelectSteps")]
+        public object[] MapSelectSteps { get; set; }
+
+        [JsonPropertyName("MapSelectStep")]
+        public long MapSelectStep { get; set; }
+
+        [JsonPropertyName("Team1")]
+        public string Team1 { get; set; }
+
+        [JsonPropertyName("GamePodID")]
+        public string GamePodId { get; set; }
+
+        [JsonPropertyName("Mode")]
+        public string Mode { get; set; }
+
+        [JsonPropertyName("VoiceSessionID")]
+        public string VoiceSessionId { get; set; }
+
+        [JsonPropertyName("MUCName")]
+        public string MucName { get; set; }
+
+        [JsonPropertyName("QueueID")]
+        public string QueueId { get; set; }
+
+        [JsonPropertyName("ProvisioningFlowID")]
+        public string ProvisioningFlowId { get; set; }
+
+        [JsonPropertyName("IsRanked")]
+        public bool IsRanked { get; set; }
+
+        [JsonPropertyName("PhaseTimeRemainingNS")]
+        public long PhaseTimeRemainingNs { get; set; }
+
+        [JsonPropertyName("StepTimeRemainingNS")]
+        public long StepTimeRemainingNs { get; set; }
+
+        [JsonPropertyName("altModesFlagADA")]
+        public bool AltModesFlagAda { get; set; }
+
+        [JsonPropertyName("TournamentMetadata")]
+        public object TournamentMetadata { get; set; }
+    }
+
+public class PreTeam
+{
+    [JsonPropertyName("TeamID")]
+    public string TeamId { get; set; }
+
+    [JsonPropertyName("Players")]
+    public RiotPrePlayer[] Players { get; set; }
+}
+
 
 public class ConnectionDetails
 {
@@ -138,7 +237,7 @@ public class ConnectionDetails
     [JsonPropertyName("PlayerKey")] public string PlayerKey { get; set; }
 }
 
-public class RiotPlayer
+public class RiotLivePlayer
 {
     [JsonPropertyName("Subject")] public Guid Subject { get; set; }
 
@@ -152,6 +251,21 @@ public class RiotPlayer
     public SeasonalBadgeInfo SeasonalBadgeInfo { get; set; }
 
     [JsonPropertyName("IsCoach")] public bool IsCoach { get; set; }
+}
+
+public class RiotPrePlayer
+{
+    [JsonPropertyName("Subject")] public Guid Subject { get; set; }
+
+    [JsonPropertyName("CharacterID"), JsonIgnore] 
+    public Guid CharacterId { get; set; }
+    [JsonPropertyName("CharacterSelectionState")] public string CharacterSelectionState { get; set; }
+    [JsonPropertyName("PregamePlayerState")] public string PregamePlayerState { get; set; }
+    [JsonPropertyName("CompetitiveTier")] public long CompetitiveTier { get; set; }
+    [JsonPropertyName("PlayerIdentity")] public PlayerIdentity PlayerIdentity { get; set; }
+    [JsonPropertyName("SeasonalBadgeInfo")] public SeasonalBadgeInfo SeasonalBadgeInfo { get; set; }
+
+    [JsonPropertyName("IsCaptain")] public bool IsCaptain { get; set; }
 }
 
 public class PlayerIdentity
@@ -199,11 +313,19 @@ public class NameServiceResponse
 public class MatchLoadoutsResponse
 {
     [JsonPropertyName("Loadouts")] public LoadoutElement[] Loadouts { get; set; }
+
+}
+
+public class PreMatchLoadoutsResponse
+{
+    [JsonPropertyName("Loadouts")] public LoadoutLoadout[] Loadouts { get; set; }
+    [JsonPropertyName("LoadoutsValid"), JsonIgnore] public bool LoadoutsValid { get; set; }
+
 }
 
 public class LoadoutElement
 {
-    [JsonPropertyName("CharacterID")] public Guid CharacterId { get; set; }
+    [JsonPropertyName("CharacterID"), JsonIgnore] public Guid CharacterId { get; set; }
 
     [JsonPropertyName("Loadout")] public LoadoutLoadout Loadout { get; set; }
 }

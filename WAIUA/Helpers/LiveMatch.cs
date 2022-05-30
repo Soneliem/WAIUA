@@ -23,7 +23,8 @@ public class Match
 
     public MatchDetails MatchInfo { get; } = new();
     private static Guid Matchid { get; set; }
-
+    private static string Stage { get; set; }
+    private static Guid GameModeId { get; set; }
 
     private static async Task<bool> CheckAndSetLiveMatchIdAsync()
     {
@@ -31,15 +32,25 @@ public class Match
         var request = new RestRequest();
         request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
         request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
-        var response = await client.ExecuteGetAsync<LiveMatchIDResponse>(request).ConfigureAwait(false);
-        if (!response.IsSuccessful)
+        var response = await client.ExecuteGetAsync<MatchIDResponse>(request).ConfigureAwait(false);
+        if (response.IsSuccessful)
         {
-            Constants.Log.Error("CheckAndSetLiveMatchIdAsync() failed. Response: {Response}", response.ErrorException);
-            return false;
+            Matchid = response.Data.MatchId;
+            Stage = "core";
+            return true;
         }
 
-        Matchid = response.Data.MatchId;
-        return true;
+        client = new RestClient($"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/pregame/v1/players/{Constants.Ppuuid}");
+        response = await client.ExecuteGetAsync<MatchIDResponse>(request).ConfigureAwait(false);
+        if (response.IsSuccessful)
+        {
+            Matchid = response.Data.MatchId;
+            Stage = "pre";
+            return true;
+        }
+
+        Constants.Log.Error("CheckAndSetLiveMatchIdAsync() failed. Response: {Response}", response.ErrorException);
+        return false;
     }
 
 
@@ -76,7 +87,7 @@ public class Match
         return false;
     }
 
-    public static async Task<LiveMatchResponse> GetLiveMatchDetailsAsync()
+    private static async Task<LiveMatchResponse> GetLiveMatchDetailsAsync()
     {
         var url = $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
         RestClient client = new(url);
@@ -85,76 +96,160 @@ public class Match
         request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
         var response = await client.ExecuteGetAsync<LiveMatchResponse>(request).ConfigureAwait(false);
         if (response.IsSuccessful) return response.Data;
-        Constants.Log.Error("GetLiveMatchID() failed. Response: {Response}", response.ErrorException);
+        Constants.Log.Error("GetLiveMatchDetailsAsync() failed. Response: {Response}", response.ErrorException);
         return null;
     }
 
-    public async Task<List<Player>>LiveMatchOutputAsync(UpdateProgress updateProgress)
+    private static async Task<PreMatchResponse> GetPreMatchDetailsAsync()
+    {
+        var url = $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/pregame/v1/matches/{Matchid}";
+        RestClient client = new(url);
+        RestRequest request = new();
+        request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
+        request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
+        var response = await client.ExecuteGetAsync<PreMatchResponse>(request).ConfigureAwait(false);
+        if (response.IsSuccessful) return response.Data;
+        Constants.Log.Error("GetPreMatchDetailsAsync() failed. Response: {Response}", response.ErrorException);
+        return null;
+    }
+
+    public async Task<List<Player>> LiveMatchOutputAsync(UpdateProgress updateProgress)
     {
         var playerList = new List<Player>();
         var playerTasks = new List<Task<Player>>();
         var seasonData = new SeasonData();
         var presencesResponse = new PresencesResponse();
 
-        var MatchIDInfo = await GetLiveMatchDetailsAsync().ConfigureAwait(false);
-        updateProgress(10);
-
-        if (MatchIDInfo != null)
+        switch (Stage)
         {
-            Task sTask = Task.Run(async () => seasonData = await GetSeasonsAsync().ConfigureAwait(false));
-            Task pTask = Task.Run(async () => presencesResponse = await GetPresencesAsync().ConfigureAwait(false));
-            await Task.WhenAll(sTask, pTask).ConfigureAwait(false);
-            sbyte index = 0;
-
-            foreach (var riotPlayer in MatchIDInfo.Players)
+            case "core":
             {
-                if (!riotPlayer.IsCoach)
+                var MatchIDInfo = await GetLiveMatchDetailsAsync().ConfigureAwait(false);
+                updateProgress(10);
+
+                if (MatchIDInfo != null)
                 {
-                    async Task<Player> GetPlayerInfo()
+                    Task sTask = Task.Run(async () => seasonData = await GetSeasonsAsync().ConfigureAwait(false));
+                    Task pTask = Task.Run(async () => presencesResponse = await GetPresencesAsync().ConfigureAwait(false));
+                    await Task.WhenAll(sTask, pTask).ConfigureAwait(false);
+                    sbyte index = 0;
+
+                    foreach (var riotPlayer in MatchIDInfo.Players)
                     {
-                        Player player = new();
+                        if (!riotPlayer.IsCoach)
+                        {
+                            async Task<Player> GetPlayerInfo()
+                            {
+                                Player player = new();
 
-                        var t1 = GetAgentInfoAsync(riotPlayer.CharacterId);
-                        var t3 = GetCompHistoryAsync(riotPlayer.Subject);
-                        var t4 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
-                        var t5 = GetSkinInfoAsync(index);
-                        var t6 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
+                                var t1 = GetAgentInfoAsync(riotPlayer.CharacterId);
+                                var t3 = GetCompHistoryAsync(riotPlayer.Subject);
+                                var t4 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
+                                var t5 = GetMatchSkinInfoAsync(index);
+                                var t6 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
 
-                        await Task.WhenAll(t1, t3, t4, t5, t6).ConfigureAwait(false);
+                                await Task.WhenAll(t1, t3, t4, t5, t6).ConfigureAwait(false);
 
-                        player.AgentData = await t1.ConfigureAwait(false);
-                        player.MatchHistoryData = await t3.ConfigureAwait(false);
-                        player.RankData = await t4.ConfigureAwait(false);
-                        player.SkinData = await t5.ConfigureAwait(false);
-                        player.PlayerUiData = await t6.ConfigureAwait(false);
-                        player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
-                        player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
-                        player.TeamId = riotPlayer.TeamId;
-                        player.Active = Visibility.Visible;
-                        return player;
+                                player.IdentityData = await t1.ConfigureAwait(false);
+                                player.MatchHistoryData = await t3.ConfigureAwait(false);
+                                player.RankData = await t4.ConfigureAwait(false);
+                                player.SkinData = await t5.ConfigureAwait(false);
+                                player.PlayerUiData = await t6.ConfigureAwait(false);
+                                player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
+                                player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
+                                player.TeamId = riotPlayer.TeamId;
+                                player.Active = Visibility.Visible;
+                                return player;
+                            }
+
+                            playerTasks.Add(GetPlayerInfo());
+                        }
+
+                        index++;
                     }
 
-                    playerTasks.Add(GetPlayerInfo());
+                    var gamePod = MatchIDInfo.GamePodId;
+                    if (Constants.GamePodsDictionary.TryGetValue(gamePod, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
+
+                    if (MatchInfo.GameMode == "Deathmatch")
+                    {
+                        var mid = playerTasks.Count / 2;
+                        playerList.AddRange(await Task.WhenAll(playerTasks.Take(mid)).ConfigureAwait(false));
+                        await Task.Delay(1000).ConfigureAwait(false);
+                        playerList.AddRange(await Task.WhenAll(playerTasks.Skip(mid)).ConfigureAwait(false));
+                    }
+                    else
+                    {
+                        playerList.AddRange(await Task.WhenAll(playerTasks).ConfigureAwait(false));
+                    }
                 }
 
-                index++;
+                break;
             }
-
-            var gamePod = MatchIDInfo.GamePodId;
-            if (Constants.GamePodsDictionary.TryGetValue(gamePod, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
-
-            if (MatchInfo.GameMode == "Deathmatch")
+            case "pre":
             {
-                var mid = playerTasks.Count / 2;
-                playerList.AddRange(await Task.WhenAll(playerTasks.Take(mid)).ConfigureAwait(false));
-                await Task.Delay(1000).ConfigureAwait(false);
-                playerList.AddRange(await Task.WhenAll(playerTasks.Skip(mid)).ConfigureAwait(false));
-            }
-            else
-            {
-                playerList.AddRange(await Task.WhenAll(playerTasks).ConfigureAwait(false));
+                var MatchIDInfo = await GetPreMatchDetailsAsync().ConfigureAwait(false);
+                updateProgress(10);
+
+                if (MatchIDInfo != null)
+                {
+                    Task sTask = Task.Run(async () => seasonData = await GetSeasonsAsync().ConfigureAwait(false));
+                    Task pTask = Task.Run(async () => presencesResponse = await GetPresencesAsync().ConfigureAwait(false));
+                    await Task.WhenAll(sTask, pTask).ConfigureAwait(false);
+                    sbyte index = 0;
+
+                    foreach (var riotPlayer in MatchIDInfo.AllyTeam.Players)
+                    {
+                        async Task<Player> GetPlayerInfo()
+                        {
+                            Player player = new();
+
+                            var t1 = GetCardAsync(riotPlayer.PlayerIdentity.PlayerCardId, index);
+                            var t3 = GetCompHistoryAsync(riotPlayer.Subject);
+                            var t4 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
+                            var t5 = GetPreSkinInfoAsync(index);
+                            var t6 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
+
+                            await Task.WhenAll(t1, t3, t4, t5, t6).ConfigureAwait(false);
+
+                            player.IdentityData = await t1.ConfigureAwait(false);
+                            player.MatchHistoryData = await t3.ConfigureAwait(false);
+                            player.RankData = await t4.ConfigureAwait(false);
+                            player.SkinData = await t5.ConfigureAwait(false);
+                            player.PlayerUiData = await t6.ConfigureAwait(false);
+                            player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
+                            player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
+                            player.TeamId = "Blue";
+                            player.Active = Visibility.Visible;
+                            return player;
+                        }
+
+                        playerTasks.Add(GetPlayerInfo());
+
+                        index++;
+                    }
+
+                    var gamePod = MatchIDInfo.GamePodId;
+                    if (Constants.GamePodsDictionary.TryGetValue(gamePod, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
+
+                    if (MatchInfo.GameMode == "Deathmatch")
+                    {
+                        var mid = playerTasks.Count / 2;
+                        playerList.AddRange(await Task.WhenAll(playerTasks.Take(mid)).ConfigureAwait(false));
+                        await Task.Delay(1000).ConfigureAwait(false);
+                        playerList.AddRange(await Task.WhenAll(playerTasks.Skip(mid)).ConfigureAwait(false));
+                    }
+                    else
+                    {
+                        playerList.AddRange(await Task.WhenAll(playerTasks).ConfigureAwait(false));
+                    }
+                }
+
+                break;
             }
         }
+
+
         updateProgress(75);
 
         var colours = new List<string>
@@ -221,27 +316,47 @@ public class Match
         return ignData;
     }
 
-    private static async Task<AgentData> GetAgentInfoAsync(Guid agentid)
+    private static async Task<IdentityData> GetAgentInfoAsync(Guid agentid)
     {
-        AgentData agentData = new();
+        IdentityData identityData = new();
         if (agentid != Guid.Empty)
         {
-            agentData.Image = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\agentsimg\\{agentid}.png");
+            identityData.Image = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\agentsimg\\{agentid}.png");
             var agents = JsonSerializer.Deserialize<Dictionary<Guid, string>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\agents.txt").ConfigureAwait(false));
             agents.TryGetValue(agentid, out var agentName);
-            agentData.Name = agentName;
+            identityData.Name = agentName;
         }
         else
         {
             Constants.Log.Error("GetAgentInfoAsync Failed: AgentID is empty");
-            agentData.Image = null;
-            agentData.Name = null;
+            identityData.Image = null;
+            identityData.Name = "";
         }
 
-        return agentData;
+        return identityData;
     }
 
-    private static async Task<SkinData> GetSkinInfoAsync(sbyte playerno)
+    private static async Task<IdentityData> GetCardAsync(Guid cardid, sbyte index)
+    {
+        IdentityData identityData = new();
+        if (cardid != Guid.Empty)
+        {
+            var cards = JsonSerializer.Deserialize<Dictionary<Guid, Uri>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\cards.txt").ConfigureAwait(false));
+            cards.TryGetValue(cardid, out var card);
+            identityData.Image = card;
+            identityData.Name = index+1+"";
+        }
+        else
+        {
+            Constants.Log.Error("GetCardAsync Failed: CardID is empty");
+            identityData.Image = null;
+            identityData.Name = "";
+        }
+
+        return identityData;
+    }    
+
+    private static async Task<SkinData> GetMatchSkinInfoAsync(sbyte playerno)
     {
         var response = await DoCachedRequestAsync(Method.Get,
             $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/matches/{Matchid}/loadouts",
@@ -256,23 +371,51 @@ public class Match
                 .Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
                 .Item.Id;
 
-            var skins = JsonSerializer.Deserialize<Dictionary<Guid, ValSkin>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\skinchromas.txt").ConfigureAwait(false));
-
-            skins.TryGetValue(phantomchroma, out var phantom);
-            skins.TryGetValue(vandalchroma, out var vandal);
-
-            return new SkinData
-            {
-                PhantomImage = phantomchroma == new Guid("52221ba2-4e4c-ec76-8c81-3483506d5242") ? new Uri("pack://application:,,,/Assets/phantom.png") : phantom.Image,
-                PhantomName = phantom?.Name,
-                VandalImage = vandalchroma == new Guid("19629ae1-4996-ae98-7742-24a240d41f99") ? new Uri("pack://application:,,,/Assets/vandal.png") : vandal.Image,
-                VandalName = vandal?.Name
-            };
+            return await GetSkinInfoAsync(phantomchroma, vandalchroma);
         }
 
-        Constants.Log.Error("GetSkinInfoAsync Failed: {e}", response.ErrorException);
+        Constants.Log.Error("GetMatchSkinInfoAsync Failed: {e}", response.ErrorException);
         return new SkinData();
     }
+
+    private static async Task<SkinData> GetPreSkinInfoAsync(sbyte playerno)
+    {
+        var response = await DoCachedRequestAsync(Method.Get,
+            $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/pregame/v1/matches/{Matchid}/loadouts",
+            true).ConfigureAwait(false);
+        if (response.IsSuccessful)
+        {
+            var content = JsonSerializer.Deserialize<PreMatchLoadoutsResponse>(response.Content);
+            var vandalchroma = content.Loadouts[playerno]
+                .Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id;
+            var phantomchroma = content.Loadouts[playerno]
+                .Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id;
+
+            return await GetSkinInfoAsync(phantomchroma, vandalchroma);
+        }
+
+        Constants.Log.Error("GetPreSkinInfoAsync Failed: {e}", response.ErrorException);
+        return new SkinData();
+    }
+
+    private static async Task<SkinData> GetSkinInfoAsync(Guid phantomchroma, Guid vandalchroma)
+    {
+        var skins = JsonSerializer.Deserialize<Dictionary<Guid, ValSkin>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\skinchromas.txt").ConfigureAwait(false));
+
+        skins.TryGetValue(phantomchroma, out var phantom);
+        skins.TryGetValue(vandalchroma, out var vandal);
+
+        return new SkinData
+        {
+            PhantomImage = phantomchroma == new Guid("52221ba2-4e4c-ec76-8c81-3483506d5242") ? new Uri("pack://application:,,,/Assets/phantom.png") : phantom.Image,
+            PhantomName = phantom?.Name,
+            VandalImage = vandalchroma == new Guid("19629ae1-4996-ae98-7742-24a240d41f99") ? new Uri("pack://application:,,,/Assets/vandal.png") : vandal.Image,
+            VandalName = vandal?.Name
+        };
+    }
+
 
     private static async Task<MatchHistoryData> GetCompHistoryAsync(Guid puuid)
     {
@@ -589,7 +732,10 @@ public class Match
 
     private async Task<PlayerUIData> GetPresenceInfoAsync(Guid puuid, PresencesResponse presences)
     {
-        PlayerUIData playerUiData = new();
+        PlayerUIData playerUiData = new()
+        {
+            BackgroundColour = "#252A40"
+        };
         try
         {
             foreach (var friend in presences.Presences)
@@ -611,14 +757,14 @@ public class Match
                         if (content?.ProvisioningFlow == "CustomGame")
                         {
                             MatchInfo.GameMode = "Custom";
-                            MatchInfo.GameModeImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\gamemodeimg\\96bd3920-4f36-d026-2b28-c683eb0bcac5.png");
+                            MatchInfo.GameModeImage = new Uri(Constants.LocalAppDataPath + "\\ValAPI\\gamemodeimg\\96bd3920-4f36-d026-2b28-c683eb0bcac5.png");
                         }
                         else
                         {
                             var textInfo = new CultureInfo("en-US", false).TextInfo;
 
-                            String gameModeName = "";
-                            Guid gameModeId = Guid.Parse("96bd3920-4f36-d026-2b28-c683eb0bcac5");
+                            var gameModeName = "";
+                            var gameModeId = Guid.Parse("96bd3920-4f36-d026-2b28-c683eb0bcac5");
                             switch (content?.QueueId)
                             {
                                 case "competitive":
@@ -628,13 +774,13 @@ public class Match
                                     gameModeName = "Unrated";
                                     break;
                                 case "deathmatch":
-                                    gameModeId = Guid.Parse("a8790ec5-4237-f2f0-e93b-08a8e89865b2");                                     
+                                    gameModeId = Guid.Parse("a8790ec5-4237-f2f0-e93b-08a8e89865b2");
                                     break;
                                 case "spikerush":
-                                    gameModeId = Guid.Parse("e921d1e6-416b-c31f-1291-74930c330b7b"); 
+                                    gameModeId = Guid.Parse("e921d1e6-416b-c31f-1291-74930c330b7b");
                                     break;
                                 case "ggteam":
-                                    gameModeId = Guid.Parse("a4ed6518-4741-6dcb-35bd-f884aecdc859"); 
+                                    gameModeId = Guid.Parse("a4ed6518-4741-6dcb-35bd-f884aecdc859");
                                     break;
                                 case "newmap":
                                     gameModeName = "New Map";
@@ -643,15 +789,15 @@ public class Match
                                     gameModeId = Guid.Parse("96bd3920-4f36-d026-2b28-c683eb0bcac5");
                                     break;
                                 case "snowball":
-                                    gameModeId = Guid.Parse("57038d6d-49b1-3a74-c5ef-3395d9f23a97");                                    
+                                    gameModeId = Guid.Parse("57038d6d-49b1-3a74-c5ef-3395d9f23a97");
                                     break;
                                 default:
                                     gameModeName = textInfo.ToTitleCase(content.QueueId);
                                     break;
                             }
 
-                            
-                            if (gameModeName == "") 
+
+                            if (gameModeName == "")
                             {
                                 var gamemodes = JsonSerializer.Deserialize<Dictionary<Guid, string>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\gamemode.txt").ConfigureAwait(false));
                                 gamemodes.TryGetValue(gameModeId, out var gamemode);
@@ -665,17 +811,12 @@ public class Match
                             MatchInfo.GameModeImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\gamemodeimg\\{gameModeId}.png");
                         }
                     }
-                    else
-                    {
-                        playerUiData.BackgroundColour = "#252A40";
-                    }
 
                     break;
                 }
         }
         catch (Exception e)
         {
-            Debugger.Break();
             Constants.Log.Error("GetPresenceInfoAsync Failed: {Exception}", e);
         }
 

@@ -135,17 +135,20 @@ public static class Login
         }
     }
 
-    public static async Task<bool> CheckMatchIdAsync()
+    public static async Task<bool> CheckMatchAsync()
     {
-        var url =
-            $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/players/{Constants.Ppuuid}";
-        RestClient client = new(url);
+        RestClient client = new RestClient($"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/players/{Constants.Ppuuid}");
         var request = new RestRequest();
         request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
         request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
         var response = await client.ExecuteGetAsync(request).ConfigureAwait(false);
         if (response.IsSuccessful) return true;
-        Constants.Log.Error("CheckMatchIdAsync Failed: {e}", response.ErrorException);
+
+        client = new RestClient($"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/pregame/v1/players/{Constants.Ppuuid}");
+        response = await client.ExecuteGetAsync(request).ConfigureAwait(false);
+        if (response.IsSuccessful) return true;
+
+        Constants.Log.Error("CheckMatchAsync Failed: {e}", response.ErrorException);
         return false;
     }
 

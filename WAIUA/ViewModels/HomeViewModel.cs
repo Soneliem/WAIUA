@@ -14,29 +14,21 @@ public partial class HomeViewModel : ObservableObject
 {
     public delegate void EventAction();
 
-    private static readonly Uri question = new("pack://application:,,,/Assets/question.png");
-    private static readonly Uri refresh = new("pack://application:,,,/Assets/refresh.png");
-    private static readonly Uri check = new("pack://application:,,,/Assets/check.png");
-    private static readonly Uri cross = new("pack://application:,,,/Assets/cross.png");
-
-    [ObservableProperty] private Uri _accountStatus = question;
-
+    private static readonly Uri Question = new("pack://application:,,,/Assets/question.png");
+    private static readonly Uri Refresh = new("pack://application:,,,/Assets/refresh.png");
+    private static readonly Uri Check = new("pack://application:,,,/Assets/check.png");
+    private static readonly Uri Cross = new("pack://application:,,,/Assets/cross.png");
+    
+    [ObservableProperty] private Uri _accountStatus = Question;
     [ObservableProperty] private DispatcherTimer _countTimer;
-
-    [ObservableProperty] private Uri _gameStatus = question;
-
-    [ObservableProperty] private Uri _matchStatus = question;
-
-    [ObservableProperty] private Match _newMatch = new();
+    [ObservableProperty] private Uri _gameStatus = Question;
+    [ObservableProperty] private Uri _matchStatus = Question;
     [ObservableProperty] private LoadingOverlay _overlay;
 
-    [ObservableProperty] private List<Player> _playerList = new(5);
-
-    [ObservableProperty] private string _queueTime = "-";
-
+    [ObservableProperty] private List<Player> _playerList;
+    // [ObservableProperty] private string _queueTime = "-";
     [ObservableProperty] private string _refreshTime = "-";
-
-    [ObservableProperty] private int countdownTime = 15;
+    [ObservableProperty] private int _countdownTime = 15;
 
     public HomeViewModel()
     {
@@ -55,7 +47,6 @@ public partial class HomeViewModel : ObservableObject
     private async Task LoadNowAsync()
     {
         if (!await Match.LiveMatchChecksAsync(false).ConfigureAwait(false)) return;
-        // var matchDets = await Match.GetLiveMatchDetailsAsync().ConfigureAwait(false);
         GoMatchEvent?.Invoke();
         await UpdateChecksAsync().ConfigureAwait(false);
     }
@@ -66,12 +57,7 @@ public partial class HomeViewModel : ObservableObject
         _countTimer = new DispatcherTimer();
         _countTimer.Tick += UpdateTimersAsync;
         _countTimer.Interval = new TimeSpan(0, 0, 1);
-
         _countTimer.Start();
-        _newMatch = new Match();
-        if (await Match.LiveMatchChecksAsync(true).ConfigureAwait(false))
-            GoMatchEvent?.Invoke();
-
         await UpdateChecksAsync().ConfigureAwait(false);
     }
 
@@ -102,27 +88,27 @@ public partial class HomeViewModel : ObservableObject
     private async Task UpdateChecksAsync()
     {
         Overlay.IsBusy = true;
-        GameStatus = refresh;
-        AccountStatus = question;
-        MatchStatus = question;
+        GameStatus = Refresh;
+        AccountStatus = Question;
+        MatchStatus = Question;
         if (await CheckLocalAsync().ConfigureAwait(false))
         {
-            GameStatus = check;
-            AccountStatus = refresh;
+            GameStatus = Check;
+            AccountStatus = Refresh;
             if (await CheckLoginAsync().ConfigureAwait(false))
             {
-                AccountStatus = check;
-                MatchStatus = refresh;
-                if (await CheckMatchIdAsync().ConfigureAwait(false))
+                AccountStatus = Check;
+                MatchStatus = Refresh;
+                if (await CheckMatchAsync().ConfigureAwait(false))
                 {
-                    MatchStatus = check;
+                    MatchStatus = Check;
                     CountTimer?.Stop();
                     Overlay.IsBusy = false;
                     GoMatchEvent?.Invoke();
                 }
                 else
                 {
-                    MatchStatus = cross;
+                    MatchStatus = Cross;
                 }
             }
             else
@@ -131,32 +117,32 @@ public partial class HomeViewModel : ObservableObject
                 await LocalRegionAsync().ConfigureAwait(false);
                 if (await CheckLoginAsync().ConfigureAwait(false))
                 {
-                    AccountStatus = check;
-                    MatchStatus = refresh;
-                    if (await CheckMatchIdAsync().ConfigureAwait(false))
+                    AccountStatus = Check;
+                    MatchStatus = Refresh;
+                    if (await CheckMatchAsync().ConfigureAwait(false))
                     {
-                        MatchStatus = check;
+                        MatchStatus = Check;
                         CountTimer?.Stop();
                         Overlay.IsBusy = false;
                         GoMatchEvent?.Invoke();
                     }
                     else
                     {
-                        MatchStatus = cross;
+                        MatchStatus = Cross;
                     }
                 }
                 else
                 {
-                    AccountStatus = cross;
-                    MatchStatus = cross;
+                    AccountStatus = Cross;
+                    MatchStatus = Cross;
                 }
             }
         }
         else
         {
-            GameStatus = cross;
-            AccountStatus = cross;
-            MatchStatus = cross;
+            GameStatus = Cross;
+            AccountStatus = Cross;
+            MatchStatus = Cross;
         }
 
         Overlay.IsBusy = false;
@@ -167,10 +153,6 @@ public partial class HomeViewModel : ObservableObject
     {
         if (await GetPartyPlayerInfoAsync().ConfigureAwait(false))
         {
-            // _player0Prop = Player.Player0;
-            // _player1Prop = Player.Player1;
-            // _player2Prop = Player.Player2;
-            // _player3Prop = Player.Player3;
             // _player4Prop = Player.Player4;
         }
     }

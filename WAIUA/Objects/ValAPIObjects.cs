@@ -125,6 +125,14 @@ public class ValApiSkinsResponse
     [JsonPropertyName("data")] public ValApiSkins[] Data { get; set; }
 }
 
+public class ValApiCardsResponse
+{
+    [JsonPropertyName("status")] public int Status { get; set; }
+
+    [JsonPropertyName("data")] public ValApiCards[] Data { get; set; }
+}
+
+
 public class ValApiSkins
 {
     [JsonPropertyName("uuid")] public Guid Uuid { get; set; }
@@ -142,6 +150,36 @@ public class ValApiSkins
     [JsonPropertyName("assetPath")] public string AssetPath { get; set; }
 
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
+}
+
+public class ValApiCards
+{
+    [JsonPropertyName("uuid")]
+    public Guid Uuid { get; set; }
+
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    [JsonPropertyName("isHiddenIfNotOwned")]
+    public bool IsHiddenIfNotOwned { get; set; }
+
+    [JsonPropertyName("themeUuid")]
+    public Guid? ThemeUuid { get; set; }
+
+    [JsonPropertyName("displayIcon")]
+    public Uri DisplayIcon { get; set; }
+
+    [JsonPropertyName("smallArt")]
+    public Uri SmallArt { get; set; }
+
+    [JsonPropertyName("wideArt")]
+    public Uri WideArt { get; set; }
+
+    [JsonPropertyName("largeArt")]
+    public Uri LargeArt { get; set; }
+
+    [JsonPropertyName("assetPath")]
+    public string AssetPath { get; set; }
 }
 
 public class ValApiRanksResponse

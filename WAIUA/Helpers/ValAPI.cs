@@ -20,6 +20,7 @@ public static class ValApi
     private static Urls _ranksInfo;
     private static Urls _versionInfo;
     private static Urls _skinsInfo;
+    private static Urls _cardsInfo;
     private static Urls _gamemodeInfo;
     private static List<Urls> _allInfo;
 
@@ -89,6 +90,12 @@ public static class ValApi
             Filepath = Constants.LocalAppDataPath + "\\ValAPI\\skinchromas.txt",
             Url = $"/weapons/skinchromas?language={language}"
         };
+        _cardsInfo = new Urls
+        {
+            Name = "Cards",
+            Filepath = Constants.LocalAppDataPath + "\\ValAPI\\cards.txt",
+            Url = $"/playercards"
+        };
         _ranksInfo = new Urls
         {
             Name = "Ranks",
@@ -107,7 +114,7 @@ public static class ValApi
             Filepath = Constants.LocalAppDataPath + "\\ValAPI\\gamemode.txt",
             Url = "/gamemodes"
         };
-        _allInfo = new List<Urls> { _mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo, _gamemodeInfo };
+        _allInfo = new List<Urls> { _mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo,_cardsInfo, _gamemodeInfo };
         return Task.CompletedTask;
     }
 
@@ -205,14 +212,28 @@ public static class ValApi
                 if (skinsResponse.IsSuccessful)
                 {
                     Dictionary<Guid, ValSkin> skinsDictionary = new();
-                    if (!Directory.Exists(Constants.LocalAppDataPath + "\\ValAPI\\skinsimg"))
-                        Directory.CreateDirectory(Constants.LocalAppDataPath + "\\ValAPI\\skinsimg");
                     foreach (var skin in skinsResponse.Data.Data) skinsDictionary.TryAdd(skin.Uuid, new ValSkin {Name = skin.DisplayName, Image = skin.FullRender});
                     await File.WriteAllTextAsync(_skinsInfo.Filepath, JsonSerializer.Serialize(skinsDictionary)).ConfigureAwait(false);
                 }
                 else
                 {
                     Constants.Log.Error("updateSkinsDictionary Failed, Response:{error}", skinsResponse.ErrorException);
+                }
+            }
+
+            async Task UpdateCardsDictionary()
+            {
+                var cardsRequest = new RestRequest(_cardsInfo.Url);
+                var cardsResponse = await Client.ExecuteGetAsync<ValApiCardsResponse>(cardsRequest).ConfigureAwait(false);
+                if (cardsResponse.IsSuccessful)
+                {
+                    Dictionary<Guid, Uri> cardsDictionary = new();
+                    foreach (var card in cardsResponse.Data.Data) cardsDictionary.TryAdd(card.Uuid, card.DisplayIcon);
+                    await File.WriteAllTextAsync(_cardsInfo.Filepath, JsonSerializer.Serialize(cardsDictionary)).ConfigureAwait(false);
+                }
+                else
+                {
+                    Constants.Log.Error("updateCardsDictionary Failed, Response:{error}", cardsResponse.ErrorException);
                 }
             }
 
@@ -289,7 +310,7 @@ public static class ValApi
                 }
             }
 
-            await Task.WhenAll(UpdateVersion(), UpdateRanksDictionary(), UpdateAgentsDictionary(), UpdateMapsDictionary(), UpdateSkinsDictionary(), UpdateGamemodeDictionary()).ConfigureAwait(false);
+            await Task.WhenAll(UpdateVersion(), UpdateRanksDictionary(), UpdateAgentsDictionary(), UpdateMapsDictionary(), UpdateSkinsDictionary(), UpdateCardsDictionary(), UpdateGamemodeDictionary()).ConfigureAwait(false);
         }
         catch (Exception e)
         {

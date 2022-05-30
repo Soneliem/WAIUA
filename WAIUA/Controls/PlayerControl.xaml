@@ -63,7 +63,7 @@
 				CornerRadius="10">
 				<Border.Background>
 					
-					<ImageBrush ImageSource="{Binding PlayerCell.AgentData.Image, ElementName=Self}"/>
+					<ImageBrush ImageSource="{Binding PlayerCell.IdentityData.Image, ElementName=Self}"/>
 					
 				</Border.Background>
 				<Border.Effect>
@@ -77,7 +77,7 @@
 					FontFamily="{StaticResource Nunito}"
 					FontWeight="Bold"
 					Foreground="#32e2b2"
-					Text="{Binding PlayerCell.AgentData.Name, ElementName=Self}" />
+					Text="{Binding PlayerCell.IdentityData.Name, ElementName=Self}" />
 			</Viewbox>
 			<Viewbox
 				Grid.Row="1"

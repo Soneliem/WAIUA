@@ -14,7 +14,7 @@ public partial class IgnData
 }
 
 [INotifyPropertyChanged]
-public partial class AgentData
+public partial class IdentityData
 {
     [ObservableProperty] private Uri _image;
     [ObservableProperty] private string _name;
@@ -98,7 +98,7 @@ public partial class Player
 {
     [ObservableProperty] private int _accountLevel;
     [ObservableProperty] private Visibility _active = Visibility.Collapsed;
-    [ObservableProperty] private AgentData _agentData;
+    [ObservableProperty] private IdentityData _identityData;
     [ObservableProperty] private string _backgroundColour;
     [ObservableProperty] private IgnData _ignData;
     [ObservableProperty] private MatchHistoryData _matchHistoryData;

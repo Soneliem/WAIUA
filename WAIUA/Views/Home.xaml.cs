@@ -1,5 +1,12 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Shapes;
+using System.Windows.Threading;
 using WAIUA.ViewModels;
 
 namespace WAIUA.Views;
@@ -21,11 +28,9 @@ public partial class Home : UserControl
             {
                 Dispatcher.Invoke(() =>
                 {
-                    // ButtonAutomationPeer peer = new ButtonAutomationPeer(GoMatch);
-                    // IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
-                    // invokeProv.Invoke();
                     if (GoMatch.Command.CanExecute(null)) GoMatch.Command.Execute(null);
                 });
             };
     }
+    
 }
