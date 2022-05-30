@@ -38,6 +38,8 @@ public static class Login
         //     return false;
         // }
 
+        // TODO:  Actually check if the user is logged in.
+
         if (Constants.Ppuuid == Guid.Empty)
         {
             return false;
@@ -170,7 +172,6 @@ public static class Login
             return content.GameName + "#" + content.TagLine;
         }
 
-        Debugger.Break();
         Constants.Log.Error("GetNameServiceGetUsernameAsync Failed: {e}", response.ErrorException);
         return "";
     }

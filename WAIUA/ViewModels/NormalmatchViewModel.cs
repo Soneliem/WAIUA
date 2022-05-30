@@ -30,14 +30,6 @@ public partial class NormalmatchViewModel : ObservableObject
         LeftPlayerList = new List<Player>();
         RightPlayerList = new List<Player>();
     }
-    
-    List<List<Player>> partition(List<Player> values, int chunkSize)
-    {
-        return values.Select((x, i) => new { Index = i, Value = x })
-            .GroupBy(x => x.Index / chunkSize)
-            .Select(x => x.Select(v => v.Value).ToList())
-            .ToList();
-    }
 
     [ICommand]
     private async Task GetMatchInfoAsync()
@@ -55,12 +47,33 @@ public partial class NormalmatchViewModel : ObservableObject
                 Overlay.Content = "Getting Player Details";
                 AllPlayers = await newMatch.LiveMatchOutputAsync(UpdatePercentage).ConfigureAwait(false);
 
-                List<List<Player>> partitions = partition(AllPlayers, 2);
-                LeftPlayerList = partitions[0];
-                if (partitions.Count > 1)
+                if (newMatch.MatchInfo.GameMode == "Deathmatch")
                 {
-                    RightPlayerList = partitions[1];
+                    var mid = AllPlayers.Count / 2;
+                    LeftPlayerList = AllPlayers.Take(mid).ToList();
+                    RightPlayerList = AllPlayers.Skip(mid).ToList();
                 }
+                else
+                {
+                    LeftPlayerList.Clear();
+                    RightPlayerList.Clear();
+                    foreach (Player player in AllPlayers)
+                    {
+                        switch (player.TeamId)
+                        {
+                            case "Blue":
+                                LeftPlayerList.Add(player);
+                                break;
+                            case "Red":
+                                RightPlayerList.Add(player);
+                                break;
+                        }
+                    }
+
+                    LeftPlayerList = LeftPlayerList.ToList();
+                    RightPlayerList = RightPlayerList.ToList();
+                }
+                AllPlayers.Clear();
 
                 if (newMatch.MatchInfo != null)
                     Match = newMatch.MatchInfo;
@@ -71,14 +84,11 @@ public partial class NormalmatchViewModel : ObservableObject
         catch (Exception)
         {
             Overlay.IsBusy = false;
-            Debugger.Break();
         }
         finally
         {
             Overlay.IsBusy = false;
         }
-
-        Overlay.IsBusy = false;
         GC.Collect();
     }
 

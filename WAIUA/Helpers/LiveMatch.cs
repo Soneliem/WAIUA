@@ -89,7 +89,7 @@ public class Match
         return null;
     }
 
-    public async Task<List<Player>> LiveMatchOutputAsync(UpdateProgress updateProgress)
+    public async Task<List<Player>>LiveMatchOutputAsync(UpdateProgress updateProgress)
     {
         var playerList = new List<Player>();
         var playerTasks = new List<Task<Player>>();
@@ -97,6 +97,7 @@ public class Match
         var presencesResponse = new PresencesResponse();
 
         var MatchIDInfo = await GetLiveMatchDetailsAsync().ConfigureAwait(false);
+        updateProgress(10);
 
         if (MatchIDInfo != null)
         {
@@ -111,10 +112,6 @@ public class Match
                 {
                     async Task<Player> GetPlayerInfo()
                     {
-                        var progress = 10;
-                        // TODO: Progress bar update
-                        // updateProgress(90 / 10 + progress);
-                        // progress += 90 / 10;
                         Player player = new();
 
                         var t1 = GetAgentInfoAsync(riotPlayer.CharacterId);
@@ -132,6 +129,7 @@ public class Match
                         player.PlayerUiData = await t6.ConfigureAwait(false);
                         player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
                         player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
+                        player.TeamId = riotPlayer.TeamId;
                         player.Active = Visibility.Visible;
                         return player;
                     }
@@ -144,9 +142,20 @@ public class Match
 
             var gamePod = MatchIDInfo.GamePodId;
             if (Constants.GamePodsDictionary.TryGetValue(gamePod, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
-            var results = await Task.WhenAll(playerTasks).ConfigureAwait(false);
-            playerList.AddRange(results);
+
+            if (MatchInfo.GameMode == "Deathmatch")
+            {
+                var mid = playerTasks.Count / 2;
+                playerList.AddRange(await Task.WhenAll(playerTasks.Take(mid)).ConfigureAwait(false));
+                await Task.Delay(1000).ConfigureAwait(false);
+                playerList.AddRange(await Task.WhenAll(playerTasks.Skip(mid)).ConfigureAwait(false));
+            }
+            else
+            {
+                playerList.AddRange(await Task.WhenAll(playerTasks).ConfigureAwait(false));
+            }
         }
+        updateProgress(75);
 
         var colours = new List<string>
             {"Red", "#32e2b2", "DarkOrange", "White", "DeepSkyBlue", "MediumPurple", "SaddleBrown"};
@@ -173,6 +182,7 @@ public class Match
             }
 
             for (var i = 0; i < playerList.Count; i++) playerList[i].PartyColour = newArray[i];
+            updateProgress(100);
         }
         catch (Exception)
         {

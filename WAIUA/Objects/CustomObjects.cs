@@ -106,6 +106,7 @@ public partial class Player
     [ObservableProperty] private PlayerUIData _playerUiData;
     [ObservableProperty] private RankData _rankData;
     [ObservableProperty] private SkinData _skinData;
+    [ObservableProperty] private string _teamId;
 }
 
 [INotifyPropertyChanged]
@@ -117,5 +118,5 @@ public partial class LoadingOverlay
 
     [ObservableProperty] private bool _isBusy;
 
-    [ObservableProperty] private double _progress;
+    [ObservableProperty] private int _progress;
 }
