@@ -231,4 +231,7 @@
   <data name="RefreshingIn" xml:space="preserve">
     <value>Refreshing In:</value>
   </data>
+  <data name="Player" xml:space="preserve">
+	  <value>Player</value>
+  </data>
 </root>

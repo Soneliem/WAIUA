@@ -53,7 +53,7 @@ public partial class HomeViewModel : ObservableObject
     [ICommand]
     private async Task PassiveLoadAsync()
     {
-        _countTimer = new DispatcherTimer();
+        _countTimer = new DispatcherTimer(DispatcherPriority.Normal);
         _countTimer.Tick += UpdateTimersAsync;
         _countTimer.Interval = new TimeSpan(0, 0, 1);
         _countTimer.Start();
@@ -86,7 +86,7 @@ public partial class HomeViewModel : ObservableObject
     [ICommand]
     private async Task UpdateChecksAsync()
     {
-        Overlay.IsBusy = true;
+        // Overlay.IsBusy = true;
         AccountStatus = Question;
         MatchStatus = Question;
         if (await CheckLocalAsync().ConfigureAwait(false))
@@ -99,7 +99,7 @@ public partial class HomeViewModel : ObservableObject
                 {
                     MatchStatus = Check;
                     CountTimer?.Stop();
-                    Overlay.IsBusy = false;
+                    // Overlay.IsBusy = false;
                     GoMatchEvent?.Invoke();
                 }
                 else
@@ -118,7 +118,7 @@ public partial class HomeViewModel : ObservableObject
                     {
                         MatchStatus = Check;
                         CountTimer?.Stop();
-                        Overlay.IsBusy = false;
+                        // Overlay.IsBusy = false;
                         GoMatchEvent?.Invoke();
                     }
                     else
@@ -140,7 +140,7 @@ public partial class HomeViewModel : ObservableObject
             MatchStatus = Cross;
         }
 
-        Overlay.IsBusy = false;
+        // Overlay.IsBusy = false;
     }
 
 

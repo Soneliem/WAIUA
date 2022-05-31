@@ -117,17 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LoadMatchTitle" xml:space="preserve">
-    <value>加载比赛</value>
-  </data>
-  <data name="LoadMatchExplanation" xml:space="preserve">
-    <value>若有数据会加载实时比赛数据。应该需要少于10秒钟</value>
-  </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>质询</value>
-  </data>
-  <data name="InfoExplanation" xml:space="preserve">
-    <value>你已经在这个页面了傻逼</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>加入我的Discord</value>
@@ -179,9 +170,6 @@
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>点击以更新比赛</value>
-  </data>
-  <data name="SettingsExplanation" xml:space="preserve">
-    <value>这里可以找到软件和账号设置</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>设置</value>

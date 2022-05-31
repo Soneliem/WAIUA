@@ -334,7 +334,7 @@ public class Match
             var cards = JsonSerializer.Deserialize<Dictionary<Guid, Uri>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\cards.txt").ConfigureAwait(false));
             cards.TryGetValue(cardid, out var card);
             identityData.Image = card;
-            identityData.Name = index+1+"";
+            identityData.Name = Resources.Player + " " + (index+1);
         }
         else
         {

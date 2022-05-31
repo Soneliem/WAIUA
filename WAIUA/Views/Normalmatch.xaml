@@ -20,6 +20,17 @@
 		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 		<converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
 	</UserControl.Resources>
+	<UserControl.Triggers>
+		<EventTrigger RoutedEvent="Loaded">
+			<BeginStoryboard>
+				<Storyboard>
+					<DoubleAnimation
+						Storyboard.TargetProperty="Opacity"
+						From="0.0" To="1.0" Duration="0:0:1" />
+				</Storyboard>
+			</BeginStoryboard>
+		</EventTrigger>
+	</UserControl.Triggers>
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="70" />
@@ -107,7 +118,7 @@
 				</ItemsControl.ItemsPanel>
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-							<controls:PlayerControl MaxHeight="150"
+							<controls:PlayerControl MaxHeight="160"
 								Margin="0 5"
 								PlayerCell="{Binding}" />
 					</DataTemplate>
@@ -127,7 +138,7 @@
 					</ItemsControl.ItemsPanel>
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<controls:PlayerControl MaxHeight="150px" 
+							<controls:PlayerControl MaxHeight="160px" 
 							                        Margin="0 5"
 							                        PlayerCell="{Binding}" />
 						</DataTemplate>

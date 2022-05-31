@@ -27,7 +27,7 @@
 				<Storyboard>
 					<DoubleAnimation
 						Storyboard.TargetProperty="Opacity"
-						From="0.0" To="1.0" Duration="0:0:0.75" />
+						From="0.0" To="1.0" Duration="0:0:1" />
 				</Storyboard>
 			</BeginStoryboard>
 		</EventTrigger>
@@ -80,10 +80,10 @@
 			           FontWeight="SemiBold" Grid.Row="0" Grid.Column="3" FontFamily="{StaticResource Nunito}"
 			           Foreground="White" Text="{x:Static p:Resources.Status}" />
 		</Grid>
-
-
-
-			
+		<TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" FontSize="30" VerticalAlignment="Center"
+		           FontFamily="{StaticResource Nunito}"
+		           Foreground="White" Text="Under Construction" />
+		
 			<ItemsControl Grid.Row="1" Grid.Column="0" Margin="0,15,0,0"
 			              ItemsSource="{Binding PlayerList}">
 				<ItemsControl.ItemsPanel>
@@ -232,6 +232,7 @@
 				</Button>
 
 			</Grid>
+			
 
 		</Grid>
 		<c:OverlayControl Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"
