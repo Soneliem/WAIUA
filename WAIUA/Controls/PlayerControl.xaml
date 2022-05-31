@@ -8,6 +8,9 @@
 	x:Name="Self"
 	d:DesignHeight="450"
 	d:DesignWidth="2000"
+	UseLayoutRounding="True"
+	SnapsToDevicePixels="True"
+	RenderOptions.ClearTypeHint="Enabled"
 	mc:Ignorable="d" d:DataContext="{d:DesignData NormalPlayerCell}">
 	<UserControl.Resources>
 		<Style TargetType="Button">
@@ -33,16 +36,39 @@
 			<Setter Property="ToolTipService.InitialShowDelay" Value="0" />
 			<Setter Property="HasDropShadow" Value="False" />
 		</Style>
+		<Storyboard x:Key="expandStoryboard">
+			<DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+			                 To="1.01" Duration="0:0:0.1" />
+			<DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+			                 To="1.01" Duration="0:0:0.1" />
+		</Storyboard>
+		<Storyboard x:Key="shrinkStoryboard">
+			<DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+			                 To="1" Duration="0:0:0.1" />
+			<DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+			                 To="1" Duration="0:0:0.1" />
+		</Storyboard>		
 	</UserControl.Resources>
-	<!-- TODO: Add animation -->
+
 	<Border
 		Visibility="{Binding PlayerCell.Active, ElementName=Self}"
 		Background="{Binding PlayerCell.PlayerUiData.BackgroundColour, ElementName=Self}"
-		BorderThickness="0"
+		BorderThickness="0"  RenderTransformOrigin="0.5,0.5" RenderOptions.BitmapScalingMode="NearestNeighbor"
 		CornerRadius="20">
 		<Border.Effect>
 			<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 		</Border.Effect>
+		<Border.RenderTransform>
+			<ScaleTransform ScaleX="1" ScaleY="1"/>
+		</Border.RenderTransform>		
+		<Border.Triggers>
+			<EventTrigger RoutedEvent="Border.MouseEnter">
+				<BeginStoryboard Storyboard="{StaticResource expandStoryboard}" />
+			</EventTrigger>
+			<EventTrigger RoutedEvent="Border.MouseLeave">
+				<BeginStoryboard Storyboard="{StaticResource shrinkStoryboard}" />
+			</EventTrigger>
+		</Border.Triggers>
 		<Grid Margin="15">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
@@ -143,6 +169,7 @@
 						Margin="0,0,50,0"
 						Source="{Binding PlayerCell.SkinData.VandalImage, ElementName=Self}"
 						ToolTip="{Binding PlayerCell.SkinData.VandalName, ElementName=Self}"
+						RenderOptions.BitmapScalingMode="HighQuality"
 						ToolTipService.InitialShowDelay="0">
 						<Image.Effect>
 							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
@@ -150,6 +177,7 @@
 					</Image>
 					<Image Source="{Binding PlayerCell.SkinData.PhantomImage, ElementName=Self}"
 					       ToolTip="{Binding PlayerCell.SkinData.PhantomName, ElementName=Self}"
+					       RenderOptions.BitmapScalingMode="HighQuality"
 					       ToolTipService.InitialShowDelay="0">
 						<Image.Effect>
 							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
@@ -165,7 +193,7 @@
 				<Image
 					Source="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankImage, ElementName=Self}"
 					ToolTip="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankName, ElementName=Self}"
-					ToolTipService.InitialShowDelay="0">
+					ToolTipService.InitialShowDelay="0" RenderOptions.BitmapScalingMode="HighQuality" >
 					<Image.Effect>
 						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 					</Image.Effect>
@@ -174,7 +202,7 @@
 
 					Source="{Binding PlayerCell.RankData.PreviouspreviousrankImage, ElementName=Self}"
 					ToolTip="{Binding PlayerCell.RankData.PreviouspreviousrankName, ElementName=Self}"
-					ToolTipService.InitialShowDelay="0">
+					ToolTipService.InitialShowDelay="0" RenderOptions.BitmapScalingMode="HighQuality">
 					<Image.Effect>
 						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 					</Image.Effect>
@@ -182,7 +210,7 @@
 				<Image
 					Source="{Binding PlayerCell.RankData.PreviousrankImage, ElementName=Self}"
 					ToolTip="{Binding PlayerCell.RankData.PreviousrankName, ElementName=Self}"
-					ToolTipService.InitialShowDelay="0">
+					ToolTipService.InitialShowDelay="0" RenderOptions.BitmapScalingMode="HighQuality">
 					<Image.Effect>
 						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 					</Image.Effect>

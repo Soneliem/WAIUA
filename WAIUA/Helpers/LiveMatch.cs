@@ -24,7 +24,7 @@ public class Match
     public MatchDetails MatchInfo { get; } = new();
     private static Guid Matchid { get; set; }
     private static string Stage { get; set; }
-    private static Guid GameModeId { get; set; }
+    public string QueueId { get; set; }
 
     private static async Task<bool> CheckAndSetLiveMatchIdAsync()
     {
@@ -124,17 +124,17 @@ public class Match
         {
             case "core":
             {
-                var MatchIDInfo = await GetLiveMatchDetailsAsync().ConfigureAwait(false);
+                var matchIdInfo = await GetLiveMatchDetailsAsync().ConfigureAwait(false);
                 updateProgress(10);
 
-                if (MatchIDInfo != null)
+                if (matchIdInfo != null)
                 {
                     Task sTask = Task.Run(async () => seasonData = await GetSeasonsAsync().ConfigureAwait(false));
                     Task pTask = Task.Run(async () => presencesResponse = await GetPresencesAsync().ConfigureAwait(false));
                     await Task.WhenAll(sTask, pTask).ConfigureAwait(false);
                     sbyte index = 0;
 
-                    foreach (var riotPlayer in MatchIDInfo.Players)
+                    foreach (var riotPlayer in matchIdInfo.Players)
                     {
                         if (!riotPlayer.IsCoach)
                         {
@@ -168,10 +168,10 @@ public class Match
                         index++;
                     }
 
-                    var gamePod = MatchIDInfo.GamePodId;
-                    if (Constants.GamePodsDictionary.TryGetValue(gamePod, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
+                    var gamePodId = matchIdInfo.GamePodId;
+                    if (Constants.GamePodsDictionary.TryGetValue(gamePodId, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
 
-                    if (MatchInfo.GameMode == "Deathmatch")
+                    if (QueueId == "deathmatch")
                     {
                         var mid = playerTasks.Count / 2;
                         playerList.AddRange(await Task.WhenAll(playerTasks.Take(mid)).ConfigureAwait(false));
@@ -188,17 +188,17 @@ public class Match
             }
             case "pre":
             {
-                var MatchIDInfo = await GetPreMatchDetailsAsync().ConfigureAwait(false);
+                var matchIdInfo = await GetPreMatchDetailsAsync().ConfigureAwait(false);
                 updateProgress(10);
 
-                if (MatchIDInfo != null)
+                if (matchIdInfo != null)
                 {
                     Task sTask = Task.Run(async () => seasonData = await GetSeasonsAsync().ConfigureAwait(false));
                     Task pTask = Task.Run(async () => presencesResponse = await GetPresencesAsync().ConfigureAwait(false));
                     await Task.WhenAll(sTask, pTask).ConfigureAwait(false);
                     sbyte index = 0;
 
-                    foreach (var riotPlayer in MatchIDInfo.AllyTeam.Players)
+                    foreach (var riotPlayer in matchIdInfo.AllyTeam.Players)
                     {
                         async Task<Player> GetPlayerInfo()
                         {
@@ -229,20 +229,10 @@ public class Match
                         index++;
                     }
 
-                    var gamePod = MatchIDInfo.GamePodId;
-                    if (Constants.GamePodsDictionary.TryGetValue(gamePod, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
+                    var gamePodId = matchIdInfo.GamePodId;
+                    if (Constants.GamePodsDictionary.TryGetValue(gamePodId, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
 
-                    if (MatchInfo.GameMode == "Deathmatch")
-                    {
-                        var mid = playerTasks.Count / 2;
-                        playerList.AddRange(await Task.WhenAll(playerTasks.Take(mid)).ConfigureAwait(false));
-                        await Task.Delay(1000).ConfigureAwait(false);
-                        playerList.AddRange(await Task.WhenAll(playerTasks.Skip(mid)).ConfigureAwait(false));
-                    }
-                    else
-                    {
-                        playerList.AddRange(await Task.WhenAll(playerTasks).ConfigureAwait(false));
-                    }
+                    playerList.AddRange(await Task.WhenAll(playerTasks).ConfigureAwait(false));
                 }
 
                 break;
@@ -419,7 +409,13 @@ public class Match
 
     private static async Task<MatchHistoryData> GetCompHistoryAsync(Guid puuid)
     {
-        MatchHistoryData history = new();
+        MatchHistoryData history = new()
+        {
+            PreviousGameColour = "#7f7f7f",
+            PreviouspreviousGameColour = "#7f7f7f",
+            PreviouspreviouspreviousGameColour =  "#7f7f7f"
+        };
+        
         try
         {
             if (puuid != Guid.Empty)
@@ -515,8 +511,8 @@ public class Match
             try
             {
                 content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.CurrentSeason.ToString(), out var currentActJsonElement);
-                var CurrentAct = currentActJsonElement.Deserialize<ActInfo>();
-                rank = CurrentAct.CompetitiveTier;
+                var currentAct = currentActJsonElement.Deserialize<ActInfo>();
+                rank = currentAct.CompetitiveTier;
                 if (rank is 1 or 2) rank = 0;
             }
             catch (Exception)
@@ -765,6 +761,7 @@ public class Match
 
                             var gameModeName = "";
                             var gameModeId = Guid.Parse("96bd3920-4f36-d026-2b28-c683eb0bcac5");
+                            QueueId = content?.QueueId;                            
                             switch (content?.QueueId)
                             {
                                 case "competitive":

@@ -15,7 +15,6 @@ public partial class HomeViewModel : ObservableObject
     public delegate void EventAction();
 
     private static readonly Uri Question = new("pack://application:,,,/Assets/question.png");
-    private static readonly Uri Refresh = new("pack://application:,,,/Assets/refresh.png");
     private static readonly Uri Check = new("pack://application:,,,/Assets/check.png");
     private static readonly Uri Cross = new("pack://application:,,,/Assets/cross.png");
     
@@ -88,17 +87,14 @@ public partial class HomeViewModel : ObservableObject
     private async Task UpdateChecksAsync()
     {
         Overlay.IsBusy = true;
-        GameStatus = Refresh;
         AccountStatus = Question;
         MatchStatus = Question;
         if (await CheckLocalAsync().ConfigureAwait(false))
         {
             GameStatus = Check;
-            AccountStatus = Refresh;
             if (await CheckLoginAsync().ConfigureAwait(false))
             {
                 AccountStatus = Check;
-                MatchStatus = Refresh;
                 if (await CheckMatchAsync().ConfigureAwait(false))
                 {
                     MatchStatus = Check;
@@ -118,7 +114,6 @@ public partial class HomeViewModel : ObservableObject
                 if (await CheckLoginAsync().ConfigureAwait(false))
                 {
                     AccountStatus = Check;
-                    MatchStatus = Refresh;
                     if (await CheckMatchAsync().ConfigureAwait(false))
                     {
                         MatchStatus = Check;

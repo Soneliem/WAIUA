@@ -18,33 +18,21 @@ public static class Login
 { 
     public static async Task<bool> CheckLoginAsync()
     {
-        // var client = new RestClient(new RestClientOptions("https://auth.riotgames.com/userinfo")
-        // { RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true});
-        //
-        // var request = new RestRequest() {}
-        //     .AddHeader("Authorization", $"Bearer {Constants.AccessToken}")
-        // //.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
-        //     .AddHeader("X-Riot-ClientVersion", Constants.Version);
-        // var response = await client.ExecutePostAsync<UserInfoResponse>(request).ConfigureAwait(false);
-        // if (!response.IsSuccessful)
-        // {
-        //     if (Constants.AccessToken is null)
-        //     {
-        //         var isToken = false;
-        //         Constants.Log.Error("CheckLoginAsync() failed. Response(Accesstoken {isToken}): {Response}", isToken, response.ErrorException);
-        //     }
-        //
-        //     Constants.Log.Error("CheckLoginAsync() failed. Response: {Response}", response.ErrorException);
-        //     return false;
-        // }
-
-        // TODO:  Actually check if the user is logged in.
-
-        if (Constants.Ppuuid == Guid.Empty)
+        if (Constants.Region == null || Constants.Ppuuid == Guid.Empty)
         {
             return false;
         }
-        return true;
+        var client = new RestClient($"https://pd.{Constants.Region}.a.pvp.net/account-xp/v1/players/{Constants.Ppuuid}");
+
+        var request = new RestRequest() {}
+            .AddHeader("Authorization", $"Bearer {Constants.AccessToken}")
+            .AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
+        //.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
+            // .AddHeader("X-Riot-ClientVersion", Constants.Version);
+        var response = await client.ExecuteGetAsync<XpResponse>(request).ConfigureAwait(false);
+        if (response.IsSuccessful) return true;
+        Constants.Log.Error("CheckLoginAsync() failed. Response: {Response}", response.ErrorException);
+        return false;
     }
 
     public static async Task<bool> CheckLocalAsync()

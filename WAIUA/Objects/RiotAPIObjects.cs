@@ -5,23 +5,67 @@ using System.Text.Json.Serialization;
 
 namespace WAIUA.Objects;
 
-public class UserInfoResponse
+public class XpResponse
 {
-    [JsonPropertyName("country")] public string Country { get; set; }
-    [JsonPropertyName("sub")] public Guid Sub { get; set; }
-    [JsonPropertyName("email_verified")] public bool Email_verified { get; set; }
-    [JsonPropertyName("player_plocale")] public string Player_plocale { get; set; }
-    [JsonPropertyName("country_at")] public long? Country_at { get; set; }
+    [JsonPropertyName("Version")]
+    public long Version { get; set; }
 
-    [JsonPropertyName("phone_number_verified")]
-    public bool Phone_number_verified { get; set; }
+    [JsonPropertyName("Subject")]
+    public Guid Subject { get; set; }
 
-    [JsonPropertyName("account_verified")] public bool Account_verified { get; set; }
-    [JsonPropertyName("ppid")] public Guid? Ppid { get; set; }
-    [JsonPropertyName("player_locale")] public string Player_locale { get; set; }
-    [JsonPropertyName("age")] public int Age { get; set; }
-    [JsonPropertyName("jti")] public string Jti { get; set; }
-    [JsonExtensionData] public Dictionary<string, JsonElement>? ExtensionData { get; set; }
+    [JsonPropertyName("Progress")]
+    public Progress Progress { get; set; }
+
+    [JsonPropertyName("History")]
+    public History[] History { get; set; }
+
+    [JsonPropertyName("LastTimeGrantedFirstWin")]
+    public string LastTimeGrantedFirstWin { get; set; }
+
+    [JsonPropertyName("NextTimeFirstWinAvailable")]
+    public string NextTimeFirstWinAvailable { get; set; }
+}
+
+public class History
+{
+    [JsonPropertyName("ID")]
+    public Guid Id { get; set; }
+
+    [JsonPropertyName("MatchStart")]
+    public string MatchStart { get; set; }
+
+    [JsonPropertyName("StartProgress")]
+    public Progress StartProgress { get; set; }
+
+    [JsonPropertyName("EndProgress")]
+    public Progress EndProgress { get; set; }
+
+    [JsonPropertyName("XPDelta")]
+    public long XpDelta { get; set; }
+
+    [JsonPropertyName("XPSources")]
+    public XpSource[] XpSources { get; set; }
+
+    [JsonPropertyName("XPMultipliers")]
+    public object[] XpMultipliers { get; set; }
+}
+
+public class Progress
+{
+    [JsonPropertyName("Level")]
+    public long Level { get; set; }
+
+    [JsonPropertyName("XP")]
+    public long Xp { get; set; }
+}
+
+public class XpSource
+{
+    [JsonPropertyName("ID")]
+    public string Id { get; set; }
+
+    [JsonPropertyName("Amount")]
+    public long Amount { get; set; }
 }
 
 public class EntitlementsResponse

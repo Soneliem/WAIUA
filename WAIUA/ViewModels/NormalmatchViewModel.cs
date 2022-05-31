@@ -47,8 +47,7 @@ public partial class NormalmatchViewModel : ObservableObject
                 Overlay.Content = "Getting Player Details";
                 AllPlayers = await newMatch.LiveMatchOutputAsync(UpdatePercentage).ConfigureAwait(false);
 
-                // TODO: Change to UUID
-                if (newMatch.MatchInfo.GameMode == "Deathmatch")
+                if (newMatch.QueueId == "deathmatch")
                 {
                     var mid = AllPlayers.Count / 2;
                     LeftPlayerList = AllPlayers.Take(mid).ToList();
