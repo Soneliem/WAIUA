@@ -177,6 +177,7 @@ public class Match
                         {
                             var mid = playerTasks.Count / 2;
                             playerList.AddRange(await Task.WhenAll(playerTasks.Take(mid)).ConfigureAwait(false));
+                            updateProgress(40);                            
                             await Task.Delay(1000).ConfigureAwait(false);
                             playerList.AddRange(await Task.WhenAll(playerTasks.Skip(mid)).ConfigureAwait(false));
                             break;
@@ -185,7 +186,8 @@ public class Match
                         {
                             var mid = playerTasks.Count / 2;
                             playerList.AddRange(await Task.WhenAll(playerTasks.Take(mid)).ConfigureAwait(false));
-                            await Task.Delay(500).ConfigureAwait(false);
+                            updateProgress(40);
+                            await Task.Delay(400).ConfigureAwait(false);
                             playerList.AddRange(await Task.WhenAll(playerTasks.Skip(mid)).ConfigureAwait(false));
                             break;
                         }
