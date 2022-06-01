@@ -234,4 +234,13 @@
   <data name="Player" xml:space="preserve">
 	  <value>Player</value>
   </data>
+  <data name="StartTrainer" xml:space="preserve">
+	  <value>Start Aim Trainer</value>
+  </data>
+  <data name="HighScore" xml:space="preserve">
+	  <value>High Score:</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+	  <value>Score:</value>
+  </data>
 </root>

@@ -171,16 +171,27 @@ public class Match
                     var gamePodId = matchIdInfo.GamePodId;
                     if (Constants.GamePodsDictionary.TryGetValue(gamePodId, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
 
-                    if (QueueId == "deathmatch")
+                    switch (playerTasks.Count)
                     {
-                        var mid = playerTasks.Count / 2;
-                        playerList.AddRange(await Task.WhenAll(playerTasks.Take(mid)).ConfigureAwait(false));
-                        await Task.Delay(1000).ConfigureAwait(false);
-                        playerList.AddRange(await Task.WhenAll(playerTasks.Skip(mid)).ConfigureAwait(false));
-                    }
-                    else
-                    {
-                        playerList.AddRange(await Task.WhenAll(playerTasks).ConfigureAwait(false));
+                        case > 10:
+                        {
+                            var mid = playerTasks.Count / 2;
+                            playerList.AddRange(await Task.WhenAll(playerTasks.Take(mid)).ConfigureAwait(false));
+                            await Task.Delay(1000).ConfigureAwait(false);
+                            playerList.AddRange(await Task.WhenAll(playerTasks.Skip(mid)).ConfigureAwait(false));
+                            break;
+                        }
+                        case >= 8:
+                        {
+                            var mid = playerTasks.Count / 2;
+                            playerList.AddRange(await Task.WhenAll(playerTasks.Take(mid)).ConfigureAwait(false));
+                            await Task.Delay(500).ConfigureAwait(false);
+                            playerList.AddRange(await Task.WhenAll(playerTasks.Skip(mid)).ConfigureAwait(false));
+                            break;
+                        }
+                        default:
+                            playerList.AddRange(await Task.WhenAll(playerTasks).ConfigureAwait(false));
+                            break;
                     }
                 }
 

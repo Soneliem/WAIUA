@@ -83,156 +83,216 @@
 		<TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" FontSize="30" VerticalAlignment="Center"
 		           FontFamily="{StaticResource Nunito}"
 		           Foreground="White" Text="Under Construction" />
-		
-			<ItemsControl Grid.Row="1" Grid.Column="0" Margin="0,15,0,0"
-			              ItemsSource="{Binding PlayerList}">
-				<ItemsControl.ItemsPanel>
-					<ItemsPanelTemplate>
-						<UniformGrid Columns="1" Margin="5"/>
-					</ItemsPanelTemplate>
-				</ItemsControl.ItemsPanel>
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<c:PlayerControl MaxHeight="150"
-						                        Margin="0 5"
-						                        PlayerCell="{Binding}" />
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-			</ItemsControl>
+
+		<ItemsControl Grid.Row="1" Grid.Column="0" Margin="0,15,0,0"
+		              ItemsSource="{Binding PlayerList}">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<UniformGrid Columns="1" Margin="5" />
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<c:PlayerControl MaxHeight="150"
+					                 Margin="0 5"
+					                 PlayerCell="{Binding}" />
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
 
 
-		<Grid Grid.Row="1" Grid.Column="1">
+		<Grid Grid.Row="1" Grid.Column="1" x:Name="Grid">
 
-			<Grid Grid.Row="0"
-			      Margin="5 15 0 0">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*" />
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
-
-				<StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
-				            Orientation="Horizontal">
-					<Border Background="#252A40" Margin="20" Width="Auto"
-					        CornerRadius="20">
-						<Border.Effect>
-							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
-						</Border.Effect>
-						<Grid>
-							<Grid.RowDefinitions>
-								<RowDefinition />
-								<RowDefinition />
-								<RowDefinition />
-							</Grid.RowDefinitions>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition />
-								<ColumnDefinition />
-							</Grid.ColumnDefinitions>
-							<TextBlock Margin="25"
-							           FontSize="20"
-							           HorizontalAlignment="Center"
-							           FontFamily="{StaticResource Nunito}"
-							           VerticalAlignment="Center"
-							           FontWeight="Normal"
-							           Foreground="White"
-							           Text="{x:Static p:Resources.Valorant}" />
-							<Image Margin="25" Width="30" Grid.Row="0" Grid.Column="1" Source="{Binding GameStatus}" />
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
 
 
-							<TextBlock Margin="25" Grid.Row="1" Grid.Column="0"
-							           FontSize="20"
-							           HorizontalAlignment="Center"
-							           VerticalAlignment="Center"
-							           FontFamily="{StaticResource Nunito}"
-							           FontWeight="Normal"
-							           Foreground="White"
-							           Text="{x:Static p:Resources.Account}" />
-							<Image Margin="25" Width="30" Grid.Row="1" Grid.Column="1" Source="{Binding AccountStatus}" />
-
-							<TextBlock Margin="25" Grid.Row="2" Grid.Column="0"
-							           FontSize="20"
-							           HorizontalAlignment="Center"
-							           VerticalAlignment="Center"
-							           FontFamily="{StaticResource Nunito}"
-							           FontWeight="Normal"
-							           Foreground="White"
-							           Text="{x:Static p:Resources.Match}" />
-							<Image Margin="25" Width="30" Grid.Row="2" Grid.Column="1" Source="{Binding MatchStatus}" />
-						</Grid>
-					</Border>
-
-					<Border Background="#252A40" Margin="20" Width="Auto" Height="Auto" VerticalAlignment="Center"
-					        CornerRadius="20">
-						<Border.Effect>
-							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
-						</Border.Effect>
-						<Grid>
-							<Grid.RowDefinitions>
-								<!-- <RowDefinition Height="Auto" /> -->
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition />
-								<ColumnDefinition />
-							</Grid.ColumnDefinitions>
-							<!-- <TextBlock Margin="25" -->
-							<!--            FontSize="20" -->
-							<!--            HorizontalAlignment="Center" -->
-							<!--            VerticalAlignment="Center" -->
-							<!--            FontFamily="{StaticResource Nunito}" -->
-							<!--            FontWeight="Normal" -->
-							<!--            Foreground="White" -->
-							<!--            Text="{x:Static p:Resources.QueueTime}" /> -->
-							<TextBlock Margin="25"
-							           FontSize="20" Grid.Row="0" Grid.Column="1"
-							           HorizontalAlignment="Center"
-							           FontFamily="{StaticResource Nunito}"
-							           VerticalAlignment="Center"
-							           FontWeight="Normal"
-							           Foreground="#007EF9"
-							           Text="{Binding QueueTime}" />
-
-							<TextBlock Margin="25" Grid.Row="1" Grid.Column="0"
-							           FontSize="20"
-							           HorizontalAlignment="Center"
-							           VerticalAlignment="Center"
-							           FontWeight="Normal"
-							           Foreground="White"
-							           FontFamily="{StaticResource Nunito}"
-							           Text="{x:Static p:Resources.RefreshingIn}" />
-							<TextBlock Margin="25" Grid.Row="1"
-							           FontSize="20" Grid.Column="1"
-							           HorizontalAlignment="Center"
-							           FontFamily="{StaticResource Nunito}"
-							           VerticalAlignment="Center"
-							           FontWeight="Normal"
-							           Foreground="#007EF9"
-							           Text="{Binding RefreshTime}" />
+			<StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
+			            Orientation="Horizontal">
+				<Border Background="#252A40" Margin="20" Width="Auto"
+				        CornerRadius="20">
+					<Border.Effect>
+						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+					</Border.Effect>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition />
+							<RowDefinition />
+							<RowDefinition />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<TextBlock Margin="25"
+						           FontSize="20"
+						           HorizontalAlignment="Center"
+						           FontFamily="{StaticResource Nunito}"
+						           VerticalAlignment="Center"
+						           FontWeight="Normal"
+						           Foreground="White"
+						           Text="{x:Static p:Resources.Valorant}" />
+						<Image Margin="25" Width="30" Grid.Row="0" Grid.Column="1" Source="{Binding GameStatus}" />
 
 
-						</Grid>
-					</Border>
-				</StackPanel>
+						<TextBlock Margin="25" Grid.Row="1" Grid.Column="0"
+						           FontSize="20"
+						           HorizontalAlignment="Center"
+						           VerticalAlignment="Center"
+						           FontFamily="{StaticResource Nunito}"
+						           FontWeight="Normal"
+						           Foreground="White"
+						           Text="{x:Static p:Resources.Account}" />
+						<Image Margin="25" Width="30" Grid.Row="1" Grid.Column="1" Source="{Binding AccountStatus}" />
 
-				<Button Grid.Row="1" Cursor="Hand" Height="90"
-				        HorizontalAlignment="Center"
+						<TextBlock Margin="25" Grid.Row="2" Grid.Column="0"
+						           FontSize="20"
+						           HorizontalAlignment="Center"
+						           VerticalAlignment="Center"
+						           FontFamily="{StaticResource Nunito}"
+						           FontWeight="Normal"
+						           Foreground="White"
+						           Text="{x:Static p:Resources.Match}" />
+						<Image Margin="25" Width="30" Grid.Row="2" Grid.Column="1" Source="{Binding MatchStatus}" />
+					</Grid>
+				</Border>
 
-				        Command="{Binding LoadNowCommand}"
-				        Template="{StaticResource ButtonTemplate}">
-					<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-						<TextBlock
-							Padding="5"
-							VerticalAlignment="Center"
-							FontWeight="Normal"
-							Foreground="#007EF9"
-							FontSize="24"
-							FontFamily="{StaticResource Nunito}"
-							Text="{x:Static p:Resources.Refresh}" />
-						<Image Margin="15" Source="/Assets/refresh.png" />
+				<Border Background="#252A40" Margin="20" Width="Auto" Height="Auto" VerticalAlignment="Center"
+				        CornerRadius="20">
+					<Border.Effect>
+						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+					</Border.Effect>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<!-- <TextBlock Margin="25" -->
+						<!--            FontSize="20" -->
+						<!--            HorizontalAlignment="Center" -->
+						<!--            VerticalAlignment="Center" -->
+						<!--            FontFamily="{StaticResource Nunito}" -->
+						<!--            FontWeight="Normal" -->
+						<!--            Foreground="White" -->
+						<!--            Text="{x:Static p:Resources.QueueTime}" /> -->
+						<!-- <TextBlock Margin="25" -->
+						<!--            FontSize="20" Grid.Row="0" Grid.Column="1" -->
+						<!--            HorizontalAlignment="Center" -->
+						<!--            FontFamily="{StaticResource Nunito}" -->
+						<!--            VerticalAlignment="Center" -->
+						<!--            FontWeight="Normal" -->
+						<!--            Foreground="#007EF9" -->
+						<!--            Text="{Binding QueueTime}" /> -->
+						<TextBlock Margin="25" Grid.Column="0"
+						           FontSize="20" Grid.Row="0"
+						           HorizontalAlignment="Center"
+						           VerticalAlignment="Center"
+						           FontWeight="SemiBold"
+						           Foreground="White"
+						           FontFamily="{StaticResource Nunito}"
+						           Text="{x:Static p:Resources.Refresh}" />
+						<Button
+							Grid.Row="0" Grid.Column="1" Cursor="Hand" Width="60" Margin="10"
+							HorizontalAlignment="Left" VerticalAlignment="Center"
+							Template="{StaticResource ButtonTemplate}"
+							Command="{Binding LoadNowCommand}">
+							<Image Margin="10" Source="/Assets/refresh.png" />
+						</Button>	
+						
+						<TextBlock Margin="25" Grid.Row="1" Grid.Column="0"
+						           FontSize="20"
+						           HorizontalAlignment="Center"
+						           VerticalAlignment="Center"
+						           FontWeight="Normal"
+						           Foreground="White"
+						           FontFamily="{StaticResource Nunito}"
+						           Text="{x:Static p:Resources.RefreshingIn}" />
+						<TextBlock Margin="25" Grid.Row="1"
+						           FontSize="20" Grid.Column="1"
+						           HorizontalAlignment="Center"
+						           FontFamily="{StaticResource Nunito}"
+						           VerticalAlignment="Center"
+						           FontWeight="Normal"
+						           Foreground="#007EF9"
+						           Text="{Binding RefreshTime}" />
+					</Grid>
+				</Border>
+			</StackPanel>
+
+			<Border x:Name="TrainerWindow" Grid.Row="1" CornerRadius="20" Background="#252A40" Visibility="Collapsed">
+				<Canvas Name="MyCanvas" MouseLeftButtonDown="ClickOnCanvas">
+					<StackPanel Orientation="Horizontal" Margin="10">
+						<Label  FontSize="20" FontFamily="{StaticResource Nunito}" 
+						       FontWeight="SemiBold" Content="{x:Static p:Resources.Score}" Foreground="White"/>
+						<Label Name="txtScore" DataContext="Home" FontSize="20" FontFamily="{StaticResource Nunito}" Margin="0,0,10,0"
+						       FontWeight="SemiBold" Content="0" Foreground="White"/>						
+						
+						<Label FontSize="20" FontWeight="Normal"
+						       FontFamily="{StaticResource Nunito}" Foreground="White" Content="{x:Static p:Resources.HighScore}" />
+						<Label Name="txtLastScore" FontSize="20" FontWeight="Normal"
+						       FontFamily="{StaticResource Nunito}" Foreground="White" Content="{Binding Source={x:Static p:Settings.Default}, Path=AimScore}" />
 					</StackPanel>
-				</Button>
 
-			</Grid>
-			
+					<Rectangle Name="healthBar" Width="350" Fill="#ff4654" 
+					           Height="25" Canvas.Right="10" Canvas.Top="10" RadiusX="10" RadiusY="10"/>
+				</Canvas>
+			</Border>
+
+			<Border x:Name="TrainerDialog" Grid.Row="1" CornerRadius="20" Background="#252A40" Visibility="Visible"
+			        Width="Auto" Height="Auto" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+				<Border.Effect>
+					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+				</Border.Effect>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<TextBlock Margin="25" Grid.Column="0"
+					           FontSize="20"
+					           HorizontalAlignment="Center"
+					           VerticalAlignment="Center"
+					           FontWeight="SemiBold"
+					           Foreground="White"
+					           FontFamily="{StaticResource Nunito}"
+					           Text="{x:Static p:Resources.StartTrainer}" />
+					<Button
+						Grid.Row="0" Grid.Column="1" Cursor="Hand" Width="60" Margin="10"
+						HorizontalAlignment="Left" VerticalAlignment="Center"
+						Template="{StaticResource ButtonTemplate}"
+						Click="StartAimTrainerButton">
+
+						<Image Margin="10" Source="/Assets/settings.png" />
+					</Button>
+					<TextBlock Margin="25" Grid.Column="0" Grid.Row="1"
+					           FontSize="20"
+					           HorizontalAlignment="Center"
+					           VerticalAlignment="Center"
+					           FontWeight="Normal"
+					           Foreground="White"
+					           FontFamily="{StaticResource Nunito}"
+					           Text="{x:Static p:Resources.HighScore}" />
+					<TextBlock Margin="25" Grid.Column="1" Grid.Row="1"
+					           FontSize="20"
+					           HorizontalAlignment="Center"
+					           VerticalAlignment="Center"
+					           FontWeight="Normal"
+					           Foreground="White"
+					           FontFamily="{StaticResource Nunito}"
+					           Text="{Binding Source={x:Static p:Settings.Default}, Path=AimScore}" />
+				</Grid>
+			</Border>
+
 
 		</Grid>
 		<c:OverlayControl Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"

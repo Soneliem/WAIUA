@@ -187,6 +187,15 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to High Score:.
+        /// </summary>
+        public static string HighScore {
+            get {
+                return ResourceManager.GetString("HighScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
@@ -322,6 +331,15 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Score:.
+        /// </summary>
+        public static string Score {
+            get {
+                return ResourceManager.GetString("Score", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Language.
         /// </summary>
         public static string SelLanguageTitle {
@@ -363,6 +381,15 @@ namespace WAIUA.Properties {
         public static string SponsorsTitle {
             get {
                 return ResourceManager.GetString("SponsorsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Aim Trainer.
+        /// </summary>
+        public static string StartTrainer {
+            get {
+                return ResourceManager.GetString("StartTrainer", resourceCulture);
             }
         }
         

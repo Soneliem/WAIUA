@@ -27,9 +27,7 @@ public static class Login
         var request = new RestRequest() {}
             .AddHeader("Authorization", $"Bearer {Constants.AccessToken}")
             .AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
-        //.AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
-            // .AddHeader("X-Riot-ClientVersion", Constants.Version);
-        var response = await client.ExecuteGetAsync<XpResponse>(request).ConfigureAwait(false);
+        var response = await client.ExecuteGetAsync(request).ConfigureAwait(false);
         if (response.IsSuccessful) return true;
         Constants.Log.Error("CheckLoginAsync() failed. Response: {Response}", response.ErrorException);
         return false;
@@ -71,8 +69,6 @@ public static class Login
         var client = new RestClient(options);
         var request = new RestRequest()
             .AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{Constants.LPassword}"))}");
-        // .AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
-        // .AddHeader("X-Riot-ClientVersion", Constants.Version);
         var response = await client.ExecuteGetAsync<EntitlementsResponse>(request).ConfigureAwait(false);
         if (!response.IsSuccessful)
         {
@@ -97,7 +93,6 @@ public static class Login
         var request = new RestRequest().AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{Constants.LPassword}"))}")
             .AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
             .AddHeader("X-Riot-ClientVersion", Constants.Version);
-        // client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
         var response = await client.ExecuteGetAsync<ExternalSessionsResponse>(request).ConfigureAwait(false);
         if (!response.IsSuccessful || response.Content == "{}")
         {
