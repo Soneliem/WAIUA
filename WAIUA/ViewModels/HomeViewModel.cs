@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows.Threading;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using FontAwesome6;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 using WAIUA.Helpers;
 using WAIUA.Objects;
+using WAIUA.Views;
 using static WAIUA.Helpers.Login;
 
 namespace WAIUA.ViewModels;
@@ -17,17 +20,14 @@ public partial class HomeViewModel : ObservableObject
     private static readonly Uri Question = new("pack://application:,,,/Assets/question.png");
     private static readonly Uri Check = new("pack://application:,,,/Assets/check.png");
     private static readonly Uri Cross = new("pack://application:,,,/Assets/cross.png");
-    
-    [ObservableProperty] private Uri _accountStatus = Question;
+    [ObservableProperty] private int _countdownTime = 15;
     [ObservableProperty] private DispatcherTimer _countTimer;
-    [ObservableProperty] private Uri _gameStatus = Question;
-    [ObservableProperty] private Uri _matchStatus = Question;
     [ObservableProperty] private LoadingOverlay _overlay;
 
     [ObservableProperty] private List<Player> _playerList;
+
     // [ObservableProperty] private string _queueTime = "-";
     [ObservableProperty] private string _refreshTime = "-";
-    [ObservableProperty] private int _countdownTime = 15;
 
     public HomeViewModel()
     {
@@ -87,24 +87,30 @@ public partial class HomeViewModel : ObservableObject
     private async Task UpdateChecksAsync()
     {
         // Overlay.IsBusy = true;
-        AccountStatus = Question;
-        MatchStatus = Question;
+        Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Question;
+        Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(0, 126, 249));
+        Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Question;
+        Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(0, 126, 249));
         if (await CheckLocalAsync().ConfigureAwait(false))
         {
-            GameStatus = Check;
+            Home.ValorantStatus.Icon = EFontAwesomeIcon.Solid_Check;
+            Home.ValorantStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
             if (await CheckLoginAsync().ConfigureAwait(false))
             {
-                AccountStatus = Check;
+                Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Check;
+                Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
                 if (await CheckMatchAsync().ConfigureAwait(false))
                 {
-                    MatchStatus = Check;
+                    Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Check;
+                    Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
                     CountTimer?.Stop();
                     // Overlay.IsBusy = false;
                     GoMatchEvent?.Invoke();
                 }
                 else
                 {
-                    MatchStatus = Cross;
+                    Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
+                    Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
                 }
             }
             else
@@ -113,31 +119,39 @@ public partial class HomeViewModel : ObservableObject
                 await LocalRegionAsync().ConfigureAwait(false);
                 if (await CheckLoginAsync().ConfigureAwait(false))
                 {
-                    AccountStatus = Check;
+                    Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Check;
+                    Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
                     if (await CheckMatchAsync().ConfigureAwait(false))
                     {
-                        MatchStatus = Check;
+                        Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Check;
+                        Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
                         CountTimer?.Stop();
                         // Overlay.IsBusy = false;
                         GoMatchEvent?.Invoke();
                     }
                     else
                     {
-                        MatchStatus = Cross;
+                        Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
+                        Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
                     }
                 }
                 else
                 {
-                    AccountStatus = Cross;
-                    MatchStatus = Cross;
+                    Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
+                    Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
+                    Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
+                    Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
                 }
             }
         }
         else
         {
-            GameStatus = Cross;
-            AccountStatus = Cross;
-            MatchStatus = Cross;
+            Home.ValorantStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
+            Home.ValorantStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
+            Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
+            Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
+            Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
+            Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
         }
 
         // Overlay.IsBusy = false;

@@ -6,6 +6,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:p="clr-namespace:WAIUA.Properties"
 	xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
+	xmlns:fa="http://schemas.fontawesome.com/icons/fonts"
 	d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
 	d:DesignHeight="754"
 	d:DesignWidth="1536"
@@ -141,7 +142,7 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
-		
+
 		<Style TargetType="{x:Type ComboBoxItem}">
 			<Setter Property="SnapsToDevicePixels" Value="true" />
 			<Setter Property="Foreground" Value="White" />
@@ -203,7 +204,7 @@
 				<ColumnDefinition Width="60" />
 			</Grid.ColumnDefinitions>
 
-			<Image Grid.Column="0" Margin="13" Source="/Assets/settings.png" />
+			<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Gear" Margin="10" />
 
 			<Button
 				Grid.Column="1" Cursor="Hand"
@@ -230,7 +231,7 @@
 				Command="{Binding DataContext.NavigateInfoCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 				Template="{StaticResource ButtonTemplate}">
 
-				<Image Margin="10" Source="/Assets/info.png" />
+				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Info" Margin="10" />
 			</Button>
 		</Grid>
 

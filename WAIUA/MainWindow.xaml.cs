@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using CommunityToolkit.Mvvm.DependencyInjection;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using WAIUA.ViewModels;
 
 namespace WAIUA;
@@ -10,6 +10,6 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         DataContext = Ioc.Default.GetRequiredService<MainViewModel>();
-        ((App)Application.Current).WindowPlace.Register(this);
+        ((App) Application.Current).WindowPlace.Register(this);
     }
 }

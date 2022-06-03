@@ -94,7 +94,7 @@ public static class ValApi
         {
             Name = "Cards",
             Filepath = Constants.LocalAppDataPath + "\\ValAPI\\cards.txt",
-            Url = $"/playercards"
+            Url = "/playercards"
         };
         _ranksInfo = new Urls
         {
@@ -114,7 +114,7 @@ public static class ValApi
             Filepath = Constants.LocalAppDataPath + "\\ValAPI\\gamemode.txt",
             Url = "/gamemodes"
         };
-        _allInfo = new List<Urls> { _mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo,_cardsInfo, _gamemodeInfo };
+        _allInfo = new List<Urls> {_mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo, _cardsInfo, _gamemodeInfo};
         return Task.CompletedTask;
     }
 
@@ -280,7 +280,7 @@ public static class ValApi
                     Constants.Log.Error("updateRanksDictionary Failed, Response:{error}", ranksResponse.ErrorException);
                 }
             }
-            
+
             async Task UpdateGamemodeDictionary()
             {
                 var gamemodeRequest = new RestRequest(_gamemodeInfo.Url);
@@ -294,7 +294,7 @@ public static class ValApi
                     {
                         if (gamemode.DisplayIcon == null) continue;
                         gamemodeDictionary.TryAdd(gamemode.Uuid, gamemode.DisplayName);
-                        
+
                         var fileName = Constants.LocalAppDataPath + $"\\ValAPI\\gamemodeimg\\{gamemode.Uuid}.png";
                         var request = new RestRequest(gamemode.DisplayIcon);
                         var response = await MediaClient.DownloadDataAsync(request).ConfigureAwait(false);
@@ -302,6 +302,7 @@ public static class ValApi
                             await File.WriteAllBytesAsync(fileName, response)
                                 .ConfigureAwait(false);
                     }
+
                     await File.WriteAllTextAsync(_gamemodeInfo.Filepath, JsonSerializer.Serialize(gamemodeDictionary)).ConfigureAwait(false);
                 }
                 else

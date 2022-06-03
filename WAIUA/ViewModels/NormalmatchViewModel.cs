@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 using WAIUA.Helpers;
 using WAIUA.Objects;
 
@@ -12,10 +11,10 @@ namespace WAIUA.ViewModels;
 
 public partial class NormalmatchViewModel : ObservableObject
 {
+    [ObservableProperty] private List<Player> _leftPlayerList;
     [ObservableProperty] private MatchDetails _match;
     [ObservableProperty] private LoadingOverlay _overlay;
     [ObservableProperty] private List<Player> _rightPlayerList;
-    [ObservableProperty] private List<Player> _leftPlayerList;
 
     public NormalmatchViewModel()
     {
@@ -43,7 +42,7 @@ public partial class NormalmatchViewModel : ObservableObject
             Match newMatch = new();
             if (await Helpers.Match.LiveMatchChecksAsync(false).ConfigureAwait(false))
             {
-                List<Player> AllPlayers = new List<Player>();
+                var AllPlayers = new List<Player>();
                 Overlay.Content = "Getting Player Details";
                 AllPlayers = await newMatch.LiveMatchOutputAsync(UpdatePercentage).ConfigureAwait(false);
 
@@ -57,8 +56,7 @@ public partial class NormalmatchViewModel : ObservableObject
                 {
                     LeftPlayerList.Clear();
                     RightPlayerList.Clear();
-                    foreach (Player player in AllPlayers)
-                    {
+                    foreach (var player in AllPlayers)
                         switch (player.TeamId)
                         {
                             case "Blue":
@@ -68,11 +66,11 @@ public partial class NormalmatchViewModel : ObservableObject
                                 RightPlayerList.Add(player);
                                 break;
                         }
-                    }
 
                     LeftPlayerList = LeftPlayerList.ToList();
                     RightPlayerList = RightPlayerList.ToList();
                 }
+
                 AllPlayers.Clear();
 
                 if (newMatch.MatchInfo != null)
@@ -89,6 +87,7 @@ public partial class NormalmatchViewModel : ObservableObject
         {
             Overlay.IsBusy = false;
         }
+
         GC.Collect();
     }
 

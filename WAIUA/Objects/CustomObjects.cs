@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace WAIUA.Objects;
 
@@ -98,8 +98,8 @@ public partial class Player
 {
     [ObservableProperty] private int _accountLevel;
     [ObservableProperty] private Visibility _active = Visibility.Collapsed;
-    [ObservableProperty] private IdentityData _identityData;
     [ObservableProperty] private string _backgroundColour;
+    [ObservableProperty] private IdentityData _identityData;
     [ObservableProperty] private IgnData _ignData;
     [ObservableProperty] private MatchHistoryData _matchHistoryData;
     [ObservableProperty] private string _partyColour;

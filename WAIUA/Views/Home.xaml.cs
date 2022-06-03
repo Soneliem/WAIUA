@@ -7,21 +7,25 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using FontAwesome6.Fonts;
 using WAIUA.ViewModels;
 
 namespace WAIUA.Views;
 
 public partial class Home : UserControl
 {
-    private int currentRate;
+    public static ImageAwesome ValorantStatus;
+    public static ImageAwesome AccountStatus;
+    public static ImageAwesome MatchStatus;
     private readonly DispatcherTimer gameTimer = new();
-    private int spawnRate = 60;
+    private readonly Random rand = new();
+    private readonly List<Ellipse> removeThis = new();
+    private int currentRate;
     private int health = 350;
-    private int posX; 
-    private int posY; 
-    private readonly Random rand = new(); 
-    private readonly List<Ellipse> removeThis = new(); 
+    private int posX;
+    private int posY;
     private int score;
+    private int spawnRate = 60;
 
 
     public Home()
@@ -31,6 +35,10 @@ public partial class Home : UserControl
 
         gameTimer.Tick += GameLoop;
         gameTimer.Interval = TimeSpan.FromMilliseconds(20);
+
+        ValorantStatus = ValorantStatusView;
+        AccountStatus = AccountStatusView;
+        MatchStatus = MatchStatusView;
     }
 
     private void DataContextChangedHandler(object sender, DependencyPropertyChangedEventArgs e)
@@ -52,13 +60,13 @@ public partial class Home : UserControl
         txtScore.Content = score;
         txtLastScore.Content = Properties.Settings.Default.AimScore;
         currentRate -= 2;
-        
+
         if (currentRate < 1)
         {
             currentRate = spawnRate;
 
-            posX = rand.Next(15, (int)MyCanvas.ActualWidth - 15);
-            posY = rand.Next(50, (int)MyCanvas.ActualHeight - 15);
+            posX = rand.Next(15, (int) MyCanvas.ActualWidth - 15);
+            posY = rand.Next(50, (int) MyCanvas.ActualHeight - 15);
 
             var circle = new Ellipse
             {
@@ -83,15 +91,15 @@ public partial class Home : UserControl
 
             removeThis.Add(x);
             health -= 15;
-        } 
-        
+        }
+
         if (health > 1)
             healthBar.Width = health;
         else
             GameOverFunction();
 
         foreach (var i in removeThis)
-            MyCanvas.Children.Remove(i); 
+            MyCanvas.Children.Remove(i);
 
         spawnRate = score switch
         {
@@ -114,7 +122,7 @@ public partial class Home : UserControl
 
     private void GameOverFunction()
     {
-        gameTimer.Stop(); 
+        gameTimer.Stop();
         foreach (var y in MyCanvas.Children.OfType<Ellipse>())
             removeThis.Add(y);
         foreach (var i in removeThis) MyCanvas.Children.Remove(i);
@@ -125,7 +133,7 @@ public partial class Home : UserControl
         currentRate = 5;
         health = 350;
         removeThis.Clear();
-        
+
         TrainerWindow.Visibility = Visibility.Collapsed;
         Grid.RowDefinitions[1].Height = GridLength.Auto;
         Grid.RowDefinitions[0].Height = new GridLength(0.5, GridUnitType.Star);

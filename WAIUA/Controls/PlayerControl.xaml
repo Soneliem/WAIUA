@@ -47,20 +47,20 @@
 			                 To="1" Duration="0:0:0.1" />
 			<DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
 			                 To="1" Duration="0:0:0.1" />
-		</Storyboard>		
+		</Storyboard>
 	</UserControl.Resources>
 
 	<Border
 		Visibility="{Binding PlayerCell.Active, ElementName=Self}"
 		Background="{Binding PlayerCell.PlayerUiData.BackgroundColour, ElementName=Self}"
-		BorderThickness="0"  RenderTransformOrigin="0.5,0.5" RenderOptions.BitmapScalingMode="NearestNeighbor"
+		BorderThickness="0" RenderTransformOrigin="0.5,0.5" RenderOptions.BitmapScalingMode="NearestNeighbor"
 		CornerRadius="20">
 		<Border.Effect>
 			<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 		</Border.Effect>
 		<Border.RenderTransform>
-			<ScaleTransform ScaleX="1" ScaleY="1"/>
-		</Border.RenderTransform>		
+			<ScaleTransform ScaleX="1" ScaleY="1" />
+		</Border.RenderTransform>
 		<Border.Triggers>
 			<EventTrigger RoutedEvent="Border.MouseEnter">
 				<BeginStoryboard Storyboard="{StaticResource expandStoryboard}" />
@@ -88,9 +88,9 @@
 				Margin="0,0,10,0"
 				CornerRadius="10">
 				<Border.Background>
-					
-					<ImageBrush ImageSource="{Binding PlayerCell.IdentityData.Image, ElementName=Self}"/>
-					
+
+					<ImageBrush ImageSource="{Binding PlayerCell.IdentityData.Image, ElementName=Self}" />
+
 				</Border.Background>
 				<Border.Effect>
 					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
@@ -193,7 +193,7 @@
 				<Image
 					Source="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankImage, ElementName=Self}"
 					ToolTip="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankName, ElementName=Self}"
-					ToolTipService.InitialShowDelay="0" RenderOptions.BitmapScalingMode="HighQuality" >
+					ToolTipService.InitialShowDelay="0" RenderOptions.BitmapScalingMode="HighQuality">
 					<Image.Effect>
 						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 					</Image.Effect>
@@ -221,7 +221,7 @@
 			<UniformGrid
 				Grid.Row="0"
 				Grid.Column="2"
-				VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Columns="3" Rows="1" >
+				VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Columns="3" Rows="1">
 				<Border CornerRadius="50" Margin="2"
 				        Background="{Binding PlayerCell.MatchHistoryData.PreviouspreviouspreviousGameColour, ElementName=Self}"
 				        BorderThickness="0">
@@ -230,7 +230,7 @@
 					           Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
 					<Border.Effect>
 						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
-					</Border.Effect>					
+					</Border.Effect>
 				</Border>
 				<Border CornerRadius="50" Margin="2"
 

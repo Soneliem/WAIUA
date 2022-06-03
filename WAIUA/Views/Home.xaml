@@ -8,6 +8,7 @@
 	xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
 	xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
 	xmlns:p="clr-namespace:WAIUA.Properties"
+	xmlns:fa="http://schemas.fontawesome.com/icons/fonts"
 	d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}"
 	d:DesignHeight="754"
 	d:DesignWidth="1536"
@@ -58,7 +59,7 @@
 				Command="{Binding DataContext.NavigateSettingsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 				Template="{StaticResource ButtonTemplate}">
 
-				<Image Margin="10" Source="/Assets/settings.png" />
+				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Gear" Margin="10" />
 			</Button>
 			<Button
 				Grid.Column="0" x:Name="GoMatch"
@@ -70,7 +71,7 @@
 				HorizontalAlignment="Right"
 				Command="{Binding DataContext.NavigateInfoCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 				Template="{StaticResource ButtonTemplate}">
-				<Image Margin="10" Source="/Assets/info.png" />
+				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Info" Margin="10" />
 			</Button>
 			<TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" FontSize="35" VerticalAlignment="Center"
 			           FontWeight="SemiBold" FontFamily="{StaticResource Nunito}"
@@ -134,8 +135,10 @@
 						           FontWeight="Normal"
 						           Foreground="White"
 						           Text="{x:Static p:Resources.Valorant}" />
-						<Image Margin="25" Width="30" Grid.Row="0" Grid.Column="1" Source="{Binding GameStatus}" />
-
+						<!-- <Image Margin="25" Width="30" Grid.Row="0" Grid.Column="1" Source="{Binding GameStatus}" /> -->
+						<fa:ImageAwesome Height="30" Width="30" x:Name="ValorantStatusView"
+						                 Grid.Row="0" Grid.Column="1" PrimaryColor="#ff4654"
+						                 Icon="Solid_Xmark" Margin="25" />
 
 						<TextBlock Margin="25" Grid.Row="1" Grid.Column="0"
 						           FontSize="20"
@@ -145,8 +148,10 @@
 						           FontWeight="Normal"
 						           Foreground="White"
 						           Text="{x:Static p:Resources.Account}" />
-						<Image Margin="25" Width="30" Grid.Row="1" Grid.Column="1" Source="{Binding AccountStatus}" />
-
+						<!-- <Image Margin="25" Width="30" Grid.Row="1" Grid.Column="1" Source="{Binding AccountStatus}" /> -->
+						<fa:ImageAwesome Height="30" Width="30" x:Name="AccountStatusView"
+						                 Grid.Row="1" Grid.Column="1" PrimaryColor="#ff4654"
+						                 Icon="Solid_Xmark" Margin="25" />
 						<TextBlock Margin="25" Grid.Row="2" Grid.Column="0"
 						           FontSize="20"
 						           HorizontalAlignment="Center"
@@ -155,7 +160,10 @@
 						           FontWeight="Normal"
 						           Foreground="White"
 						           Text="{x:Static p:Resources.Match}" />
-						<Image Margin="25" Width="30" Grid.Row="2" Grid.Column="1" Source="{Binding MatchStatus}" />
+						<!-- <Image Margin="25" Width="30" Grid.Row="2" Grid.Column="1" Source="{Binding MatchStatus}" /> -->
+						<fa:ImageAwesome Height="30" Width="30" x:Name="MatchStatusView"
+						                 Grid.Row="2" Grid.Column="1" PrimaryColor="#ff4654"
+						                 Icon="Solid_Xmark" Margin="25" />
 					</Grid>
 				</Border>
 
@@ -202,9 +210,9 @@
 							HorizontalAlignment="Left" VerticalAlignment="Center"
 							Template="{StaticResource ButtonTemplate}"
 							Command="{Binding LoadNowCommand}">
-							<Image Margin="10" Source="/Assets/refresh.png" />
-						</Button>	
-						
+							<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Rotate" Margin="10" />
+						</Button>
+
 						<TextBlock Margin="25" Grid.Row="1" Grid.Column="0"
 						           FontSize="20"
 						           HorizontalAlignment="Center"
@@ -228,19 +236,20 @@
 			<Border x:Name="TrainerWindow" Grid.Row="1" CornerRadius="20" Background="#252A40" Visibility="Collapsed">
 				<Canvas Name="MyCanvas" MouseLeftButtonDown="ClickOnCanvas">
 					<StackPanel Orientation="Horizontal" Margin="10">
-						<Label  FontSize="20" FontFamily="{StaticResource Nunito}" 
-						       FontWeight="SemiBold" Content="{x:Static p:Resources.Score}" Foreground="White"/>
+						<Label FontSize="20" FontFamily="{StaticResource Nunito}"
+						       FontWeight="SemiBold" Content="{x:Static p:Resources.Score}" Foreground="White" />
 						<Label Name="txtScore" DataContext="Home" FontSize="20" FontFamily="{StaticResource Nunito}" Margin="0,0,10,0"
-						       FontWeight="SemiBold" Content="0" Foreground="White"/>						
-						
+						       FontWeight="SemiBold" Content="0" Foreground="White" />
+
 						<Label FontSize="20" FontWeight="Normal"
 						       FontFamily="{StaticResource Nunito}" Foreground="White" Content="{x:Static p:Resources.HighScore}" />
 						<Label Name="txtLastScore" FontSize="20" FontWeight="Normal"
-						       FontFamily="{StaticResource Nunito}" Foreground="White" Content="{Binding Source={x:Static p:Settings.Default}, Path=AimScore}" />
+						       FontFamily="{StaticResource Nunito}" Foreground="White"
+						       Content="{Binding Source={x:Static p:Settings.Default}, Path=AimScore}" />
 					</StackPanel>
 
-					<Rectangle Name="healthBar" Width="350" Fill="#ff4654" 
-					           Height="25" Canvas.Right="10" Canvas.Top="10" RadiusX="10" RadiusY="10"/>
+					<Rectangle Name="healthBar" Width="350" Fill="#ff4654"
+					           Height="25" Canvas.Right="10" Canvas.Top="10" RadiusX="10" RadiusY="10" />
 				</Canvas>
 			</Border>
 
@@ -251,8 +260,8 @@
 				</Border.Effect>
 				<Grid>
 					<Grid.RowDefinitions>
-						<RowDefinition/>
-						<RowDefinition/>
+						<RowDefinition />
+						<RowDefinition />
 					</Grid.RowDefinitions>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />
@@ -271,8 +280,7 @@
 						HorizontalAlignment="Left" VerticalAlignment="Center"
 						Template="{StaticResource ButtonTemplate}"
 						Click="StartAimTrainerButton">
-
-						<Image Margin="10" Source="/Assets/settings.png" />
+						<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Crosshairs" Margin="10" />
 					</Button>
 					<TextBlock Margin="25" Grid.Column="0" Grid.Row="1"
 					           FontSize="20"

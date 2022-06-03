@@ -6,6 +6,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:p="clr-namespace:WAIUA.Properties"
 	xmlns:viewModels="clr-namespace:WAIUA.ViewModels"
+	xmlns:fa="http://schemas.fontawesome.com/icons/fonts"
 	d:DesignHeight="754"
 	d:DesignWidth="1536"
 	Background="#2E3349"
@@ -63,7 +64,7 @@
 				Command="{Binding DataContext.NavigateSettingsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 				Template="{StaticResource ButtonTemplate}">
 
-				<Image Margin="10" Source="/Assets/settings.png" />
+				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Gear" Margin="10" />
 			</Button>
 
 			<Button
@@ -87,7 +88,7 @@
 				</Viewbox>
 			</Button>
 
-			<Image Grid.Column="2" Margin="13" Source="/Assets/info.png" />
+			<fa:ImageAwesome Grid.Column="2" PrimaryColor="#007EF9" Icon="Solid_Info" Margin="10" />
 
 		</Grid>
 		<StackPanel
@@ -104,11 +105,13 @@
 			        RenderOptions.BitmapScalingMode="HighQuality"
 			        Click="ImageClickAsync"
 			        Tag="https://discord.gg/X7CYCeZSRK">
-				<Image Source="/Assets/discord.png" >
-					<Image.Effect>
-						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
-					</Image.Effect>
-				</Image>
+				<!-- <Image Source="/Assets/discord.png" > -->
+				<!-- 	<Image.Effect> -->
+				<!-- 		<DropShadowEffect BlurRadius="5" ShadowDepth="3" /> -->
+				<!-- 	</Image.Effect> -->
+				<!-- </Image> -->
+				<fa:ImageAwesome PrimaryColor="#7289DA"
+				                 Icon="Brands_Discord" Margin="10" />
 			</Button>
 			<TextBlock
 				FontSize="30"

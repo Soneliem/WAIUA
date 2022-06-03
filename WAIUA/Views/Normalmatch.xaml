@@ -7,6 +7,7 @@
              xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:converters="clr-namespace:WAIUA.Converters"
+             xmlns:fa="http://schemas.fontawesome.com/icons/fonts"
              d:DataContext="{d:DesignInstance Type=viewmodels:NormalmatchViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="754"
@@ -36,7 +37,7 @@
 			<RowDefinition Height="70" />
 			<RowDefinition />
 		</Grid.RowDefinitions>
-		<Grid >
+		<Grid>
 
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="70" />
@@ -51,7 +52,7 @@
 				Command="{Binding DataContext.NavigateHomeCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 				Template="{StaticResource ButtonTemplate}">
 
-				<Image Margin="10" Source="/Assets/back.png" />
+				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_AngleLeft" Margin="10" />
 			</Button>
 			<Button
 				IsEnabled="{Binding Path=Overlay.IsBusy, Converter={StaticResource InverseBooleanConverter}}"
@@ -60,7 +61,7 @@
 				Command="{Binding GetMatchInfoCommand}"
 				Template="{StaticResource ButtonTemplate}">
 
-				<Image Margin="10" Source="/Assets/refresh.png" />
+				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Rotate" Margin="10" />
 			</Button>
 
 			<Border
@@ -71,7 +72,7 @@
 					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 				</Border.Effect>
 				<StackPanel Orientation="Horizontal">
-					<Image Height="30px" Width="30px" Source="{Binding Path=Match.GameModeImage}"/>
+					<Image Height="30px" Width="30px" Source="{Binding Path=Match.GameModeImage}" />
 					<TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="SemiBold" Margin="10"
 					           Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
 					           Text="{Binding Path=Match.GameMode}" />
@@ -113,14 +114,14 @@
 			<ItemsControl ItemsSource="{Binding LeftPlayerList}" Margin="5">
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
-						<UniformGrid Columns="1" Margin="5"/>
+						<UniformGrid Columns="1" Margin="5" />
 					</ItemsPanelTemplate>
 				</ItemsControl.ItemsPanel>
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-							<controls:PlayerControl MaxHeight="160"
-								Margin="0 5"
-								PlayerCell="{Binding}" />
+						<controls:PlayerControl MaxHeight="160"
+						                        Margin="0 5"
+						                        PlayerCell="{Binding}" />
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>
@@ -131,19 +132,19 @@
 				           BorderThickness="0" />
 			</StackPanel>
 			<ItemsControl Grid.Column="2" ItemsSource="{Binding RightPlayerList}" Margin="5">
-					<ItemsControl.ItemsPanel>
-						<ItemsPanelTemplate>
-							<UniformGrid Columns="1" Margin="5"/>
-						</ItemsPanelTemplate>
-					</ItemsControl.ItemsPanel>
-					<ItemsControl.ItemTemplate>
-						<DataTemplate>
-							<controls:PlayerControl MaxHeight="160px" 
-							                        Margin="0 5"
-							                        PlayerCell="{Binding}" />
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
-				</ItemsControl>				
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<UniformGrid Columns="1" Margin="5" />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<controls:PlayerControl MaxHeight="160px"
+						                        Margin="0 5"
+						                        PlayerCell="{Binding}" />
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
 
 		</Grid>
 		<controls:OverlayControl Grid.Row="1" Grid.Column="0"

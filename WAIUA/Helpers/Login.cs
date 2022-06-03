@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Security;
-using System.Security.Authentication;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -15,17 +10,13 @@ using WAIUA.Objects;
 namespace WAIUA.Helpers;
 
 public static class Login
-{ 
+{
     public static async Task<bool> CheckLoginAsync()
     {
-        if (Constants.Region == null || Constants.Ppuuid == Guid.Empty)
-        {
-            return false;
-        }
+        if (Constants.Region == null || Constants.Ppuuid == Guid.Empty) return false;
         var client = new RestClient($"https://pd.{Constants.Region}.a.pvp.net/account-xp/v1/players/{Constants.Ppuuid}");
 
-        var request = new RestRequest() {}
-            .AddHeader("Authorization", $"Bearer {Constants.AccessToken}")
+        var request = new RestRequest().AddHeader("Authorization", $"Bearer {Constants.AccessToken}")
             .AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
         var response = await client.ExecuteGetAsync(request).ConfigureAwait(false);
         if (response.IsSuccessful) return true;
@@ -120,7 +111,7 @@ public static class Login
 
     public static async Task<bool> CheckMatchAsync()
     {
-        RestClient client = new RestClient($"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/players/{Constants.Ppuuid}");
+        var client = new RestClient($"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/players/{Constants.Ppuuid}");
         var request = new RestRequest();
         request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
         request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");

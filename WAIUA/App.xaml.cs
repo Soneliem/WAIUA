@@ -4,11 +4,10 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using AutoUpdaterDotNET;
-using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using RestoreWindowPlace;
 using Serilog;
-using WAIUA;
 using WAIUA.Helpers;
 using WAIUA.Properties;
 using WAIUA.ViewModels;
@@ -18,12 +17,11 @@ namespace WAIUA;
 
 public partial class App : Application
 {
-    public WindowPlace WindowPlace { get; }
     public App()
     {
         Dispatcher.UnhandledException += OnDispatcherUnhandledException;
-        
-        this.WindowPlace = new WindowPlace("placement.config");        
+
+        WindowPlace = new WindowPlace("placement.config");
 
         if (string.IsNullOrEmpty(Settings.Default.Language))
         {
@@ -36,8 +34,11 @@ public partial class App : Application
             Thread.CurrentThread.CurrentCulture = new CultureInfo(Settings.Default.Language);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Default.Language);
         }
+
         Settings.Default.Save();
     }
+
+    public WindowPlace WindowPlace { get; }
 
     private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
@@ -76,6 +77,6 @@ public partial class App : Application
     private void Application_Exit(object sender, ExitEventArgs e)
     {
         Settings.Default.Save();
-        this.WindowPlace.Save();
+        WindowPlace.Save();
     }
 }

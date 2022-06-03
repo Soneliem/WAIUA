@@ -7,17 +7,13 @@ namespace WAIUA.Objects;
 
 public class XpResponse
 {
-    [JsonPropertyName("Version")]
-    public long Version { get; set; }
+    [JsonPropertyName("Version")] public long Version { get; set; }
 
-    [JsonPropertyName("Subject")]
-    public Guid Subject { get; set; }
+    [JsonPropertyName("Subject")] public Guid Subject { get; set; }
 
-    [JsonPropertyName("Progress")]
-    public Progress Progress { get; set; }
+    [JsonPropertyName("Progress")] public Progress Progress { get; set; }
 
-    [JsonPropertyName("History")]
-    public History[] History { get; set; }
+    [JsonPropertyName("History")] public History[] History { get; set; }
 
     [JsonPropertyName("LastTimeGrantedFirstWin")]
     public string LastTimeGrantedFirstWin { get; set; }
@@ -28,44 +24,33 @@ public class XpResponse
 
 public class History
 {
-    [JsonPropertyName("ID")]
-    public Guid Id { get; set; }
+    [JsonPropertyName("ID")] public Guid Id { get; set; }
 
-    [JsonPropertyName("MatchStart")]
-    public string MatchStart { get; set; }
+    [JsonPropertyName("MatchStart")] public string MatchStart { get; set; }
 
-    [JsonPropertyName("StartProgress")]
-    public Progress StartProgress { get; set; }
+    [JsonPropertyName("StartProgress")] public Progress StartProgress { get; set; }
 
-    [JsonPropertyName("EndProgress")]
-    public Progress EndProgress { get; set; }
+    [JsonPropertyName("EndProgress")] public Progress EndProgress { get; set; }
 
-    [JsonPropertyName("XPDelta")]
-    public long XpDelta { get; set; }
+    [JsonPropertyName("XPDelta")] public long XpDelta { get; set; }
 
-    [JsonPropertyName("XPSources")]
-    public XpSource[] XpSources { get; set; }
+    [JsonPropertyName("XPSources")] public XpSource[] XpSources { get; set; }
 
-    [JsonPropertyName("XPMultipliers")]
-    public object[] XpMultipliers { get; set; }
+    [JsonPropertyName("XPMultipliers")] public object[] XpMultipliers { get; set; }
 }
 
 public class Progress
 {
-    [JsonPropertyName("Level")]
-    public long Level { get; set; }
+    [JsonPropertyName("Level")] public long Level { get; set; }
 
-    [JsonPropertyName("XP")]
-    public long Xp { get; set; }
+    [JsonPropertyName("XP")] public long Xp { get; set; }
 }
 
 public class XpSource
 {
-    [JsonPropertyName("ID")]
-    public string Id { get; set; }
+    [JsonPropertyName("ID")] public string Id { get; set; }
 
-    [JsonPropertyName("Amount")]
-    public long Amount { get; set; }
+    [JsonPropertyName("Amount")] public long Amount { get; set; }
 }
 
 public class EntitlementsResponse
@@ -156,7 +141,8 @@ public class LiveMatchResponse
 
     [JsonPropertyName("IsReconnectable")] public bool IsReconnectable { get; set; }
 
-    [JsonPropertyName("ConnectionDetails")] public ConnectionDetails ConnectionDetails { get; set; }
+    [JsonPropertyName("ConnectionDetails")]
+    public ConnectionDetails ConnectionDetails { get; set; }
 
     [JsonPropertyName("PostGameDetails")] public object PostGameDetails { get; set; }
 
@@ -166,104 +152,77 @@ public class LiveMatchResponse
 }
 
 public class PreMatchResponse
-    {
-        [JsonPropertyName("ID")]
-        public Guid Id { get; set; }
+{
+    [JsonPropertyName("ID")] public Guid Id { get; set; }
 
-        [JsonPropertyName("Version")]
-        public long Version { get; set; }
+    [JsonPropertyName("Version")] public long Version { get; set; }
 
-        [JsonPropertyName("Teams")]
-        public PreTeam[] Teams { get; set; }
+    [JsonPropertyName("Teams")] public PreTeam[] Teams { get; set; }
 
-        [JsonPropertyName("AllyTeam")]
-        public PreTeam AllyTeam { get; set; }
+    [JsonPropertyName("AllyTeam")] public PreTeam AllyTeam { get; set; }
 
-        [JsonPropertyName("EnemyTeam")]
-        public object EnemyTeam { get; set; }
+    [JsonPropertyName("EnemyTeam")] public object EnemyTeam { get; set; }
 
-        [JsonPropertyName("ObserverSubjects")]
-        public object[] ObserverSubjects { get; set; }
+    [JsonPropertyName("ObserverSubjects")] public object[] ObserverSubjects { get; set; }
 
-        [JsonPropertyName("MatchCoaches")]
-        public object[] MatchCoaches { get; set; }
+    [JsonPropertyName("MatchCoaches")] public object[] MatchCoaches { get; set; }
 
-        [JsonPropertyName("EnemyTeamSize")]
-        public long EnemyTeamSize { get; set; }
+    [JsonPropertyName("EnemyTeamSize")] public long EnemyTeamSize { get; set; }
 
-        [JsonPropertyName("EnemyTeamLockCount")]
-        public long EnemyTeamLockCount { get; set; }
+    [JsonPropertyName("EnemyTeamLockCount")]
+    public long EnemyTeamLockCount { get; set; }
 
-        [JsonPropertyName("PregameState")]
-        public string PregameState { get; set; }
+    [JsonPropertyName("PregameState")] public string PregameState { get; set; }
 
-        [JsonPropertyName("LastUpdated")]
-        public string LastUpdated { get; set; }
+    [JsonPropertyName("LastUpdated")] public string LastUpdated { get; set; }
 
-        [JsonPropertyName("MapID")]
-        public string MapId { get; set; }
+    [JsonPropertyName("MapID")] public string MapId { get; set; }
 
-        [JsonPropertyName("MapSelectPool")]
-        public object[] MapSelectPool { get; set; }
+    [JsonPropertyName("MapSelectPool")] public object[] MapSelectPool { get; set; }
 
-        [JsonPropertyName("BannedMapIDs")]
-        public object[] BannedMapIDs { get; set; }
+    [JsonPropertyName("BannedMapIDs")] public object[] BannedMapIDs { get; set; }
 
-        [JsonPropertyName("CastedVotes")]
-        public object CastedVotes { get; set; }
+    [JsonPropertyName("CastedVotes")] public object CastedVotes { get; set; }
 
-        [JsonPropertyName("MapSelectSteps")]
-        public object[] MapSelectSteps { get; set; }
+    [JsonPropertyName("MapSelectSteps")] public object[] MapSelectSteps { get; set; }
 
-        [JsonPropertyName("MapSelectStep")]
-        public long MapSelectStep { get; set; }
+    [JsonPropertyName("MapSelectStep")] public long MapSelectStep { get; set; }
 
-        [JsonPropertyName("Team1")]
-        public string Team1 { get; set; }
+    [JsonPropertyName("Team1")] public string Team1 { get; set; }
 
-        [JsonPropertyName("GamePodID")]
-        public string GamePodId { get; set; }
+    [JsonPropertyName("GamePodID")] public string GamePodId { get; set; }
 
-        [JsonPropertyName("Mode")]
-        public string Mode { get; set; }
+    [JsonPropertyName("Mode")] public string Mode { get; set; }
 
-        [JsonPropertyName("VoiceSessionID")]
-        public string VoiceSessionId { get; set; }
+    [JsonPropertyName("VoiceSessionID")] public string VoiceSessionId { get; set; }
 
-        [JsonPropertyName("MUCName")]
-        public string MucName { get; set; }
+    [JsonPropertyName("MUCName")] public string MucName { get; set; }
 
-        [JsonPropertyName("QueueID")]
-        public string QueueId { get; set; }
+    [JsonPropertyName("QueueID")] public string QueueId { get; set; }
 
-        [JsonPropertyName("ProvisioningFlowID")]
-        public string ProvisioningFlowId { get; set; }
+    [JsonPropertyName("ProvisioningFlowID")]
+    public string ProvisioningFlowId { get; set; }
 
-        [JsonPropertyName("IsRanked")]
-        public bool IsRanked { get; set; }
+    [JsonPropertyName("IsRanked")] public bool IsRanked { get; set; }
 
-        [JsonPropertyName("PhaseTimeRemainingNS")]
-        public long PhaseTimeRemainingNs { get; set; }
+    [JsonPropertyName("PhaseTimeRemainingNS")]
+    public long PhaseTimeRemainingNs { get; set; }
 
-        [JsonPropertyName("StepTimeRemainingNS")]
-        public long StepTimeRemainingNs { get; set; }
+    [JsonPropertyName("StepTimeRemainingNS")]
+    public long StepTimeRemainingNs { get; set; }
 
-        [JsonPropertyName("altModesFlagADA")]
-        public bool AltModesFlagAda { get; set; }
+    [JsonPropertyName("altModesFlagADA")] public bool AltModesFlagAda { get; set; }
 
-        [JsonPropertyName("TournamentMetadata")]
-        public object TournamentMetadata { get; set; }
-    }
+    [JsonPropertyName("TournamentMetadata")]
+    public object TournamentMetadata { get; set; }
+}
 
 public class PreTeam
 {
-    [JsonPropertyName("TeamID")]
-    public string TeamId { get; set; }
+    [JsonPropertyName("TeamID")] public string TeamId { get; set; }
 
-    [JsonPropertyName("Players")]
-    public RiotPrePlayer[] Players { get; set; }
+    [JsonPropertyName("Players")] public RiotPrePlayer[] Players { get; set; }
 }
-
 
 public class ConnectionDetails
 {
@@ -301,13 +260,21 @@ public class RiotPrePlayer
 {
     [JsonPropertyName("Subject")] public Guid Subject { get; set; }
 
-    [JsonPropertyName("CharacterID"), JsonIgnore] 
+    [JsonPropertyName("CharacterID")]
+    [JsonIgnore]
     public Guid CharacterId { get; set; }
-    [JsonPropertyName("CharacterSelectionState")] public string CharacterSelectionState { get; set; }
-    [JsonPropertyName("PregamePlayerState")] public string PregamePlayerState { get; set; }
+
+    [JsonPropertyName("CharacterSelectionState")]
+    public string CharacterSelectionState { get; set; }
+
+    [JsonPropertyName("PregamePlayerState")]
+    public string PregamePlayerState { get; set; }
+
     [JsonPropertyName("CompetitiveTier")] public long CompetitiveTier { get; set; }
     [JsonPropertyName("PlayerIdentity")] public PlayerIdentity PlayerIdentity { get; set; }
-    [JsonPropertyName("SeasonalBadgeInfo")] public SeasonalBadgeInfo SeasonalBadgeInfo { get; set; }
+
+    [JsonPropertyName("SeasonalBadgeInfo")]
+    public SeasonalBadgeInfo SeasonalBadgeInfo { get; set; }
 
     [JsonPropertyName("IsCaptain")] public bool IsCaptain { get; set; }
 }
@@ -357,19 +324,22 @@ public class NameServiceResponse
 public class MatchLoadoutsResponse
 {
     [JsonPropertyName("Loadouts")] public LoadoutElement[] Loadouts { get; set; }
-
 }
 
 public class PreMatchLoadoutsResponse
 {
     [JsonPropertyName("Loadouts")] public LoadoutLoadout[] Loadouts { get; set; }
-    [JsonPropertyName("LoadoutsValid"), JsonIgnore] public bool LoadoutsValid { get; set; }
 
+    [JsonPropertyName("LoadoutsValid")]
+    [JsonIgnore]
+    public bool LoadoutsValid { get; set; }
 }
 
 public class LoadoutElement
 {
-    [JsonPropertyName("CharacterID"), JsonIgnore] public Guid CharacterId { get; set; }
+    [JsonPropertyName("CharacterID")]
+    [JsonIgnore]
+    public Guid CharacterId { get; set; }
 
     [JsonPropertyName("Loadout")] public LoadoutLoadout Loadout { get; set; }
 }

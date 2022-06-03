@@ -91,51 +91,25 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Assets\arrow.png" />
-        <None Remove="Assets\back.png" />
         <None Remove="Assets\cat.gif" />
-        <None Remove="Assets\Check.png" />
-        <None Remove="Assets\cross.png" />
-        <None Remove="Assets\discord.png" />
         <None Remove="Assets\empty.png" />
         <None Remove="Assets\icon.ico" />
-        <None Remove="Assets\info.png" />
         <None Remove="Assets\logo.ico" />
         <None Remove="Assets\logo.png" />
         <None Remove="Assets\Nunito-Regular.ttf" />
         <None Remove="Assets\phantom.png" />
         <None Remove="Assets\question.png" />
-        <None Remove="Assets\refresh.png" />
-        <None Remove="Assets\settings.png" />
         <None Remove="Assets\Soneliem.png" />
         <None Remove="Assets\splash.png" />
         <None Remove="Assets\vandal.png" />
     </ItemGroup>
 
     <ItemGroup>
-        <Resource Include="Assets\arrow.png">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Assets\back.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
         <Content Include="Assets\cat.gif">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
-        <Resource Include="Assets\check.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Assets\cross.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Assets\discord.png">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
         <Resource Include="Assets\empty.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Assets\info.png">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
         <SplashScreen Include="Assets\splash.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -153,13 +127,7 @@
         <Resource Include="Assets\question.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
-        <Resource Include="Assets\refresh.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
         <Resource Include="Assets\vandal.png">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Assets\settings.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
         <Resource Include="Assets\Soneliem.png">
@@ -176,9 +144,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Autoupdater.NET.Official" Version="1.7.0" />
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
+        <PackageReference Include="Autoupdater.NET.Official" Version="1.7.1" />
+        <PackageReference Include="FontAwesome6.Fonts" Version="2.0.6" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+        <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
         <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
         <PackageReference Include="RestoreWindowPlace" Version="2.1.0" />
         <PackageReference Include="RestSharp" Version="107.3.0" />

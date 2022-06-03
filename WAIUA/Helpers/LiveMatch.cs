@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -177,7 +176,7 @@ public class Match
                         {
                             var mid = playerTasks.Count / 2;
                             playerList.AddRange(await Task.WhenAll(playerTasks.Take(mid)).ConfigureAwait(false));
-                            updateProgress(40);                            
+                            updateProgress(40);
                             await Task.Delay(1000).ConfigureAwait(false);
                             playerList.AddRange(await Task.WhenAll(playerTasks.Skip(mid)).ConfigureAwait(false));
                             break;
@@ -347,7 +346,7 @@ public class Match
             var cards = JsonSerializer.Deserialize<Dictionary<Guid, Uri>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\cards.txt").ConfigureAwait(false));
             cards.TryGetValue(cardid, out var card);
             identityData.Image = card;
-            identityData.Name = Resources.Player + " " + (index+1);
+            identityData.Name = Resources.Player + " " + (index + 1);
         }
         else
         {
@@ -357,7 +356,7 @@ public class Match
         }
 
         return identityData;
-    }    
+    }
 
     private static async Task<SkinData> GetMatchSkinInfoAsync(sbyte playerno)
     {
@@ -426,9 +425,9 @@ public class Match
         {
             PreviousGameColour = "#7f7f7f",
             PreviouspreviousGameColour = "#7f7f7f",
-            PreviouspreviouspreviousGameColour =  "#7f7f7f"
+            PreviouspreviouspreviousGameColour = "#7f7f7f"
         };
-        
+
         try
         {
             if (puuid != Guid.Empty)
@@ -774,7 +773,7 @@ public class Match
 
                             var gameModeName = "";
                             var gameModeId = Guid.Parse("96bd3920-4f36-d026-2b28-c683eb0bcac5");
-                            QueueId = content?.QueueId;                            
+                            QueueId = content?.QueueId;
                             switch (content?.QueueId)
                             {
                                 case "competitive":
