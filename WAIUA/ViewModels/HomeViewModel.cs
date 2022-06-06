@@ -17,9 +17,6 @@ public partial class HomeViewModel : ObservableObject
 {
     public delegate void EventAction();
 
-    private static readonly Uri Question = new("pack://application:,,,/Assets/question.png");
-    private static readonly Uri Check = new("pack://application:,,,/Assets/check.png");
-    private static readonly Uri Cross = new("pack://application:,,,/Assets/cross.png");
     [ObservableProperty] private int _countdownTime = 15;
     [ObservableProperty] private DispatcherTimer _countTimer;
     [ObservableProperty] private LoadingOverlay _overlay;

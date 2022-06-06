@@ -80,6 +80,12 @@
         <EmbeddedResource Update="Properties\Resources.ru.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
         </EmbeddedResource>
+        <EmbeddedResource Update="Properties\Resources.zh-hant-tw.zh-hans-hk.resx">
+          <DependentUpon>Resources.zh-Hant-TW.resx</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\Resources.zh-tw.resx">
+          <DependentUpon>Resources.resx</DependentUpon>
+        </EmbeddedResource>
         <EmbeddedResource Update="Properties\Resources.zh.resx">
           <DependentUpon>Resources.resx</DependentUpon>
         </EmbeddedResource>
