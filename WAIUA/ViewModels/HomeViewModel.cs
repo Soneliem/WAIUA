@@ -46,7 +46,7 @@ public partial class HomeViewModel : ObservableObject
     [ICommand]
     private async Task LoadNowAsync()
     {
-        if (!await Match.LiveMatchChecksAsync(false).ConfigureAwait(false)) return;
+        if (!await LiveMatch.LiveMatchChecksAsync().ConfigureAwait(false)) return;
         GoMatchEvent?.Invoke();
         await UpdateChecksAsync().ConfigureAwait(false);
     }
@@ -54,7 +54,7 @@ public partial class HomeViewModel : ObservableObject
     [ICommand]
     private async Task PassiveLoadAsync()
     {
-        _countTimer = new DispatcherTimer(DispatcherPriority.Normal);
+        _countTimer = new DispatcherTimer();
         _countTimer.Tick += UpdateTimersAsync;
         _countTimer.Interval = new TimeSpan(0, 0, 1);
         _countTimer.Start();
@@ -206,7 +206,7 @@ public partial class HomeViewModel : ObservableObject
         var output = false;
         try
         {
-            // var newMatch = new Match();
+            // var newMatch = new LiveMatch();
             // Parallel.For(0, 5, i => { Player.Players[i].Data = null; });
             //
             // try

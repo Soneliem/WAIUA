@@ -16,7 +16,7 @@ using static WAIUA.Helpers.Login;
 
 namespace WAIUA.Helpers;
 
-public class Match
+public class LiveMatch
 {
     public delegate void UpdateProgress(int percentage);
 
@@ -54,37 +54,20 @@ public class Match
     }
 
 
-    public static async Task<bool> LiveMatchChecksAsync(bool isSilent)
+    public static async Task<bool> LiveMatchChecksAsync()
     {
         if (await CheckLoginAsync().ConfigureAwait(false))
         {
             await LocalRegionAsync().ConfigureAwait(false);
-            if (await CheckAndSetLiveMatchIdAsync().ConfigureAwait(false)) return true;
-
-            if (!isSilent)
-                MessageBox.Show(Resources.NoMatch, Resources.Error, MessageBoxButton.OK,
-                    MessageBoxImage.Question, MessageBoxResult.OK);
-            return false;
+            return await CheckAndSetLiveMatchIdAsync().ConfigureAwait(false);
         }
 
-        if (await CheckLocalAsync().ConfigureAwait(false))
-        {
-            await LocalLoginAsync().ConfigureAwait(false);
-            await CheckLoginAsync().ConfigureAwait(false);
-            await LocalRegionAsync().ConfigureAwait(false);
+        if (!await CheckLocalAsync().ConfigureAwait(false)) return false;
+        await LocalLoginAsync().ConfigureAwait(false);
+        await CheckLoginAsync().ConfigureAwait(false);
+        await LocalRegionAsync().ConfigureAwait(false);
 
-            if (await CheckAndSetLiveMatchIdAsync().ConfigureAwait(false)) return true;
-
-            if (!isSilent)
-                MessageBox.Show(Resources.NoMatch, Resources.Error, MessageBoxButton.OK,
-                    MessageBoxImage.Question, MessageBoxResult.OK);
-            return false;
-        }
-
-        if (!isSilent)
-            MessageBox.Show(Resources.NoValGame, Resources.Error, MessageBoxButton.OK,
-                MessageBoxImage.Question, MessageBoxResult.OK);
-        return false;
+        return await CheckAndSetLiveMatchIdAsync().ConfigureAwait(false);
     }
 
     private static async Task<LiveMatchResponse> GetLiveMatchDetailsAsync()
@@ -143,19 +126,21 @@ public class Match
                                 Player player = new();
 
                                 var t1 = GetAgentInfoAsync(riotPlayer.CharacterId);
-                                var t3 = GetCompHistoryAsync(riotPlayer.Subject);
-                                var t4 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
-                                var t5 = GetMatchSkinInfoAsync(index);
-                                var t6 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
+                                var t2 = GetCompHistoryAsync(riotPlayer.Subject);
+                                // var t3 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
+                                var t4 = GetMatchSkinInfoAsync(index);
+                                var t5 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
 
-                                await Task.WhenAll(t1, t3, t4, t5, t6).ConfigureAwait(false);
+                                await Task.WhenAll(t1, t2, t4, t5).ConfigureAwait(false);
+                                // await Task.WhenAll(t1, t2, t3, t4, t5).ConfigureAwait(false);
 
-                                player.IdentityData = await t1.ConfigureAwait(false);
-                                player.MatchHistoryData = await t3.ConfigureAwait(false);
-                                player.RankData = await t4.ConfigureAwait(false);
-                                player.SkinData = await t5.ConfigureAwait(false);
-                                player.PlayerUiData = await t6.ConfigureAwait(false);
+                                player.IdentityData = t1.Result;
+                                player.MatchHistoryData = t2.Result;
+                                // player.RankData = t3.Result;
+                                player.SkinData = t4.Result;
+                                player.PlayerUiData = t5.Result;
                                 player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
+                                player.RankData = await GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
                                 player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
                                 player.TeamId = riotPlayer.TeamId;
                                 player.Active = Visibility.Visible;
@@ -178,7 +163,7 @@ public class Match
                             var mid = playerTasks.Count / 2;
                             playerList.AddRange(await Task.WhenAll(playerTasks.Take(mid)).ConfigureAwait(false));
                             updateProgress(40);
-                            await Task.Delay(1000).ConfigureAwait(false);
+                            await Task.Delay(1500).ConfigureAwait(false);
                             playerList.AddRange(await Task.WhenAll(playerTasks.Skip(mid)).ConfigureAwait(false));
                             break;
                         }
@@ -187,7 +172,7 @@ public class Match
                             var mid = playerTasks.Count / 2;
                             playerList.AddRange(await Task.WhenAll(playerTasks.Take(mid)).ConfigureAwait(false));
                             updateProgress(40);
-                            await Task.Delay(400).ConfigureAwait(false);
+                            await Task.Delay(500).ConfigureAwait(false);
                             playerList.AddRange(await Task.WhenAll(playerTasks.Skip(mid)).ConfigureAwait(false));
                             break;
                         }
@@ -195,6 +180,7 @@ public class Match
                             playerList.AddRange(await Task.WhenAll(playerTasks).ConfigureAwait(false));
                             break;
                     }
+                    // playerList.AddRange(await Task.WhenAll(playerTasks).ConfigureAwait(false));
                 }
 
                 break;
@@ -224,14 +210,14 @@ public class Match
                             var t6 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
 
                             await Task.WhenAll(t1, t3, t4, t5, t6).ConfigureAwait(false);
-                            // await Task.WhenAll(t1, t3, t4, t6).ConfigureAwait(false);
+                            // await Task.WhenAll(t1, t3, t5, t6).ConfigureAwait(false);
 
 
-                            player.IdentityData = await t1.ConfigureAwait(false);
-                            player.MatchHistoryData = await t3.ConfigureAwait(false);
-                            player.RankData = await t4.ConfigureAwait(false);
-                            player.SkinData = await t5.ConfigureAwait(false);
-                            player.PlayerUiData = await t6.ConfigureAwait(false);
+                            player.IdentityData = t1.Result;
+                            player.MatchHistoryData = t3.Result;
+                            player.RankData = t4.Result;
+                            player.SkinData = t5.Result;
+                            player.PlayerUiData = t6.Result;
                             player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
                             player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
                             player.TeamId = "Blue";
@@ -385,8 +371,11 @@ public class Match
 
     private static async Task<SkinData> GetPreSkinInfoAsync(sbyte playerno)
     {
+        // var response = await DoCachedRequestAsync(Method.Get,
+        //     $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/pregame/v1/matches/{Matchid}/loadouts",
+        //     true).ConfigureAwait(false);
         var response = await DoCachedRequestAsync(Method.Get,
-            $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/pregame/v1/matches/{Matchid}/loadouts",
+            $"https://glz-ap-1.ap.a.pvp.net/pregame/v1/matches/{Matchid}/loadouts",
             true).ConfigureAwait(false);
         if (response.IsSuccessful)
         {
@@ -782,9 +771,9 @@ public class Match
 
                             var gameModeName = "";
                             var gameModeId = Guid.Parse("96bd3920-4f36-d026-2b28-c683eb0bcac5");
-                            QueueId = content?.SessionLoopState;
+                            QueueId = content?.QueueId;
+                            Status = content?.SessionLoopState;
 
-                            Status = content?.QueueId;
                             switch (content?.QueueId)
                             {
                                 case "competitive":

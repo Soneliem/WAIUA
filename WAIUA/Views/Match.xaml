@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WAIUA.Views.Normalmatch"
+﻿<UserControl x:Class="WAIUA.Views.Match"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -9,7 +9,7 @@
              xmlns:converters="clr-namespace:WAIUA.Converters"
              xmlns:fa="http://schemas.fontawesome.com/icons/fonts"
              xmlns:p="clr-namespace:WAIUA.Properties"
-             d:DataContext="{d:DesignInstance Type=viewmodels:NormalmatchViewModel}"
+             d:DataContext="{d:DesignInstance Type=viewmodels:MatchViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="754"
              d:DesignWidth="1536">
@@ -46,6 +46,7 @@
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="70" />
 				<ColumnDefinition Width="70" />
+				<ColumnDefinition Width="70" />
 				<ColumnDefinition Width="Auto" />		
 				<ColumnDefinition Width="Auto" />				
 				<ColumnDefinition Width="*" />
@@ -61,25 +62,32 @@
 				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_AngleLeft" Margin="10" />
 			</Button>
 			<Button
-				IsEnabled="{Binding Path=Overlay.IsBusy, Converter={StaticResource InverseBooleanConverter}}"
 				Grid.Column="1"
+				Margin="7"
+				Command="{Binding DataContext.NavigateSettingsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+				Template="{StaticResource ButtonTemplate}">
+
+				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Gear" Margin="10" />
+			</Button>
+			<Button
+				IsEnabled="{Binding Path=Overlay.IsBusy, Converter={StaticResource InverseBooleanConverter}}"
+				Grid.Column="2"
 				Margin="7"
 				Command="{Binding GetMatchInfoCommand}"
 				Template="{StaticResource ButtonTemplate}">
 
 				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Rotate" Margin="10" />
 			</Button>
-			<TextBlock Margin="25" Grid.Column="2"
+			
+			<TextBlock Margin="10" Grid.Column="3"
 			           FontSize="20"
-			           HorizontalAlignment="Center"
 			           VerticalAlignment="Center"
 			           FontWeight="Normal"
 			           Foreground="White"
 			           FontFamily="{StaticResource Nunito}"
 			           Text="{x:Static p:Resources.RefreshingIn}" />
-			<TextBlock Margin="25"
-			           FontSize="20" Grid.Column="3"
-			           HorizontalAlignment="Center"
+			<TextBlock Margin="10"
+			           FontSize="20" Grid.Column="4"
 			           FontFamily="{StaticResource Nunito}"
 			           VerticalAlignment="Center"
 			           FontWeight="Normal"
@@ -87,7 +95,7 @@
 			           Text="{Binding RefreshTime}" />
 
 			<Border
-				Grid.Column="4" HorizontalAlignment="Right"
+				Grid.Column="5" HorizontalAlignment="Right"
 				Margin="7"
 				CornerRadius="10">
 				<Border.Effect>
@@ -107,7 +115,7 @@
 			</Border>
 
 			<Border
-				Grid.Column="5" HorizontalAlignment="Right" MinWidth="234"
+				Grid.Column="6" HorizontalAlignment="Right" MinWidth="234"
 				Margin="7"
 				CornerRadius="10">
 				<Border.Effect>

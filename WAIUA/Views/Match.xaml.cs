@@ -6,11 +6,11 @@ using WAIUA.ViewModels;
 namespace WAIUA.Views;
 
 /// <summary>
-///     Interaction logic for Normalmatch.xaml
+///     Interaction logic for Match.xaml
 /// </summary>
-public partial class Normalmatch : UserControl
+public partial class Match : UserControl
 {
-    public Normalmatch()
+    public Match()
     {
         InitializeComponent();
         DataContextChanged += DataContextChangedHandler;
@@ -18,7 +18,7 @@ public partial class Normalmatch : UserControl
 
     private void DataContextChangedHandler(object sender, DependencyPropertyChangedEventArgs e)
     {
-        var viewModel = e.NewValue as NormalmatchViewModel;
+        var viewModel = e.NewValue as MatchViewModel;
 
         if (viewModel != null)
             viewModel.GoHomeEvent += () =>

@@ -32,8 +32,8 @@ public partial class MainViewModel : ObservableObject
     }
 
     [ICommand]
-    public void NavigateNormalmatch()
+    public void NavigateMatch()
     {
-        SelectedViewModel = Ioc.Default.GetRequiredService<NormalmatchViewModel>();
+        SelectedViewModel = Ioc.Default.GetRequiredService<MatchViewModel>();
     }
 }

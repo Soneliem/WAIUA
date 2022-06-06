@@ -10,7 +10,7 @@ using WAIUA.Objects;
 
 namespace WAIUA.ViewModels;
 
-public partial class NormalmatchViewModel : ObservableObject
+public partial class MatchViewModel : ObservableObject
 {
     [ObservableProperty] private List<Player> _leftPlayerList;
     [ObservableProperty] private MatchDetails _match;
@@ -25,7 +25,7 @@ public partial class NormalmatchViewModel : ObservableObject
     
     [ObservableProperty] private string _refreshTime = "-";
 
-    public NormalmatchViewModel()
+    public MatchViewModel()
     {
         Match = new MatchDetails();
         Overlay = new LoadingOverlay
@@ -38,7 +38,7 @@ public partial class NormalmatchViewModel : ObservableObject
         LeftPlayerList = new List<Player>();
         RightPlayerList = new List<Player>();
 
-        _countTimer = new DispatcherTimer(DispatcherPriority.Normal);
+        _countTimer = new DispatcherTimer();
         _countTimer.Tick += UpdateTimersAsync;
         _countTimer.Interval = new TimeSpan(0, 0, 1);
         _countTimer.Start();
@@ -72,20 +72,20 @@ public partial class NormalmatchViewModel : ObservableObject
 
         try
         {
-            Match newMatch = new();
-            if (await Helpers.Match.LiveMatchChecksAsync(false).ConfigureAwait(false))
+            LiveMatch newLiveMatch = new();
+            if (await LiveMatch.LiveMatchChecksAsync().ConfigureAwait(false))
             {
                 var AllPlayers = new List<Player>();
                 Overlay.Content = "Getting Player Details";
-                AllPlayers = await newMatch.LiveMatchOutputAsync(UpdatePercentage).ConfigureAwait(false);
+                AllPlayers = await newLiveMatch.LiveMatchOutputAsync(UpdatePercentage).ConfigureAwait(false);
 
-                if (newMatch.Status != "PREGAME")
+                if (newLiveMatch.Status != "PREGAME")
                 {
                     _resettime = 69;
                     CountdownTime = 69;
                 }
 
-                if (newMatch.QueueId == "deathmatch")
+                if (newLiveMatch.QueueId == "deathmatch")
                 {
                     var mid = AllPlayers.Count / 2;
                     LeftPlayerList = AllPlayers.Take(mid).ToList();
@@ -112,8 +112,8 @@ public partial class NormalmatchViewModel : ObservableObject
 
                 AllPlayers.Clear();
 
-                if (newMatch.MatchInfo != null)
-                    Match = newMatch.MatchInfo;
+                if (newLiveMatch.MatchInfo != null)
+                    Match = newLiveMatch.MatchInfo;
 
                 Overlay.IsBusy = false;
             }

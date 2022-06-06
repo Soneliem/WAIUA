@@ -97,22 +97,21 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Assets\cat.gif" />
+        <None Remove="Assets\0.png" />
         <None Remove="Assets\empty.png" />
         <None Remove="Assets\icon.ico" />
         <None Remove="Assets\logo.ico" />
         <None Remove="Assets\logo.png" />
         <None Remove="Assets\Nunito-Regular.ttf" />
         <None Remove="Assets\phantom.png" />
-        <None Remove="Assets\question.png" />
         <None Remove="Assets\Soneliem.png" />
         <None Remove="Assets\splash.png" />
         <None Remove="Assets\vandal.png" />
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="Assets\cat.gif">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <Content Include="Assets\0.png">
+          <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </Content>
         <Resource Include="Assets\empty.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -129,9 +128,6 @@
         <Resource Include="Assets\Nunito-Regular.ttf" />
         <Resource Include="Assets\phantom.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Assets\question.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
         <Resource Include="Assets\vandal.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -171,9 +167,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="Assets\0.png">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
 	    <None Update="Assets\matchdemo.json">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </None>

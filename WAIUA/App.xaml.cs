@@ -62,7 +62,7 @@ public partial class App : Application
             new ServiceCollection()
                 .AddTransient<HomeViewModel>()
                 .AddTransient<InfoViewModel>()
-                .AddTransient<NormalmatchViewModel>()
+                .AddTransient<MatchViewModel>()
                 .AddTransient<SettingsViewModel>()
                 .AddSingleton<MainViewModel>()
                 .AddSingleton<IViewFactory>(conventionViewFactory)
