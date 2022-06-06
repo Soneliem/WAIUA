@@ -130,10 +130,10 @@
     <value>Made By Soneliem</value>
   </data>
   <data name="Latestversion" xml:space="preserve">
-    <value>Latest Version: </value>
+    <value>Latest Version:</value>
   </data>
   <data name="CurrentVersion" xml:space="preserve">
-    <value>Current Version: </value>
+    <value>Current Version:</value>
   </data>
   <data name="CheckUpdates" xml:space="preserve">
     <value>Check for Updates</value>
@@ -167,6 +167,7 @@
   </data>
   <data name="Translator" xml:space="preserve">
     <value>Translated into English By Soneliem</value>
+    <comment>Fuzzy</comment>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Click To Refresh Match</value>
@@ -205,42 +206,42 @@
     <value>Sponsors</value>
   </data>
   <data name="Home" xml:space="preserve">
-	  <value>Home</value>
+    <value>Home</value>
   </data>
   <data name="Refresh" xml:space="preserve">
-	  <value>Refresh</value>
+    <value>Refresh</value>
   </data>
   <data name="Account" xml:space="preserve">
-	  <value>Account</value>
+    <value>Account</value>
   </data>
   <data name="Match" xml:space="preserve">
-	  <value>Match</value>
+    <value>Match</value>
   </data>
   <data name="Status" xml:space="preserve">
-	  <value>Status</value>
+    <value>Status</value>
   </data>
   <data name="Valorant" xml:space="preserve">
-	  <value>Valorant</value>
+    <value>Valorant</value>
   </data>
   <data name="YourParty" xml:space="preserve">
-	  <value>Your Party</value>
+    <value>Your Party</value>
   </data>
   <data name="QueueTime" xml:space="preserve">
-	  <value>Queue Time:</value>
+    <value>Queue Time:</value>
   </data>
   <data name="RefreshingIn" xml:space="preserve">
-	  <value>Refreshing In:</value>
-  </data>
-  <data name="Player" xml:space="preserve">
-	  <value>Player</value>
-  </data>
-  <data name="StartTrainer" xml:space="preserve">
-	  <value>Start Aim Trainer</value>
-  </data>
-  <data name="HighScore" xml:space="preserve">
-	  <value>High Score:</value>
+    <value>Refreshing In:</value>
   </data>
   <data name="Score" xml:space="preserve">
-	  <value>Score:</value>
+    <value>Score:</value>
+  </data>
+  <data name="HighScore" xml:space="preserve">
+    <value>High Score:</value>
+  </data>
+  <data name="StartTrainer" xml:space="preserve">
+    <value>Start Aim Trainer</value>
+  </data>
+  <data name="Player" xml:space="preserve">
+    <value>Player</value>
   </data>
 </root>
