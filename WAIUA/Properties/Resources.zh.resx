@@ -204,4 +204,43 @@
   <data name="SponsorsTitle" xml:space="preserve">
     <value>赞助</value>
   </data>
+  <data name="Home" xml:space="preserve">
+    <value>主页</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>账号</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>比赛</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状况</value>
+  </data>
+  <data name="Valorant" xml:space="preserve">
+    <value>特战英豪</value>
+  </data>
+  <data name="YourParty" xml:space="preserve">
+    <value>你的团队</value>
+  </data>
+  <data name="QueueTime" xml:space="preserve">
+    <value>排队时间:</value>
+  </data>
+  <data name="RefreshingIn" xml:space="preserve">
+    <value>刷新中。。。</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>Score:</value>
+  </data>
+  <data name="HighScore" xml:space="preserve">
+    <value>High Score:</value>
+  </data>
+  <data name="StartTrainer" xml:space="preserve">
+    <value>Start Aim Trainer</value>
+  </data>
+  <data name="Player" xml:space="preserve">
+    <value>Player</value>
+  </data>
 </root>
