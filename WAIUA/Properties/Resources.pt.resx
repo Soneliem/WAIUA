@@ -136,22 +136,22 @@
     <value>Versão atual: </value>
   </data>
   <data name="CheckUpdates" xml:space="preserve">
-    <value>Checar por autalizações</value>
+    <value>Procurar por autalizações</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
   <data name="SettingsInfoExplanation2" xml:space="preserve">
-    <value>Toda comunicação em relação à suas credenciais é feita diretamente com os servidores da Riot com nenhuma senha armazenada localmente ou online.</value>
+    <value>Toda comunicação em relação às suas credenciais é feita diretamente com os servidores da Riot e nenhuma senha é armazenada localmente ou online.</value>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
-    <value>Status de autenticação</value>
+    <value>Estado de autenticação</value>
   </data>
   <data name="AuthStatusDefault" xml:space="preserve">
     <value>Clique abaixo para atualizar</value>
   </data>
   <data name="AuthStatusButton" xml:space="preserve">
-    <value>Checar autenticação</value>
+    <value>Verificar autenticação</value>
   </data>
   <data name="AuthStatusAuthAs" xml:space="preserve">
     <value>Autenticado como:</value>
@@ -160,13 +160,13 @@
     <value>Login automático</value>
   </data>
   <data name="AutoLoginExplanation" xml:space="preserve">
-    <value>Nota: O Valorant precisa estar rodando pra esse programa funcionar</value>
+    <value>Nota: O Valorant precisa estar aberto para funcionar</value>
   </data>
   <data name="AuthStatusFail" xml:space="preserve">
     <value>Não autenticado</value>
   </data>
   <data name="Translator" xml:space="preserve">
-    <value>Traduzido pro Português por janinha</value>
+    <value>Traduzido para Português por castrom4</value>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Clique para recarregar a partida</value>
@@ -175,7 +175,7 @@
     <value>Definições</value>
   </data>
   <data name="SettingsInfoExplanation1" xml:space="preserve">
-    <value>Essa página te deixa logar manualmente, mudar o idioma, etc.</value>
+    <value>Esta página deixa-te fazer o login manualmente, mudar o idioma, etc.</value>
   </data>
   <data name="SelLanguageTitle" xml:space="preserve">
     <value>Selecionar idioma</value>
@@ -184,7 +184,7 @@
     <value>Erro</value>
   </data>
   <data name="Refreshing" xml:space="preserve">
-    <value>Recarregando..</value>
+    <value>Atualizando...</value>
   </data>
   <data name="NoMatch" xml:space="preserve">
     <value>Nenhuma partida detectada</value>
@@ -196,12 +196,51 @@
     <value>Abrir perfil do tracker.gg</value>
   </data>
   <data name="CheckDownloadTitle" xml:space="preserve">
-    <value>Check Downloaded Content</value>
+    <value>Verificar conteúdo descarregado</value>
   </data>
   <data name="CheckDownloadButton" xml:space="preserve">
-    <value>Force Update</value>
+    <value>Forçar atualização</value>
   </data>
   <data name="SponsorsTitle" xml:space="preserve">
-    <value>Sponsors</value>
+    <value>Patrocinadores</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Início</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Atualizar</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Conta</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>Partida</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="Valorant" xml:space="preserve">
+    <value>Valorant</value>
+  </data>
+  <data name="YourParty" xml:space="preserve">
+    <value>O teu grupo</value>
+  </data>
+  <data name="QueueTime" xml:space="preserve">
+    <value>Tempo de espera:</value>
+  </data>
+  <data name="RefreshingIn" xml:space="preserve">
+    <value>Atualiza em:</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>Score:</value>
+  </data>
+  <data name="HighScore" xml:space="preserve">
+    <value>High Score:</value>
+  </data>
+  <data name="StartTrainer" xml:space="preserve">
+    <value>Start Aim Trainer</value>
+  </data>
+  <data name="Player" xml:space="preserve">
+    <value>Player</value>
   </data>
 </root>
