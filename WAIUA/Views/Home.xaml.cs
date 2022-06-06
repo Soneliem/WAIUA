@@ -17,15 +17,15 @@ public partial class Home : UserControl
     public static ImageAwesome ValorantStatus;
     public static ImageAwesome AccountStatus;
     public static ImageAwesome MatchStatus;
-    private readonly DispatcherTimer gameTimer = new();
-    private readonly Random rand = new();
-    private readonly List<Ellipse> removeThis = new();
-    private int currentRate;
-    private int health = 350;
-    private int posX;
-    private int posY;
-    private int score;
-    private int spawnRate = 60;
+    private readonly DispatcherTimer _gameTimer = new();
+    private readonly Random _rand = new();
+    private readonly List<Ellipse> _removeThis = new();
+    private int _currentRate;
+    private int _health = 350;
+    private int _posX;
+    private int _posY;
+    private int _score;
+    private int _spawnRate = 60;
 
 
     public Home()
@@ -33,13 +33,14 @@ public partial class Home : UserControl
         InitializeComponent();
         DataContextChanged += DataContextChangedHandler;
 
-        gameTimer.Tick += GameLoop;
-        gameTimer.Interval = TimeSpan.FromMilliseconds(20);
+        _gameTimer.Tick += GameLoop;
+        _gameTimer.Interval = TimeSpan.FromMilliseconds(20);
 
         ValorantStatus = ValorantStatusView;
         AccountStatus = AccountStatusView;
         MatchStatus = MatchStatusView;
     }
+    
 
     private void DataContextChangedHandler(object sender, DependencyPropertyChangedEventArgs e)
     {
@@ -57,16 +58,16 @@ public partial class Home : UserControl
 
     private void GameLoop(object sender, EventArgs e) // Heavily modified from https://www.mooict.com/wpf-c-tutorial-create-a-simple-clicking-game-in-visual-studio/
     {
-        txtScore.Content = score;
+        txtScore.Content = _score;
         txtLastScore.Content = Properties.Settings.Default.AimScore;
-        currentRate -= 2;
+        _currentRate -= 2;
 
-        if (currentRate < 1)
+        if (_currentRate < 1)
         {
-            currentRate = spawnRate;
+            _currentRate = _spawnRate;
 
-            posX = rand.Next(15, (int) MyCanvas.ActualWidth - 15);
-            posY = rand.Next(50, (int) MyCanvas.ActualHeight - 15);
+            _posX = _rand.Next(15, (int) MyCanvas.ActualWidth - 15);
+            _posY = _rand.Next(50, (int) MyCanvas.ActualHeight - 15);
 
             var circle = new Ellipse
             {
@@ -76,8 +77,8 @@ public partial class Home : UserControl
                 Fill = new SolidColorBrush(Color.FromRgb(255, 70, 84))
             };
 
-            Canvas.SetLeft(circle, posX);
-            Canvas.SetTop(circle, posY);
+            Canvas.SetLeft(circle, _posX);
+            Canvas.SetTop(circle, _posY);
             MyCanvas.Children.Add(circle);
         }
 
@@ -89,26 +90,26 @@ public partial class Home : UserControl
 
             if (!(x.Width > 70)) continue;
 
-            removeThis.Add(x);
-            health -= 15;
+            _removeThis.Add(x);
+            _health -= 15;
         }
 
-        if (health > 1)
-            healthBar.Width = health;
+        if (_health > 1)
+            healthBar.Width = _health;
         else
             GameOverFunction();
 
-        foreach (var i in removeThis)
+        foreach (var i in _removeThis)
             MyCanvas.Children.Remove(i);
 
-        spawnRate = score switch
+        _spawnRate = _score switch
         {
             < 5 => 60,
             < 20 => 50,
             < 35 => 40,
             < 50 => 30,
             < 65 => 20,
-            _ => spawnRate
+            _ => _spawnRate
         };
     }
 
@@ -117,22 +118,22 @@ public partial class Home : UserControl
         if (e.OriginalSource is not Ellipse) return;
         var circle = (Ellipse) e.OriginalSource;
         MyCanvas.Children.Remove(circle);
-        score++;
+        _score++;
     }
 
     private void GameOverFunction()
     {
-        gameTimer.Stop();
+        _gameTimer.Stop();
         foreach (var y in MyCanvas.Children.OfType<Ellipse>())
-            removeThis.Add(y);
-        foreach (var i in removeThis) MyCanvas.Children.Remove(i);
-        spawnRate = 60;
-        Properties.Settings.Default.AimScore = score;
+            _removeThis.Add(y);
+        foreach (var i in _removeThis) MyCanvas.Children.Remove(i);
+        _spawnRate = 60;
+        Properties.Settings.Default.AimScore = _score;
         Properties.Settings.Default.Save();
-        score = 0;
-        currentRate = 5;
-        health = 350;
-        removeThis.Clear();
+        _score = 0;
+        _currentRate = 5;
+        _health = 350;
+        _removeThis.Clear();
 
         TrainerWindow.Visibility = Visibility.Collapsed;
         Grid.RowDefinitions[1].Height = GridLength.Auto;
@@ -142,8 +143,8 @@ public partial class Home : UserControl
 
     private void StartAimTrainerButton(object sender, RoutedEventArgs e)
     {
-        gameTimer.Start();
-        currentRate = spawnRate;
+        _gameTimer.Start();
+        _currentRate = _spawnRate;
         TrainerWindow.Visibility = Visibility.Visible;
         Grid.RowDefinitions[0].Height = GridLength.Auto;
         Grid.RowDefinitions[1].Height = new GridLength(0.5, GridUnitType.Star);

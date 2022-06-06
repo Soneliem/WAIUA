@@ -130,10 +130,10 @@
     <value>Made By Soneliem</value>
   </data>
   <data name="Latestversion" xml:space="preserve">
-    <value>Latest Version:</value>
+	  <value>Latest Version: </value>
   </data>
   <data name="CurrentVersion" xml:space="preserve">
-    <value>Current Version:</value>
+	  <value>Current Version: </value>
   </data>
   <data name="CheckUpdates" xml:space="preserve">
     <value>Check for Updates</value>

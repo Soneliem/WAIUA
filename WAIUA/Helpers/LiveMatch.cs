@@ -24,6 +24,7 @@ public class Match
     private static Guid Matchid { get; set; }
     private static string Stage { get; set; }
     public string QueueId { get; set; }
+    public string Status { get; set; }
 
     private static async Task<bool> CheckAndSetLiveMatchIdAsync()
     {
@@ -223,6 +224,8 @@ public class Match
                             var t6 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
 
                             await Task.WhenAll(t1, t3, t4, t5, t6).ConfigureAwait(false);
+                            // await Task.WhenAll(t1, t3, t4, t6).ConfigureAwait(false);
+
 
                             player.IdentityData = await t1.ConfigureAwait(false);
                             player.MatchHistoryData = await t3.ConfigureAwait(false);
@@ -387,17 +390,23 @@ public class Match
             true).ConfigureAwait(false);
         if (response.IsSuccessful)
         {
-            var content = JsonSerializer.Deserialize<PreMatchLoadoutsResponse>(response.Content);
-            var vandalchroma = content.Loadouts[playerno]
-                .Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id;
-            var phantomchroma = content.Loadouts[playerno]
-                .Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id;
+            try
+            {
+                var content = JsonSerializer.Deserialize<PreMatchLoadoutsResponse>(response.Content);
+                var vandalchroma = content.Loadouts[playerno]
+                    .Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                    .Item.Id;
+                var phantomchroma = content.Loadouts[playerno]
+                    .Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                    .Item.Id;
 
-            return await GetSkinInfoAsync(phantomchroma, vandalchroma);
+                return await GetSkinInfoAsync(phantomchroma, vandalchroma);
+            }
+            catch
+            {
+                // ignored
+            }
         }
-
         Constants.Log.Error("GetPreSkinInfoAsync Failed: {e}", response.ErrorException);
         return new SkinData();
     }
@@ -773,7 +782,9 @@ public class Match
 
                             var gameModeName = "";
                             var gameModeId = Guid.Parse("96bd3920-4f36-d026-2b28-c683eb0bcac5");
-                            QueueId = content?.QueueId;
+                            QueueId = content?.SessionLoopState;
+
+                            Status = content?.QueueId;
                             switch (content?.QueueId)
                             {
                                 case "competitive":

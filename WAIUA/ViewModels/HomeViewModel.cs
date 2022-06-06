@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
 using FontAwesome6;
@@ -37,6 +38,9 @@ public partial class HomeViewModel : ObservableObject
     }
 
     public event EventAction GoMatchEvent;
+
+    [ICommand]
+    private void StopTimer() => _countTimer.Stop();
 
 
     [ICommand]
@@ -84,30 +88,48 @@ public partial class HomeViewModel : ObservableObject
     private async Task UpdateChecksAsync()
     {
         // Overlay.IsBusy = true;
-        Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Question;
-        Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(0, 126, 249));
-        Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Question;
-        Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(0, 126, 249));
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            Home.ValorantStatus.Icon = EFontAwesomeIcon.Solid_Question;
+            Home.ValorantStatus.Foreground = new SolidColorBrush(Color.FromRgb(0, 126, 249));
+            Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Question;
+            Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(0, 126, 249));
+            Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Question;
+            Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(0, 126, 249));
+        });
+
         if (await CheckLocalAsync().ConfigureAwait(false))
         {
-            Home.ValorantStatus.Icon = EFontAwesomeIcon.Solid_Check;
-            Home.ValorantStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Home.ValorantStatus.Icon = EFontAwesomeIcon.Solid_Check;
+                Home.ValorantStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
+            });
             if (await CheckLoginAsync().ConfigureAwait(false))
             {
-                Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Check;
-                Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Check;
+                    Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
+                });
                 if (await CheckMatchAsync().ConfigureAwait(false))
                 {
-                    Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Check;
-                    Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Check;
+                        Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
+                    });
                     CountTimer?.Stop();
                     // Overlay.IsBusy = false;
                     GoMatchEvent?.Invoke();
                 }
                 else
                 {
-                    Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
-                    Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
+                        Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
+                    });
                 }
             }
             else
@@ -116,39 +138,54 @@ public partial class HomeViewModel : ObservableObject
                 await LocalRegionAsync().ConfigureAwait(false);
                 if (await CheckLoginAsync().ConfigureAwait(false))
                 {
-                    Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Check;
-                    Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Check;
+                        Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
+                    });
                     if (await CheckMatchAsync().ConfigureAwait(false))
                     {
-                        Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Check;
-                        Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Check;
+                            Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
+                        });
                         CountTimer?.Stop();
                         // Overlay.IsBusy = false;
                         GoMatchEvent?.Invoke();
                     }
                     else
                     {
-                        Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
-                        Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
+                            Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
+                        });
                     }
                 }
                 else
                 {
-                    Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
-                    Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
-                    Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
-                    Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
+                        Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
+                        Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
+                        Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
+                    });
                 }
             }
         }
         else
         {
-            Home.ValorantStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
-            Home.ValorantStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
-            Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
-            Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
-            Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
-            Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Home.ValorantStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
+                Home.ValorantStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
+                Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
+                Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
+                Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
+                Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
+            });
         }
 
         // Overlay.IsBusy = false;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using WAIUA.Helpers;
@@ -15,6 +16,14 @@ public partial class NormalmatchViewModel : ObservableObject
     [ObservableProperty] private MatchDetails _match;
     [ObservableProperty] private LoadingOverlay _overlay;
     [ObservableProperty] private List<Player> _rightPlayerList;
+    [ObservableProperty] private DispatcherTimer _countTimer;
+    [ObservableProperty] private int _countdownTime = 20;
+    private int _resettime = 20;
+
+    public delegate void EventAction();
+    public event EventAction GoHomeEvent;
+    
+    [ObservableProperty] private string _refreshTime = "-";
 
     public NormalmatchViewModel()
     {
@@ -28,14 +37,38 @@ public partial class NormalmatchViewModel : ObservableObject
 
         LeftPlayerList = new List<Player>();
         RightPlayerList = new List<Player>();
+
+        _countTimer = new DispatcherTimer(DispatcherPriority.Normal);
+        _countTimer.Tick += UpdateTimersAsync;
+        _countTimer.Interval = new TimeSpan(0, 0, 1);
+        _countTimer.Start();
+    }
+
+    [ICommand]
+    private void StopTimer() => _countTimer.Stop();
+
+    private async void UpdateTimersAsync(object sender, EventArgs e)
+    {
+        RefreshTime = CountdownTime + "s";
+        if (CountdownTime == 0)
+        {
+            CountdownTime = _resettime;
+            await GetMatchInfoAsync().ConfigureAwait(false);
+        }
+
+        CountdownTime--;
     }
 
     [ICommand]
     private async Task GetMatchInfoAsync()
     {
-        Overlay.IsBusy = true;
-        Overlay.Header = "Loading";
-        Overlay.Progress = 0;
+
+        Overlay = new LoadingOverlay()
+        {
+            IsBusy = true,
+            Header = "Loading",
+            Progress = 0
+        };
 
         try
         {
@@ -45,6 +78,12 @@ public partial class NormalmatchViewModel : ObservableObject
                 var AllPlayers = new List<Player>();
                 Overlay.Content = "Getting Player Details";
                 AllPlayers = await newMatch.LiveMatchOutputAsync(UpdatePercentage).ConfigureAwait(false);
+
+                if (newMatch.Status != "PREGAME")
+                {
+                    _resettime = 69;
+                    CountdownTime = 69;
+                }
 
                 if (newMatch.QueueId == "deathmatch")
                 {
@@ -77,6 +116,11 @@ public partial class NormalmatchViewModel : ObservableObject
                     Match = newMatch.MatchInfo;
 
                 Overlay.IsBusy = false;
+            }
+            else
+            {
+                CountTimer?.Stop();
+                GoHomeEvent?.Invoke();
             }
         }
         catch (Exception)

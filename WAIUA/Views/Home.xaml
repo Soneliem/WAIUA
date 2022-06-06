@@ -18,6 +18,9 @@
 		<i:EventTrigger EventName="Loaded">
 			<i:InvokeCommandAction Command="{Binding PassiveLoadCommand}" />
 		</i:EventTrigger>
+		<i:EventTrigger EventName="Closing" >
+			<i:InvokeCommandAction Command="{Binding StopTimerCommand}" />
+		</i:EventTrigger>
 	</i:Interaction.Triggers>
 	<UserControl.Resources>
 		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
