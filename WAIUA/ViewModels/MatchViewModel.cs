@@ -12,18 +12,17 @@ namespace WAIUA.ViewModels;
 
 public partial class MatchViewModel : ObservableObject
 {
+    public delegate void EventAction();
+
+    [ObservableProperty] private int _countdownTime = 20;
+    [ObservableProperty] private DispatcherTimer _countTimer;
     [ObservableProperty] private List<Player> _leftPlayerList;
     [ObservableProperty] private MatchDetails _match;
     [ObservableProperty] private LoadingOverlay _overlay;
-    [ObservableProperty] private List<Player> _rightPlayerList;
-    [ObservableProperty] private DispatcherTimer _countTimer;
-    [ObservableProperty] private int _countdownTime = 20;
-    private int _resettime = 20;
 
-    public delegate void EventAction();
-    public event EventAction GoHomeEvent;
-    
     [ObservableProperty] private string _refreshTime = "-";
+    private int _resettime = 20;
+    [ObservableProperty] private List<Player> _rightPlayerList;
 
     public MatchViewModel()
     {
@@ -44,8 +43,13 @@ public partial class MatchViewModel : ObservableObject
         _countTimer.Start();
     }
 
+    public event EventAction GoHomeEvent;
+
     [ICommand]
-    private void StopTimer() => _countTimer.Stop();
+    private void StopTimer()
+    {
+        _countTimer.Stop();
+    }
 
     private async void UpdateTimersAsync(object sender, EventArgs e)
     {
@@ -62,8 +66,7 @@ public partial class MatchViewModel : ObservableObject
     [ICommand]
     private async Task GetMatchInfoAsync()
     {
-
-        Overlay = new LoadingOverlay()
+        Overlay = new LoadingOverlay
         {
             IsBusy = true,
             Header = "Loading",
@@ -81,8 +84,8 @@ public partial class MatchViewModel : ObservableObject
 
                 if (newLiveMatch.Status != "PREGAME")
                 {
-                    _resettime = 69;
-                    CountdownTime = 69;
+                    _resettime = 90;
+                    CountdownTime = 90;
                 }
 
                 if (newLiveMatch.QueueId == "deathmatch")

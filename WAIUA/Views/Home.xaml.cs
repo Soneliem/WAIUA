@@ -84,9 +84,9 @@ public partial class Home : UserControl
 
         foreach (var x in MyCanvas.Children.OfType<Ellipse>())
         {
+            x.RenderTransformOrigin = new Point(0.5, 0.5);
             x.Height += 0.6;
             x.Width += 0.6;
-            x.RenderTransformOrigin = new Point(0.5, 0.5);
 
             if (!(x.Width > 70)) continue;
 
@@ -115,7 +115,11 @@ public partial class Home : UserControl
 
     private void ClickOnCanvas(object sender, MouseButtonEventArgs e)
     {
-        if (e.OriginalSource is not Ellipse) return;
+        if (e.OriginalSource is not Ellipse)
+        {
+            _health -= 10;
+            return;
+        }
         var circle = (Ellipse) e.OriginalSource;
         MyCanvas.Children.Remove(circle);
         _score++;

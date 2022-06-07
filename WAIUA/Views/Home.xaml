@@ -236,8 +236,8 @@
 				</Border>
 			</StackPanel>
 
-			<Border x:Name="TrainerWindow" Grid.Row="1" CornerRadius="20" Background="#252A40" Visibility="Collapsed">
-				<Canvas Name="MyCanvas" MouseLeftButtonDown="ClickOnCanvas">
+			<Border Cursor="Cross" x:Name="TrainerWindow" Grid.Row="1" CornerRadius="20" Background="#252A40" Visibility="Collapsed">
+				<Canvas Name="MyCanvas" MouseLeftButtonDown="ClickOnCanvas" Background="Transparent">
 					<StackPanel Orientation="Horizontal" Margin="10">
 						<Label FontSize="20" FontFamily="{StaticResource Nunito}"
 						       FontWeight="SemiBold" Content="{x:Static p:Resources.Score}" Foreground="White" />
@@ -251,7 +251,7 @@
 						       Content="{Binding Source={x:Static p:Settings.Default}, Path=AimScore}" />
 					</StackPanel>
 
-					<Rectangle Name="healthBar" Width="350" Fill="#ff4654"
+					<Rectangle Name="healthBar" Width="350" Fill="#ff4654" IsHitTestVisible="False"
 					           Height="25" Canvas.Right="10" Canvas.Top="10" RadiusX="10" RadiusY="10" />
 				</Canvas>
 			</Border>
