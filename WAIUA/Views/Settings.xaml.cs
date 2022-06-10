@@ -30,7 +30,7 @@ public partial class Settings : UserControl
     {
         Mouse.OverrideCursor = Cursors.Wait;
         AuthStatusBox.Text = Properties.Resources.Refreshing;
-        if (!await CheckLoginAsync().ConfigureAwait(false))
+        if (!await Checks.CheckLoginAsync().ConfigureAwait(false))
             AuthStatusBox.Text = Properties.Resources.AuthStatusFail;
         else AuthStatusBox.Text = $"{Properties.Resources.AuthStatusAuthAs} {await GetNameServiceGetUsernameAsync(Constants.Ppuuid).ConfigureAwait(false)}";
         Mouse.OverrideCursor = Cursors.Arrow;
@@ -64,7 +64,7 @@ public partial class Settings : UserControl
     private async void Button_Click3Async(object sender, RoutedEventArgs e)
     {
         Mouse.OverrideCursor = Cursors.Wait;
-        if (await CheckLocalAsync().ConfigureAwait(false))
+        if (await Checks.CheckLocalAsync().ConfigureAwait(false))
         {
             await LocalLoginAsync().ConfigureAwait(false);
             await LocalRegionAsync().ConfigureAwait(false);

@@ -98,21 +98,21 @@ public partial class HomeViewModel : ObservableObject
             Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(0, 126, 249));
         });
 
-        if (await CheckLocalAsync().ConfigureAwait(false))
+        if (await Checks.CheckLocalAsync().ConfigureAwait(false))
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
                 Home.ValorantStatus.Icon = EFontAwesomeIcon.Solid_Check;
                 Home.ValorantStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
             });
-            if (await CheckLoginAsync().ConfigureAwait(false))
+            if (await Checks.CheckLoginAsync().ConfigureAwait(false))
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Check;
                     Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
                 });
-                if (await CheckMatchAsync().ConfigureAwait(false))
+                if (await Checks.CheckMatchAsync().ConfigureAwait(false))
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
@@ -136,14 +136,14 @@ public partial class HomeViewModel : ObservableObject
             {
                 await LocalLoginAsync().ConfigureAwait(false);
                 await LocalRegionAsync().ConfigureAwait(false);
-                if (await CheckLoginAsync().ConfigureAwait(false))
+                if (await Checks.CheckLoginAsync().ConfigureAwait(false))
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         Home.AccountStatus.Icon = EFontAwesomeIcon.Solid_Check;
                         Home.AccountStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
                     });
-                    if (await CheckMatchAsync().ConfigureAwait(false))
+                    if (await Checks.CheckMatchAsync().ConfigureAwait(false))
                     {
                         Application.Current.Dispatcher.Invoke(() =>
                         {

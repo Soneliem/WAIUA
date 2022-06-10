@@ -40,7 +40,7 @@ public partial class App : Application
 
     public WindowPlace WindowPlace { get; }
 
-    private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
         Constants.Log.Error("Unhandled Exception: {Message}, {Stacktrace}", e.Exception.Message, e.Exception.StackTrace);
         e.Handled = true;
@@ -51,7 +51,7 @@ public partial class App : Application
         base.OnStartup(e);
 
         Constants.LocalAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA";
-        Constants.Log = new LoggerConfiguration()
+        Constants.Log = new LoggerConfiguration().MinimumLevel.Debug()
             .WriteTo.Async(a => a.File(Constants.LocalAppDataPath + "\\logs\\log.txt", shared: true, rollingInterval: RollingInterval.Day))
             .CreateLogger();
         Constants.Log.Information("Application Start");
@@ -76,6 +76,7 @@ public partial class App : Application
 
     private void Application_Exit(object sender, ExitEventArgs e)
     {
+        Constants.Log.Information("Application Stop");
         Settings.Default.Save();
         WindowPlace.Save();
     }

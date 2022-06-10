@@ -124,4 +124,5 @@ public static class Constants
     public static string Port { get; set; }
     public static string LPassword { get; set; }
     public static Logger Log { get; set; }
+    // public static RestClient RestClient { get; set; }
 }

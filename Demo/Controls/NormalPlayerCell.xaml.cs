@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Navigation;
 using Demo.Objects;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace Demo.Controls
 {

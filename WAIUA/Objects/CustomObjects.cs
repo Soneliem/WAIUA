@@ -113,10 +113,7 @@ public partial class Player
 public partial class LoadingOverlay
 {
     [ObservableProperty] private string _content;
-
     [ObservableProperty] private string _header;
-
     [ObservableProperty] private bool _isBusy;
-
     [ObservableProperty] private int _progress;
 }

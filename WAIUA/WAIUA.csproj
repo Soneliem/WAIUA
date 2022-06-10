@@ -110,9 +110,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="Assets\0.png">
-          <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-        </Content>
+        <Resource Include="Assets\0.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
         <Resource Include="Assets\empty.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows.Resources;
 using RestSharp;
 using WAIUA.Objects;
 using WAIUA.Properties;
@@ -59,14 +60,17 @@ public static class ValApi
 
     private static async Task<string> GetLocalValApiVersionAsync()
     {
-        if (File.Exists(Constants.LocalAppDataPath + "\\ValAPI\\version.txt"))
+        if (!File.Exists(Constants.LocalAppDataPath + "\\ValAPI\\version.txt")) return null;
+        try
         {
             var lines = await File.ReadAllLinesAsync(Constants.LocalAppDataPath + "\\ValAPI\\version.txt")
                 .ConfigureAwait(false);
             return lines[1];
         }
-
-        return null;
+        catch
+        {
+            return "";
+        }
     }
 
     private static Task GetUrlsAsync()
@@ -135,7 +139,7 @@ public static class ValApi
                 {
                     string[] lines =
                     {
-                        versionResponse.Data.Data.RiotClientVersion, versionResponse.Data.Data.BuildDate
+                        versionResponse.Data?.Data.RiotClientVersion, versionResponse.Data?.Data.BuildDate
                     };
                     await File.WriteAllLinesAsync(_versionInfo.Filepath, lines).ConfigureAwait(false);
                 }
@@ -154,19 +158,20 @@ public static class ValApi
                     Dictionary<string, ValMap> mapsDictionary = new();
                     if (!Directory.Exists(Constants.LocalAppDataPath + "\\ValAPI\\mapsimg"))
                         Directory.CreateDirectory(Constants.LocalAppDataPath + "\\ValAPI\\mapsimg");
-                    foreach (var map in mapsResponse.Data.Data)
-                    {
-                        mapsDictionary.TryAdd(map.MapUrl, new ValMap
+                    if (mapsResponse.Data?.Data != null)
+                        foreach (var map in mapsResponse.Data.Data)
                         {
-                            Name = map.DisplayName,
-                            UUID = map.Uuid
-                        });
-                        var fileName = Constants.LocalAppDataPath + $"\\ValAPI\\mapsimg\\{map.Uuid}.png";
-                        var request = new RestRequest(map.ListViewIcon);
-                        var response = await MediaClient.DownloadDataAsync(request).ConfigureAwait(false);
-                        if (response != null)
-                            await File.WriteAllBytesAsync(fileName, response).ConfigureAwait(false);
-                    }
+                            mapsDictionary.TryAdd(map.MapUrl, new ValMap
+                            {
+                                Name = map.DisplayName,
+                                UUID = map.Uuid
+                            });
+                            var fileName = Constants.LocalAppDataPath + $"\\ValAPI\\mapsimg\\{map.Uuid}.png";
+                            var request = new RestRequest(map.ListViewIcon);
+                            var response = await MediaClient.DownloadDataAsync(request).ConfigureAwait(false);
+                            if (response != null)
+                                await File.WriteAllBytesAsync(fileName, response).ConfigureAwait(false);
+                        }
 
                     await File.WriteAllTextAsync(_mapsInfo.Filepath, JsonSerializer.Serialize(mapsDictionary)).ConfigureAwait(false);
                 }
@@ -185,17 +190,18 @@ public static class ValApi
                     Dictionary<Guid, string> agentsDictionary = new();
                     if (!Directory.Exists(Constants.LocalAppDataPath + "\\ValAPI\\agentsimg"))
                         Directory.CreateDirectory(Constants.LocalAppDataPath + "\\ValAPI\\agentsimg");
-                    foreach (var agent in agentsResponse.Data.Data)
-                    {
-                        agentsDictionary.TryAdd(agent.Uuid, agent.DisplayName);
+                    if (agentsResponse.Data != null)
+                        foreach (var agent in agentsResponse.Data.Data)
+                        {
+                            agentsDictionary.TryAdd(agent.Uuid, agent.DisplayName);
 
-                        var fileName = Constants.LocalAppDataPath + $"\\ValAPI\\agentsimg\\{agent.Uuid}.png";
-                        var request = new RestRequest(agent.DisplayIcon);
-                        var response = await MediaClient.DownloadDataAsync(request).ConfigureAwait(false);
-                        if (response != null)
-                            await File.WriteAllBytesAsync(fileName, response)
-                                .ConfigureAwait(false);
-                    }
+                            var fileName = Constants.LocalAppDataPath + $"\\ValAPI\\agentsimg\\{agent.Uuid}.png";
+                            var request = new RestRequest(agent.DisplayIcon);
+                            var response = await MediaClient.DownloadDataAsync(request).ConfigureAwait(false);
+                            if (response != null)
+                                await File.WriteAllBytesAsync(fileName, response)
+                                    .ConfigureAwait(false);
+                        }
 
                     await File.WriteAllTextAsync(_agentsInfo.Filepath, JsonSerializer.Serialize(agentsDictionary)).ConfigureAwait(false);
                 }
@@ -212,7 +218,9 @@ public static class ValApi
                 if (skinsResponse.IsSuccessful)
                 {
                     Dictionary<Guid, ValSkin> skinsDictionary = new();
-                    foreach (var skin in skinsResponse.Data.Data) skinsDictionary.TryAdd(skin.Uuid, new ValSkin {Name = skin.DisplayName, Image = skin.FullRender});
+                    if (skinsResponse.Data != null)
+                        foreach (var skin in skinsResponse.Data.Data)
+                            skinsDictionary.TryAdd(skin.Uuid, new ValSkin {Name = skin.DisplayName, Image = skin.FullRender});
                     await File.WriteAllTextAsync(_skinsInfo.Filepath, JsonSerializer.Serialize(skinsDictionary)).ConfigureAwait(false);
                 }
                 else
@@ -228,7 +236,9 @@ public static class ValApi
                 if (cardsResponse.IsSuccessful)
                 {
                     Dictionary<Guid, Uri> cardsDictionary = new();
-                    foreach (var card in cardsResponse.Data.Data) cardsDictionary.TryAdd(card.Uuid, card.DisplayIcon);
+                    if (cardsResponse.Data != null)
+                        foreach (var card in cardsResponse.Data.Data)
+                            cardsDictionary.TryAdd(card.Uuid, card.DisplayIcon);
                     await File.WriteAllTextAsync(_cardsInfo.Filepath, JsonSerializer.Serialize(cardsDictionary)).ConfigureAwait(false);
                 }
                 else
@@ -247,31 +257,44 @@ public static class ValApi
                     Dictionary<int, string> ranksDictionary = new();
                     if (!Directory.Exists(Constants.LocalAppDataPath + "\\ValAPI\\ranksimg"))
                         Directory.CreateDirectory(Constants.LocalAppDataPath + "\\ValAPI\\ranksimg");
-                    foreach (var rank in ranksResponse.Data.Data.Last().Tiers)
-                    {
-                        var tier = rank.TierTier;
-                        ranksDictionary.TryAdd(tier, rank.TierName);
-
-                        if (tier == 0)
+                    if (ranksResponse.Data != null)
+                        foreach (var rank in ranksResponse.Data.Data.Last().Tiers)
                         {
-                            File.Copy(Directory.GetCurrentDirectory() + "\\Assets\\0.png",
-                                Constants.LocalAppDataPath + "\\ValAPI\\ranksimg\\0.png", true);
-                            continue;
+                            var tier = rank.TierTier;
+                            ranksDictionary.TryAdd(tier, rank.TierName);
+
+                            switch (tier)
+                            {
+                                case 1 or 2:
+                                    continue;
+                                case 0:
+                                {
+                                    // File.Copy(Directory.GetCurrentDirectory() + "\\Assets\\0.png",
+                                    //     Constants.LocalAppDataPath + "\\ValAPI\\ranksimg\\0.png", true);
+
+                                    const string imagePath = "pack://application:,,,/Assets/0.png";
+                                    StreamResourceInfo imageInfo = System.Windows.Application.GetResourceStream(new Uri(imagePath));
+                                    using MemoryStream ms = new MemoryStream();
+                                    if (imageInfo != null)
+                                    {
+                                        await imageInfo.Stream.CopyToAsync(ms);
+                                        byte[] imageBytes = ms.ToArray();
+                                        await File.WriteAllBytesAsync(Constants.LocalAppDataPath + "\\ValAPI\\ranksimg\\0.png", imageBytes);
+                                    }
+                                    continue;
+                                }
+                            }
+
+                            var fileName = Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{tier}.png";
+
+                            var request = new RestRequest(rank.LargeIcon);
+                            var response = await MediaClient.DownloadDataAsync(request).ConfigureAwait(false);
+
+                            // if (response.IsCompletedSuccessfully)
+                            if (response != null)
+                                await File.WriteAllBytesAsync(fileName, response)
+                                    .ConfigureAwait(false);
                         }
-
-                        if (tier is 1 or 2)
-                            continue;
-
-                        var fileName = Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{tier}.png";
-
-                        var request = new RestRequest(rank.LargeIcon);
-                        var response = await MediaClient.DownloadDataAsync(request).ConfigureAwait(false);
-
-                        // if (response.IsCompletedSuccessfully)
-                        if (response != null)
-                            await File.WriteAllBytesAsync(fileName, response)
-                                .ConfigureAwait(false);
-                    }
 
                     await File.WriteAllTextAsync(_ranksInfo.Filepath, JsonSerializer.Serialize(ranksDictionary)).ConfigureAwait(false);
                 }
@@ -290,18 +313,19 @@ public static class ValApi
                     Dictionary<Guid, string> gamemodeDictionary = new();
                     if (!Directory.Exists(Constants.LocalAppDataPath + "\\ValAPI\\gamemodeimg"))
                         Directory.CreateDirectory(Constants.LocalAppDataPath + "\\ValAPI\\gamemodeimg");
-                    foreach (var gamemode in gamemodeResponse.Data.Data)
-                    {
-                        if (gamemode.DisplayIcon == null) continue;
-                        gamemodeDictionary.TryAdd(gamemode.Uuid, gamemode.DisplayName);
+                    if (gamemodeResponse.Data != null)
+                        foreach (var gamemode in gamemodeResponse.Data.Data)
+                        {
+                            if (gamemode.DisplayIcon == null) continue;
+                            gamemodeDictionary.TryAdd(gamemode.Uuid, gamemode.DisplayName);
 
-                        var fileName = Constants.LocalAppDataPath + $"\\ValAPI\\gamemodeimg\\{gamemode.Uuid}.png";
-                        var request = new RestRequest(gamemode.DisplayIcon);
-                        var response = await MediaClient.DownloadDataAsync(request).ConfigureAwait(false);
-                        if (response != null)
-                            await File.WriteAllBytesAsync(fileName, response)
-                                .ConfigureAwait(false);
-                    }
+                            var fileName = Constants.LocalAppDataPath + $"\\ValAPI\\gamemodeimg\\{gamemode.Uuid}.png";
+                            var request = new RestRequest(gamemode.DisplayIcon);
+                            var response = await MediaClient.DownloadDataAsync(request).ConfigureAwait(false);
+                            if (response != null)
+                                await File.WriteAllBytesAsync(fileName, response)
+                                    .ConfigureAwait(false);
+                        }
 
                     await File.WriteAllTextAsync(_gamemodeInfo.Filepath, JsonSerializer.Serialize(gamemodeDictionary)).ConfigureAwait(false);
                 }
@@ -336,6 +360,7 @@ public static class ValApi
         }
         catch (Exception)
         {
+            // ignored
         }
     }
 }

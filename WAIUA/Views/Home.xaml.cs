@@ -44,9 +44,7 @@ public partial class Home : UserControl
 
     private void DataContextChangedHandler(object sender, DependencyPropertyChangedEventArgs e)
     {
-        var viewModel = e.NewValue as HomeViewModel;
-
-        if (viewModel != null)
+        if (e.NewValue is HomeViewModel viewModel)
             viewModel.GoMatchEvent += () =>
             {
                 Dispatcher.Invoke(() =>

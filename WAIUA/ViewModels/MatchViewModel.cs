@@ -17,12 +17,13 @@ public partial class MatchViewModel : ObservableObject
     [ObservableProperty] private int _countdownTime = 20;
     [ObservableProperty] private DispatcherTimer _countTimer;
     [ObservableProperty] private List<Player> _leftPlayerList;
+    [ObservableProperty] private List<Player> _rightPlayerList;
     [ObservableProperty] private MatchDetails _match;
     [ObservableProperty] private LoadingOverlay _overlay;
 
     [ObservableProperty] private string _refreshTime = "-";
     private int _resettime = 20;
-    [ObservableProperty] private List<Player> _rightPlayerList;
+    
 
     public MatchViewModel()
     {

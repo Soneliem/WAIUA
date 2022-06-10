@@ -25,7 +25,7 @@ public class LiveMatch
     private static string Stage { get; set; }
     public string QueueId { get; set; }
     public string Status { get; set; }
-
+    
     private static async Task<bool> CheckAndSetLiveMatchIdAsync()
     {
         var client = new RestClient($"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/players/{Constants.Ppuuid}");
@@ -49,22 +49,22 @@ public class LiveMatch
             return true;
         }
 
-        Constants.Log.Error("CheckAndSetLiveMatchIdAsync() failed. Response: {Response}", response.ErrorException);
+        // Constants.Log.Error("CheckAndSetLiveMatchIdAsync() failed. Response: {Response}", response.ErrorException);
         return false;
     }
 
 
     public static async Task<bool> LiveMatchChecksAsync()
     {
-        if (await CheckLoginAsync().ConfigureAwait(false))
+        if (await Checks.CheckLoginAsync().ConfigureAwait(false))
         {
             await LocalRegionAsync().ConfigureAwait(false);
             return await CheckAndSetLiveMatchIdAsync().ConfigureAwait(false);
         }
 
-        if (!await CheckLocalAsync().ConfigureAwait(false)) return false;
+        if (!await Checks.CheckLocalAsync().ConfigureAwait(false)) return false;
         await LocalLoginAsync().ConfigureAwait(false);
-        await CheckLoginAsync().ConfigureAwait(false);
+        await Checks.CheckLoginAsync().ConfigureAwait(false);
         await LocalRegionAsync().ConfigureAwait(false);
 
         return await CheckAndSetLiveMatchIdAsync().ConfigureAwait(false);
@@ -72,8 +72,7 @@ public class LiveMatch
 
     private static async Task<LiveMatchResponse> GetLiveMatchDetailsAsync()
     {
-        var url = $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/matches/{Matchid}";
-        RestClient client = new(url);
+        RestClient client = new($"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/matches/{Matchid}");
         RestRequest request = new();
         request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
         request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
@@ -85,8 +84,7 @@ public class LiveMatch
 
     private static async Task<PreMatchResponse> GetPreMatchDetailsAsync()
     {
-        var url = $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/pregame/v1/matches/{Matchid}";
-        RestClient client = new(url);
+        RestClient client = new($"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/pregame/v1/matches/{Matchid}");
         RestRequest request = new();
         request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
         request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
@@ -243,42 +241,8 @@ public class LiveMatch
                     }
                 }
 
-
                 var gamePodId = matchIdInfo.GamePodId;
                 if (Constants.GamePodsDictionary.TryGetValue(gamePodId, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
-
-                // switch (playerTasks.Count)
-                // {
-                //     case > 10:
-                //     {
-                //         var mid = playerTasks.Count / 2;
-                //         playerList.AddRange(await Task.WhenAll(playerTasks.Take(mid)).ConfigureAwait(false));
-                //         updateProgress(40);
-                //         await Task.Delay(2000).ConfigureAwait(false);
-                //         playerList.AddRange(await Task.WhenAll(playerTasks.Skip(mid)).ConfigureAwait(false));
-                //         break;
-                //     }
-                //     case >= 8:
-                //     {
-                //         var mid = playerTasks.Count / 2;
-                //         playerList.AddRange(await Task.WhenAll(playerTasks.Take(mid)).ConfigureAwait(false));
-                //         updateProgress(40);
-                //         await Task.Delay(600).ConfigureAwait(false);
-                //         playerList.AddRange(await Task.WhenAll(playerTasks.Skip(mid)).ConfigureAwait(false));
-                //         break;
-                //     }
-                //     default:
-                //         playerList.AddRange(await Task.WhenAll(playerTasks).ConfigureAwait(false));
-                //         break;
-                // }
-                playerList.AddRange(await Task.WhenAll(playerTasks).ConfigureAwait(false));
-                // else
-                // {
-                //     foreach (var task in playerTasks)
-                //     {
-                //         playerList.Add(await task.ConfigureAwait(false));
-                //     }
-                // }
 
             }
 
@@ -482,7 +446,7 @@ public class LiveMatch
 
                 var options = new JsonSerializerOptions
                 {
-                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
                 };
                 var content = JsonSerializer.Deserialize<CompetitiveUpdatesResponse>(response.Content, options);
 
