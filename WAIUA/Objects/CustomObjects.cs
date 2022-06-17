@@ -24,7 +24,9 @@ public partial class IdentityData
 public partial class PlayerUIData
 {
     [ObservableProperty] private string _backgroundColour;
+    [ObservableProperty] private string _partyColour;
     [ObservableProperty] private Guid _partyUuid;
+    [ObservableProperty] private Guid _Puuid;
 }
 
 [INotifyPropertyChanged]
@@ -98,11 +100,9 @@ public partial class Player
 {
     [ObservableProperty] private int _accountLevel;
     [ObservableProperty] private Visibility _active = Visibility.Collapsed;
-    [ObservableProperty] private string _backgroundColour;
     [ObservableProperty] private IdentityData _identityData;
     [ObservableProperty] private IgnData _ignData;
     [ObservableProperty] private MatchHistoryData _matchHistoryData;
-    [ObservableProperty] private string _partyColour;
     [ObservableProperty] private PlayerUIData _playerUiData;
     [ObservableProperty] private RankData _rankData;
     [ObservableProperty] private SkinData _skinData;

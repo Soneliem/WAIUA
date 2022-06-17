@@ -781,3 +781,191 @@ public class PresencesPrivate
 
     [JsonPropertyName("isIdle")] public bool IsIdle { get; set; }
 }
+
+public class PartyIdResponse
+{
+    [JsonPropertyName("Subject")] public Guid Subject { get; set; }
+
+    [JsonPropertyName("Version")] public long Version { get; set; }
+
+    [JsonPropertyName("CurrentPartyID")] public Guid CurrentPartyId { get; set; }
+
+    [JsonPropertyName("Invites")] public object Invites { get; set; }
+
+    [JsonPropertyName("Requests")] public object[] Requests { get; set; }
+
+    [JsonPropertyName("PlatformInfo")] public PlatformInfo PlatformInfo { get; set; }
+}
+
+public class PlatformInfo
+{
+    [JsonPropertyName("platformType")] public string PlatformType { get; set; }
+
+    [JsonPropertyName("platformOS")] public string PlatformOs { get; set; }
+
+    [JsonPropertyName("platformOSVersion")]
+    public string PlatformOsVersion { get; set; }
+
+    [JsonPropertyName("platformChipset")] public string PlatformChipset { get; set; }
+}
+
+public class PartyResponse
+{
+    [JsonPropertyName("ID")] public Guid Id { get; set; }
+
+    [JsonPropertyName("MUCName")] public string MucName { get; set; }
+
+    [JsonPropertyName("VoiceRoomID")] public string VoiceRoomId { get; set; }
+
+    [JsonPropertyName("Version")] public long Version { get; set; }
+
+    [JsonPropertyName("ClientVersion")] public string ClientVersion { get; set; }
+
+    [JsonPropertyName("Members")] public Member[] Members { get; set; }
+
+    [JsonPropertyName("State")] public string State { get; set; }
+
+    [JsonPropertyName("PreviousState")] public string PreviousState { get; set; }
+
+    [JsonPropertyName("StateTransitionReason")]
+    public string StateTransitionReason { get; set; }
+
+    [JsonPropertyName("Accessibility")] public string Accessibility { get; set; }
+
+    [JsonPropertyName("CustomGameData")] public CustomGameData CustomGameData { get; set; }
+
+    [JsonPropertyName("MatchmakingData")] public MatchmakingData MatchmakingData { get; set; }
+
+    [JsonPropertyName("Invites")] public object Invites { get; set; }
+
+    [JsonPropertyName("Requests")] public object[] Requests { get; set; }
+
+    [JsonPropertyName("QueueEntryTime")] public string QueueEntryTime { get; set; }
+
+    [JsonPropertyName("ErrorNotification")]
+    public ErrorNotification ErrorNotification { get; set; }
+
+    [JsonPropertyName("RestrictedSeconds")]
+    public long RestrictedSeconds { get; set; }
+
+    [JsonPropertyName("EligibleQueues")] public string[] EligibleQueues { get; set; }
+
+    [JsonPropertyName("QueueIneligibilities")]
+    public object[] QueueIneligibilities { get; set; }
+
+    [JsonPropertyName("CheatData")] public CheatData CheatData { get; set; }
+
+    [JsonPropertyName("XPBonuses")] public object[] XpBonuses { get; set; }
+}
+
+public class CheatData
+{
+    [JsonPropertyName("GamePodOverride")] public string GamePodOverride { get; set; }
+
+    [JsonPropertyName("ForcePostGameProcessing")]
+    public bool ForcePostGameProcessing { get; set; }
+}
+
+public class CustomGameData
+{
+    [JsonPropertyName("Settings")] public Settings Settings { get; set; }
+
+    [JsonPropertyName("Membership")] public Membership Membership { get; set; }
+
+    [JsonPropertyName("MaxPartySize")] public long MaxPartySize { get; set; }
+
+    [JsonPropertyName("AutobalanceEnabled")]
+    public bool AutobalanceEnabled { get; set; }
+
+    [JsonPropertyName("AutobalanceMinPlayers")]
+    public long AutobalanceMinPlayers { get; set; }
+}
+
+public class Membership
+{
+    [JsonPropertyName("teamOne")] public TeamOne[] TeamOne { get; set; }
+
+    [JsonPropertyName("teamTwo")] public object[] TeamTwo { get; set; }
+
+    [JsonPropertyName("teamSpectate")] public object[] TeamSpectate { get; set; }
+
+    [JsonPropertyName("teamOneCoaches")] public object[] TeamOneCoaches { get; set; }
+
+    [JsonPropertyName("teamTwoCoaches")] public object[] TeamTwoCoaches { get; set; }
+}
+
+public class TeamOne
+{
+    [JsonPropertyName("Subject")] public Guid Subject { get; set; }
+}
+
+public class Settings
+{
+    [JsonPropertyName("Map")] public string Map { get; set; }
+
+    [JsonPropertyName("Mode")] public string Mode { get; set; }
+
+    [JsonPropertyName("UseBots")] public bool UseBots { get; set; }
+
+    [JsonPropertyName("GamePod")] public string GamePod { get; set; }
+
+    [JsonPropertyName("GameRules")] public GameRules GameRules { get; set; }
+}
+
+public class GameRules
+{
+    [JsonPropertyName("AllowGameModifiers")]
+    public bool AllowGameModifiers { get; set; }
+}
+
+public class ErrorNotification
+{
+    [JsonPropertyName("ErrorType")] public string ErrorType { get; set; }
+
+    [JsonPropertyName("ErroredPlayers")] public object ErroredPlayers { get; set; }
+}
+
+public class MatchmakingData
+{
+    [JsonPropertyName("QueueID")] public string QueueId { get; set; }
+
+    [JsonPropertyName("PreferredGamePods")]
+    public string[] PreferredGamePods { get; set; }
+
+    [JsonPropertyName("SkillDisparityRRPenalty")]
+    public long SkillDisparityRrPenalty { get; set; }
+}
+
+public class Member
+{
+    [JsonPropertyName("Subject")] public Guid Subject { get; set; }
+
+    [JsonPropertyName("CompetitiveTier")] public long CompetitiveTier { get; set; }
+
+    [JsonPropertyName("PlayerIdentity")] public PlayerIdentity PlayerIdentity { get; set; }
+
+    [JsonPropertyName("SeasonalBadgeInfo")]
+    public object SeasonalBadgeInfo { get; set; }
+
+    [JsonPropertyName("IsOwner")] public bool IsOwner { get; set; }
+
+    [JsonPropertyName("QueueEligibleRemainingAccountLevels")]
+    public long QueueEligibleRemainingAccountLevels { get; set; }
+
+    [JsonPropertyName("Pings")] public Ping[] Pings { get; set; }
+
+    [JsonPropertyName("IsReady")] public bool IsReady { get; set; }
+
+    [JsonPropertyName("IsModerator")] public bool IsModerator { get; set; }
+
+    [JsonPropertyName("UseBroadcastHUD")] public bool UseBroadcastHud { get; set; }
+
+    [JsonPropertyName("PlatformType")] public string PlatformType { get; set; }
+}
+
+public class Ping
+{
+    [JsonPropertyName("Ping")] public long PingPing { get; set; }
+
+    [JsonPropertyName("GamePodID")] public string GamePodId { get; set; }
+}

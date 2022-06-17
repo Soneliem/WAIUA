@@ -12,18 +12,16 @@
 	d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}"
 	d:DesignHeight="754"
 	d:DesignWidth="1536"
-	Background="#2E3349"
 	mc:Ignorable="d">
 	<i:Interaction.Triggers>
 		<i:EventTrigger EventName="Loaded">
 			<i:InvokeCommandAction Command="{Binding PassiveLoadCommand}" />
 		</i:EventTrigger>
-		<i:EventTrigger EventName="Closing" >
-			<i:InvokeCommandAction Command="{Binding StopTimerCommand}" />
+		<i:EventTrigger EventName="Closing">
+			<i:InvokeCommandAction Command="{Binding StopPassiveLoadCommand}" />
 		</i:EventTrigger>
 	</i:Interaction.Triggers>
 	<UserControl.Resources>
-		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 	</UserControl.Resources>
 	<UserControl.Triggers>
 		<EventTrigger RoutedEvent="Loaded">
@@ -57,7 +55,7 @@
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 			<Button
-				Grid.Column="0" Cursor="Hand" Width="60"
+				Grid.Column="0" Cursor="Hand" Width="60" Height="60"
 				HorizontalAlignment="Left" VerticalAlignment="Center"
 				Command="{Binding DataContext.NavigateSettingsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 				Template="{StaticResource ButtonTemplate}">
@@ -70,7 +68,7 @@
 				Visibility="Collapsed" />
 
 			<Button
-				Grid.Row="0" Grid.Column="4" Cursor="Hand" Width="60"
+				Grid.Row="0" Grid.Column="4" Cursor="Hand" Width="60" Height="60"
 				HorizontalAlignment="Right"
 				Command="{Binding DataContext.NavigateInfoCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 				Template="{StaticResource ButtonTemplate}">
@@ -84,9 +82,6 @@
 			           FontWeight="SemiBold" Grid.Row="0" Grid.Column="3" FontFamily="{StaticResource Nunito}"
 			           Foreground="White" Text="{x:Static p:Resources.Status}" />
 		</Grid>
-		<TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" FontSize="30" VerticalAlignment="Center"
-		           FontFamily="{StaticResource Nunito}"
-		           Foreground="White" Text="Under Construction" />
 
 		<ItemsControl Grid.Row="1" Grid.Column="0" Margin="0,15,0,0"
 		              ItemsSource="{Binding PlayerList}">
@@ -183,6 +178,7 @@
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
 							<ColumnDefinition />
+							<ColumnDefinition />
 						</Grid.ColumnDefinitions>
 						<!-- <TextBlock Margin="25" -->
 						<!--            FontSize="20" -->
@@ -209,12 +205,27 @@
 						           FontFamily="{StaticResource Nunito}"
 						           Text="{x:Static p:Resources.Refresh}" />
 						<Button
-							Grid.Row="0" Grid.Column="1" Cursor="Hand" Width="60" Margin="10"
+							Grid.Row="0" Grid.Column="1" Cursor="Hand" Width="60" Height="60" Margin="10"
 							HorizontalAlignment="Left" VerticalAlignment="Center"
 							Template="{StaticResource ButtonTemplate}"
 							Command="{Binding LoadNowCommand}">
 							<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Rotate" Margin="10" />
 						</Button>
+
+						<ToggleButton
+							Grid.Row="0" Grid.Column="2" Cursor="Hand" Width="60" Height="60" Margin="10"
+							HorizontalAlignment="Left" VerticalAlignment="Center"
+							Template="{StaticResource ToggleButtonTemplate}">
+							<i:Interaction.Triggers>
+								<i:EventTrigger EventName="Checked">
+									<i:InvokeCommandAction Command="{Binding Path=StopPassiveLoadCommand}" />
+								</i:EventTrigger>
+								<i:EventTrigger EventName="Unchecked">
+									<i:InvokeCommandAction Command="{Binding Path=PassiveLoadCommand}" />
+								</i:EventTrigger>
+							</i:Interaction.Triggers>
+							<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Pause" Margin="10" />
+						</ToggleButton>
 
 						<TextBlock Margin="25" Grid.Row="1" Grid.Column="0"
 						           FontSize="20"
@@ -224,7 +235,7 @@
 						           Foreground="White"
 						           FontFamily="{StaticResource Nunito}"
 						           Text="{x:Static p:Resources.RefreshingIn}" />
-						<TextBlock Margin="25" Grid.Row="1"
+						<TextBlock Margin="25" Grid.Row="1" Grid.ColumnSpan="2"
 						           FontSize="20" Grid.Column="1"
 						           HorizontalAlignment="Center"
 						           FontFamily="{StaticResource Nunito}"
@@ -236,7 +247,8 @@
 				</Border>
 			</StackPanel>
 
-			<Border Cursor="Cross" x:Name="TrainerWindow" Grid.Row="1" CornerRadius="20" Background="#252A40" Visibility="Collapsed">
+			<Border Cursor="Cross" x:Name="TrainerWindow" Grid.Row="1" CornerRadius="20" Background="#252A40"
+			        Visibility="Collapsed">
 				<Canvas Name="MyCanvas" MouseLeftButtonDown="ClickOnCanvas" Background="Transparent">
 					<StackPanel Orientation="Horizontal" Margin="10">
 						<Label FontSize="20" FontFamily="{StaticResource Nunito}"
@@ -279,7 +291,7 @@
 					           FontFamily="{StaticResource Nunito}"
 					           Text="{x:Static p:Resources.StartTrainer}" />
 					<Button
-						Grid.Row="0" Grid.Column="1" Cursor="Hand" Width="60" Margin="10"
+						Grid.Row="0" Grid.Column="1" Cursor="Hand" Width="60" Height="60" Margin="10"
 						HorizontalAlignment="Left" VerticalAlignment="Center"
 						Template="{StaticResource ButtonTemplate}"
 						Click="StartAimTrainerButton">
@@ -306,9 +318,6 @@
 
 
 		</Grid>
-		<c:OverlayControl Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"
-		                  Overlay="{Binding Path=Overlay}"
-		                  Visibility="{Binding Overlay.IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
 	</Grid>
 

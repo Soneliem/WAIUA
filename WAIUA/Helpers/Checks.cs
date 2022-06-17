@@ -27,10 +27,8 @@ public class Checks
             $@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Riot Games\Riot Client\Config\lockfile";
 
         if (!File.Exists(lockfileLocation))
-        {
             // Constants.Log.Warning("Valorant Not detected");
             return false;
-        }
 
         string lockFileString;
         await using (var file = new FileStream(lockfileLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -60,7 +58,7 @@ public class Checks
         response = await client.ExecuteGetAsync(request).ConfigureAwait(false);
         if (response.IsSuccessful) return true;
 
-        Constants.Log.Error("CheckMatchAsync Failed: {e}", response.ErrorException);
+        // Constants.Log.Error("CheckMatchAsync Failed: {e}", response.ErrorException);
         return false;
     }
 }

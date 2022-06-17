@@ -22,10 +22,11 @@ public class LiveMatch
 
     public MatchDetails MatchInfo { get; } = new();
     private static Guid Matchid { get; set; }
+    private static Guid Partyid { get; set; }
     private static string Stage { get; set; }
     public string QueueId { get; set; }
     public string Status { get; set; }
-    
+
     private static async Task<bool> CheckAndSetLiveMatchIdAsync()
     {
         var client = new RestClient($"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/players/{Constants.Ppuuid}");
@@ -49,8 +50,23 @@ public class LiveMatch
             return true;
         }
 
-        // Constants.Log.Error("CheckAndSetLiveMatchIdAsync() failed. Response: {Response}", response.ErrorException);
+        Constants.Log.Error("CheckAndSetLiveMatchIdAsync() failed. Response: {Response}", response.ErrorException);
         return false;
+    }
+
+    public async Task<bool> CheckAndSetPartyIdAsync()
+    {
+        var client = new RestClient($"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/parties/v1/players/{Constants.Ppuuid}");
+        var request = new RestRequest();
+        request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
+        request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
+        request.AddHeader("X-Riot-ClientVersion", Constants.Version);
+        var response = await client.ExecuteGetAsync<PartyIdResponse>(request).ConfigureAwait(false);
+        if (!response.IsSuccessful) return false;
+        Partyid = response.Data.CurrentPartyId;
+        return true;
+
+        // Constants.Log.Error("CheckAndSetLiveMatchIdAsync() failed. Response: {Response}", response.ErrorException);
     }
 
 
@@ -94,6 +110,18 @@ public class LiveMatch
         return null;
     }
 
+    private static async Task<PartyResponse> GetPartyDetailsAsync()
+    {
+        RestClient client = new($"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/parties/v1/parties/{Partyid}");
+        RestRequest request = new();
+        request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
+        request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
+        var response = await client.ExecuteGetAsync<PartyResponse>(request).ConfigureAwait(false);
+        if (response.IsSuccessful) return response.Data;
+        Constants.Log.Error("GetPreMatchDetailsAsync() failed. Response: {Response}", response.ErrorException);
+        return null;
+    }
+
     public async Task<List<Player>> LiveMatchOutputAsync(UpdateProgress updateProgress)
     {
         var playerList = new List<Player>();
@@ -120,7 +148,7 @@ public class LiveMatch
                         Player player = new();
 
                         var t1 = GetCardAsync(riotPlayer.PlayerIdentity.PlayerCardId, index);
-                        var t3 = GetCompHistoryAsync(riotPlayer.Subject);
+                        var t3 = GetMatchHistoryAsync(riotPlayer.Subject);
                         var t4 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
                         var t5 = GetPreSkinInfoAsync(index);
                         var t6 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
@@ -164,89 +192,89 @@ public class LiveMatch
                 await Task.WhenAll(sTask, pTask).ConfigureAwait(false);
                 sbyte index = 0;
 
-                if (matchIdInfo.Players.Length > 10)
+                // if (matchIdInfo.Players.Length > 10)
+                // {
+                foreach (var riotPlayer in matchIdInfo.Players)
                 {
-                    foreach (var riotPlayer in matchIdInfo.Players)
+                    if (!riotPlayer.IsCoach)
                     {
-                        if (!riotPlayer.IsCoach)
+                        async Task<Player> GetPlayerInfo()
                         {
-                            async Task<Player> GetPlayerInfo()
-                            {
-                                Player player = new();
+                            Player player = new();
 
-                                var t1 = GetAgentInfoAsync(riotPlayer.CharacterId);
-                                // var t2 = GetCompHistoryAsync(riotPlayer.Subject);
-                                var t3 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
-                                var t4 = GetMatchSkinInfoAsync(index);
-                                var t5 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
+                            var t1 = GetAgentInfoAsync(riotPlayer.CharacterId);
+                            // var t2 = GetCompHistoryAsync(riotPlayer.Subject);
+                            var t3 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
+                            var t4 = GetMatchSkinInfoAsync(index);
+                            var t5 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
 
-                                await Task.WhenAll(t1, t3, t4, t5).ConfigureAwait(false);
-                                // await Task.WhenAll(t1, t2, t3, t4, t5).ConfigureAwait(false);
+                            await Task.WhenAll(t1, t3, t4, t5).ConfigureAwait(false);
+                            // await Task.WhenAll(t1, t2, t3, t4, t5).ConfigureAwait(false);
 
-                                player.IdentityData = t1.Result;
-                                // player.MatchHistoryData = t2.Result;
-                                player.RankData = t3.Result;
-                                player.SkinData = t4.Result;
-                                player.PlayerUiData = t5.Result;
-                                player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
-                                // player.RankData = await GetPlayerHistoryAsync(riotPlayer.Subject, seasonData).ConfigureAwait(false);
-                                player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
-                                player.TeamId = riotPlayer.TeamId;
-                                player.Active = Visibility.Visible;
-                                return player;
-                            }
-
-                            playerTasks.Add(GetPlayerInfo());
+                            player.IdentityData = t1.Result;
+                            // player.MatchHistoryData = t2.Result;
+                            player.RankData = t3.Result;
+                            player.SkinData = t4.Result;
+                            player.PlayerUiData = t5.Result;
+                            player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
+                            // player.RankData = await GetPlayerHistoryAsync(riotPlayer.Subject, seasonData).ConfigureAwait(false);
+                            player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
+                            player.TeamId = riotPlayer.TeamId;
+                            player.Active = Visibility.Visible;
+                            return player;
                         }
 
-                        index++;
+                        playerTasks.Add(GetPlayerInfo());
                     }
+
+                    index++;
                 }
-                else
-                {
-                    foreach (var riotPlayer in matchIdInfo.Players)
-                    {
-                        if (!riotPlayer.IsCoach)
-                        {
-                            async Task<Player> GetPlayerInfo()
-                            {
-                                Player player = new();
-
-                                var t1 = GetAgentInfoAsync(riotPlayer.CharacterId);
-                                var t2 = GetCompHistoryAsync(riotPlayer.Subject);
-                                var t3 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
-                                var t4 = GetMatchSkinInfoAsync(index);
-                                var t5 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
-
-                                // await Task.WhenAll(t1, t2, t4, t5).ConfigureAwait(false);
-                                await Task.WhenAll(t1, t2, t3, t4, t5).ConfigureAwait(false);
-
-                                player.IdentityData = t1.Result;
-                                player.MatchHistoryData = t2.Result;
-                                player.RankData = t3.Result;
-                                player.SkinData = t4.Result;
-                                player.PlayerUiData = t5.Result;
-                                player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
-                                // player.RankData = await GetPlayerHistoryAsync(riotPlayer.Subject, seasonData).ConfigureAwait(false);
-                                player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
-                                player.TeamId = riotPlayer.TeamId;
-                                player.Active = Visibility.Visible;
-                                return player;
-                            }
-
-                            playerTasks.Add(GetPlayerInfo());
-                        }
-
-                        index++;
-                    }
-                }
+                // }
+                // else
+                // {
+                //     foreach (var riotPlayer in matchIdInfo.Players)
+                //     {
+                //         if (!riotPlayer.IsCoach)
+                //         {
+                //             async Task<Player> GetPlayerInfo()
+                //             {
+                //                 Player player = new();
+                //
+                //                 var t1 = GetAgentInfoAsync(riotPlayer.CharacterId);
+                //                 // var t2 = GetMatchHistoryAsync(riotPlayer.Subject);
+                //                 var t3 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
+                //                 var t4 = GetMatchSkinInfoAsync(index);
+                //                 var t5 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
+                //
+                //                 // await Task.WhenAll(t1, t3, t4, t5).ConfigureAwait(false);
+                //                 await Task.WhenAll(t1, t2, t3, t4, t5).ConfigureAwait(false);
+                //
+                //                 player.IdentityData = t1.Result;
+                //                 player.MatchHistoryData = t2.Result;
+                //                 player.RankData = t3.Result;
+                //                 player.SkinData = t4.Result;
+                //                 player.PlayerUiData = t5.Result;
+                //                 player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
+                //                 // player.RankData = await GetPlayerHistoryAsync(riotPlayer.Subject, seasonData).ConfigureAwait(false);
+                //                 player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
+                //                 player.TeamId = riotPlayer.TeamId;
+                //                 player.Active = Visibility.Visible;
+                //                 return player;
+                //             }
+                //
+                //             playerTasks.Add(GetPlayerInfo());
+                //         }
+                //
+                //         index++;
+                //     }
+                // }
 
                 var gamePodId = matchIdInfo.GamePodId;
                 if (Constants.GamePodsDictionary.TryGetValue(gamePodId, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
-
             }
-
         }
+
+        playerList.AddRange(await Task.WhenAll(playerTasks).ConfigureAwait(false));
 
 
         updateProgress(75);
@@ -275,7 +303,7 @@ public class LiveMatch
                 if (colourused) colours.RemoveAt(0);
             }
 
-            for (var i = 0; i < playerList.Count; i++) playerList[i].PartyColour = newArray[i];
+            for (var i = 0; i < playerList.Count; i++) playerList[i].PlayerUiData.PartyColour = newArray[i];
             updateProgress(100);
         }
         catch (Exception)
@@ -283,6 +311,55 @@ public class LiveMatch
             Constants.Log.Error("LiveMatchOutputAsync() party colour  failed.");
         }
 
+        return playerList;
+    }
+
+    public async Task<List<Player>> PartyOutputAsync()
+    {
+        var playerList = new List<Player>();
+        var playerTasks = new List<Task<Player>>();
+        var partyInfo = await GetPartyDetailsAsync().ConfigureAwait(false);
+
+        if (partyInfo != null)
+        {
+            var seasonData = await GetSeasonsAsync().ConfigureAwait(false);
+            sbyte index = 0;
+
+            foreach (var riotPlayer in partyInfo.Members)
+            {
+                async Task<Player> GetPlayerInfo()
+                {
+                    Player player = new();
+
+                    var t1 = GetCardAsync(riotPlayer.PlayerIdentity.PlayerCardId, index);
+                    var t3 = GetMatchHistoryAsync(riotPlayer.Subject);
+                    var t4 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
+
+                    await Task.WhenAll(t1, t3, t4).ConfigureAwait(false);
+
+                    player.IdentityData = t1.Result;
+                    player.MatchHistoryData = t3.Result;
+                    player.RankData = t4.Result;
+                    player.PlayerUiData = new PlayerUIData
+                    {
+                        BackgroundColour = "#252A40",
+                        PartyUuid = Partyid,
+                        PartyColour = "Transparent",
+                        Puuid = riotPlayer.PlayerIdentity.Subject
+                    };
+                    player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
+                    player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
+                    player.TeamId = "Blue";
+                    player.Active = Visibility.Visible;
+                    return player;
+                }
+
+                playerTasks.Add(GetPlayerInfo());
+                index++;
+            }
+        }
+
+        playerList.AddRange(await Task.WhenAll(playerTasks).ConfigureAwait(false));
 
         return playerList;
     }
@@ -383,7 +460,6 @@ public class LiveMatch
             $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/pregame/v1/matches/{Matchid}/loadouts",
             true).ConfigureAwait(false);
         if (response.IsSuccessful)
-        {
             try
             {
                 var content = JsonSerializer.Deserialize<PreMatchLoadoutsResponse>(response.Content);
@@ -400,7 +476,7 @@ public class LiveMatch
             {
                 // ignored
             }
-        }
+
         Constants.Log.Error("GetPreSkinInfoAsync Failed: {e}", response.ErrorException);
         return new SkinData();
     }
@@ -422,7 +498,7 @@ public class LiveMatch
     }
 
 
-    private static async Task<MatchHistoryData> GetCompHistoryAsync(Guid puuid)
+    public static async Task<MatchHistoryData> GetMatchHistoryAsync(Guid puuid)
     {
         MatchHistoryData history = new()
         {
@@ -446,7 +522,7 @@ public class LiveMatch
 
                 var options = new JsonSerializerOptions
                 {
-                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
                 };
                 var content = JsonSerializer.Deserialize<CompetitiveUpdatesResponse>(response.Content, options);
 
@@ -489,12 +565,12 @@ public class LiveMatch
             }
             else
             {
-                Constants.Log.Error("GetCompHistoryAsync Puuid is null");
+                Constants.Log.Error("GetMatchHistoryAsync: Puuid is null");
             }
         }
         catch (Exception e)
         {
-            Constants.Log.Error("GetCompHistoryAsync failed: {e}", e);
+            Constants.Log.Error("GetMatchHistoryAsync failed: {e}", e);
         }
 
         return history;
@@ -573,17 +649,20 @@ public class LiveMatch
 
             if (rank is 21 or 22 or 23)
             {
-                var response2 = await DoCachedRequestAsync(Method.Get,
+                var leaderboardResponse = await DoCachedRequestAsync(Method.Get,
                     $"https://pd.{Constants.Shard}.a.pvp.net/mmr/v1/leaderboards/affinity/{Constants.Region}/queue/competitive/season/{seasonData.CurrentSeason}?startIndex=0&size=0",
                     true).ConfigureAwait(false);
-                var content2 = JsonSerializer.Deserialize<LeaderboardsResponse>(response2.Content);
-                rankData.MaxRr = rank switch
+                if (leaderboardResponse.Content != null)
                 {
-                    21 => content2.TierDetails["22"].RankedRatingThreshold,
-                    22 => content2.TierDetails["23"].RankedRatingThreshold,
-                    23 => content2.TierDetails["24"].RankedRatingThreshold,
-                    _ => 100
-                };
+                    var leaderboardcontent = JsonSerializer.Deserialize<LeaderboardsResponse>(leaderboardResponse.Content);
+                    rankData.MaxRr = rank switch
+                    {
+                        24 => leaderboardcontent.TierDetails["22"].RankedRatingThreshold,
+                        25 => leaderboardcontent.TierDetails["23"].RankedRatingThreshold,
+                        26 => leaderboardcontent.TierDetails["24"].RankedRatingThreshold,
+                        _ => 100
+                    };
+                }
             }
 
             var ranks = JsonSerializer.Deserialize<Dictionary<int, string>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\competitivetiers.txt").ConfigureAwait(false));
@@ -745,7 +824,8 @@ public class LiveMatch
     {
         PlayerUIData playerUiData = new()
         {
-            BackgroundColour = "#252A40"
+            BackgroundColour = "#252A40",
+            Puuid = puuid
         };
         try
         {

@@ -169,7 +169,6 @@
 						Margin="0,0,50,0"
 						Source="{Binding PlayerCell.SkinData.VandalImage, ElementName=Self}"
 						ToolTip="{Binding PlayerCell.SkinData.VandalName, ElementName=Self}"
-						RenderOptions.BitmapScalingMode="HighQuality"
 						ToolTipService.InitialShowDelay="0">
 						<Image.Effect>
 							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
@@ -177,7 +176,6 @@
 					</Image>
 					<Image Source="{Binding PlayerCell.SkinData.PhantomImage, ElementName=Self}"
 					       ToolTip="{Binding PlayerCell.SkinData.PhantomName, ElementName=Self}"
-					       RenderOptions.BitmapScalingMode="HighQuality"
 					       ToolTipService.InitialShowDelay="0">
 						<Image.Effect>
 							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
@@ -297,7 +295,7 @@
 					<RowDefinition Height="1*" />
 					<RowDefinition Height="4*" />
 				</Grid.RowDefinitions>
-				<Border Background="{Binding PlayerCell.PartyColour, ElementName=Self}" Grid.Row="0" Grid.Column="1"
+				<Border Background="{Binding PlayerCell.PlayerUiData.PartyColour, ElementName=Self}" Grid.Row="0" Grid.Column="1"
 				        VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="0" CornerRadius="0 20 0 10">
 					<Image Margin="6">
 						<Image.Source>

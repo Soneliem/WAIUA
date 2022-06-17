@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;
 using WAIUA.ViewModels;
 
 namespace WAIUA.Views;

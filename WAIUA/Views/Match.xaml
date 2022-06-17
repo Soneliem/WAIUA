@@ -15,10 +15,10 @@
              d:DesignWidth="1536">
 	<i:Interaction.Triggers>
 		<i:EventTrigger EventName="Loaded">
-			<i:InvokeCommandAction Command="{Binding GetMatchInfoCommand}" />
+			<i:InvokeCommandAction Command="{Binding PassiveLoadCommand}" />
 		</i:EventTrigger>
-		<i:EventTrigger EventName="Closing" >
-			<i:InvokeCommandAction Command="{Binding StopTimerCommand}" />
+		<i:EventTrigger EventName="Closing">
+			<i:InvokeCommandAction Command="{Binding StopPassiveLoadCommand}" />
 		</i:EventTrigger>
 	</i:Interaction.Triggers>
 	<UserControl.Resources>
@@ -47,8 +47,9 @@
 				<ColumnDefinition Width="70" />
 				<ColumnDefinition Width="70" />
 				<ColumnDefinition Width="70" />
-				<ColumnDefinition Width="Auto" />		
-				<ColumnDefinition Width="Auto" />				
+				<ColumnDefinition Width="70" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
@@ -75,11 +76,23 @@
 				Margin="7"
 				Command="{Binding GetMatchInfoCommand}"
 				Template="{StaticResource ButtonTemplate}">
-
 				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Rotate" Margin="10" />
 			</Button>
-			
-			<TextBlock Margin="10" Grid.Column="3"
+			<ToggleButton
+				Grid.Column="3" Margin="7"
+				Template="{StaticResource ToggleButtonTemplate}">
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="Checked">
+						<i:InvokeCommandAction Command="{Binding Path=PassiveLoadCommand}" />
+					</i:EventTrigger>
+					<i:EventTrigger EventName="Unchecked">
+						<i:InvokeCommandAction Command="{Binding Path=StopPassiveLoadCommand}" />
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Pause" Margin="10" />
+			</ToggleButton>
+
+			<TextBlock Margin="10" Grid.Column="4"
 			           FontSize="20"
 			           VerticalAlignment="Center"
 			           FontWeight="Normal"
@@ -87,7 +100,7 @@
 			           FontFamily="{StaticResource Nunito}"
 			           Text="{x:Static p:Resources.RefreshingIn}" />
 			<TextBlock Margin="10"
-			           FontSize="20" Grid.Column="4"
+			           FontSize="20" Grid.Column="5"
 			           FontFamily="{StaticResource Nunito}"
 			           VerticalAlignment="Center"
 			           FontWeight="Normal"
@@ -95,7 +108,7 @@
 			           Text="{Binding RefreshTime}" />
 
 			<Border
-				Grid.Column="5" HorizontalAlignment="Right"
+				Grid.Column="6" HorizontalAlignment="Right"
 				Margin="7"
 				CornerRadius="10">
 				<Border.Effect>
@@ -115,7 +128,7 @@
 			</Border>
 
 			<Border
-				Grid.Column="6" HorizontalAlignment="Right" MinWidth="234"
+				Grid.Column="7" HorizontalAlignment="Right" MinWidth="234"
 				Margin="7"
 				CornerRadius="10">
 				<Border.Effect>

@@ -14,16 +14,15 @@ public partial class MatchViewModel : ObservableObject
 {
     public delegate void EventAction();
 
-    [ObservableProperty] private int _countdownTime = 20;
+    [ObservableProperty] private int _countdownTime = 90;
     [ObservableProperty] private DispatcherTimer _countTimer;
     [ObservableProperty] private List<Player> _leftPlayerList;
-    [ObservableProperty] private List<Player> _rightPlayerList;
     [ObservableProperty] private MatchDetails _match;
     [ObservableProperty] private LoadingOverlay _overlay;
-
     [ObservableProperty] private string _refreshTime = "-";
-    private int _resettime = 20;
-    
+    private int _resettime = 90;
+    [ObservableProperty] private List<Player> _rightPlayerList;
+
 
     public MatchViewModel()
     {
@@ -37,25 +36,33 @@ public partial class MatchViewModel : ObservableObject
 
         LeftPlayerList = new List<Player>();
         RightPlayerList = new List<Player>();
-
-        _countTimer = new DispatcherTimer();
-        _countTimer.Tick += UpdateTimersAsync;
-        _countTimer.Interval = new TimeSpan(0, 0, 1);
-        _countTimer.Start();
     }
 
     public event EventAction GoHomeEvent;
 
     [ICommand]
-    private void StopTimer()
+    private Task PassiveLoadAsync()
     {
-        _countTimer.Stop();
+        _countTimer = new DispatcherTimer();
+        _countTimer.Tick += UpdateTimersAsync;
+        _countTimer.Interval = new TimeSpan(0, 0, 1);
+        _countTimer.Start();
+        return Task.CompletedTask;
+    }
+
+    [ICommand]
+    private Task StopPassiveLoadAsync()
+    {
+        CountTimer?.Stop();
+        RefreshTime = "-";
+        CountdownTime = 15;
+        return Task.CompletedTask;
     }
 
     private async void UpdateTimersAsync(object sender, EventArgs e)
     {
         RefreshTime = CountdownTime + "s";
-        if (CountdownTime == 0)
+        if (CountdownTime <= 0)
         {
             CountdownTime = _resettime;
             await GetMatchInfoAsync().ConfigureAwait(false);
@@ -119,6 +126,8 @@ public partial class MatchViewModel : ObservableObject
                 if (newLiveMatch.MatchInfo != null)
                     Match = newLiveMatch.MatchInfo;
 
+                UpdateStats();
+
                 Overlay.IsBusy = false;
             }
             else
@@ -137,6 +146,16 @@ public partial class MatchViewModel : ObservableObject
         }
 
         GC.Collect();
+    }
+
+    private async void UpdateStats()
+    {
+        // List<Task> tasks = new();
+        var AllPlayers = LeftPlayerList.Concat(RightPlayerList).ToList();
+        foreach (var player in AllPlayers)
+            // var t1 = LiveMatch.GetMatchHistoryAsync(player.PlayerUiData.Puuid);
+            // player.MatchHistoryData = t1.Result;
+            player.MatchHistoryData = await LiveMatch.GetMatchHistoryAsync(player.PlayerUiData.Puuid).ConfigureAwait(false);
     }
 
     private void UpdatePercentage(int percentage)

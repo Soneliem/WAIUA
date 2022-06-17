@@ -131,6 +131,9 @@
 				<Border.Background>
 					<SolidColorBrush x:Name="ButtonBackground" Color="#181E34" />
 				</Border.Background>
+				<Border.Effect>
+					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+				</Border.Effect>
 				<ContentPresenter
 					Margin="5"
 					HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -162,7 +165,16 @@
 									Storyboard.TargetName="ButtonBackground"
 									Storyboard.TargetProperty="Color"
 									To="#32e2b2"
-									Duration="0:0:0.5" />
+									Duration="0:0:0.25" />
+							</Storyboard>
+						</VisualState>
+						<VisualState x:Name="Unchecked">
+							<Storyboard>
+								<ColorAnimation
+									Storyboard.TargetName="ButtonBackground"
+									Storyboard.TargetProperty="Color"
+									To="#181E34"
+									Duration="0:0:0.25" />
 							</Storyboard>
 						</VisualState>
 					</VisualStateGroup>

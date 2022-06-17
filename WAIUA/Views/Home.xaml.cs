@@ -40,7 +40,7 @@ public partial class Home : UserControl
         AccountStatus = AccountStatusView;
         MatchStatus = MatchStatusView;
     }
-    
+
 
     private void DataContextChangedHandler(object sender, DependencyPropertyChangedEventArgs e)
     {
@@ -118,6 +118,7 @@ public partial class Home : UserControl
             _health -= 10;
             return;
         }
+
         var circle = (Ellipse) e.OriginalSource;
         MyCanvas.Children.Remove(circle);
         _score++;

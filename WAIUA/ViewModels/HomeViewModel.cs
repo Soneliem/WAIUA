@@ -20,34 +20,17 @@ public partial class HomeViewModel : ObservableObject
 
     [ObservableProperty] private int _countdownTime = 15;
     [ObservableProperty] private DispatcherTimer _countTimer;
-    [ObservableProperty] private LoadingOverlay _overlay;
-
     [ObservableProperty] private List<Player> _playerList;
 
     // [ObservableProperty] private string _queueTime = "-";
     [ObservableProperty] private string _refreshTime = "-";
 
-    public HomeViewModel()
-    {
-        Overlay = new LoadingOverlay
-        {
-            Header = "Refreshing",
-            Content = "",
-            IsBusy = false
-        };
-    }
-
     public event EventAction GoMatchEvent;
-
-    [ICommand]
-    private void StopTimer() => _countTimer.Stop();
-
 
     [ICommand]
     private async Task LoadNowAsync()
     {
-        if (!await LiveMatch.LiveMatchChecksAsync().ConfigureAwait(false)) return;
-        GoMatchEvent?.Invoke();
+        CountdownTime = 15;
         await UpdateChecksAsync().ConfigureAwait(false);
     }
 
@@ -64,7 +47,7 @@ public partial class HomeViewModel : ObservableObject
     [ICommand]
     private Task StopPassiveLoadAsync()
     {
-        CountTimer.Stop();
+        CountTimer?.Stop();
         RefreshTime = "-";
         CountdownTime = 15;
         return Task.CompletedTask;
@@ -87,7 +70,6 @@ public partial class HomeViewModel : ObservableObject
     [ICommand]
     private async Task UpdateChecksAsync()
     {
-        // Overlay.IsBusy = true;
         Application.Current.Dispatcher.Invoke(() =>
         {
             Home.ValorantStatus.Icon = EFontAwesomeIcon.Solid_Question;
@@ -120,7 +102,6 @@ public partial class HomeViewModel : ObservableObject
                         Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
                     });
                     CountTimer?.Stop();
-                    // Overlay.IsBusy = false;
                     GoMatchEvent?.Invoke();
                 }
                 else
@@ -130,6 +111,7 @@ public partial class HomeViewModel : ObservableObject
                         Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
                         Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
                     });
+                    await GetPartyPlayerInfoAsync().ConfigureAwait(false);
                 }
             }
             else
@@ -151,7 +133,6 @@ public partial class HomeViewModel : ObservableObject
                             Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(50, 226, 178));
                         });
                         CountTimer?.Stop();
-                        // Overlay.IsBusy = false;
                         GoMatchEvent?.Invoke();
                     }
                     else
@@ -161,6 +142,7 @@ public partial class HomeViewModel : ObservableObject
                             Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
                             Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
                         });
+                        await GetPartyPlayerInfoAsync().ConfigureAwait(false);
                     }
                 }
                 else
@@ -187,42 +169,21 @@ public partial class HomeViewModel : ObservableObject
                 Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
             });
         }
-
-        // Overlay.IsBusy = false;
     }
 
-
-    public async Task UpdatePartyAsync()
+    [ICommand]
+    private async Task GetPartyPlayerInfoAsync()
     {
-        if (await GetPartyPlayerInfoAsync().ConfigureAwait(false))
-        {
-            // _player4Prop = Player.Player4;
-        }
-    }
-
-
-    private Task<bool> GetPartyPlayerInfoAsync()
-    {
-        var output = false;
         try
         {
-            // var newMatch = new LiveMatch();
-            // Parallel.For(0, 5, i => { Player.Players[i].Data = null; });
-            //
-            // try
-            // {
-            //     // Parallel.For(0, 5, async i => { RiotPlayer.players[i].Data = await newMatch.LiveMatchOutputAsync((sbyte) i).ConfigureAwait(false); });
-            // }
-            // catch (Exception)
-            // {
-            // }
-            //
-            // output = true;
+            LiveMatch newLiveMatch = new();
+            if (await newLiveMatch.CheckAndSetPartyIdAsync().ConfigureAwait(false)) PlayerList = await newLiveMatch.PartyOutputAsync().ConfigureAwait(false);
         }
         catch (Exception)
         {
+            // ignored
         }
 
-        return Task.FromResult(output);
+        GC.Collect();
     }
 }

@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Windows.Resources;
+using System.Windows;
 using RestSharp;
 using WAIUA.Objects;
-using WAIUA.Properties;
+using Settings = WAIUA.Properties.Settings;
 
 namespace WAIUA.Helpers;
 
@@ -273,14 +273,15 @@ public static class ValApi
                                     //     Constants.LocalAppDataPath + "\\ValAPI\\ranksimg\\0.png", true);
 
                                     const string imagePath = "pack://application:,,,/Assets/0.png";
-                                    StreamResourceInfo imageInfo = System.Windows.Application.GetResourceStream(new Uri(imagePath));
-                                    using MemoryStream ms = new MemoryStream();
+                                    var imageInfo = Application.GetResourceStream(new Uri(imagePath));
+                                    using var ms = new MemoryStream();
                                     if (imageInfo != null)
                                     {
                                         await imageInfo.Stream.CopyToAsync(ms);
-                                        byte[] imageBytes = ms.ToArray();
+                                        var imageBytes = ms.ToArray();
                                         await File.WriteAllBytesAsync(Constants.LocalAppDataPath + "\\ValAPI\\ranksimg\\0.png", imageBytes);
                                     }
+
                                     continue;
                                 }
                             }
@@ -306,15 +307,15 @@ public static class ValApi
 
             async Task UpdateGamemodeDictionary()
             {
-                var gamemodeRequest = new RestRequest(_gamemodeInfo.Url);
-                var gamemodeResponse = await Client.ExecuteGetAsync<ValApiGamemodeResponse>(gamemodeRequest).ConfigureAwait(false);
-                if (gamemodeResponse.IsSuccessful)
+                var gameModeRequest = new RestRequest(_gamemodeInfo.Url);
+                var gameModeResponse = await Client.ExecuteGetAsync<ValApiGamemodeResponse>(gameModeRequest).ConfigureAwait(false);
+                if (gameModeResponse.IsSuccessful)
                 {
                     Dictionary<Guid, string> gamemodeDictionary = new();
                     if (!Directory.Exists(Constants.LocalAppDataPath + "\\ValAPI\\gamemodeimg"))
                         Directory.CreateDirectory(Constants.LocalAppDataPath + "\\ValAPI\\gamemodeimg");
-                    if (gamemodeResponse.Data != null)
-                        foreach (var gamemode in gamemodeResponse.Data.Data)
+                    if (gameModeResponse.Data != null)
+                        foreach (var gamemode in gameModeResponse.Data.Data)
                         {
                             if (gamemode.DisplayIcon == null) continue;
                             gamemodeDictionary.TryAdd(gamemode.Uuid, gamemode.DisplayName);
@@ -331,7 +332,7 @@ public static class ValApi
                 }
                 else
                 {
-                    Constants.Log.Error("updateGamemodeDictionary Failed, Response:{error}", gamemodeResponse.ErrorException);
+                    Constants.Log.Error("updateGamemodeDictionary Failed, Response:{error}", gameModeResponse.ErrorException);
                 }
             }
 

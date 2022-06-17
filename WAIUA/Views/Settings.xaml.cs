@@ -116,6 +116,7 @@ public partial class Settings : UserControl
             catch (CultureNotFoundException)
             {
             }
+
         rm.ReleaseAllResources();
         return Task.FromResult<IEnumerable<CultureInfo>>(result);
     }

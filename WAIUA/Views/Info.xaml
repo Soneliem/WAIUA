@@ -9,7 +9,6 @@
 	xmlns:fa="http://schemas.fontawesome.com/icons/fonts"
 	d:DesignHeight="754"
 	d:DesignWidth="1536"
-	Background="#2E3349"
 	UseLayoutRounding="True"
 	mc:Ignorable="d"
 	d:DataContext="{d:DesignInstance Type=viewModels:InfoViewModel}">
