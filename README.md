@@ -58,13 +58,18 @@
 
 ### Current Features
 
-|Current Rank and Rank Progress|Past three ranks (from last 3 acts, not last 3 played acts)|RR lost or gained in last three competitive games|Player card and Account Level|
+|Current Rank and Rank Progress|Past three ranks (from last 3 acts)|RR lost or gained in last three competitive games|In-game and Agent Name|
 |:---:|:---:|:---:|:---:|
 |![rank](Screenshots/rank.png)|![rank](Screenshots/pranks.png)|![rank](Screenshots/history.png)|![card](Screenshots/card.png)|
 
-|In-game name and Agent|Vandal And Phantom Skin|Party Indicators|Fully translated into 10+ languages|
+|Vandal And Phantom Skin|Account Level and Agent Image|Party Indicators|Fully translated into 10+ languages|
 |:---:|:---:|:---:|:---:|
 |![name](Screenshots/name.png)|![skin](Screenshots/skin.png)|![party](Screenshots/party.png)|![translation](Screenshots/language.png)|
+
+|Tracker.gg Intergration|Mini-Aim Trainer|Support For all Game Modes|Auto Refresh and Updates|
+|:---:|:---:|:---:|:---:|
+|![name](Screenshots/name.png)|![skin](Screenshots/skin.png)|![party](Screenshots/party.png)|![translation](Screenshots/language.png)|
+
 ## Getting Started
 
 To get the app up and running follow these simple steps.
@@ -72,7 +77,7 @@ To get the app up and running follow these simple steps.
 ### Prerequisites
 
 * Windows 64-bit (If you're able to run Valorant on it you'll be fine)
-* .NET (will be installed during installation)
+* .NET (will be automatically installed during installation)
 
 ### Installation
 
@@ -82,10 +87,9 @@ To get the app up and running follow these simple steps.
 
 ## Usage
 
-1. Open le beautiful app
-2. If you're in a match, a prompt to get the current match info will appear
-3. Press le prompt like a good boi
-4. Win games (unless you find out you're playing against a smurf. In that case RIP your RR)
+1. Open the app
+2. WAIUA will automatically check for new matches or wait for a match like a good boi
+3. Win games (unless you find out you're playing against a smurf. In that case RIP your RR)
 
 ## Roadmap and Known Bugs
 
@@ -109,13 +113,13 @@ I knew none of these things before making this lol
 
 ## Why I Made This
 
-The main reason I made this was to detect smurfs. This app basically settles the debates between team members or the enemy. I have chosen the set of available features carefully to maintain the competitive integrity of the game. Many suggestions that I get are declined due to this.
+The main reason I made this was to detect smurfs. This app basically settles the debates between team members or the enemy. The set of available features was chosen carefully to maintain the competitive integrity of the game. Many suggestions that I get are declined due to this (unless a certain "competing" verified app impliments it). 
 
 Another reason to making this was that I wanted some experience with .NET and GUI apps. This application uses C# as the backend, WPF as the frontend and .NET as the framework. I knew none of these when I began, so this was a fun journey. I've gained alot of experice of how to and how not to (mostly the latter) use WPF and C#. 
 
 ## Contributing
 
-I welcome any sort of contribution and am happy to take in any ~~hate/~~ feedback. Open source means open heart :)
+I welcome any sort of contribution. Please remember that translations are managed externally as mentioned below.
 
 <!-- TODO: Fix -->
 <!-- ## Sponsors
@@ -148,3 +152,4 @@ WAIUA Supports full localization and instructions to help with translations can 
 ## DISCLAIMER
 THIS PROJECT IS NOT ASSOCIATED OR ENDORSED BY RIOT GAMES. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
 By using this application, you agree that you, the individual, are knowingly accessing all information required to be displayed.
+

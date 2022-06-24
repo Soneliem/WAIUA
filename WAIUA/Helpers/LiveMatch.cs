@@ -156,14 +156,13 @@ public class LiveMatch
                         await Task.WhenAll(t1, t3, t4, t5, t6).ConfigureAwait(false);
                         // await Task.WhenAll(t1, t3, t5, t6).ConfigureAwait(false);
 
-
                         player.IdentityData = t1.Result;
                         player.MatchHistoryData = t3.Result;
                         player.RankData = t4.Result;
                         player.SkinData = t5.Result;
                         player.PlayerUiData = t6.Result;
                         player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
-                        player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
+                        player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel : 0;
                         player.TeamId = "Blue";
                         player.Active = Visibility.Visible;
                         return player;
@@ -218,7 +217,7 @@ public class LiveMatch
                             player.PlayerUiData = t5.Result;
                             player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
                             // player.RankData = await GetPlayerHistoryAsync(riotPlayer.Subject, seasonData).ConfigureAwait(false);
-                            player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
+                            player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel : 0;
                             player.TeamId = riotPlayer.TeamId;
                             player.Active = Visibility.Visible;
                             return player;
@@ -229,45 +228,6 @@ public class LiveMatch
 
                     index++;
                 }
-                // }
-                // else
-                // {
-                //     foreach (var riotPlayer in matchIdInfo.Players)
-                //     {
-                //         if (!riotPlayer.IsCoach)
-                //         {
-                //             async Task<Player> GetPlayerInfo()
-                //             {
-                //                 Player player = new();
-                //
-                //                 var t1 = GetAgentInfoAsync(riotPlayer.CharacterId);
-                //                 // var t2 = GetMatchHistoryAsync(riotPlayer.Subject);
-                //                 var t3 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
-                //                 var t4 = GetMatchSkinInfoAsync(index);
-                //                 var t5 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
-                //
-                //                 // await Task.WhenAll(t1, t3, t4, t5).ConfigureAwait(false);
-                //                 await Task.WhenAll(t1, t2, t3, t4, t5).ConfigureAwait(false);
-                //
-                //                 player.IdentityData = t1.Result;
-                //                 player.MatchHistoryData = t2.Result;
-                //                 player.RankData = t3.Result;
-                //                 player.SkinData = t4.Result;
-                //                 player.PlayerUiData = t5.Result;
-                //                 player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
-                //                 // player.RankData = await GetPlayerHistoryAsync(riotPlayer.Subject, seasonData).ConfigureAwait(false);
-                //                 player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
-                //                 player.TeamId = riotPlayer.TeamId;
-                //                 player.Active = Visibility.Visible;
-                //                 return player;
-                //             }
-                //
-                //             playerTasks.Add(GetPlayerInfo());
-                //         }
-                //
-                //         index++;
-                //     }
-                // }
 
                 var gamePodId = matchIdInfo.GamePodId;
                 if (Constants.GamePodsDictionary.TryGetValue(gamePodId, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
@@ -581,7 +541,7 @@ public class LiveMatch
         var rankData = new RankData();
         if (puuid != Guid.Empty)
         {
-            int rank, prank, pprank, ppprank;
+            int rank = 0, prank = 0, pprank = 0, ppprank = 0;
             var response = await DoCachedRequestAsync(Method.Get,
                 $"https://pd.{Constants.Region}.a.pvp.net/mmr/v1/players/{puuid}",
                 true,
@@ -615,8 +575,23 @@ public class LiveMatch
             {
                 content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.PreviousSeason.ToString(), out var pActJsonElement);
                 var PAct = pActJsonElement.Deserialize<ActInfo>();
-                prank = PAct.CompetitiveTier;
-                if (prank is 1 or 2) prank = 0;
+                switch (PAct.CompetitiveTier)
+                {
+                    case 1 or 2:
+                        prank = 0;
+                        break;
+                    case 21 or 22 or 23:
+                    {
+                        if (Constants.BeforeAscendantSeasons.Contains(seasonData.PreviousSeason))
+                        {
+                            prank = PAct.CompetitiveTier + 3;
+                        }
+                        break;
+                    }
+                    default:
+                        prank = PAct.CompetitiveTier;
+                        break;
+                }
             }
             catch (Exception)
             {
@@ -627,8 +602,23 @@ public class LiveMatch
             {
                 content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.PreviouspreviousSeason.ToString(), out var ppActJsonElement);
                 var PPAct = ppActJsonElement.Deserialize<ActInfo>();
-                pprank = PPAct.CompetitiveTier;
-                if (pprank is 1 or 2) pprank = 0;
+                switch (PPAct.CompetitiveTier)
+                {
+                    case 1 or 2:
+                        pprank = 0;
+                        break;
+                    case 21 or 22 or 23:
+                    {
+                        if (Constants.BeforeAscendantSeasons.Contains(seasonData.PreviouspreviousSeason))
+                        {
+                            pprank = PPAct.CompetitiveTier + 3;
+                        }
+                        break;
+                    }
+                    default:
+                        pprank = PPAct.CompetitiveTier;
+                        break;
+                }
             }
             catch (Exception)
             {
@@ -639,15 +629,30 @@ public class LiveMatch
             {
                 content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.PreviouspreviouspreviousSeason.ToString(), out var pppActJsonElement);
                 var PPPAct = pppActJsonElement.Deserialize<ActInfo>();
-                ppprank = PPPAct.CompetitiveTier;
-                if (ppprank is 1 or 2) ppprank = 0;
+                switch (PPPAct.CompetitiveTier)
+                {
+                    case 1 or 2:
+                        ppprank = 0;
+                        break;
+                    case 21 or 22 or 23:
+                    {
+                        if (Constants.BeforeAscendantSeasons.Contains(seasonData.PreviouspreviouspreviousSeason))
+                        {
+                            ppprank = PPPAct.CompetitiveTier + 3;
+                        }
+                        break;
+                    }
+                    default:
+                        ppprank = PPPAct.CompetitiveTier;
+                        break;
+                }
             }
             catch (Exception)
             {
                 ppprank = 0;
             }
 
-            if (rank is 21 or 22 or 23)
+            if (rank is 24 or 25 or 26)
             {
                 var leaderboardResponse = await DoCachedRequestAsync(Method.Get,
                     $"https://pd.{Constants.Shard}.a.pvp.net/mmr/v1/leaderboards/affinity/{Constants.Region}/queue/competitive/season/{seasonData.CurrentSeason}?startIndex=0&size=0",

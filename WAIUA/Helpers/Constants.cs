@@ -113,6 +113,13 @@ public static class Constants
         {"aresriot.aws-rclusterprod-waw1-1.tournament-gp-warsaw-1", "Warsaw"}
     };
 
+    public static readonly List<Guid> BeforeAscendantSeasons = new()
+    {
+        new Guid("3e47230a-463c-a301-eb7d-67bb60357d4f"),
+        new Guid("d929bc38-4ab6-7da4-94f0-ee84f8ac141e"),
+        new Guid("573f53ac-41a5-3a7d-d9ce-d6a6298e5704")
+    };
+
     public static string AccessToken { get; set; }
     public static string EntitlementToken { get; set; }
     public static string Region { get; set; }

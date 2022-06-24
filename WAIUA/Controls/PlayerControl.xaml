@@ -220,7 +220,8 @@
 				Grid.Row="0"
 				Grid.Column="2"
 				VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Columns="3" Rows="1">
-				<Border CornerRadius="50" Margin="2" Padding="4"
+				<Border CornerRadius="50" Margin="2" Padding="4" MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" 
+				        MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
 				        Background="{Binding PlayerCell.MatchHistoryData.PreviouspreviouspreviousGameColour, ElementName=Self}"
 				        BorderThickness="0">
 					<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed"
@@ -230,7 +231,8 @@
 						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 					</Border.Effect>
 				</Border>
-				<Border CornerRadius="50" Margin="2" Padding="4"
+				<Border CornerRadius="50" Margin="2" Padding="4" MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" 
+				        MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
 				        Background="{Binding PlayerCell.MatchHistoryData.PreviouspreviousGameColour, ElementName=Self}"
 				        BorderThickness="0">
 					<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed"
@@ -240,7 +242,8 @@
 						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 					</Border.Effect>
 				</Border>
-				<Border CornerRadius="50" Margin="2" Padding="4"
+				<Border CornerRadius="50" Margin="2" Padding="4" MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" 
+				        MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
 				        Background="{Binding PlayerCell.MatchHistoryData.PreviousGameColour, ElementName=Self}"
 				        BorderThickness="0">
 					<TextBlock FontFamily="{StaticResource Nunito}" FontStretch="UltraCondensed"
