@@ -26,6 +26,10 @@ public partial class MatchViewModel : ObservableObject
 
     public MatchViewModel()
     {
+        _countTimer = new DispatcherTimer();
+        _countTimer.Tick += UpdateTimersAsync;
+        _countTimer.Interval = new TimeSpan(0, 0, 1);
+
         Match = new MatchDetails();
         Overlay = new LoadingOverlay
         {
@@ -41,13 +45,14 @@ public partial class MatchViewModel : ObservableObject
     public event EventAction GoHomeEvent;
 
     [ICommand]
-    private Task PassiveLoadAsync()
+    private async Task PassiveLoadAsync()
     {
-        _countTimer = new DispatcherTimer();
-        _countTimer.Tick += UpdateTimersAsync;
-        _countTimer.Interval = new TimeSpan(0, 0, 1);
-        _countTimer.Start();
-        return Task.CompletedTask;
+        if (!_countTimer.IsEnabled)
+        {
+            _countTimer.Start();
+            await GetMatchInfoAsync().ConfigureAwait(false);
+        }
+        
     }
 
     [ICommand]
@@ -67,7 +72,6 @@ public partial class MatchViewModel : ObservableObject
             CountdownTime = _resettime;
             await GetMatchInfoAsync().ConfigureAwait(false);
         }
-
         CountdownTime--;
     }
 

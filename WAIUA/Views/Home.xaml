@@ -83,7 +83,7 @@
 			           Foreground="White" Text="{x:Static p:Resources.Status}" />
 		</Grid>
 
-		<ItemsControl Grid.Row="1" Grid.Column="0" Margin="0,15,0,0"
+		<ItemsControl Grid.Row="1" Grid.Column="0" Margin="0,15,0,0" VerticalAlignment="Center"
 		              ItemsSource="{Binding PlayerList}">
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>

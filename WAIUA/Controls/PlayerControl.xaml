@@ -8,9 +8,6 @@
 	x:Name="Self"
 	d:DesignHeight="450"
 	d:DesignWidth="2000"
-	UseLayoutRounding="True"
-	SnapsToDevicePixels="True"
-	RenderOptions.ClearTypeHint="Enabled"
 	mc:Ignorable="d" d:DataContext="{d:DesignData NormalPlayerCell}">
 	<UserControl.Resources>
 		<Style TargetType="Button">
@@ -53,7 +50,7 @@
 	<Border
 		Visibility="{Binding PlayerCell.Active, ElementName=Self}"
 		Background="{Binding PlayerCell.PlayerUiData.BackgroundColour, ElementName=Self}"
-		BorderThickness="0" RenderTransformOrigin="0.5,0.5" RenderOptions.BitmapScalingMode="NearestNeighbor"
+		BorderThickness="0" RenderTransformOrigin="0.5,0.5" 
 		CornerRadius="20">
 		<Border.Effect>
 			<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
@@ -89,7 +86,7 @@
 				CornerRadius="10">
 				<Border.Background>
 
-					<ImageBrush ImageSource="{Binding PlayerCell.IdentityData.Image, ElementName=Self}" />
+					<ImageBrush RenderOptions.BitmapScalingMode="HighQuality" ImageSource="{Binding PlayerCell.IdentityData.Image, ElementName=Self}" />
 
 				</Border.Background>
 				<Border.Effect>
@@ -166,7 +163,7 @@
 				Stretch="Uniform">
 				<StackPanel Orientation="Horizontal">
 					<Image
-						Margin="0,0,50,0"
+						Margin="0,0,50,0" RenderOptions.BitmapScalingMode="HighQuality"
 						Source="{Binding PlayerCell.SkinData.VandalImage, ElementName=Self}"
 						ToolTip="{Binding PlayerCell.SkinData.VandalName, ElementName=Self}"
 						ToolTipService.InitialShowDelay="0">
@@ -174,9 +171,10 @@
 							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 						</Image.Effect>
 					</Image>
-					<Image Source="{Binding PlayerCell.SkinData.PhantomImage, ElementName=Self}"
-					       ToolTip="{Binding PlayerCell.SkinData.PhantomName, ElementName=Self}"
-					       ToolTipService.InitialShowDelay="0">
+					<Image  RenderOptions.BitmapScalingMode="HighQuality"
+					        Source="{Binding PlayerCell.SkinData.PhantomImage, ElementName=Self}"
+					        ToolTip="{Binding PlayerCell.SkinData.PhantomName, ElementName=Self}"
+					        ToolTipService.InitialShowDelay="0">
 						<Image.Effect>
 							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 						</Image.Effect>
@@ -266,8 +264,8 @@
 				ToolTip="{Binding PlayerCell.RankData.RankName, ElementName=Self}"
 				ToolTipService.InitialShowDelay="0">
 				<Border.Background>
-					<ImageBrush RenderOptions.BitmapScalingMode="HighQuality"
-					            ImageSource="{Binding PlayerCell.RankData.RankImage, ElementName=Self}" />
+					<ImageBrush  RenderOptions.BitmapScalingMode="HighQuality"
+					             ImageSource="{Binding PlayerCell.RankData.RankImage, ElementName=Self}" />
 				</Border.Background>
 				<Border.Effect>
 					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />

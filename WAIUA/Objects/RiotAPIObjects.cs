@@ -915,7 +915,7 @@ public class Settings
 public class GameRules
 {
     [JsonPropertyName("AllowGameModifiers")]
-    public bool AllowGameModifiers { get; set; }
+    public string AllowGameModifiers { get; set; }
 }
 
 public class ErrorNotification

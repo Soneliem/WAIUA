@@ -83,10 +83,10 @@
 				Template="{StaticResource ToggleButtonTemplate}">
 				<i:Interaction.Triggers>
 					<i:EventTrigger EventName="Checked">
-						<i:InvokeCommandAction Command="{Binding Path=PassiveLoadCommand}" />
+						<i:InvokeCommandAction Command="{Binding Path=StopPassiveLoadCommand}" />
 					</i:EventTrigger>
 					<i:EventTrigger EventName="Unchecked">
-						<i:InvokeCommandAction Command="{Binding Path=StopPassiveLoadCommand}" />
+						<i:InvokeCommandAction Command="{Binding Path=PassiveLoadCommand}" />
 					</i:EventTrigger>
 				</i:Interaction.Triggers>
 				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Pause" Margin="10" />

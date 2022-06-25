@@ -27,6 +27,13 @@ public partial class HomeViewModel : ObservableObject
 
     public event EventAction GoMatchEvent;
 
+    public HomeViewModel()
+    {
+        _countTimer = new DispatcherTimer();
+        _countTimer.Tick += UpdateTimersAsync;
+        _countTimer.Interval = new TimeSpan(0, 0, 1);
+    }
+
     [ICommand]
     private async Task LoadNowAsync()
     {
@@ -37,11 +44,12 @@ public partial class HomeViewModel : ObservableObject
     [ICommand]
     private async Task PassiveLoadAsync()
     {
-        _countTimer = new DispatcherTimer();
-        _countTimer.Tick += UpdateTimersAsync;
-        _countTimer.Interval = new TimeSpan(0, 0, 1);
-        _countTimer.Start();
-        await UpdateChecksAsync().ConfigureAwait(false);
+        if (!_countTimer.IsEnabled)
+        {
+            _countTimer.Start();
+            await UpdateChecksAsync().ConfigureAwait(false);
+        }
+        
     }
 
     [ICommand]

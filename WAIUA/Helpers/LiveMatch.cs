@@ -162,7 +162,7 @@ public class LiveMatch
                         player.SkinData = t5.Result;
                         player.PlayerUiData = t6.Result;
                         player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
-                        player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel : 0;
+                        player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel.ToString() : "-";
                         player.TeamId = "Blue";
                         player.Active = Visibility.Visible;
                         return player;
@@ -175,8 +175,6 @@ public class LiveMatch
 
                 var gamePodId = matchIdInfo.GamePodId;
                 if (Constants.GamePodsDictionary.TryGetValue(gamePodId, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
-
-                playerList.AddRange(await Task.WhenAll(playerTasks).ConfigureAwait(false));
             }
         }
         else
@@ -217,7 +215,7 @@ public class LiveMatch
                             player.PlayerUiData = t5.Result;
                             player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
                             // player.RankData = await GetPlayerHistoryAsync(riotPlayer.Subject, seasonData).ConfigureAwait(false);
-                            player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel : 0;
+                            player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel.ToString() : "-";
                             player.TeamId = riotPlayer.TeamId;
                             player.Active = Visibility.Visible;
                             return player;
@@ -256,11 +254,13 @@ public class LiveMatch
                 {
                     if (playerList[j].PlayerUiData is null) continue;
                     if (playerList[j].PlayerUiData?.PartyUuid != id || id == Guid.Empty) continue;
-                    newArray[i] = newArray[j] = colours[0];
+                    newArray[j] = colours[0];
                     colourused = true;
                 }
+                if (!colourused) continue;
+                newArray[i] = colours[0];
+                colours.RemoveAt(0);
 
-                if (colourused) colours.RemoveAt(0);
             }
 
             for (var i = 0; i < playerList.Count; i++) playerList[i].PlayerUiData.PartyColour = newArray[i];
@@ -307,8 +307,8 @@ public class LiveMatch
                         PartyColour = "Transparent",
                         Puuid = riotPlayer.PlayerIdentity.Subject
                     };
-                    player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
-                    player.AccountLevel = riotPlayer.PlayerIdentity.AccountLevel;
+                    player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, false, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
+                    player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel.ToString() : "-";
                     player.TeamId = "Blue";
                     player.Active = Visibility.Visible;
                     return player;

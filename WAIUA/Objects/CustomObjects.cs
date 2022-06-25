@@ -98,7 +98,7 @@ public partial class MatchDetails
 [INotifyPropertyChanged]
 public partial class Player
 {
-    [ObservableProperty] private int _accountLevel;
+    [ObservableProperty] private string _accountLevel;
     [ObservableProperty] private Visibility _active = Visibility.Collapsed;
     [ObservableProperty] private IdentityData _identityData;
     [ObservableProperty] private IgnData _ignData;

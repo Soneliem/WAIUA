@@ -11,6 +11,7 @@
 	d:DesignWidth="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Width}"
 	d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
 	Background="#2E3349"
+	UseLayoutRounding="True"
 	mc:Ignorable="d">
 	<waiua:ViewModelPresenter ViewModel="{Binding SelectedViewModel}" />
 </Window>
