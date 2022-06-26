@@ -32,7 +32,7 @@ public class LiveMatch
         var client = new RestClient($"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/players/{Constants.Ppuuid}");
         var request = new RestRequest();
         request.AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken);
-        request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");
+        request.AddHeader("Authorization", $"Bearer {Constants.AccessToken}");             
         var response = await client.ExecuteGetAsync<MatchIDResponse>(request).ConfigureAwait(false);
         if (response.IsSuccessful)
         {
@@ -65,8 +65,6 @@ public class LiveMatch
         if (!response.IsSuccessful) return false;
         Partyid = response.Data.CurrentPartyId;
         return true;
-
-        // Constants.Log.Error("CheckAndSetLiveMatchIdAsync() failed. Response: {Response}", response.ErrorException);
     }
 
 
@@ -189,8 +187,6 @@ public class LiveMatch
                 await Task.WhenAll(sTask, pTask).ConfigureAwait(false);
                 sbyte index = 0;
 
-                // if (matchIdInfo.Players.Length > 10)
-                // {
                 foreach (var riotPlayer in matchIdInfo.Players)
                 {
                     if (!riotPlayer.IsCoach)
@@ -580,11 +576,15 @@ public class LiveMatch
                     case 1 or 2:
                         prank = 0;
                         break;
-                    case 21 or 22 or 23:
+                    case > 20:
                     {
                         if (Constants.BeforeAscendantSeasons.Contains(seasonData.PreviousSeason))
                         {
                             prank = PAct.CompetitiveTier + 3;
+                        }
+                        else
+                        {
+                            prank = PAct.CompetitiveTier;
                         }
                         break;
                     }
@@ -607,11 +607,15 @@ public class LiveMatch
                     case 1 or 2:
                         pprank = 0;
                         break;
-                    case 21 or 22 or 23:
+                    case > 20:
                     {
                         if (Constants.BeforeAscendantSeasons.Contains(seasonData.PreviouspreviousSeason))
                         {
                             pprank = PPAct.CompetitiveTier + 3;
+                        }
+                        else
+                        {
+                            pprank  = PPAct.CompetitiveTier;
                         }
                         break;
                     }
@@ -634,11 +638,15 @@ public class LiveMatch
                     case 1 or 2:
                         ppprank = 0;
                         break;
-                    case 21 or 22 or 23:
+                    case > 20:
                     {
                         if (Constants.BeforeAscendantSeasons.Contains(seasonData.PreviouspreviouspreviousSeason))
                         {
                             ppprank = PPPAct.CompetitiveTier + 3;
+                        }
+                        else
+                        {
+                            ppprank = PPPAct.CompetitiveTier;
                         }
                         break;
                     }

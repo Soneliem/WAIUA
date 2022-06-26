@@ -20,23 +20,8 @@
 				<TextBlock Text="{Binding Overlay.Header, ElementName=Self}" FontSize="25" FontWeight="Bold" Foreground="#32e2b2"
 				           Padding="5"
 				           HorizontalAlignment="Center" />
-				<!-- <MediaElement Name="myMediaElement"  Height="200px" Width="200px" Visibility="Visible" > -->
-				<!-- 	<MediaElement.Triggers> -->
-				<!-- 		<EventTrigger RoutedEvent="MediaElement.Loaded"> -->
-				<!-- 			<EventTrigger.Actions> -->
-				<!-- 				<BeginStoryboard> -->
-				<!-- 					<Storyboard> -->
-				<!-- 						<MediaTimeline Source="Assets\cat.gif" Storyboard.TargetName="myMediaElement"   -->
-				<!-- 						               RepeatBehavior="Forever" /> -->
-				<!-- -->
-				<!-- 					</Storyboard> -->
-				<!-- 				</BeginStoryboard> -->
-				<!-- 			</EventTrigger.Actions> -->
-				<!-- 		</EventTrigger> -->
-				<!-- 	</MediaElement.Triggers> -->
-				<!-- </MediaElement> -->
 
-				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_YinYang" Spin="True" SpinDuration="3" Height="100" Width="100" />
+				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_YinYang" Spin="True" SpinDuration="2" Height="100" Width="100" />
 				<TextBlock Margin="5" Text="{Binding Overlay.Content, ElementName=Self}" Foreground="White" FontSize="15"
 				           HorizontalAlignment="Center" />
 				<ProgressBar Margin="5" Style="{DynamicResource CustomProgressBar}"

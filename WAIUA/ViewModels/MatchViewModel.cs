@@ -100,7 +100,7 @@ public partial class MatchViewModel : ObservableObject
                     CountdownTime = 90;
                 }
 
-                if (newLiveMatch.QueueId == "deathmatch")
+                if (newLiveMatch.QueueId == "deathmatch" || AllPlayers.Count > 10)
                 {
                     var mid = AllPlayers.Count / 2;
                     LeftPlayerList = AllPlayers.Take(mid).ToList();
@@ -140,9 +140,9 @@ public partial class MatchViewModel : ObservableObject
                 GoHomeEvent?.Invoke();
             }
         }
-        catch (Exception)
+        catch (Exception) 
         {
-            Overlay.IsBusy = false;
+            // ignored
         }
         finally
         {
