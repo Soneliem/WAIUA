@@ -5,7 +5,7 @@
 </p>
 <h3 align="center">WAIUA</h3>
 <h4 align="center">Who Am I Up Against?</h4>
-<a href="https://waiua.sonel.dev"><h1 align="center">www.waiua.sonel.dev</h5></a>
+<a href="https://waiua.sonel.dev"><h1 align="center">https://waiua.sonel.dev</h5></a>
 
   <p align="center">
     A Windows application to view player ranks and other info in a live Valorant Match</p>
@@ -18,7 +18,6 @@
     <a href="https://github.com/Soneliem/WAIUA/releases/latest/download/WAIUA.exe">
       <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Soneliem/WAIUA">
     </a>
-    <img alt="Contains Cat GIFs" src="https://img.shields.io/badge/Contains-Cat%20GIFs%20%F0%9F%98%BE-blue">
     </p>
   <br />
 
@@ -58,17 +57,17 @@
 
 ### Current Features
 
-|Current Rank and Rank Progress|Past three ranks (from last 3 acts)|RR lost or gained in last three competitive games|In-game and Agent Name|
+|Current Rank and Rank Progress|Past three ranks (from last 3 acts)|RR lost or gained in last three competitive games|Account Level and Agent Image|
 |:---:|:---:|:---:|:---:|
 |![rank](Screenshots/rank.png)|![rank](Screenshots/pranks.png)|![rank](Screenshots/history.png)|![card](Screenshots/card.png)|
 
-|Vandal And Phantom Skin|Account Level and Agent Image|Party Indicators|Fully translated into 10+ languages|
+|In-game and Agent Name|Vandal And Phantom Skin|Party Indicators|Fully translated into 15+ languages|
 |:---:|:---:|:---:|:---:|
 |![name](Screenshots/name.png)|![skin](Screenshots/skin.png)|![party](Screenshots/party.png)|![translation](Screenshots/language.png)|
 
 |Tracker.gg Intergration|Mini-Aim Trainer|Support For all Game Modes|Auto Refresh and Updates|
 |:---:|:---:|:---:|:---:|
-|![name](Screenshots/name.png)|![skin](Screenshots/skin.png)|![party](Screenshots/party.png)|![translation](Screenshots/language.png)|
+|![tracker](Screenshots/tracker.png)|![trainer](Screenshots/trainer.png)|![mode](Screenshots/mode.png)|![refresh](Screenshots/refresh.png)|
 
 ## Getting Started
 
@@ -103,17 +102,17 @@ Please check the [issues tab](https://github.com/Soneliem/WAIUA/issues) before m
 I knew none of these things before making this lol
 
 #### Packages that I used/ recommend:
-* [RestSharp](https://restsharp.dev/)
-* [System.Text.Json](https://docs.microsoft.com/en-us/dotnet/api/system.text.json)
-* [Windows Community Toolkit MVVM](https://docs.microsoft.com/en-us/windows/communitytoolkit/mvvm/introduction)
-* [AutoUpdater.NET](https://github.com/ravibpatel/AutoUpdater.NET)
-* [Inno Setup](https://jrsoftware.org/isinfo.php)
-* [FontAwesome](https://fontawesome.com/license) for icons. I'm also supposed say that I changed the colours so here it is.
+* [RestSharp](https://restsharp.dev/) for API requests
+* [System.Text.Json](https://docs.microsoft.com/en-us/dotnet/api/system.text.json) to deserialise JSON. Source generators are a Godsend
+* [Windows Community Toolkit MVVM](https://docs.microsoft.com/en-us/windows/communitytoolkit/mvvm/introduction) for MVVM. Ty for Source Generators too
+* [AutoUpdater.NET](https://github.com/ravibpatel/AutoUpdater.NET) for auto updates
+* [Inno Setup](https://jrsoftware.org/isinfo.php) to install WAIUA
+* [FontAwesome](https://fontawesome.com/license) for icons. I'm also supposed say that I changed the colours so here it is
 
 
 ## Why I Made This
 
-The main reason I made this was to detect smurfs. This app basically settles the debates between team members or the enemy. The set of available features was chosen carefully to maintain the competitive integrity of the game. Many suggestions that I get are declined due to this (unless a certain "competing" verified app impliments it). 
+The main reason I made this was to detect smurfs. This app basically settles the debates between team members or the enemy. The set of available features was chosen carefully to maintain the competitive integrity of the game. Many suggestions that I get are declined due to this (unless a certain "competing" verified app implements it). 
 
 Another reason to making this was that I wanted some experience with .NET and GUI apps. This application uses C# as the backend, WPF as the frontend and .NET as the framework. I knew none of these when I began, so this was a fun journey. I've gained alot of experice of how to and how not to (mostly the latter) use WPF and C#. 
 
