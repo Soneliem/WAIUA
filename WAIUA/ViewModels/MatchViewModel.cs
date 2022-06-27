@@ -14,16 +14,15 @@ public partial class MatchViewModel : ObservableObject
 {
     public delegate void EventAction();
 
-    [ObservableProperty] private int _countdownTime = 90;
+    [ObservableProperty] private int _countdownTime = 80;
     [ObservableProperty] private DispatcherTimer _countTimer;
     [ObservableProperty] private List<Player> _leftPlayerList;
+    [ObservableProperty] private List<Player> _rightPlayerList;
     [ObservableProperty] private MatchDetails _match;
     [ObservableProperty] private LoadingOverlay _overlay;
     [ObservableProperty] private string _refreshTime = "-";
-    private int _resettime = 90;
-    [ObservableProperty] private List<Player> _rightPlayerList;
-
-
+    private int _resettime = 80;
+    
     public MatchViewModel()
     {
         _countTimer = new DispatcherTimer();
@@ -96,8 +95,8 @@ public partial class MatchViewModel : ObservableObject
 
                 if (newLiveMatch.Status != "PREGAME")
                 {
-                    _resettime = 90;
-                    CountdownTime = 90;
+                    _resettime = 120;
+                    CountdownTime = 120;
                 }
 
                 if (newLiveMatch.QueueId == "deathmatch" || AllPlayers.Count > 10)

@@ -18,11 +18,9 @@ public partial class HomeViewModel : ObservableObject
 {
     public delegate void EventAction();
 
-    [ObservableProperty] private int _countdownTime = 15;
+    [ObservableProperty] private int _countdownTime = 20;
     [ObservableProperty] private DispatcherTimer _countTimer;
     [ObservableProperty] private List<Player> _playerList;
-
-    // [ObservableProperty] private string _queueTime = "-";
     [ObservableProperty] private string _refreshTime = "-";
 
     public event EventAction GoMatchEvent;
@@ -37,7 +35,7 @@ public partial class HomeViewModel : ObservableObject
     [ICommand]
     private async Task LoadNowAsync()
     {
-        CountdownTime = 15;
+        CountdownTime = 20;
         await UpdateChecksAsync().ConfigureAwait(false);
     }
 
@@ -57,7 +55,7 @@ public partial class HomeViewModel : ObservableObject
     {
         CountTimer?.Stop();
         RefreshTime = "-";
-        CountdownTime = 15;
+        CountdownTime = 20;
         return Task.CompletedTask;
     }
 

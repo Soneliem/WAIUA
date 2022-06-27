@@ -229,8 +229,6 @@ public class LiveMatch
         }
 
         playerList.AddRange(await Task.WhenAll(playerTasks).ConfigureAwait(false));
-
-
         updateProgress(75);
 
         var colours = new List<string>
@@ -244,12 +242,13 @@ public class LiveMatch
             for (var i = 0; i < playerList.Count; i++)
             {
                 if (playerList[i].PlayerUiData is null) continue;
+
                 var colourused = false;
                 var id = playerList[i].PlayerUiData.PartyUuid;
-                for (var j = i + 1; j < playerList.Count; j++)
+                for (var j = i; j < playerList.Count; j++)
                 {
-                    if (playerList[j].PlayerUiData is null) continue;
-                    if (playerList[j].PlayerUiData?.PartyUuid != id || id == Guid.Empty) continue;
+                    if (newArray[i] != "Transparent" || playerList[i] == playerList[j] || 
+                        playerList[j].PlayerUiData?.PartyUuid != id || id == Guid.Empty) continue;
                     newArray[j] = colours[0];
                     colourused = true;
                 }
