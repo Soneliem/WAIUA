@@ -55,7 +55,8 @@ POEditor lets people collaboratively edit translations, supports auto-translatio
 - janinha
 
 **French:**
-- Français and Rayjacker
+- Rayjacker
+- SeifB_
   
 **Korean:**
 - Ramon
@@ -70,7 +71,7 @@ POEditor lets people collaboratively edit translations, supports auto-translatio
 - Kourosh
   
 **Serbian:**
-- a
+- Luka
 
 **Vietnamese:**
 - Ozymo

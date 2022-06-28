@@ -5,7 +5,7 @@
 </p>
 <h3 align="center">WAIUA</h3>
 <h4 align="center">Who Am I Up Against?</h4>
-<a href="https://waiua.sonel.dev"><h1 align="center">https://waiua.sonel.dev</h5></a>
+<a href="https://waiua.sonel.dev"><h1 align="center">waiua.sonel.dev</h1></a>
 
   <p align="center">
     A Windows application to view player ranks and other info in a live Valorant Match</p>
@@ -21,7 +21,7 @@
     </p>
   <br />
 
-  ![Screenshot](Screenshots/main.png)
+![Screenshot](Screenshots/main.png)
 
 <details open="open">
   <summary>Table of Contents</summary>
