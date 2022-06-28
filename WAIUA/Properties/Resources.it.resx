@@ -166,7 +166,7 @@
     <value>Non autenticato</value>
   </data>
   <data name="Translator" xml:space="preserve">
-    <value>Tradotto in italiano da CyberKoreTv e SimpleBonsai</value>
+    <value>Tradotto in italiano da CyberKoreTv</value>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Clicca per aggiornare la tua partita</value>
@@ -232,15 +232,15 @@
     <value>Aggiorno in:</value>
   </data>
   <data name="Score" xml:space="preserve">
-    <value>Score:</value>
+    <value>Punteggio</value>
   </data>
   <data name="HighScore" xml:space="preserve">
-    <value>High Score:</value>
+    <value>Mio record</value>
   </data>
   <data name="StartTrainer" xml:space="preserve">
-    <value>Start Aim Trainer</value>
+    <value>Avvia Aim trainer</value>
   </data>
   <data name="Player" xml:space="preserve">
-    <value>Player</value>
+    <value>Giocatore</value>
   </data>
 </root>
