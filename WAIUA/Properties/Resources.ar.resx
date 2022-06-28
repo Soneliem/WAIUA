@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="InfoTitle" xml:space="preserve">
-    <value>للمعلومات</value>
+    <value>ملاحظة</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>انضم الى الديسكورد</value>
@@ -232,15 +232,15 @@
     <value>سيتم التحديث خلال:</value>
   </data>
   <data name="Score" xml:space="preserve">
-    <value>Score:</value>
+    <value>النقاط:</value>
   </data>
   <data name="HighScore" xml:space="preserve">
-    <value>High Score:</value>
+    <value>أعلى نقاط:</value>
   </data>
   <data name="StartTrainer" xml:space="preserve">
-    <value>Start Aim Trainer</value>
+    <value>ابدأ إحماء التصويب</value>
   </data>
   <data name="Player" xml:space="preserve">
-    <value>Player</value>
+    <value>اللاعب</value>
   </data>
 </root>
