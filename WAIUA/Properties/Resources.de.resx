@@ -117,17 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LoadMatchTitle" xml:space="preserve">
-    <value>Lade Match</value>
-  </data>
-  <data name="LoadMatchExplanation" xml:space="preserve">
-    <value>Lad die Matchdaten, wenn verfügbar. Dies sollte weniger als 10 Sekunden dauern</value>
-  </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>Info</value>
-  </data>
-  <data name="InfoExplanation" xml:space="preserve">
-    <value>Du bist auf dieser Seite</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>Tritt dem Discord bei</value>
@@ -152,7 +143,6 @@
   </data>
   <data name="SettingsInfoExplanation2" xml:space="preserve">
     <value>Es werden keine Anmeldedaten gespeichert. Die Zugangsdaten werden für die direkte Kommunikation mit den Riot-Servern verwendet.</value>
-    <comment>Fuzzy</comment>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
     <value>Anmelde Status</value>
@@ -181,9 +171,6 @@
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Hier klicken, um Matchdaten neu zu laden</value>
-  </data>
-  <data name="SettingsExplanation" xml:space="preserve">
-    <value>Hier Findest du die App und Account Einstellungen</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Einstellungen</value>
@@ -218,5 +205,45 @@
   </data>
   <data name="SponsorsTitle" xml:space="preserve">
     <value>Sponsoren</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Startseite</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Neu laden</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>Match</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Valorant" xml:space="preserve">
+    <value>Valorant</value>
+  </data>
+  <data name="YourParty" xml:space="preserve">
+    <value>Deine Gruppe</value>
+  </data>
+  <data name="QueueTime" xml:space="preserve">
+    <value>Queue Zeit:</value>
+  </data>
+  <data name="RefreshingIn" xml:space="preserve">
+    <value>Aktualisiert in:</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>Punkte:</value>
+  </data>
+  <data name="HighScore" xml:space="preserve">
+    <value>Highscore:</value>
+    <comment>there is literally no german word for this that doesn&apos;t sound stupid, everybody says highscore.</comment>
+  </data>
+  <data name="StartTrainer" xml:space="preserve">
+    <value>Aim Trainer Starten</value>
+  </data>
+  <data name="Player" xml:space="preserve">
+    <value>Spieler</value>
   </data>
 </root>

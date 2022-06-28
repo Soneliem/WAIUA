@@ -6,10 +6,12 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:p="clr-namespace:WAIUA.Properties"
 	xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
+	xmlns:fa="http://schemas.fontawesome.com/icons/fonts"
 	d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
 	d:DesignHeight="754"
 	d:DesignWidth="1536"
 	mc:Ignorable="d">
+
 	<UserControl.Resources>
 		<ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
 			<Grid>
@@ -39,20 +41,6 @@
 					Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
 					Fill="White" />
 			</Grid>
-			<!--<ControlTemplate.Triggers>
-				<Trigger Property="ToggleButton.IsMouseOver" Value="true">
-					<Setter TargetName="Border" Property="Background" Value="#808080" />
-				</Trigger>
-				<Trigger Property="ToggleButton.IsChecked" Value="true">
-					<Setter TargetName="Border" Property="Background" Value="#E0E0E0" />
-				</Trigger>
-				<Trigger Property="IsEnabled" Value="False">
-					<Setter TargetName="Border" Property="Background" Value="#EEEEEE" />
-					<Setter TargetName="Border" Property="BorderBrush" Value="#AAAAAA" />
-					<Setter Property="Foreground" Value="#888888" />
-					<Setter TargetName="Arrow" Property="Fill" Value="#888888" />
-				</Trigger>
-			</ControlTemplate.Triggers>-->
 		</ControlTemplate>
 
 		<ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
@@ -96,6 +84,7 @@
 								Margin="3,3,23,3"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Center"
+								FontFamily="{StaticResource Nunito}"
 								Background="#FF3F3F3F"
 								Focusable="True"
 								Foreground="Green"
@@ -154,7 +143,6 @@
 			</Setter>
 		</Style>
 
-		<!--  SimpleStyles: ComboBoxItem  -->
 		<Style TargetType="{x:Type ComboBoxItem}">
 			<Setter Property="SnapsToDevicePixels" Value="true" />
 			<Setter Property="Foreground" Value="White" />
@@ -180,42 +168,21 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
-		<ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
-			<Border Name="RootElement" CornerRadius="10">
-				<Border.Background>
-					<SolidColorBrush x:Name="ButtonBackground" Color="#181E34" />
-				</Border.Background>
-				<ContentPresenter
-					Margin="5"
-					HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-					VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-				<VisualStateManager.VisualStateGroups>
-					<VisualStateGroup x:Name="CommonStates">
-						<VisualState x:Name="Normal" />
-						<VisualState x:Name="MouseOver">
-							<Storyboard>
-								<ColorAnimation
-									Storyboard.TargetName="ButtonBackground"
-									Storyboard.TargetProperty="Color"
-									To="#234d96"
-									Duration="0:0:0.5" />
-							</Storyboard>
-						</VisualState>
-						<VisualState x:Name="Pressed">
-							<Storyboard>
-								<ColorAnimation
-									Storyboard.TargetName="ButtonBackground"
-									Storyboard.TargetProperty="Color"
-									To="#89B4FF" />
-							</Storyboard>
-						</VisualState>
-					</VisualStateGroup>
-				</VisualStateManager.VisualStateGroups>
-			</Border>
-		</ControlTemplate>
 	</UserControl.Resources>
+	<UserControl.Triggers>
+		<EventTrigger RoutedEvent="Loaded">
+			<BeginStoryboard>
+				<Storyboard>
+					<DoubleAnimation
+						Storyboard.TargetProperty="Opacity"
+						From="0.0" To="1.0" Duration="0:0:1" />
+				</Storyboard>
+			</BeginStoryboard>
+		</EventTrigger>
+	</UserControl.Triggers>
 
-	<Grid Background="#2E3349">
+
+	<Grid Background="#2E3349" Margin="15">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition />
 			<ColumnDefinition />
@@ -223,33 +190,26 @@
 		</Grid.ColumnDefinitions>
 
 		<Grid.RowDefinitions>
-			<RowDefinition Height="70" />
+			<RowDefinition Height="60" />
 			<RowDefinition />
 			<RowDefinition />
 			<RowDefinition />
 			<RowDefinition />
 		</Grid.RowDefinitions>
-		<Grid Grid.ColumnSpan="3" Background="#181E34">
+		<Grid Grid.ColumnSpan="3">
 
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="70" />
+				<ColumnDefinition Width="60" />
 				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="70" />
+				<ColumnDefinition Width="60" />
 			</Grid.ColumnDefinitions>
 
-			<Button
-				Grid.Column="0"
-				Margin="7"
-				Command="{Binding NavigateSettingsCommand}"
-				Template="{StaticResource ButtonTemplate}">
-
-				<Image Margin="10" Source="/Assets/settings.png" />
-			</Button>
+			<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Gear" Margin="10" />
 
 			<Button
-				Grid.Column="1"
-				Margin="7"
-				Command="{Binding NavigateHomeCommand}"
+				Grid.Column="1" Cursor="Hand"
+				Margin="25 0"
+				Command="{Binding DataContext.NavigateHomeCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 				Template="{StaticResource ButtonTemplate}">
 
 				<Viewbox
@@ -259,20 +219,19 @@
 					<TextBlock
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
-						FontFamily="Fonts/#RopaSans"
+						FontFamily="{StaticResource Nunito}"
 						FontWeight="Medium"
 						Foreground="#007EF9"
-						Text="{x:Static p:Resources.RefreshMatch}" />
+						Text="{x:Static p:Resources.Home}" />
 				</Viewbox>
 			</Button>
 
 			<Button
-				Grid.Column="2"
-				Margin="7"
-				Command="{Binding NavigateInfoCommand}"
+				Grid.Column="2" Cursor="Hand"
+				Command="{Binding DataContext.NavigateInfoCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 				Template="{StaticResource ButtonTemplate}">
 
-				<Image Margin="10" Source="/Assets/info.png" />
+				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Info" Margin="10" />
 			</Button>
 		</Grid>
 
@@ -280,9 +239,12 @@
 			Grid.Row="1"
 			Grid.RowSpan="2"
 			Grid.Column="0"
-			Margin="25"
+			Margin="0 25 25 25"
 			Background="#252A40"
 			CornerRadius="20">
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+			</Border.Effect>
 			<Viewbox>
 				<Grid Margin="10">
 					<Grid.RowDefinitions>
@@ -294,6 +256,7 @@
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
 						FontWeight="DemiBold"
+						FontFamily="{StaticResource Nunito}"
 						Foreground="White"
 						Text="{x:Static p:Resources.SelLanguageTitle}"
 						TextAlignment="Center"
@@ -310,8 +273,8 @@
 							HorizontalContentAlignment="Center"
 							Background="Transparent"
 							BorderThickness="0"
-							DropDownOpened="LanguageList_OnDropDownOpened"
-							SelectionChanged="ListBox_Selected" />
+							DropDownOpened="LanguageList_OnDropDownOpenedAsync"
+							SelectionChanged="ListBox_SelectedAsync" />
 					</Border>
 				</Grid>
 			</Viewbox>
@@ -321,9 +284,12 @@
 			Grid.Row="3"
 			Grid.RowSpan="2"
 			Grid.Column="0"
-			Margin="25"
+			Margin="0 25 25 0"
 			Background="#252A40"
 			CornerRadius="20">
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+			</Border.Effect>
 			<Grid Margin="10">
 				<Grid.RowDefinitions>
 					<RowDefinition />
@@ -336,6 +302,7 @@
 					VerticalAlignment="Center"
 					FontSize="30"
 					FontWeight="DemiBold"
+					FontFamily="{StaticResource Nunito}"
 					Foreground="White"
 					Text="{x:Static p:Resources.CheckDownloadTitle}"
 					TextWrapping="Wrap" />
@@ -344,13 +311,14 @@
 						Margin="10"
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
-						Click="Button_Click5"
+						Click="Button_Click5Async"
 						Template="{StaticResource ButtonTemplate}">
 						<Viewbox>
 							<TextBlock
 								Padding="5"
 								HorizontalAlignment="Center"
 								VerticalAlignment="Center"
+								FontFamily="{StaticResource Nunito}"
 								FontWeight="Normal"
 								Foreground="#007EF9"
 								Text="{x:Static p:Resources.CheckDownloadButton}" />
@@ -363,13 +331,14 @@
 						Margin="10"
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
-						Click="Button_Click4"
+						Click="Button_Click4Async"
 						Template="{StaticResource ButtonTemplate}">
 						<Viewbox>
 							<TextBlock
 								Padding="5"
 								HorizontalAlignment="Center"
 								VerticalAlignment="Center"
+								FontFamily="{StaticResource Nunito}"
 								FontWeight="Normal"
 								Foreground="#007EF9"
 								Text="{x:Static p:Resources.CheckUpdates}" />
@@ -386,6 +355,9 @@
 			Margin="25"
 			Background="#252A40"
 			CornerRadius="20">
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+			</Border.Effect>
 			<Grid Margin="10">
 				<Grid.RowDefinitions>
 					<RowDefinition />
@@ -397,6 +369,7 @@
 					HorizontalAlignment="Center"
 					VerticalAlignment="Center"
 					FontSize="30"
+					FontFamily="{StaticResource Nunito}"
 					FontWeight="DemiBold"
 					Foreground="White"
 					Text="{x:Static p:Resources.InfoTitle}"
@@ -408,6 +381,7 @@
 						Background="Transparent"
 						FontSize="25"
 						FontWeight="Light"
+						FontFamily="{StaticResource Nunito}"
 						Foreground="White"
 						Opacity="0.7"
 						Text="{x:Static p:Resources.SettingsInfoExplanation1}"
@@ -422,6 +396,7 @@
 						FontSize="25"
 						FontWeight="Normal"
 						Foreground="White"
+						FontFamily="{StaticResource Nunito}"
 						Opacity="0.2"
 						Text="{x:Static p:Resources.SettingsInfoExplanation2}"
 						TextAlignment="Center"
@@ -434,9 +409,12 @@
 			Grid.Row="1"
 			Grid.RowSpan="2"
 			Grid.Column="2"
-			Margin="25"
+			Margin="25 25 0 25"
 			Background="#252A40"
 			CornerRadius="20">
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+			</Border.Effect>
 			<Grid Margin="10">
 				<Grid.RowDefinitions>
 					<RowDefinition />
@@ -447,6 +425,7 @@
 					Grid.Row="0"
 					HorizontalAlignment="Center"
 					VerticalAlignment="Center"
+					FontFamily="{StaticResource Nunito}"
 					FontSize="30"
 					FontWeight="DemiBold"
 					Foreground="White"
@@ -458,6 +437,7 @@
 						Margin="25,5"
 						Background="Transparent"
 						FontSize="25"
+						FontFamily="{StaticResource Nunito}"
 						FontWeight="Normal"
 						Foreground="White"
 						Opacity="0.7"
@@ -470,7 +450,7 @@
 						Margin="10"
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
-						Click="Button_Click3"
+						Click="Button_Click3Async"
 						Template="{StaticResource ButtonTemplate}">
 						<Viewbox>
 							<TextBlock
@@ -478,6 +458,7 @@
 								HorizontalAlignment="Center"
 								VerticalAlignment="Center"
 								FontWeight="Normal"
+								FontFamily="{StaticResource Nunito}"
 								Foreground="#007EF9"
 								Text="{x:Static p:Resources.Login}" />
 						</Viewbox>
@@ -489,9 +470,12 @@
 		<Border Grid.Row="3"
 		        Grid.RowSpan="2"
 		        Grid.Column="2"
-		        Margin="25"
+		        Margin="25 25 0 0"
 		        Background="#252A40"
 		        CornerRadius="20">
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+			</Border.Effect>
 			<Grid Margin="10">
 				<Grid.RowDefinitions>
 					<RowDefinition />
@@ -503,6 +487,7 @@
 					HorizontalAlignment="Center"
 					VerticalAlignment="Center"
 					FontSize="30"
+					FontFamily="{StaticResource Nunito}"
 					FontWeight="DemiBold"
 					Foreground="White"
 					Text="{x:Static p:Resources.CheckUpdates}"
@@ -512,6 +497,7 @@
 					<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
 						<TextBlock
 							FontSize="20"
+							FontFamily="{StaticResource Nunito}"
 							Foreground="White"
 							Opacity="0.7"
 							Text="{x:Static p:Resources.Latestversion}"
@@ -523,6 +509,7 @@
 							Foreground="White"
 							Opacity="0.7"
 							Text=""
+							FontFamily="{StaticResource Nunito}"
 							TextAlignment="Left"
 							TextWrapping="Wrap" />
 					</StackPanel>
@@ -531,12 +518,14 @@
 							FontSize="20"
 							Foreground="White"
 							Opacity="0.7"
+							FontFamily="{StaticResource Nunito}"
 							Text="{x:Static p:Resources.CurrentVersion}"
 							TextAlignment="Left"
 							TextWrapping="Wrap" />
 						<TextBlock
 							x:Name="CurrentVersion"
 							FontSize="20"
+							FontFamily="{StaticResource Nunito}"
 							Foreground="White"
 							Opacity="0.7"
 							Text=""
@@ -549,13 +538,14 @@
 						Margin="30,00"
 						HorizontalAlignment="Center"
 						VerticalAlignment="Top"
-						Click="Button_Click1"
+						Click="Button_Click1Async"
 						Template="{StaticResource ButtonTemplate}">
 
 						<Viewbox>
 							<TextBlock
 								Padding="5"
 								HorizontalAlignment="Center"
+								FontFamily="{StaticResource Nunito}"
 								VerticalAlignment="Center"
 								FontWeight="Normal"
 								Foreground="#007EF9"
@@ -570,9 +560,12 @@
 			Grid.Row="3"
 			Grid.RowSpan="2"
 			Grid.Column="1"
-			Margin="25"
+			Margin="25 25 25 0"
 			Background="#252A40"
 			CornerRadius="20">
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+			</Border.Effect>
 			<Grid Margin="10">
 				<Grid.RowDefinitions>
 					<RowDefinition />
@@ -585,6 +578,7 @@
 					VerticalAlignment="Center"
 					FontSize="30"
 					FontWeight="DemiBold"
+					FontFamily="{StaticResource Nunito}"
 					Foreground="White"
 					Text="{x:Static p:Resources.AuthStatusTitle}"
 					TextWrapping="Wrap" />
@@ -593,6 +587,7 @@
 						x:Name="AuthStatusBox"
 						Margin="25,5"
 						Background="Transparent"
+						FontFamily="{StaticResource Nunito}"
 						FontSize="10"
 						FontWeight="Normal"
 						Foreground="#32e2b2"
@@ -606,7 +601,7 @@
 						Margin="30,00"
 						HorizontalAlignment="Center"
 						VerticalAlignment="Top"
-						Click="Button_Click2"
+						Click="Button_Click2Async"
 						Template="{StaticResource ButtonTemplate}">
 
 						<Viewbox>
@@ -614,6 +609,7 @@
 								Padding="5"
 								HorizontalAlignment="Center"
 								VerticalAlignment="Center"
+								FontFamily="{StaticResource Nunito}"
 								FontWeight="Normal"
 								Foreground="#007EF9"
 								Text="{x:Static p:Resources.AuthStatusButton}" />

@@ -1,18 +1,21 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="A Windows app to view player ranks and stats in a live Valorant Match">
     <meta name="language" content="English">
-    <meta name="keywords" content="valorant, valorant app, rank checker, valorant tracker, valorant ranks, valorant stats, valorant ランク, valorant まとめ">
+    <meta name="keywords"
+        content="valorant, valorant app, rank checker, valorant tracker, valorant ranks, valorant stats, valorant ランク, valorant まとめ">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Soneliem">
     <meta name="title" content="WAIUA - Valorant Match Ranks and Info">
 
     <title>WAIUA</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="css/styles.css">
 
@@ -25,7 +28,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="images/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="images/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="images/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
@@ -34,16 +37,17 @@
     <meta name="msapplication-TileImage" content="images/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-  </head>
-  <body class="dark-mode">
+</head>
+
+<body class="dark-mode">
 
     <!-- MENU -->
     <nav class="navbar navbar-expand-sm navbar-light fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html"><i class='uil uil-home'></i> WAIUA</a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 <span class="navbar-toggler-icon"></span>
                 <span class="navbar-toggler-icon"></span>
@@ -59,6 +63,9 @@
                     </li>
                     <li class="nav-item">
                         <a href="#features" class="nav-link"><span data-hover="Features">Features</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#compare" class="nav-link"><span data-hover="Compare">Compare</span></a>
                     </li>
                     <li class="nav-item">
                         <a href="#faq" class="nav-link"><span data-hover="FAQ">FAQ</span></a>
@@ -92,15 +99,26 @@
                             <span>U</span><span>p</span>
                             <span>A</span><span>gainst</span>
                         </h1>
-                        <p>A  simple Windows app that lets you see the ranks, recent games and other info of players in a live Valorant match while you're still playing it.</p>
+                        <p>A simple Windows app that lets you see the ranks, recent games and other info of players in a
+                            live Valorant match while you're still playing it.</p>
 
                         <div class="custom-btn-group mt-4">
-                          <a id="download-btn" href="https://github.com/Soneliem/WAIUA/releases/latest/download/WAIUA.exe" class="btn corner mx-2 custom-btn custom-btn-bg custom-btn-link"><i class='uil uil-file-download'></i> Download</a>
-                          <label for="download-btn" id="first" class="download-btn-text"><i class='uil uil-windows'></i> Windows <a> 64-bit </a><br/><span><i class='uil uil-import'></i> Downloads: <a id="download_count"></a></span></label>
-                          <a href="https://www.softpedia.com/get/Gaming-Related/WAIUA.shtml#status"><img src="images/softpedia.png" class="ms-3 img-fluid" style="max-width: 75px;" alt="logo">
-                          </a><br/><br/>
-                          <a href="https://github.com/Soneliem/WAIUA" class="btn corner mx-2 custom-btn"><i class='uil uil-github-alt'></i> View Github</a>
-                          <a href="https://discord.gg/X7CYCeZSRK" class="btn corner mx-2 custom-btn"><i class='uil uil-discord'></i> Join Discord</a>
+                            <a id="download-btn"
+                                href="https://github.com/Soneliem/WAIUA/releases/latest/download/WAIUA.exe"
+                                class="btn corner mx-2 custom-btn custom-btn-bg custom-btn-link"><i
+                                    class='uil uil-file-download'></i> Download</a>
+                            <label for="download-btn" id="first" class="download-btn-text"><i
+                                    class='uil uil-windows'></i> Windows <a> 64-bit </a><br /><span><i
+                                        class='uil uil-import'></i> Downloads: <a
+                                        id="download_count"></a></span></label>
+                            <a href="https://www.softpedia.com/get/Gaming-Related/WAIUA.shtml#status"><img
+                                    src="images/softpedia.png" class="ms-3 img-fluid" style="max-width: 75px;"
+                                    alt="logo">
+                            </a><br /><br />
+                            <a href="https://github.com/Soneliem/WAIUA" class="btn corner mx-2 custom-btn"><i
+                                    class='uil uil-github-alt'></i> View Github</a>
+                            <a href="https://discord.gg/X7CYCeZSRK" class="btn corner mx-2 custom-btn"><i
+                                    class='uil uil-discord'></i> Join Discord</a>
                         </div>
                     </div>
                 </div>
@@ -119,22 +137,22 @@
     <section class="pb-5" id="screenshots">
         <div class="container">
 
-                <div class="row">
-                  <div class="col-lg-11 text-center mx-auto col-12">
+            <div class="row">
+                <div class="col-lg-11 text-center mx-auto col-12">
 
-                      <div class="col-lg-8 mx-auto mb-4">
+                    <div class="col-lg-8 mx-auto mb-4">
                         <h2>Screenshot</h2>
-                      </div>
+                    </div>
 
-                        <div class="item">
-                          <div class="project-info">
+                    <div class="item">
+                        <div class="project-info">
                             <img src="images/main.png" class="corner img-fluid" alt="project image">
-                          </div>
                         </div>
+                    </div>
 
 
-                  </div>
                 </div>
+            </div>
         </div>
     </section>
 
@@ -176,8 +194,8 @@
             </div>
             <div class="row align-items-center">
                 <div class="col m-4 text-end">
-                    <h3>In-game name and Agent</h3>
-                    <p>Full game name and tagline along with agent picture</p>
+                    <h3>In-game and Agent name</h3>
+                    <p>Full game name and the agent that they are playing</p>
                 </div>
                 <div class="col m-4 text-start">
                     <img src="images/name.png" class="corner img-fluid" alt="name">
@@ -194,8 +212,8 @@
             </div>
             <div class="row align-items-center">
                 <div class="col m-4 text-end">
-                    <h3>Player Card and Account Level</h3>
-                    <p>In game Player Card along with Account level</p>
+                    <h3>Account Level and Agent Image</h3>
+                    <p>Account level and Agent for quick navigation. Replaced with Card when unavailable</p>
                 </div>
                 <div class="col m-4 text-start">
                     <img src="images/card.png" class="corner img-fluid" alt="card">
@@ -207,13 +225,14 @@
                 </div>
                 <div class="col m-4 text-start">
                     <h3>Party Indicators</h3>
-                    <p>See who's in a party</p>
+                    <p>See who's in a party togeather</p>
                 </div>
             </div>
             <div class="row align-items-center">
                 <div class="col m-4 text-end">
                     <h3>Tracker.gg integration</h3>
-                    <p>If a player is on <a href="https://tracker.gg/valorant">tracker.gg</a>, a link will be available</p>
+                    <p>If a player is on <a href="https://tracker.gg/valorant">tracker.gg</a>, a link will be available
+                    </p>
                 </div>
                 <div class="col m-4 text-start">
                     <img src="images/tracker.png" class="corner img-fluid" alt="tracker">
@@ -225,14 +244,124 @@
                 </div>
                 <div class="col m-4 text-start">
                     <h3>Translations</h3>
-                    <p>Fully translated into 10+ languages</p>
+                    <p>Fully translated into 15+ languages</p>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col m-4 text-end">
+                    <h3>Mini-Aim Trainer</h3>
+                    <p>Test your skills while waiting for a match
+                    </p>
+                </div>
+                <div class="col m-4 text-start">
+                    <img src="images/trainer.png" class="corner img-fluid" alt="tracker">
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col m-4 text-end">
+                    <img src="images/mode.png" class="corner img-fluid" alt="language">
+                </div>
+                <div class="col m-4 text-start">
+                    <h3>Support For all Game Modes</h3>
+                    <p>Including Agent Select</p>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col m-4 text-end">
+                    <h3>Auto Refresh and Updates</h3>
+                    <p>Automatically refreshes when going in an out of a game
+                    </p>
+                </div>
+                <div class="col m-4 text-start">
+                    <img src="images/refresh.png" class="corner img-fluid" alt="tracker">
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-5" id="faq">
+    <!-- Compare -->
+    <section class="pb-5" id="compare">
+        <div class="container">
 
+            <div class="row">
+                <div class="col-lg-11 text-center mx-auto col-12">
+
+                    <div class="col-lg-8 mx-auto mb-4">
+                        <h2>Compare</h2>
+                    </div>
+
+                    <div class="item">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Feature</th>
+                                    <th scope="col">WAIUA</th>
+                                    <th scope="col">Tracker.gg</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Current Rank</td>
+                                    <td>✔️</td>
+                                    <td>✔️</td>
+                                </tr>
+                                <tr>
+                                    <td>Agent and In-Game Name Info</td>
+                                    <td>✔️</td>
+                                    <td>✔️</td>
+                                </tr>
+                                <tr>
+                                    <td>Party Info</td>
+                                    <td>✔️</td>
+                                    <td>✔️</td>
+                                </tr>
+                                <tr>
+                                    <td>Previous Ranks</td>
+                                    <td>✔️</td>
+                                    <td>❌</td>
+                                </tr>
+                                <tr>
+                                    <td>Last 3 Game W/L</th>
+                                    <td>✔️</td>
+                                    <td>❌</td>
+                                </tr>
+                                <tr>
+                                    <td>Account Level</td>
+                                    <td>✔️</td>
+                                    <td>❌</td>
+                                </tr>
+                                <tr>
+                                    <td>Skin Previews</td>
+                                    <td>✔️</td>
+                                    <td>❌</td>
+                                </tr>
+                                <tr>
+                                    <td>Aim Trainer</td>
+                                    <td>✔️</td>
+                                    <td>❌</td>
+                                </tr>
+                                <tr>
+                                    <td>Reads Game Memory</td>
+                                    <td>❌</td>
+                                    <td>✔️</td>
+                                </tr>
+                                <tr>
+                                    <td>Not a million dollar for-profit company</td>
+                                    <td>❌</td>
+                                    <td>✔️</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TOS -->
+    <section class="py-5" id="faq">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col text-center mb-4">
@@ -250,19 +379,17 @@
                 </div>
             </div>
             <div class="row align-items-center">
-                <div class="col m-4 text-center">
-                    <h4>Why don't you let me see my team's ranks during agent select?</h4>
-                    <p>To prevent people dodging if you think your teamates are bad. Riot also doesnt like this so there's that.</p>
-                </div>
                 <div class="col m-4 text-center ">
                     <h4>How is this app even useful?</h4>
-                    <p>The main intention is to settle the debate of if they are a smurf or not. Some of the other features like the skin viewer are useful to worthlessly beg for skins, etc.</p>
+                    <p>The main intention is to settle the debate of if they are a smurf or not. Some of the other
+                        features like the skin viewer are useful to worthlessly beg for skins, etc.</p>
                 </div>
             </div>
-            
+
         </div>
     </section>
 
+    <!-- DISCORD -->
     <section class="pb-5" id="discord">
         <div class="container">
 
@@ -275,12 +402,8 @@
 
                     <div class="item">
                         <div class="project-info">
-                            <widgetbot
-                                    server="881790284613185546"
-                                    channel="881790284646735880"
-                                    width="100%"
-                                    height="600"
-                            ></widgetbot>
+                            <widgetbot server="881790284613185546" channel="881790284646735880" width="100%"
+                                height="600"></widgetbot>
                             <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
                         </div>
                     </div>
@@ -291,6 +414,7 @@
         </div>
     </section>
 
+    <!-- DONATIONS -->
     <section class="py-5" id="donate">
 
         <div class="container">
@@ -301,37 +425,44 @@
             </div>
             <div class="row align-items-center">
                 <div class="col text-center">
-                    <iframe src="https://github.com/sponsors/Soneliem/card" title="Sponsor Soneliem" height="100%" width="90%"></iframe>
+                    <iframe src="https://github.com/sponsors/Soneliem/card" title="Sponsor Soneliem" height="100%"
+                        width="90%"></iframe>
                 </div>
             </div>
-            
-            
+
+
         </div>
     </section>
 
     <!-- CONTACT -->
     <section class="contact py-5" id="contact">
-      <div class="container align-content-center">
+        <div class="container align-content-center">
 
             <div class="contact-info corner d-flex justify-content-between align-items-center py-4 px-lg-5">
                 <div class="contact-info-item">
-                  <h3 class="mb-3 text-white">Contact Me</h3>
-                  <p class="footer-text mb-0">Soneliem</p>
-                   <p><a href="mailto:waiua@sonel.dev">waiua@sonel.dev</a></p>
+                    <h3 class="mb-3 text-white">Contact Me</h3>
+                    <p class="footer-text mb-0">Soneliem</p>
+                    <p><a href="mailto:waiua@sonel.dev">waiua@sonel.dev</a></p>
                 </div>
 
                 <ul class="social-links">
-                     <li><a href="https://discord.gg/X7CYCeZSRK" class="uil uil-discord" data-toggle="tooltip" data-placement="left" title="Discord"></a></li>
-                     <li><a href="https://github.com/Soneliem" class="uil uil-github" data-toggle="tooltip" data-placement="left" title="GitHub"></a></li>
+                    <li><a href="https://discord.gg/X7CYCeZSRK" class="uil uil-discord" data-toggle="tooltip"
+                            data-placement="left" title="Discord"></a></li>
+                    <li><a href="https://github.com/Soneliem" class="uil uil-github" data-toggle="tooltip"
+                            data-placement="left" title="GitHub"></a></li>
                 </ul>
             </div>
 
 
-      </div>
+        </div>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="js/custom.js"></script>
-  </body>
+</body>
+
 </html>

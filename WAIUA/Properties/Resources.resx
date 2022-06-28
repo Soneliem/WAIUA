@@ -117,17 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LoadMatchTitle" xml:space="preserve">
-    <value>Load Match</value>
-  </data>
-  <data name="LoadMatchExplanation" xml:space="preserve">
-    <value>Loads live match data if available. This should take less than 10 seconds</value>
-  </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>Info</value>
-  </data>
-  <data name="InfoExplanation" xml:space="preserve">
-    <value>You're on this page idiot</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>Join my Discord</value>
@@ -180,9 +171,6 @@
   <data name="SettingsTitle" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="SettingsExplanation" xml:space="preserve">
-    <value>Find app and account settings here</value>
-  </data>
   <data name="SelLanguageTitle" xml:space="preserve">
     <value>Select Language</value>
   </data>
@@ -215,5 +203,44 @@
   </data>
   <data name="SponsorsTitle" xml:space="preserve">
     <value>Sponsors</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="YourParty" xml:space="preserve">
+    <value>Your Party</value>
+  </data>
+  <data name="Valorant" xml:space="preserve">
+    <value>Valorant</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>Match</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="QueueTime" xml:space="preserve">
+    <value>Queue Time:</value>
+  </data>
+  <data name="RefreshingIn" xml:space="preserve">
+    <value>Refreshing In:</value>
+  </data>
+  <data name="Player" xml:space="preserve">
+	  <value>Player</value>
+  </data>
+  <data name="StartTrainer" xml:space="preserve">
+	  <value>Start Aim Trainer</value>
+  </data>
+  <data name="HighScore" xml:space="preserve">
+	  <value>High Score:</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+	  <value>Score:</value>
   </data>
 </root>
