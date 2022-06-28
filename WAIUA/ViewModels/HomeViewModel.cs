@@ -22,6 +22,7 @@ public partial class HomeViewModel : ObservableObject
     [ObservableProperty] private DispatcherTimer _countTimer;
     [ObservableProperty] private List<Player> _playerList;
     [ObservableProperty] private string _refreshTime = "-";
+    private int _cycle = 3;
 
     public event EventAction GoMatchEvent;
 
@@ -36,7 +37,7 @@ public partial class HomeViewModel : ObservableObject
     private async Task LoadNowAsync()
     {
         CountdownTime = 20;
-        await UpdateChecksAsync().ConfigureAwait(false);
+        await UpdateChecksAsync(true).ConfigureAwait(false);
     }
 
     [ICommand]
@@ -45,7 +46,7 @@ public partial class HomeViewModel : ObservableObject
         if (!_countTimer.IsEnabled)
         {
             _countTimer.Start();
-            await UpdateChecksAsync().ConfigureAwait(false);
+            await UpdateChecksAsync(true).ConfigureAwait(false);
         }
         
     }
@@ -66,15 +67,14 @@ public partial class HomeViewModel : ObservableObject
         if (CountdownTime == 0)
         {
             CountdownTime = 15;
-            await UpdateChecksAsync().ConfigureAwait(false);
+            await UpdateChecksAsync(false).ConfigureAwait(false);
         }
-
         CountdownTime--;
     }
 
 
     [ICommand]
-    private async Task UpdateChecksAsync()
+    private async Task UpdateChecksAsync(bool forcePartyUpdate)
     {
         Application.Current.Dispatcher.Invoke(() =>
         {
@@ -117,7 +117,20 @@ public partial class HomeViewModel : ObservableObject
                         Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
                         Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
                     });
-                    await GetPartyPlayerInfoAsync().ConfigureAwait(false);
+                    if (forcePartyUpdate)
+                    {
+                        _cycle++;
+                        await GetPartyPlayerInfoAsync().ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        if (_cycle == 0)
+                        {
+                            await GetPartyPlayerInfoAsync().ConfigureAwait(false);
+                            _cycle = 3;
+                        }
+                        _cycle--;
+                    }
                 }
             }
             else
@@ -148,7 +161,20 @@ public partial class HomeViewModel : ObservableObject
                             Home.MatchStatus.Icon = EFontAwesomeIcon.Solid_Xmark;
                             Home.MatchStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 70, 84));
                         });
-                        await GetPartyPlayerInfoAsync().ConfigureAwait(false);
+                        if (forcePartyUpdate)
+                        {
+                            _cycle++;
+                            await GetPartyPlayerInfoAsync().ConfigureAwait(false);
+                        }
+                        else
+                        {
+                            if (_cycle == 0)
+                            {
+                                await GetPartyPlayerInfoAsync().ConfigureAwait(false);
+                                _cycle = 3;
+                            }
+                            _cycle--;
+                        }
                     }
                 }
                 else
