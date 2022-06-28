@@ -117,17 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LoadMatchTitle" xml:space="preserve">
-    <value>Charger Match</value>
-  </data>
-  <data name="LoadMatchExplanation" xml:space="preserve">
-    <value>Charge les données du match actuel si disponible. Cela devrait prendre moins de 10 secondes</value>
-  </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>Info</value>
-  </data>
-  <data name="InfoExplanation" xml:space="preserve">
-    <value>Vous êtes sur cette page idiot</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>Rejoignez notre Discord</value>
@@ -139,13 +130,13 @@
     <value>Fait par Soneliem</value>
   </data>
   <data name="Latestversion" xml:space="preserve">
-    <value>Dernière Version: </value>
+    <value>Dernière version:</value>
   </data>
   <data name="CurrentVersion" xml:space="preserve">
-    <value>Version Actuelle: </value>
+    <value>Version actuelle:</value>
   </data>
   <data name="CheckUpdates" xml:space="preserve">
-    <value>Rechercher des Mises à Jour</value>
+    <value>Rechercher des mises à jour</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Connexion</value>
@@ -154,13 +145,13 @@
     <value>Toute communication de vos identifiants sont faits directement avec les serveurs Riot sans aucun stockage de mots de passe localement ou en ligne.</value>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
-    <value>Statut Authentification</value>
+    <value>Statut authentification</value>
   </data>
   <data name="AuthStatusDefault" xml:space="preserve">
     <value>Cliquer ci-dessous pour mettre à jour</value>
   </data>
   <data name="AuthStatusButton" xml:space="preserve">
-    <value>Vérifier Authentification</value>
+    <value>Vérifier authentification</value>
   </data>
   <data name="AuthStatusAuthAs" xml:space="preserve">
     <value>Authentifié comme:</value>
@@ -172,16 +163,13 @@
     <value>Note: Valorant doit être en cours d&apos;exécution pour que cela fonctionne</value>
   </data>
   <data name="AuthStatusFail" xml:space="preserve">
-    <value>Non Authentifié</value>
+    <value>Non authentifié</value>
   </data>
   <data name="Translator" xml:space="preserve">
-    <value>Traduit en Français Par Rayjacker</value>
+    <value>Traduit en Français par Rayjacker</value>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
-    <value>Cliquer Pour Rafraîchir le Match</value>
-  </data>
-  <data name="SettingsExplanation" xml:space="preserve">
-    <value>Trouvez les paramètres de l&apos;application et de compte ici</value>
+    <value>Cliquer ici pour rafraîchir le match</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Paramètres</value>
@@ -190,7 +178,7 @@
     <value>Cette page vous permet de vous connecter, changer la langue de l&apos;appli, etc.</value>
   </data>
   <data name="SelLanguageTitle" xml:space="preserve">
-    <value>Sélectionner Language</value>
+    <value>Sélectionner le language</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Erreur</value>
@@ -199,21 +187,60 @@
     <value>Rafraîchissement...</value>
   </data>
   <data name="NoMatch" xml:space="preserve">
-    <value>Aucun Match Détecté</value>
+    <value>Aucun match détecté</value>
   </data>
   <data name="NoValGame" xml:space="preserve">
     <value>Merci d&apos;ouvrir Valorant d&apos;abord</value>
   </data>
   <data name="TrackerToolTip" xml:space="preserve">
-    <value>Ouvrir le Profil Tracker.gg</value>
+    <value>Ouvrir le profil Tracker.gg</value>
   </data>
   <data name="CheckDownloadTitle" xml:space="preserve">
-    <value>Vérifier Contenu Téléchargé</value>
+    <value>Vérifier le contenu téléchargé</value>
   </data>
   <data name="CheckDownloadButton" xml:space="preserve">
-    <value>Forcer Mise à Jour</value>
+    <value>Forcer une mise à jour</value>
   </data>
   <data name="SponsorsTitle" xml:space="preserve">
     <value>Sponsors</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Accueil</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Rafraîchir</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Compte</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>Match</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="Valorant" xml:space="preserve">
+    <value>Valorant</value>
+  </data>
+  <data name="YourParty" xml:space="preserve">
+    <value>Votre groupe</value>
+  </data>
+  <data name="QueueTime" xml:space="preserve">
+    <value>Temps queue:</value>
+  </data>
+  <data name="RefreshingIn" xml:space="preserve">
+    <value>Rafraîchissement dans:</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>Score:</value>
+  </data>
+  <data name="HighScore" xml:space="preserve">
+    <value>Meilleur Score:</value>
+  </data>
+  <data name="StartTrainer" xml:space="preserve">
+    <value>Commencer l&apos;exercice de visée</value>
+  </data>
+  <data name="Player" xml:space="preserve">
+    <value>Joueur</value>
   </data>
 </root>

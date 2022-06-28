@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="InfoTitle" xml:space="preserve">
+    <value>质询</value>
+  </data>
+  <data name="JoinDiscord" xml:space="preserve">
+    <value>加入我的Discord</value>
+  </data>
+  <data name="JoinDiscordSub" xml:space="preserve">
+    <value>为寻求帮助，其他。</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>作者是Soneliem</value>
+  </data>
+  <data name="Latestversion" xml:space="preserve">
+    <value>最新版本</value>
+  </data>
+  <data name="CurrentVersion" xml:space="preserve">
+    <value>目前版本</value>
+  </data>
+  <data name="CheckUpdates" xml:space="preserve">
+    <value>检查更新</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="SettingsInfoExplanation2" xml:space="preserve">
+    <value>所有您的信息是直接通过RIOT服务器的，不会在本地或网上储存密码。</value>
+  </data>
+  <data name="AuthStatusTitle" xml:space="preserve">
+    <value>登录状态</value>
+  </data>
+  <data name="AuthStatusDefault" xml:space="preserve">
+    <value>点击下面来更新</value>
+  </data>
+  <data name="AuthStatusButton" xml:space="preserve">
+    <value>检查登录状态</value>
+  </data>
+  <data name="AuthStatusAuthAs" xml:space="preserve">
+    <value>登录为:</value>
+  </data>
+  <data name="AutoLoginTitle" xml:space="preserve">
+    <value>自动登录</value>
+  </data>
+  <data name="AutoLoginExplanation" xml:space="preserve">
+    <value>注: 需特战英豪为运行中才有用</value>
+  </data>
+  <data name="AuthStatusFail" xml:space="preserve">
+    <value>未登录</value>
+  </data>
+  <data name="Translator" xml:space="preserve">
+    <value>Translated into Chinese By zDragone</value>
+  </data>
+  <data name="RefreshMatch" xml:space="preserve">
+    <value>点击以更新比赛</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="SettingsInfoExplanation1" xml:space="preserve">
+    <value>这个页面会让你手动登录，切换软件语言，其他。</value>
+  </data>
+  <data name="SelLanguageTitle" xml:space="preserve">
+    <value>选择语言</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="Refreshing" xml:space="preserve">
+    <value>更新中...</value>
+  </data>
+  <data name="NoMatch" xml:space="preserve">
+    <value>没检测到比赛</value>
+  </data>
+  <data name="NoValGame" xml:space="preserve">
+    <value>请先运行特战英豪</value>
+  </data>
+  <data name="TrackerToolTip" xml:space="preserve">
+    <value>打开 tracker.gg 账号</value>
+  </data>
+  <data name="CheckDownloadTitle" xml:space="preserve">
+    <value>检查下载过的内容</value>
+  </data>
+  <data name="CheckDownloadButton" xml:space="preserve">
+    <value>强制更新</value>
+  </data>
+  <data name="SponsorsTitle" xml:space="preserve">
+    <value>赞助</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>主页</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>账号</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>比赛</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状况</value>
+  </data>
+  <data name="Valorant" xml:space="preserve">
+    <value>特战英豪</value>
+  </data>
+  <data name="YourParty" xml:space="preserve">
+    <value>你的团队</value>
+  </data>
+  <data name="QueueTime" xml:space="preserve">
+    <value>排队时间:</value>
+  </data>
+  <data name="RefreshingIn" xml:space="preserve">
+    <value>刷新中。。。</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>Score:</value>
+  </data>
+  <data name="HighScore" xml:space="preserve">
+    <value>High Score:</value>
+  </data>
+  <data name="StartTrainer" xml:space="preserve">
+    <value>Start Aim Trainer</value>
+  </data>
+  <data name="Player" xml:space="preserve">
+    <value>Player</value>
+  </data>
+</root>

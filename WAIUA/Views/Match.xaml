@@ -1,0 +1,198 @@
+﻿<UserControl x:Class="WAIUA.Views.Match"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:WAIUA.Controls"
+             xmlns:viewmodels="clr-namespace:WAIUA.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:converters="clr-namespace:WAIUA.Converters"
+             xmlns:fa="http://schemas.fontawesome.com/icons/fonts"
+             xmlns:p="clr-namespace:WAIUA.Properties"
+             d:DataContext="{d:DesignInstance Type=viewmodels:MatchViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="754"
+             d:DesignWidth="1536">
+	<i:Interaction.Triggers>
+		<i:EventTrigger EventName="Loaded">
+			<i:InvokeCommandAction Command="{Binding PassiveLoadCommand}" />
+		</i:EventTrigger>
+		<i:EventTrigger EventName="Closing">
+			<i:InvokeCommandAction Command="{Binding StopPassiveLoadCommand}" />
+		</i:EventTrigger>
+	</i:Interaction.Triggers>
+	<UserControl.Resources>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+		<converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+	</UserControl.Resources>
+	<UserControl.Triggers>
+		<EventTrigger RoutedEvent="Loaded">
+			<BeginStoryboard>
+				<Storyboard>
+					<DoubleAnimation
+						Storyboard.TargetProperty="Opacity"
+						From="0.0" To="1.0" Duration="0:0:1" />
+				</Storyboard>
+			</BeginStoryboard>
+		</EventTrigger>
+	</UserControl.Triggers>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="70" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid>
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="70" />
+				<ColumnDefinition Width="70" />
+				<ColumnDefinition Width="70" />
+				<ColumnDefinition Width="70" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+
+			<Button
+				Grid.Column="0"
+				Margin="7" x:Name="GoHome"
+				Command="{Binding DataContext.NavigateHomeCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+				Template="{StaticResource ButtonTemplate}">
+
+				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_AngleLeft" Margin="10" />
+			</Button>
+			<Button
+				Grid.Column="1"
+				Margin="7"
+				Command="{Binding DataContext.NavigateSettingsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+				Template="{StaticResource ButtonTemplate}">
+
+				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Gear" Margin="10" />
+			</Button>
+			<Button
+				IsEnabled="{Binding Path=Overlay.IsBusy, Converter={StaticResource InverseBooleanConverter}}"
+				Grid.Column="2"
+				Margin="7"
+				Command="{Binding GetMatchInfoCommand}"
+				Template="{StaticResource ButtonTemplate}">
+				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Rotate" Margin="10" />
+			</Button>
+			<ToggleButton
+				Grid.Column="3" Margin="7"
+				Template="{StaticResource ToggleButtonTemplate}">
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="Checked">
+						<i:InvokeCommandAction Command="{Binding Path=StopPassiveLoadCommand}" />
+					</i:EventTrigger>
+					<i:EventTrigger EventName="Unchecked">
+						<i:InvokeCommandAction Command="{Binding Path=PassiveLoadCommand}" />
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Pause" Margin="10" />
+			</ToggleButton>
+
+			<TextBlock Margin="10" Grid.Column="4"
+			           FontSize="20"
+			           VerticalAlignment="Center"
+			           FontWeight="Normal"
+			           Foreground="White"
+			           FontFamily="{StaticResource Nunito}"
+			           Text="{x:Static p:Resources.RefreshingIn}" />
+			<TextBlock Margin="10"
+			           FontSize="20" Grid.Column="5"
+			           FontFamily="{StaticResource Nunito}"
+			           VerticalAlignment="Center"
+			           FontWeight="Normal"
+			           Foreground="#007EF9"
+			           Text="{Binding RefreshTime}" />
+
+			<Border
+				Grid.Column="6" HorizontalAlignment="Right"
+				Margin="7"
+				CornerRadius="10">
+				<Border.Effect>
+					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+				</Border.Effect>
+				<StackPanel Orientation="Horizontal">
+					<Image Height="30px" Width="30px" Source="{Binding Path=Match.GameModeImage}" />
+					<TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="SemiBold" Margin="10"
+					           Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
+					           Text="{Binding Path=Match.GameMode}" />
+					<TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="SemiBold" Margin="10"
+					           Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
+					           Text="{Binding Path=Match.Server}" />
+				</StackPanel>
+
+
+			</Border>
+
+			<Border
+				Grid.Column="7" HorizontalAlignment="Right" MinWidth="234"
+				Margin="7"
+				CornerRadius="10">
+				<Border.Effect>
+					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+				</Border.Effect>
+
+				<Border.Background>
+					<ImageBrush Stretch="UniformToFill" ImageSource="{Binding Path=Match.MapImage}" />
+				</Border.Background>
+
+				<TextBlock FontFamily="{StaticResource Nunito}" FontSize="25" FontWeight="Bold" Margin="10"
+				           Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
+				           Text="{Binding Path=Match.Map}" />
+
+
+			</Border>
+
+		</Grid>
+
+		<Grid Grid.Row="1" Grid.Column="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<ItemsControl ItemsSource="{Binding LeftPlayerList}" Margin="5">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<UniformGrid Columns="1" Margin="5" />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<controls:PlayerControl MaxHeight="160"
+						                        Margin="0 5"
+						                        PlayerCell="{Binding}" />
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+
+			<StackPanel Grid.Column="1" Orientation="Horizontal">
+				<Separator Width="4" Margin="6 20 6 30"
+				           Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Background="#181E34"
+				           BorderThickness="0" />
+			</StackPanel>
+			<ItemsControl Grid.Column="2" ItemsSource="{Binding RightPlayerList}" Margin="5">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<UniformGrid Columns="1" Margin="5" />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<controls:PlayerControl MaxHeight="160px"
+						                        Margin="0 5"
+						                        PlayerCell="{Binding}" />
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+
+		</Grid>
+		<controls:OverlayControl Grid.Row="1" Grid.Column="0"
+		                         Style="{StaticResource VisibleAnimation}"
+		                         Overlay="{Binding Path=Overlay}"
+		                         Visibility="{Binding Overlay.IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
+	</Grid>
+</UserControl>

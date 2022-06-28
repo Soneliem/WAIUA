@@ -2,9 +2,10 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,14 +28,17 @@
     <None Remove="images\agentsimg\eb93336a-449b-9c1b-0a54-a891f7921d69.png" />
     <None Remove="images\agentsimg\f94c3b30-42be-e959-889c-5aa313dba261.png" />
     <None Remove="images\Assets\arrow.png" />
+    <None Remove="images\Assets\back.png" />
     <None Remove="images\Assets\discord.png" />
     <None Remove="images\Assets\info.png" />
     <None Remove="images\Assets\logo.ico" />
     <None Remove="images\Assets\logo.png" />
     <None Remove="images\Assets\phantom.png" />
+    <None Remove="images\Assets\refresh.png" />
     <None Remove="images\Assets\settings.png" />
     <None Remove="images\Assets\Soneliem.png" />
     <None Remove="images\Assets\vandal.png" />
+    <None Remove="images\Nunito-Regular.ttf" />
     <None Remove="images\ranksimg\0.png" />
     <None Remove="images\ranksimg\10.png" />
     <None Remove="images\ranksimg\11.png" />
@@ -187,6 +191,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Controls\NormalPlayerCell.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -201,6 +209,9 @@
 
   <ItemGroup>
     <Resource Include="images\Assets\arrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\Assets\back.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="images\Assets\discord.png">
@@ -218,6 +229,9 @@
     <Resource Include="images\Assets\phantom.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="images\Assets\refresh.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="images\Assets\settings.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -227,6 +241,7 @@
     <Resource Include="images\Assets\vandal.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="images\Nunito-Regular.ttf" />
   </ItemGroup>
 
 </Project>

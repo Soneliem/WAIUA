@@ -117,23 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LoadMatchTitle" xml:space="preserve">
-    <value>Caricamento partita</value>
-  </data>
-  <data name="LoadMatchExplanation" xml:space="preserve">
-    <value>Caricamendo informazioni partita diretta se disponibile. Dovrebbe richiedere meno di 10 secondi</value>
-  </data>
   <data name="InfoTitle" xml:space="preserve">
-    <value>Info</value>
-  </data>
-  <data name="InfoExplanation" xml:space="preserve">
-    <value>Sei su questa pagina idiota</value>
+    <value>Informazioni</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>Entra sul mio Discord</value>
   </data>
   <data name="JoinDiscordSub" xml:space="preserve">
-    <value>Per aiuto, eccetera.</value>
+    <value>Per supporto, eccetera.</value>
   </data>
   <data name="Author" xml:space="preserve">
     <value>Creato da Soneliem</value>
@@ -145,19 +136,19 @@
     <value>Versione attuale: </value>
   </data>
   <data name="CheckUpdates" xml:space="preserve">
-    <value>Verifica i tuoi aggiornamenti</value>
+    <value>Verifica se ci sono aggiornamenti</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Login</value>
+    <value>Accesso</value>
   </data>
   <data name="SettingsInfoExplanation2" xml:space="preserve">
-    <value>Tutte le comunicazioni riguardanti le tue credenziali sono effettuate direttamente con i server Riot con nessuna memorizzazzione delle password effettuata localmente o online.</value>
+    <value>Tutte le comunicazioni riguardanti le tue credenziali sono effettuate direttamente con i server Riot con nessuna memorizzazione delle password effettuata localmente o online.</value>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
-    <value>Stato di autenticazione</value>
+    <value>Stato dell&apos;autenticazione</value>
   </data>
   <data name="AuthStatusDefault" xml:space="preserve">
-    <value>Clicca sotto per aggiornare</value>
+    <value>Clicca qui sotto per aggiornare</value>
   </data>
   <data name="AuthStatusButton" xml:space="preserve">
     <value>Verifica autenticazione</value>
@@ -166,54 +157,90 @@
     <value>Autenticato come:</value>
   </data>
   <data name="AutoLoginTitle" xml:space="preserve">
-    <value>Auto login</value>
+    <value>Accesso Automatico</value>
   </data>
   <data name="AutoLoginExplanation" xml:space="preserve">
-    <value>Nota: Valorant deve essere avviato per fare in modo che ciò possa funzionare</value>
+    <value>Nota: Valorant deve essere avviato per fare in modo che questo possa funzionare</value>
   </data>
   <data name="AuthStatusFail" xml:space="preserve">
     <value>Non autenticato</value>
   </data>
   <data name="Translator" xml:space="preserve">
-    <value>Tradotto in italiano da SimpleBonsai</value>
+    <value>Tradotto in italiano da CyberKoreTv</value>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
-    <value>Clicca per riaggiornare la tua partita</value>
-  </data>
-  <data name="SettingsExplanation" xml:space="preserve">
-    <value>Qui potrai trovare le impostazioni del tuo account</value>
+    <value>Clicca per aggiornare la tua partita</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Impostazioni</value>
   </data>
   <data name="SettingsInfoExplanation1" xml:space="preserve">
-    <value>Questa pagina ti permette di fare il sign  manualmente, cambiare la lingua dell&apos;app, eccetera.</value>
+    <value>Questa pagina ti permette di fare l&apos;accesso manualmente, cambiare la lingua dell&apos;app, eccetera.</value>
   </data>
   <data name="SelLanguageTitle" xml:space="preserve">
-    <value>Selezionare linguaggio</value>
+    <value>Seleziona lingua</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Errore</value>
   </data>
   <data name="Refreshing" xml:space="preserve">
-    <value>Aggiornando...</value>
+    <value>Sto Aggiornando...</value>
   </data>
   <data name="NoMatch" xml:space="preserve">
     <value>Nessuna partita rilevata</value>
   </data>
   <data name="NoValGame" xml:space="preserve">
-    <value>Per favore, avvia Valorant in primo luogo</value>
+    <value>Per favore, prima avvia Valorant</value>
   </data>
   <data name="TrackerToolTip" xml:space="preserve">
     <value>Apri Profilo Tracker.gg</value>
   </data>
   <data name="CheckDownloadTitle" xml:space="preserve">
-    <value>Check Downloaded Content</value>
+    <value>Controllo download contenuti</value>
   </data>
   <data name="CheckDownloadButton" xml:space="preserve">
-    <value>Force Update</value>
+    <value>Forza Aggiornamento</value>
   </data>
   <data name="SponsorsTitle" xml:space="preserve">
-    <value>Sponsors</value>
+    <value>Sponsor</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Aggiorna</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>Partita</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Stato</value>
+  </data>
+  <data name="Valorant" xml:space="preserve">
+    <value>Valorant</value>
+  </data>
+  <data name="YourParty" xml:space="preserve">
+    <value>Il tuo Party</value>
+  </data>
+  <data name="QueueTime" xml:space="preserve">
+    <value>Tempo Coda</value>
+  </data>
+  <data name="RefreshingIn" xml:space="preserve">
+    <value>Aggiorno in:</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>Punteggio</value>
+  </data>
+  <data name="HighScore" xml:space="preserve">
+    <value>Mio record</value>
+  </data>
+  <data name="StartTrainer" xml:space="preserve">
+    <value>Avvia Aim trainer</value>
+  </data>
+  <data name="Player" xml:space="preserve">
+    <value>Giocatore</value>
   </data>
 </root>

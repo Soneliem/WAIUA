@@ -117,17 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LoadMatchTitle" xml:space="preserve">
-    <value>लोड मैच</value>
-  </data>
-  <data name="LoadMatchExplanation" xml:space="preserve">
-    <value>यदि उपलब्ध हो तो Live match डेटा लोड करता है।. इसमें 10 सेकंड से कम समय लगना चाहिए</value>
-  </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>जानकारी</value>
-  </data>
-  <data name="InfoExplanation" xml:space="preserve">
-    <value>इस ही पेज पर हो बेवकुफ</value>
   </data>
   <data name="JoinDiscord" xml:space="preserve">
     <value>मेरे Discord से जुड़ें</value>
@@ -180,9 +171,6 @@
   <data name="RefreshMatch" xml:space="preserve">
     <value>मैच को ताज़ा करने के लिए क्लिक करें</value>
   </data>
-  <data name="SettingsExplanation" xml:space="preserve">
-    <value>यहां app और account सेटिंग ढूंढें</value>
-  </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>सेटिंग</value>
   </data>
@@ -215,5 +203,44 @@
   </data>
   <data name="SponsorsTitle" xml:space="preserve">
     <value>स्पॉन्सर</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>घर</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>ताज़ा </value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>खाता</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>Match</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>दर्जा</value>
+  </data>
+  <data name="Valorant" xml:space="preserve">
+    <value>Valorant</value>
+  </data>
+  <data name="YourParty" xml:space="preserve">
+    <value>आपकी टोली</value>
+  </data>
+  <data name="QueueTime" xml:space="preserve">
+    <value>कतार का समय</value>
+  </data>
+  <data name="RefreshingIn" xml:space="preserve">
+    <value>Refreshing In:</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>स्कोर:</value>
+  </data>
+  <data name="HighScore" xml:space="preserve">
+    <value>हाईस्कोर:</value>
+  </data>
+  <data name="StartTrainer" xml:space="preserve">
+    <value>Aim Trainer शुरू करें</value>
+  </data>
+  <data name="Player" xml:space="preserve">
+    <value>खिलाड़ी</value>
   </data>
 </root>

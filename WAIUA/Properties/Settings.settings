@@ -1,25 +1,12 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
-              GeneratedClassNamespace="WAIUA.Properties" GeneratedClassName="Settings">
-    <Profiles />
-    <Settings>
-        <Setting Name="Left" Type="System.Double" Scope="User">
-            <Value Profile="(Default)">0</Value>
-        </Setting>
-        <Setting Name="Top" Type="System.Double" Scope="User">
-            <Value Profile="(Default)">0</Value>
-        </Setting>
-        <Setting Name="Width" Type="System.Double" Scope="User">
-            <Value Profile="(Default)">1536</Value>
-        </Setting>
-        <Setting Name="Height" Type="System.Double" Scope="User">
-            <Value Profile="(Default)">754</Value>
-        </Setting>
-        <Setting Name="WindowState" Type="System.String" Scope="User">
-            <Value Profile="(Default)">Maximized</Value>
-        </Setting>
-        <Setting Name="Language" Type="System.String" Scope="User">
-            <Value Profile="(Default)" />
-        </Setting>
-    </Settings>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WAIUA.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Language" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="AimScore" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

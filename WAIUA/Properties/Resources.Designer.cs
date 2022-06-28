@@ -61,6 +61,15 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account.
+        /// </summary>
+        public static string Account {
+            get {
+                return ResourceManager.GetString("Account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Made By Soneliem.
         /// </summary>
         public static string Author {
@@ -178,11 +187,20 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You&apos;re on this page idiot.
+        ///   Looks up a localized string similar to High Score:.
         /// </summary>
-        public static string InfoExplanation {
+        public static string HighScore {
             get {
-                return ResourceManager.GetString("InfoExplanation", resourceCulture);
+                return ResourceManager.GetString("HighScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string Home {
+            get {
+                return ResourceManager.GetString("Home", resourceCulture);
             }
         }
         
@@ -223,29 +241,20 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loads live match data if available. This should take less than 10 seconds.
-        /// </summary>
-        public static string LoadMatchExplanation {
-            get {
-                return ResourceManager.GetString("LoadMatchExplanation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load Match.
-        /// </summary>
-        public static string LoadMatchTitle {
-            get {
-                return ResourceManager.GetString("LoadMatchTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string Login {
             get {
                 return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Match.
+        /// </summary>
+        public static string Match {
+            get {
+                return ResourceManager.GetString("Match", resourceCulture);
             }
         }
         
@@ -268,11 +277,47 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Player.
+        /// </summary>
+        public static string Player {
+            get {
+                return ResourceManager.GetString("Player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Queue Time:.
+        /// </summary>
+        public static string QueueTime {
+            get {
+                return ResourceManager.GetString("QueueTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        public static string Refresh {
+            get {
+                return ResourceManager.GetString("Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Refreshing....
         /// </summary>
         public static string Refreshing {
             get {
                 return ResourceManager.GetString("Refreshing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refreshing In:.
+        /// </summary>
+        public static string RefreshingIn {
+            get {
+                return ResourceManager.GetString("RefreshingIn", resourceCulture);
             }
         }
         
@@ -286,20 +331,20 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Score:.
+        /// </summary>
+        public static string Score {
+            get {
+                return ResourceManager.GetString("Score", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Language.
         /// </summary>
         public static string SelLanguageTitle {
             get {
                 return ResourceManager.GetString("SelLanguageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Find app and account settings here.
-        /// </summary>
-        public static string SettingsExplanation {
-            get {
-                return ResourceManager.GetString("SettingsExplanation", resourceCulture);
             }
         }
         
@@ -340,6 +385,24 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start Aim Trainer.
+        /// </summary>
+        public static string StartTrainer {
+            get {
+                return ResourceManager.GetString("StartTrainer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Tracker.gg Profile.
         /// </summary>
         public static string TrackerToolTip {
@@ -354,6 +417,24 @@ namespace WAIUA.Properties {
         public static string Translator {
             get {
                 return ResourceManager.GetString("Translator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valorant.
+        /// </summary>
+        public static string Valorant {
+            get {
+                return ResourceManager.GetString("Valorant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Party.
+        /// </summary>
+        public static string YourParty {
+            get {
+                return ResourceManager.GetString("YourParty", resourceCulture);
             }
         }
     }

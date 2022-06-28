@@ -1,94 +1,83 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Threading;
 using System.Windows;
+using System.Windows.Threading;
 using AutoUpdaterDotNET;
-using MVVMEssentials.Services;
-using MVVMEssentials.Stores;
-using MVVMEssentials.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using RestoreWindowPlace;
+using Serilog;
+using WAIUA.Helpers;
 using WAIUA.Properties;
 using WAIUA.ViewModels;
-using static WAIUA.ValAPI.ValAPI;
+using static WAIUA.Helpers.ValApi;
 
-namespace WAIUA
+namespace WAIUA;
+
+public partial class App : Application
 {
-	public partial class App : Application
-	{
-		private readonly ModalNavigationStore _modalNavigationStore;
-		private readonly NavigationStore _navigationStore;
+    public App()
+    {
+        Dispatcher.UnhandledException += OnDispatcherUnhandledException;
 
-		public App()
-		{
-			_navigationStore = new NavigationStore();
-			_modalNavigationStore = new ModalNavigationStore();
+        WindowPlace = new WindowPlace("placement.config");
 
-			if (Settings.Default.Language.Length >= 3) Settings.Default.Reset();
+        if (string.IsNullOrEmpty(Settings.Default.Language))
+        {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InstalledUICulture;
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.InstalledUICulture;
+            Settings.Default.Language = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName;
+        }
+        else
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(Settings.Default.Language);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Default.Language);
+        }
 
-			if (string.IsNullOrEmpty(Settings.Default.Language))
-			{
-				Thread.CurrentThread.CurrentCulture = CultureInfo.InstalledUICulture;
-				Thread.CurrentThread.CurrentUICulture = CultureInfo.InstalledUICulture;
-				Settings.Default.Language = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName;
-			}
-			else
-			{
-				Thread.CurrentThread.CurrentCulture = new CultureInfo(Settings.Default.Language);
-				Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Default.Language);
-			}
-		}
+        Settings.Default.Save();
+    }
 
-		protected override async void OnStartup(StartupEventArgs e)
-		{
-			var navigationService = CreateInfoNavigationService();
-			navigationService.Navigate();
+    public WindowPlace WindowPlace { get; }
 
-			MainWindow = new MainWindow
-			{
-				DataContext = new MainViewModel(_navigationStore, _modalNavigationStore)
-			};
+    private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    {
+        Constants.Log.Error("Unhandled Exception: {Message}, {Stacktrace}", e.Exception.Message, e.Exception.StackTrace);
+        e.Handled = true;
+    }
 
-			MainWindow.Show();
-			base.OnStartup(e);
-			await CheckAndUpdateJson();
-			AutoUpdater.ShowSkipButton = false;
-			AutoUpdater.Start("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xml");
-		}
+    protected override async void OnStartup(StartupEventArgs e)
+    {
+        base.OnStartup(e);
 
-		private void Application_Exit(object sender, ExitEventArgs e)
-		{
-			Settings.Default.Save();
-		}
+        Constants.LocalAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA";
+        Constants.Log = new LoggerConfiguration().MinimumLevel.Debug()
+            .WriteTo.Async(a => a.File(Constants.LocalAppDataPath + "\\logs\\log.txt", shared: true, rollingInterval: RollingInterval.Day))
+            .CreateLogger();
+        Constants.Log.Information("Application Start");
 
-		private INavigationService CreateHomeNavigationService()
-		{
-			return new NavigationService<HomeViewModel>(_navigationStore, CreateHomeViewModel);
-		}
+        var conventionViewFactory = new NamingConventionViewFactory();
 
-		private HomeViewModel CreateHomeViewModel()
-		{
-			return new HomeViewModel(CreateHomeNavigationService(), CreateInfoNavigationService(),
-				CreateSettingsNavigationService());
-		}
+        Ioc.Default.ConfigureServices(
+            new ServiceCollection()
+                .AddTransient<HomeViewModel>()
+                .AddTransient<InfoViewModel>()
+                .AddTransient<MatchViewModel>()
+                .AddTransient<SettingsViewModel>()
+                .AddSingleton<MainViewModel>()
+                .AddSingleton<IViewFactory>(conventionViewFactory)
+                .BuildServiceProvider());
 
-		private INavigationService CreateInfoNavigationService()
-		{
-			return new NavigationService<InfoViewModel>(_navigationStore, CreateInfoViewModel);
-		}
+        AutoUpdater.ShowSkipButton = false;
+        AutoUpdater.Start("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xml");
 
-		private InfoViewModel CreateInfoViewModel()
-		{
-			return new InfoViewModel(CreateHomeNavigationService(), CreateInfoNavigationService(),
-				CreateSettingsNavigationService());
-		}
+        await CheckAndUpdateJsonAsync().ConfigureAwait(false);
+    }
 
-		private INavigationService CreateSettingsNavigationService()
-		{
-			return new NavigationService<SettingsViewModel>(_navigationStore, CreateSettingsViewModel);
-		}
-
-		private SettingsViewModel CreateSettingsViewModel()
-		{
-			return new SettingsViewModel(CreateHomeNavigationService(), CreateInfoNavigationService(),
-				CreateSettingsNavigationService());
-		}
-	}
+    private void Application_Exit(object sender, ExitEventArgs e)
+    {
+        Constants.Log.Information("Application Stop");
+        Settings.Default.Save();
+        WindowPlace.Save();
+    }
 }
