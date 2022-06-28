@@ -485,7 +485,7 @@ public class LiveMatch
                 {
                     history.RankProgress = content.Matches[0].RankedRatingAfterUpdate;
                     var pmatch = content.Matches[0].RankedRatingEarned;
-                    history.PreviousGame = pmatch;
+                    history.PreviousGame = Math.Abs(pmatch);
                     history.PreviousGameColour = pmatch switch
                     {
                         > 0 => "#32e2b2",
@@ -497,7 +497,7 @@ public class LiveMatch
                 if (content?.Matches.Length > 1)
                 {
                     var ppmatch = content.Matches[1].RankedRatingEarned;
-                    history.PreviouspreviousGame = ppmatch;
+                    history.PreviouspreviousGame = Math.Abs(ppmatch);
                     history.PreviouspreviousGameColour = ppmatch switch
                     {
                         > 0 => "#32e2b2",
@@ -509,7 +509,7 @@ public class LiveMatch
                 if (content?.Matches.Length > 2)
                 {
                     var pppmatch = content.Matches[2].RankedRatingEarned;
-                    history.PreviouspreviouspreviousGame = pppmatch;
+                    history.PreviouspreviouspreviousGame = Math.Abs(pppmatch);
                     history.PreviouspreviouspreviousGameColour = pppmatch switch
                     {
                         > 0 => "#32e2b2",
