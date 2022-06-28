@@ -142,7 +142,7 @@
     <value>Đăng nhập</value>
   </data>
   <data name="SettingsInfoExplanation2" xml:space="preserve">
-    <value>Tất cả dữ liệu về tài khoản sẽ được chuyển trực tiếp về máy chủ riot, ứng dụng và tác giả không lưu trữ bất kỳ thông tin nào về tài khoản của bạn.</value>
+    <value>Tất cả dữ liệu về tài khoản sẽ được chuyển trực tiếp về máy chủ Riot, ứng dụng và tác giả không lưu trữ bất kỳ thông tin nào về tài khoản của bạn.</value>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
     <value>Tình trạng xác thực</value>
@@ -226,21 +226,21 @@
     <value>Tổ đội của bạn</value>
   </data>
   <data name="QueueTime" xml:space="preserve">
-    <value>Đang ghép trận:</value>
+    <value>Đang tìm trận:</value>
   </data>
   <data name="RefreshingIn" xml:space="preserve">
     <value>Làm mới trong:</value>
   </data>
   <data name="Score" xml:space="preserve">
-    <value>Score:</value>
+    <value>Điểm:</value>
   </data>
   <data name="HighScore" xml:space="preserve">
-    <value>High Score:</value>
+    <value>Điểm cao nhất:</value>
   </data>
   <data name="StartTrainer" xml:space="preserve">
-    <value>Start Aim Trainer</value>
+    <value>Bắt đầu luyện aim</value>
   </data>
   <data name="Player" xml:space="preserve">
-    <value>Player</value>
+    <value>Người chơi</value>
   </data>
 </root>
