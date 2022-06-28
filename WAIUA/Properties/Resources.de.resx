@@ -143,7 +143,6 @@
   </data>
   <data name="SettingsInfoExplanation2" xml:space="preserve">
     <value>Es werden keine Anmeldedaten gespeichert. Die Zugangsdaten werden für die direkte Kommunikation mit den Riot-Servern verwendet.</value>
-    <comment>Fuzzy</comment>
   </data>
   <data name="AuthStatusTitle" xml:space="preserve">
     <value>Anmelde Status</value>
@@ -235,15 +234,16 @@
     <value>Aktualisiert in:</value>
   </data>
   <data name="Score" xml:space="preserve">
-    <value>Score:</value>
+    <value>Punkte:</value>
   </data>
   <data name="HighScore" xml:space="preserve">
-    <value>High Score:</value>
+    <value>Highscore:</value>
+    <comment>there is literally no german word for this that doesn&apos;t sound stupid, everybody says highscore.</comment>
   </data>
   <data name="StartTrainer" xml:space="preserve">
-    <value>Start Aim Trainer</value>
+    <value>Aim Trainer Starten</value>
   </data>
   <data name="Player" xml:space="preserve">
-    <value>Player</value>
+    <value>Spieler</value>
   </data>
 </root>
