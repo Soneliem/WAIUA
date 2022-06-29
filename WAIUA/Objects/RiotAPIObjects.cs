@@ -403,8 +403,7 @@ public class CompetitiveUpdatesMatch
 
     [JsonPropertyName("MapID")] public string MapId { get; set; }
 
-    [JsonPropertyName("SeasonID")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    [JsonPropertyName("SeasonID"), JsonIgnore]
     public Guid? SeasonId { get; set; }
 
     [JsonPropertyName("MatchStartTime")] public long MatchStartTime { get; set; }

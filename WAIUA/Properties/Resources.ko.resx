@@ -232,15 +232,15 @@
     <value>새로고침까지 시간:</value>
   </data>
   <data name="Score" xml:space="preserve">
-    <value>Score:</value>
+    <value>점수:</value>
   </data>
   <data name="HighScore" xml:space="preserve">
-    <value>High Score:</value>
+    <value>최고점수:</value>
   </data>
   <data name="StartTrainer" xml:space="preserve">
-    <value>Start Aim Trainer</value>
+    <value>에임 트레이너 시작하기</value>
   </data>
   <data name="Player" xml:space="preserve">
-    <value>Player</value>
+    <value>플래이어</value>
   </data>
 </root>

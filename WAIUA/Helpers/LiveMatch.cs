@@ -470,7 +470,7 @@ public class LiveMatch
                     true).ConfigureAwait(false);
                 if (!response.IsSuccessful)
                 {
-                    Constants.Log.Error("GetCompHistoryAsync request failed: {e}", response.ErrorException);
+                    Constants.Log.Error("GetMatchHistoryAsync request failed: {e}", response.ErrorException);
                     return history;
                 }
 
@@ -538,8 +538,7 @@ public class LiveMatch
             int rank = 0, prank = 0, pprank = 0, ppprank = 0;
             var response = await DoCachedRequestAsync(Method.Get,
                 $"https://pd.{Constants.Region}.a.pvp.net/mmr/v1/players/{puuid}",
-                true,
-                false).ConfigureAwait(false);
+                true).ConfigureAwait(false);
 
             if (!response.IsSuccessful)
             {
@@ -669,8 +668,7 @@ public class LiveMatch
                     {
                         24 => leaderboardcontent.TierDetails["22"].RankedRatingThreshold,
                         25 => leaderboardcontent.TierDetails["23"].RankedRatingThreshold,
-                        26 => leaderboardcontent.TierDetails["24"].RankedRatingThreshold,
-                        _ => 100
+                        26 => leaderboardcontent.TierDetails["24"].RankedRatingThreshold
                     };
                 }
             }

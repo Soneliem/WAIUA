@@ -336,7 +336,15 @@ public static class ValApi
                 }
             }
 
-            await Task.WhenAll(UpdateVersion(), UpdateRanksDictionary(), UpdateAgentsDictionary(), UpdateMapsDictionary(), UpdateSkinsDictionary(), UpdateCardsDictionary(), UpdateGamemodeDictionary()).ConfigureAwait(false);
+            try
+            {
+                await Task.WhenAll(UpdateVersion(), UpdateRanksDictionary(), UpdateAgentsDictionary(), UpdateMapsDictionary(), UpdateSkinsDictionary(), UpdateCardsDictionary(), UpdateGamemodeDictionary()).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                Constants.Log.Error("updateGamemodeDictionary Parralel Tasks Failed, Response:{error}", e);
+            }
+            
         }
         catch (Exception e)
         {
