@@ -38,12 +38,10 @@ public partial class Settings : UserControl
 
     private async void Button_Click1Async(object sender, RoutedEventArgs e)
     {
-        Mouse.OverrideCursor = Cursors.Wait;
         CurrentVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         LatestVersion.Text = await GetLatestVersionAsync().ConfigureAwait(false);
         AutoUpdater.Start("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xml");
         await CheckAndUpdateJsonAsync().ConfigureAwait(false);
-        Mouse.OverrideCursor = Cursors.Arrow;
     }
 
     private static Task<string> GetLatestVersionAsync()
