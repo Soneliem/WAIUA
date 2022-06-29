@@ -154,33 +154,50 @@
 					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 				</Border.Effect>
 			</Border>
-			<Viewbox
-				Grid.Row="2"
-				Grid.Column="1"
-				Margin="0,5,0,0"
-				HorizontalAlignment="Left"
-				VerticalAlignment="Bottom"
-				Stretch="Uniform">
-				<StackPanel Orientation="Horizontal">
-					<Image
-						Margin="0,0,50,0" RenderOptions.BitmapScalingMode="HighQuality"
-						Source="{Binding PlayerCell.SkinData.VandalImage, ElementName=Self}"
-						ToolTip="{Binding PlayerCell.SkinData.VandalName, ElementName=Self}"
-						ToolTipService.InitialShowDelay="0">
-						<Image.Effect>
-							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
-						</Image.Effect>
-					</Image>
-					<Image  RenderOptions.BitmapScalingMode="HighQuality"
-					        Source="{Binding PlayerCell.SkinData.PhantomImage, ElementName=Self}"
-					        ToolTip="{Binding PlayerCell.SkinData.PhantomName, ElementName=Self}"
-					        ToolTipService.InitialShowDelay="0">
-						<Image.Effect>
-							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
-						</Image.Effect>
-					</Image>
-				</StackPanel>
-			</Viewbox>
+			<!-- <Viewbox -->
+			<!-- 	Grid.Row="2" -->
+			<!-- 	Grid.Column="1" -->
+			<!-- 	Margin="0,5,0,0" -->
+			<!-- 	HorizontalAlignment="Left" -->
+			<!-- 	VerticalAlignment="Bottom" -->
+			<!-- 	Stretch="Uniform"> -->
+				<Border Background="#373a4a" CornerRadius="10" Padding="7" Width="Auto"
+				        Grid.Row="2" HorizontalAlignment="Left"
+				        Grid.Column="1" MouseLeftButtonDown="EventSetter_OnHandler">
+					<!-- <Border.Style> -->
+					<!-- 	<Style TargetType="Border"> -->
+					<!-- 		<EventSetter Event="MouseLeftButtonDown" Handler="EventSetter_OnHandler"></EventSetter> -->
+					<!-- 	</Style> -->
+					<!-- </Border.Style> -->
+					<Border.Effect>
+						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+					</Border.Effect>
+					<Grid >
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+						<Image Grid.Column="0"
+						       Margin="0,0,20,0" RenderOptions.BitmapScalingMode="HighQuality"
+						       Source="{Binding PlayerCell.SkinData.VandalImage, ElementName=Self}"
+						       ToolTip="{Binding PlayerCell.SkinData.VandalName, ElementName=Self}"
+						       ToolTipService.InitialShowDelay="0">
+							<Image.Effect>
+								<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+							</Image.Effect>
+						</Image>
+						<Image   Grid.Column="1" RenderOptions.BitmapScalingMode="HighQuality"
+						         Source="{Binding PlayerCell.SkinData.PhantomImage, ElementName=Self}"
+						         ToolTip="{Binding PlayerCell.SkinData.PhantomName, ElementName=Self}"
+						         ToolTipService.InitialShowDelay="0">
+							<Image.Effect>
+								<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+							</Image.Effect>
+						</Image>
+					</Grid>
+				</Border>
+				
+			<!-- </Viewbox> -->
 
 			<UniformGrid
 				Grid.Row="2"

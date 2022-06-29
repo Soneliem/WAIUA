@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Navigation;
 using WAIUA.Objects;
 
@@ -29,5 +31,10 @@ public partial class PlayerControl : UserControl
         var navigateUri = hl.NavigateUri.ToString();
         Process.Start(new ProcessStartInfo(navigateUri) {UseShellExecute = true});
         e.Handled = true;
+    }
+
+    private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)
+    {
+        
     }
 }
