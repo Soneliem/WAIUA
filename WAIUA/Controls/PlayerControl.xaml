@@ -8,7 +8,7 @@
 	x:Name="Self"
 	d:DesignHeight="450"
 	d:DesignWidth="2000"
-	mc:Ignorable="d" d:DataContext="{d:DesignData NormalPlayerCell}">
+	mc:Ignorable="d" d:DataContext="{d:DesignData PlayerControl}">
 	<UserControl.Resources>
 		<Style TargetType="Button">
 			<Setter Property="Template">
@@ -326,8 +326,9 @@
 					</Image>
 				</Border>
 			</Grid>
-
-
+			<Popup Grid.Row="1" Grid.Column="0" x:Name="popup" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+			       Placement="Center" StaysOpen="False" PopupAnimation="Fade" AllowsTransparency="True"
+			       PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"></Popup>
 		</Grid>
 
 	</Border>
