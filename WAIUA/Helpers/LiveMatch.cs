@@ -148,16 +148,15 @@ public class LiveMatch
                         var t1 = GetCardAsync(riotPlayer.PlayerIdentity.PlayerCardId, index);
                         var t3 = GetMatchHistoryAsync(riotPlayer.Subject);
                         var t4 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
-                        var t5 = GetPreSkinInfoAsync(index);
+                        // var t5 = GetPreSkinInfoAsync(index);
                         var t6 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
 
-                        await Task.WhenAll(t1, t3, t4, t5, t6).ConfigureAwait(false);
-                        // await Task.WhenAll(t1, t3, t5, t6).ConfigureAwait(false);
+                        await Task.WhenAll(t1, t3, t4, t6).ConfigureAwait(false);
 
                         player.IdentityData = t1.Result;
                         player.MatchHistoryData = t3.Result;
                         player.RankData = t4.Result;
-                        player.SkinData = t5.Result;
+                        // player.SkinData = t5.Result;
                         player.PlayerUiData = t6.Result;
                         player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
                         player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel.ToString() : "-";
@@ -468,7 +467,7 @@ public class LiveMatch
             {
                 var response = await DoCachedRequestAsync(Method.Get,
                     $"https://pd.{Constants.Region}.a.pvp.net/mmr/v1/players/{puuid}/competitiveupdates?queue=competitive",
-                    true, true).ConfigureAwait(false);
+                    true).ConfigureAwait(false);
                 if (!response.IsSuccessful)
                 {
                     Constants.Log.Error("GetCompHistoryAsync request failed: {e}", response.ErrorException);
@@ -540,7 +539,7 @@ public class LiveMatch
             var response = await DoCachedRequestAsync(Method.Get,
                 $"https://pd.{Constants.Region}.a.pvp.net/mmr/v1/players/{puuid}",
                 true,
-                true).ConfigureAwait(false);
+                false).ConfigureAwait(false);
 
             if (!response.IsSuccessful)
             {
@@ -553,7 +552,6 @@ public class LiveMatch
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
             };
             var content = JsonSerializer.Deserialize<MmrResponse>(response.Content, options);
-            // var content = JsonSerializer.Deserialize<Dictionary<Guid, ActInfo>>(allcontent.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.Keys);
             try
             {
                 content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.CurrentSeason.ToString(), out var currentActJsonElement);

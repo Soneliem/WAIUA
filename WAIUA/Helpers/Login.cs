@@ -129,7 +129,6 @@ public static class Login
             Constants.Log.Error("Request to {url} Failed: {e}", url, response.ErrorException);
             return response;
         }
-
         if (attemptCache) Constants.UrlToBody.TryAdd(url, response);
         return response;
     }
