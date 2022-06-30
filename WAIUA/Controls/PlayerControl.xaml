@@ -163,7 +163,7 @@
 			<!-- 	Stretch="Uniform"> -->
 				<Border Background="#373a4a" CornerRadius="10" Padding="7" Width="Auto"
 				        Grid.Row="2" HorizontalAlignment="Left"
-				        Grid.Column="1" MouseLeftButtonDown="EventSetter_OnHandler">
+				        Grid.Column="1" MouseLeftButtonUp="EventSetter_OnHandler">
 					<!-- <Border.Style> -->
 					<!-- 	<Style TargetType="Border"> -->
 					<!-- 		<EventSetter Event="MouseLeftButtonDown" Handler="EventSetter_OnHandler"></EventSetter> -->
@@ -326,7 +326,7 @@
 					</Image>
 				</Border>
 			</Grid>
-			<Popup Grid.Row="1" Grid.Column="0" x:Name="popup" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+			<Popup Grid.Row="1" Grid.Column="0" x:Name="popup" VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="{Binding Height, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" MaxWidth="{Binding Width, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
 			       Placement="Center" StaysOpen="False" PopupAnimation="Fade" AllowsTransparency="True"
 			       PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"></Popup>
 		</Grid>

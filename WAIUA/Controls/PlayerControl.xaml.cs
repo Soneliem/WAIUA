@@ -41,7 +41,15 @@ public partial class PlayerControl : UserControl
     {
         var s = sender as FrameworkElement;
         var player = s.DataContext as Player;
-        popup.Child = new InventoryControl(player.SkinData);
+        if (player.IgnData.Username == "----")
+        {
+            popup.Child = new InventoryControl(player.SkinData, player.IdentityData.Name);
+        }
+        else
+        {
+            popup.Child = new InventoryControl(player.SkinData, player.IgnData.Username);
+        }
+        
         popup.IsOpen = true;
         e.Handled = true;
     }

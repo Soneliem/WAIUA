@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using WAIUA.Objects;
 
@@ -10,16 +11,26 @@ namespace WAIUA.Controls
         public static readonly DependencyProperty SkinDataProperty =
             DependencyProperty.Register("SkinDataObject", typeof(SkinData), typeof(InventoryControl), new PropertyMetadata(new SkinData()));
 
-        public InventoryControl(SkinData skinData)
+        public static readonly DependencyProperty UsernameProperty =
+            DependencyProperty.Register("Username", typeof(string), typeof(InventoryControl), new PropertyMetadata(null));
+        
+        public InventoryControl(SkinData skinData, string username)
         {
             InitializeComponent();
             SkinDataObject = skinData;
+            Username = username;
         }
 
         public SkinData SkinDataObject
         {
             get => (SkinData) GetValue(SkinDataProperty);
             set => SetValue(SkinDataProperty, value);
+        }
+        
+        public string Username
+        {
+            get => (string)GetValue(UsernameProperty);
+            set => SetValue(UsernameProperty, value);
         }
 
         public static readonly RoutedEvent CloseButtonEvent =

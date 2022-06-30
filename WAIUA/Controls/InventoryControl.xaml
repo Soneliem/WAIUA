@@ -9,120 +9,124 @@
              x:Name="Self"
              mc:Ignorable="d" Background="Transparent"
              d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignData SkinData}">
-	<Border Background="#252A40" CornerRadius="20">
+	<Border Background="#252A40" CornerRadius="20" Margin="100">
 		<Border.Effect>
 			<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 		</Border.Effect>
 		<Grid>
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition ></ColumnDefinition>
-				<ColumnDefinition ></ColumnDefinition>
-				<ColumnDefinition ></ColumnDefinition>
-				<ColumnDefinition ></ColumnDefinition>
-				<ColumnDefinition ></ColumnDefinition>
+				<ColumnDefinition></ColumnDefinition>
+				<ColumnDefinition></ColumnDefinition>
+				<ColumnDefinition></ColumnDefinition>
+				<ColumnDefinition></ColumnDefinition>
+				<ColumnDefinition></ColumnDefinition>
 			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
-				<RowDefinition ></RowDefinition>
-				<RowDefinition ></RowDefinition>
-				<RowDefinition ></RowDefinition>
-				<RowDefinition ></RowDefinition>
-				<RowDefinition ></RowDefinition>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
 			</Grid.RowDefinitions>
 
-			<controls:InventoryEntryControl Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+			<TextBlock Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Text="{Binding Username, ElementName=Self}" 
+			           FontSize="30" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Margin="10"/>
+
+			<controls:InventoryEntryControl Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
 				Image="{Binding SkinDataObject.CardImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.CardName, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="0" Grid.Row="2"
+				Grid.Column="0" Grid.Row="3"
 				Image="{Binding SkinDataObject.Spray1Image, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.Spray1Name, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="0" Grid.Row="3"
+				Grid.Column="0" Grid.Row="4"
 				Image="{Binding SkinDataObject.Spray2Image, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.Spray2Name, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="0" Grid.Row="4"
+				Grid.Column="0" Grid.Row="5"
 				Image="{Binding SkinDataObject.Spray3Image, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.Spray3Name, ElementName=Self}"/>
-			
+
 			<controls:InventoryEntryControl 
-				Grid.Column="1" Grid.Row="0"
+				Grid.Column="1" Grid.Row="1"
 				Image="{Binding SkinDataObject.ClassicImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.ClassicName, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="1" Grid.Row="1"
+				Grid.Column="1" Grid.Row="2"
 				Image="{Binding SkinDataObject.ShortyImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.ShortyName, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="1" Grid.Row="2"
+				Grid.Column="1" Grid.Row="3"
 				Image="{Binding SkinDataObject.FrenzyImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.FrenzyName, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="1" Grid.Row="3"
+				Grid.Column="1" Grid.Row="4"
 				Image="{Binding SkinDataObject.GhostImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.GhostImage, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="1" Grid.Row="4"
-				Image="{Binding SkinDataObject.SherrifImage, ElementName=Self}" 
-				TooltipName="{Binding SkinDataObject.SherrifName, ElementName=Self}"/>
+				Grid.Column="1" Grid.Row="5"
+				Image="{Binding SkinDataObject.SheriffImage, ElementName=Self}" 
+				TooltipName="{Binding SkinDataObject.SheriffName, ElementName=Self}"/>
 
 			<controls:InventoryEntryControl 
-				Grid.Column="2" Grid.Row="0"
+				Grid.Column="2" Grid.Row="1"
 				Image="{Binding SkinDataObject.StingerImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.StingerName, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="2" Grid.Row="1"
+				Grid.Column="2" Grid.Row="2"
 				Image="{Binding SkinDataObject.SpectreImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.SpectreName, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="2" Grid.Row="2"
+				Grid.Column="2" Grid.Row="3"
 				Image="{Binding SkinDataObject.BuckyImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.BuckyName, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="2" Grid.Row="3"
+				Grid.Column="2" Grid.Row="4"
 				Image="{Binding SkinDataObject.JudgeImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.JudgeName, ElementName=Self}"/>
 
 			<controls:InventoryEntryControl 
-				Grid.Column="3" Grid.Row="0"
+				Grid.Column="3" Grid.Row="1"
 				Image="{Binding SkinDataObject.BulldogImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.BulldogName, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="3" Grid.Row="1"
+				Grid.Column="3" Grid.Row="2"
 				Image="{Binding SkinDataObject.GuardianImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.GuardianName, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="3" Grid.Row="2"
+				Grid.Column="3" Grid.Row="3"
 				Image="{Binding SkinDataObject.PhantomImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.PhantomName, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="3" Grid.Row="3"
+				Grid.Column="3" Grid.Row="4"
 				Image="{Binding SkinDataObject.VandalImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.VandalName, ElementName=Self}"/>
-			
+
 			<controls:InventoryEntryControl 
-				Grid.Column="4" Grid.Row="0"
+				Grid.Column="4" Grid.Row="1"
 				Image="{Binding SkinDataObject.MarshalImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.MarshalName, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="4" Grid.Row="1"
+				Grid.Column="4" Grid.Row="2"
 				Image="{Binding SkinDataObject.OperatorImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.OperatorName, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="4" Grid.Row="2"
+				Grid.Column="4" Grid.Row="3"
 				Image="{Binding SkinDataObject.AresImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.AresName, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="4" Grid.Row="3"
+				Grid.Column="4" Grid.Row="4"
 				Image="{Binding SkinDataObject.OdinImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.OdinName, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
-				Grid.Column="4" Grid.Row="4"
+				Grid.Column="4" Grid.Row="5"
 				Image="{Binding SkinDataObject.MeleeImage, ElementName=Self}" 
 				TooltipName="{Binding SkinDataObject.MeleeName, ElementName=Self}"/>
 
 			<Button
-				Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Cursor="Hand" Width="60" Height="60" Margin="10"
+				Grid.Row="5" Grid.Column="2" Cursor="Hand" Width="60" Height="60"
 				HorizontalAlignment="Center" VerticalAlignment="Center" Click="CloseBtnClick"
 				Template="{StaticResource ButtonTemplate}">
 				<fa6:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Xmark" Margin="10" />
