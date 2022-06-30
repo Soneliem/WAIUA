@@ -173,9 +173,10 @@ public class LiveMatch
                     {
                         Constants.Log.Error("GetPlayerInfo() (PRE) failed for player {index}: {e}", index, e);
                     }
-                    
-
-                    index++;
+                    finally
+                    {
+                        index++;
+                    }
                 }
 
                 var gamePodId = matchIdInfo.GamePodId;
@@ -233,8 +234,10 @@ public class LiveMatch
                     {
                         Constants.Log.Error("GetPlayerInfo() (CORE) failed for player {index}: {e}", index, e);
                     }
-
-                    index++;
+                    finally
+                    {
+                        index++;
+                    }
                 }
 
                 var gamePodId = matchIdInfo.GamePodId;
