@@ -43,7 +43,7 @@
     <li><a href="#roadmap-and-known-bugs">Roadmap And Known Bugs</a></li>
     <li><a href="#built-with">Built With</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <!-- <li><a href="#Sponsors">Sponsors</a></li> -->
+    <li><a href="#Sponsors">Sponsors</a></li>
     <li><a href="#Translations">Translations</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
@@ -120,13 +120,12 @@ Another reason to making this was that I wanted some experience with .NET and GU
 
 I welcome any sort of contribution. Please remember that translations are managed externally as mentioned below.
 
-<!-- TODO: Fix -->
-<!-- ## Sponsors
-This project is sponsored by: --> 
+## Sponsors
+This project is sponsored by: 
 
 <!-- sponsors --><!-- sponsors -->  
 
-<!-- Thank you for your support! Any donation of $5 and over will addionally get you into the app's main page.   -->
+Thank you for your support! Any donation of $5 and over will get you into the app's main page. Sponnsors of $10 or more are automatically added above.
 
 ## Translations
 
