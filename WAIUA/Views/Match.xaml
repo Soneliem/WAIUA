@@ -192,7 +192,7 @@
 		</Grid>
 		<controls:OverlayControl Grid.Row="1" Grid.Column="0"
 		                         Style="{StaticResource VisibleAnimation}"
-		                         Overlay="{Binding Path=Overlay}"
+		                         Overlay="{Binding Overlay}"
 		                         Visibility="{Binding Overlay.IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
 	</Grid>
 </UserControl>
