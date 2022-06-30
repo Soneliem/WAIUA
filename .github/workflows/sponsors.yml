@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch:
-
+      - development-branch
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -14,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Generate Sponsors 💖
-        uses: JamesIves/github-sponsors-readme-action@1.0.5
+        uses: JamesIves/github-sponsors-readme-action@1.1.0
         with:
           token: ${{ secrets.SECRETS }}
           file: 'README.md'
