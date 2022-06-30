@@ -15,10 +15,10 @@
              d:DesignWidth="1536">
 	<i:Interaction.Triggers>
 		<i:EventTrigger EventName="Loaded">
-			<i:InvokeCommandAction Command="{Binding PassiveLoadCommand}" />
+			<i:InvokeCommandAction Command="{Binding PassiveLoadCheckCommand}" />
 		</i:EventTrigger>
 		<i:EventTrigger EventName="Closing">
-			<i:InvokeCommandAction Command="{Binding StopPassiveLoadCommand}" />
+			<i:InvokeCommandAction Command="{Binding StopPassiveLoadAsyncCommand}" />
 		</i:EventTrigger>
 	</i:Interaction.Triggers>
 	<UserControl.Resources>
@@ -83,10 +83,10 @@
 				Template="{StaticResource ToggleButtonTemplate}">
 				<i:Interaction.Triggers>
 					<i:EventTrigger EventName="Checked">
-						<i:InvokeCommandAction Command="{Binding Path=StopPassiveLoadCommand}" />
+						<i:InvokeCommandAction Command="{Binding Path=StopPassiveLoadAsyncCommand}" />
 					</i:EventTrigger>
 					<i:EventTrigger EventName="Unchecked">
-						<i:InvokeCommandAction Command="{Binding Path=PassiveLoadCommand}" />
+						<i:InvokeCommandAction Command="{Binding Path=PassiveLoadAsyncCommand}" />
 					</i:EventTrigger>
 				</i:Interaction.Triggers>
 				<fa:ImageAwesome PrimaryColor="#007EF9" Icon="Solid_Pause" Margin="10" />

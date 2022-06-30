@@ -5,7 +5,7 @@
         <TargetFramework>net6.0-windows</TargetFramework>
         <UseWPF>true</UseWPF>
         <ApplicationIcon>logo.ico</ApplicationIcon>
-        <Version>2.0.0.2</Version>
+        <Version>2.0.0.3</Version>
         <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
         <StartupObject>WAIUA.App</StartupObject>
         <Description>A Windows app to view player ranks and stats in a live Valorant Match</Description>
@@ -21,8 +21,8 @@
         <IsPackable>false</IsPackable>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <RepositoryType>git</RepositoryType>
-        <AssemblyVersion>2.0.0.2</AssemblyVersion>
-        <FileVersion>2.0.0.2</FileVersion>
+        <AssemblyVersion>2.0.0.3</AssemblyVersion>
+        <FileVersion>2.0.0.3</FileVersion>
         <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
