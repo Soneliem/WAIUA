@@ -71,7 +71,7 @@ POEditor lets people collaboratively edit translations, supports auto-translatio
 - Kourosh
   
 **Serbian:**
-- Luka
+- icedancer
 
 **Vietnamese:**
 - Ozymo

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:p="clr-namespace:WAIUA.Properties"
              xmlns:fa="http://schemas.fontawesome.com/icons/fonts"
+             x:Name="Self"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignData  OverlayControl}">
 	<UserControl.Resources>

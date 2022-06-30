@@ -5,7 +5,7 @@
         <TargetFramework>net6.0-windows</TargetFramework>
         <UseWPF>true</UseWPF>
         <ApplicationIcon>logo.ico</ApplicationIcon>
-        <Version>2.0.0.2</Version>
+        <Version>2.0.0.3</Version>
         <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
         <StartupObject>WAIUA.App</StartupObject>
         <Description>A Windows app to view player ranks and stats in a live Valorant Match</Description>
@@ -21,8 +21,8 @@
         <IsPackable>false</IsPackable>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <RepositoryType>git</RepositoryType>
-        <AssemblyVersion>2.0.0.2</AssemblyVersion>
-        <FileVersion>2.0.0.2</FileVersion>
+        <AssemblyVersion>2.0.0.3</AssemblyVersion>
+        <FileVersion>2.0.0.3</FileVersion>
         <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
@@ -146,13 +146,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Autoupdater.NET.Official" Version="1.7.1" />
+        <PackageReference Include="Autoupdater.NET.Official" Version="1.7.3" />
         <PackageReference Include="FontAwesome6.Fonts" Version="2.0.6" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
         <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
         <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
         <PackageReference Include="RestoreWindowPlace" Version="2.1.0" />
-        <PackageReference Include="RestSharp" Version="107.3.0" />
+        <PackageReference Include="RestSharp" Version="108.0.1" />
         <PackageReference Include="Serilog" Version="2.11.0" />
         <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
         <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />

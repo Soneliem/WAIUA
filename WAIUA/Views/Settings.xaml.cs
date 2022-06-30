@@ -28,22 +28,18 @@ public partial class Settings : UserControl
 
     private async Task CheckAuthAsync()
     {
-        Mouse.OverrideCursor = Cursors.Wait;
         AuthStatusBox.Text = Properties.Resources.Refreshing;
         if (!await Checks.CheckLoginAsync().ConfigureAwait(false))
             AuthStatusBox.Text = Properties.Resources.AuthStatusFail;
         else AuthStatusBox.Text = $"{Properties.Resources.AuthStatusAuthAs} {await GetNameServiceGetUsernameAsync(Constants.Ppuuid).ConfigureAwait(false)}";
-        Mouse.OverrideCursor = Cursors.Arrow;
     }
 
     private async void Button_Click1Async(object sender, RoutedEventArgs e)
     {
-        Mouse.OverrideCursor = Cursors.Wait;
         CurrentVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         LatestVersion.Text = await GetLatestVersionAsync().ConfigureAwait(false);
         AutoUpdater.Start("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xml");
         await CheckAndUpdateJsonAsync().ConfigureAwait(false);
-        Mouse.OverrideCursor = Cursors.Arrow;
     }
 
     private static Task<string> GetLatestVersionAsync()
@@ -88,14 +84,16 @@ public partial class Settings : UserControl
         await UpdateFilesAsync().ConfigureAwait(false);
     }
 
-    private async void ListBox_SelectedAsync(object sender, SelectionChangedEventArgs e)
+    private void ListBox_SelectedAsync(object sender, SelectionChangedEventArgs e)
     {
         var combo = (ComboBox) sender;
         var index = combo.SelectedIndex;
         Thread.CurrentThread.CurrentCulture = _languageList[index];
         Thread.CurrentThread.CurrentUICulture = _languageList[index];
         Properties.Settings.Default.Language = _languageList[index].TwoLetterISOLanguageName;
-        await UpdateFilesAsync().ConfigureAwait(false);
+        UpdateFilesAsync().ConfigureAwait(false);
+        Application.Current.Shutdown();
+        System.Windows.Forms.Application.Restart();
     }
 
     private static Task<IEnumerable<CultureInfo>> GetAvailableCulturesAsync()

@@ -44,7 +44,17 @@ public partial class MatchViewModel : ObservableObject
     public event EventAction GoHomeEvent;
 
     [ICommand]
-    private async Task PassiveLoadAsync()
+    private void PassiveLoadAsync()
+    {
+        if (!_countTimer.IsEnabled)
+        {
+            _countTimer.Start();
+        }
+        
+    }
+
+    [ICommand]
+    private async Task PassiveLoadCheckAsync()
     {
         if (!_countTimer.IsEnabled)
         {
@@ -55,12 +65,10 @@ public partial class MatchViewModel : ObservableObject
     }
 
     [ICommand]
-    private Task StopPassiveLoadAsync()
+    private void StopPassiveLoadAsync()
     {
         CountTimer?.Stop();
         RefreshTime = "-";
-        CountdownTime = 15;
-        return Task.CompletedTask;
     }
 
     private async void UpdateTimersAsync(object sender, EventArgs e)

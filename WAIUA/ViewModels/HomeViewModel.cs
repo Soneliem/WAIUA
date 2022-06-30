@@ -41,23 +41,29 @@ public partial class HomeViewModel : ObservableObject
     }
 
     [ICommand]
-    private async Task PassiveLoadAsync()
+    private void PassiveLoadAsync()
+    {
+        if (!_countTimer.IsEnabled)
+        {
+            _countTimer.Start();
+        }
+    }
+    
+    [ICommand]
+    private async Task PassiveLoadCheckAsync()
     {
         if (!_countTimer.IsEnabled)
         {
             _countTimer.Start();
             await UpdateChecksAsync(true).ConfigureAwait(false);
         }
-        
     }
 
     [ICommand]
-    private Task StopPassiveLoadAsync()
+    private void StopPassiveLoadAsync()
     {
-        CountTimer?.Stop();
+        _countTimer.Stop();
         RefreshTime = "-";
-        CountdownTime = 20;
-        return Task.CompletedTask;
     }
 
 

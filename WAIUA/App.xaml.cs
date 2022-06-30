@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
@@ -21,7 +22,7 @@ public partial class App : Application
     {
         Dispatcher.UnhandledException += OnDispatcherUnhandledException;
 
-        WindowPlace = new WindowPlace("placement.config");
+        WindowPlace = new WindowPlace( Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA\\placement.config");
 
         if (string.IsNullOrEmpty(Settings.Default.Language))
         {
@@ -46,7 +47,7 @@ public partial class App : Application
         e.Handled = true;
     }
 
-    protected override async void OnStartup(StartupEventArgs e)
+    protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
 
@@ -54,8 +55,10 @@ public partial class App : Application
         Constants.Log = new LoggerConfiguration().MinimumLevel.Debug()
             .WriteTo.Async(a => a.File(Constants.LocalAppDataPath + "\\logs\\log.txt", shared: true, rollingInterval: RollingInterval.Day))
             .CreateLogger();
-        Constants.Log.Information("Application Start");
+        Constants.Log.Information("Application Start. Version: {Version}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
 
+        CheckAndUpdateJsonAsync().ConfigureAwait(false);
+        
         var conventionViewFactory = new NamingConventionViewFactory();
 
         Ioc.Default.ConfigureServices(
@@ -71,7 +74,8 @@ public partial class App : Application
         AutoUpdater.ShowSkipButton = false;
         AutoUpdater.Start("https://raw.githubusercontent.com/Soneliem/WAIUA/master/WAIUA/VersionInfo.xml");
 
-        await CheckAndUpdateJsonAsync().ConfigureAwait(false);
+        MainWindow = new MainWindow();
+        MainWindow.Show();
     }
 
     private void Application_Exit(object sender, ExitEventArgs e)
