@@ -23,7 +23,7 @@ public partial class App : Application
     {
         Dispatcher.UnhandledException += OnDispatcherUnhandledException;
 
-        // WindowPlace = new WindowPlace("placement.config");
+        WindowPlace = new WindowPlace( Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA\\placement.config");
 
         if (string.IsNullOrEmpty(Settings.Default.Language))
         {
@@ -40,7 +40,7 @@ public partial class App : Application
         Settings.Default.Save();
     }
 
-    // public WindowPlace WindowPlace { get; }
+    public WindowPlace WindowPlace { get; }
 
     private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
@@ -83,6 +83,6 @@ public partial class App : Application
     {
         Constants.Log.Information("Application Stop");
         Settings.Default.Save();
-        // WindowPlace.Save();
+        WindowPlace.Save();
     }
 }
