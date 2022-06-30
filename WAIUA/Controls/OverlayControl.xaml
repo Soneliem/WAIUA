@@ -76,6 +76,19 @@
 					         Width="55"
 					         Margin="10"
 					         ToolTipService.InitialShowDelay="0"
+					         ToolTip="Mango">
+						<Ellipse.Effect>
+							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+						</Ellipse.Effect>
+						<Ellipse.Fill>
+							<ImageBrush
+								ImageSource="https://cdn.discordapp.com/avatars/875346957432938556/c9c93e480b244db630e34879a330ead1.webp" />
+						</Ellipse.Fill>
+					</Ellipse>
+					<Ellipse Height="55"
+					         Width="55"
+					         Margin="10"
+					         ToolTipService.InitialShowDelay="0"
 					         ToolTip="BrUnKx">
 						<Ellipse.Effect>
 							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />

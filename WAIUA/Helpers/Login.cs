@@ -89,9 +89,17 @@ public static class Login
         var response = await client.ExecutePutAsync(request).ConfigureAwait(false);
         if (response.IsSuccessful)
         {
-            var incorrectContent = response.Content.Replace("[", string.Empty).Replace("]", string.Empty).Replace("\n", string.Empty);
-            var content = JsonSerializer.Deserialize<NameServiceResponse>(incorrectContent);
-            return content.GameName + "#" + content.TagLine;
+            try
+            {
+                var incorrectContent = response.Content.Replace("[", string.Empty).Replace("]", string.Empty).Replace("\n", string.Empty);
+                var content = JsonSerializer.Deserialize<NameServiceResponse>(incorrectContent);
+                return content.GameName + "#" + content.TagLine;
+            }
+            catch (Exception e)
+            {
+                Constants.Log.Error("GetNameServiceGetUsernameAsync Failed: {e}", e);
+                return "";
+            }
         }
 
         Constants.Log.Error("GetNameServiceGetUsernameAsync Failed: {e}", response.ErrorException);
