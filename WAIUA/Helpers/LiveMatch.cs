@@ -141,31 +141,39 @@ public class LiveMatch
 
                 foreach (var riotPlayer in matchIdInfo.AllyTeam.Players)
                 {
-                    async Task<Player> GetPlayerInfo()
+                    try
                     {
-                        Player player = new();
+                        async Task<Player> GetPlayerInfo()
+                        {
+                            Player player = new();
 
-                        var t1 = GetCardAsync(riotPlayer.PlayerIdentity.PlayerCardId, index);
-                        var t3 = GetMatchHistoryAsync(riotPlayer.Subject);
-                        var t4 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
-                        // var t5 = GetPreSkinInfoAsync(index);
-                        var t6 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
+                            var t1 = GetCardAsync(riotPlayer.PlayerIdentity.PlayerCardId, index);
+                            var t3 = GetMatchHistoryAsync(riotPlayer.Subject);
+                            var t4 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
+                            // var t5 = GetPreSkinInfoAsync(index);
+                            var t6 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
 
-                        await Task.WhenAll(t1, t3, t4, t6).ConfigureAwait(false);
+                            await Task.WhenAll(t1, t3, t4, t6).ConfigureAwait(false);
 
-                        player.IdentityData = t1.Result;
-                        player.MatchHistoryData = t3.Result;
-                        player.RankData = t4.Result;
-                        // player.SkinData = t5.Result;
-                        player.PlayerUiData = t6.Result;
-                        player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
-                        player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel.ToString() : "-";
-                        player.TeamId = "Blue";
-                        player.Active = Visibility.Visible;
-                        return player;
+                            player.IdentityData = t1.Result;
+                            player.MatchHistoryData = t3.Result;
+                            player.RankData = t4.Result;
+                            // player.SkinData = t5.Result;
+                            player.PlayerUiData = t6.Result;
+                            player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
+                            player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel.ToString() : "-";
+                            player.TeamId = "Blue";
+                            player.Active = Visibility.Visible;
+                            return player;
+                        }
+
+                        playerTasks.Add(GetPlayerInfo());
                     }
-
-                    playerTasks.Add(GetPlayerInfo());
+                    catch(Exception e)
+                    {
+                        Constants.Log.Error("GetPlayerInfo() (PRE) failed for player {index}: {e}", index, e);
+                    }
+                    
 
                     index++;
                 }
@@ -188,35 +196,42 @@ public class LiveMatch
 
                 foreach (var riotPlayer in matchIdInfo.Players)
                 {
-                    if (!riotPlayer.IsCoach)
+                    try
                     {
-                        async Task<Player> GetPlayerInfo()
+                        if (!riotPlayer.IsCoach)
                         {
-                            Player player = new();
+                            async Task<Player> GetPlayerInfo()
+                            {
+                                Player player = new();
 
-                            var t1 = GetAgentInfoAsync(riotPlayer.CharacterId);
-                            // var t2 = GetCompHistoryAsync(riotPlayer.Subject);
-                            var t3 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
-                            var t4 = GetMatchSkinInfoAsync(index);
-                            var t5 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
+                                var t1 = GetAgentInfoAsync(riotPlayer.CharacterId);
+                                // var t2 = GetCompHistoryAsync(riotPlayer.Subject);
+                                var t3 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
+                                var t4 = GetMatchSkinInfoAsync(index);
+                                var t5 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
 
-                            await Task.WhenAll(t1, t3, t4, t5).ConfigureAwait(false);
-                            // await Task.WhenAll(t1, t2, t3, t4, t5).ConfigureAwait(false);
+                                await Task.WhenAll(t1, t3, t4, t5).ConfigureAwait(false);
+                                // await Task.WhenAll(t1, t2, t3, t4, t5).ConfigureAwait(false);
 
-                            player.IdentityData = t1.Result;
-                            // player.MatchHistoryData = t2.Result;
-                            player.RankData = t3.Result;
-                            player.SkinData = t4.Result;
-                            player.PlayerUiData = t5.Result;
-                            player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
-                            // player.RankData = await GetPlayerHistoryAsync(riotPlayer.Subject, seasonData).ConfigureAwait(false);
-                            player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel.ToString() : "-";
-                            player.TeamId = riotPlayer.TeamId;
-                            player.Active = Visibility.Visible;
-                            return player;
+                                player.IdentityData = t1.Result;
+                                // player.MatchHistoryData = t2.Result;
+                                player.RankData = t3.Result;
+                                player.SkinData = t4.Result;
+                                player.PlayerUiData = t5.Result;
+                                player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
+                                // player.RankData = await GetPlayerHistoryAsync(riotPlayer.Subject, seasonData).ConfigureAwait(false);
+                                player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel.ToString() : "-";
+                                player.TeamId = riotPlayer.TeamId;
+                                player.Active = Visibility.Visible;
+                                return player;
+                            }
+
+                            playerTasks.Add(GetPlayerInfo());
                         }
-
-                        playerTasks.Add(GetPlayerInfo());
+                    }
+                    catch (Exception e)
+                    {
+                        Constants.Log.Error("GetPlayerInfo() (CORE) failed for player {index}: {e}", index, e);
                     }
 
                     index++;
