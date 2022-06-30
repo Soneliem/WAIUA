@@ -173,6 +173,69 @@ public class ValApiCards
     [JsonPropertyName("assetPath")] public string AssetPath { get; set; }
 }
 
+public partial class ValApiSpraysResponse
+{
+    [JsonPropertyName("status")]
+    public long Status { get; set; }
+
+    [JsonPropertyName("data")]
+    public Datum[] Data { get; set; }
+}
+
+public partial class Datum
+{
+    [JsonPropertyName("uuid")]
+    public Guid Uuid { get; set; }
+
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+    
+    [JsonPropertyName("category"), JsonIgnore]
+    public string? Category { get; set; }
+
+    [JsonPropertyName("themeUuid")]
+    public Guid? ThemeUuid { get; set; }
+
+    [JsonPropertyName("displayIcon")]
+    public Uri DisplayIcon { get; set; }
+
+    [JsonPropertyName("fullIcon")]
+    public Uri FullIcon { get; set; }
+
+    [JsonPropertyName("fullTransparentIcon")]
+    public Uri FullTransparentIcon { get; set; }
+
+    [JsonPropertyName("animationPng")]
+    public Uri AnimationPng { get; set; }
+
+    [JsonPropertyName("animationGif")]
+    public Uri AnimationGif { get; set; }
+
+    [JsonPropertyName("assetPath")]
+    public string AssetPath { get; set; }
+
+    [JsonPropertyName("levels")]
+    public Level[] Levels { get; set; }
+}
+
+public partial class Level
+{
+    [JsonPropertyName("uuid")]
+    public Guid Uuid { get; set; }
+
+    [JsonPropertyName("sprayLevel")]
+    public long SprayLevel { get; set; }
+
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    [JsonPropertyName("displayIcon")]
+    public Uri DisplayIcon { get; set; }
+
+    [JsonPropertyName("assetPath")]
+    public string AssetPath { get; set; }
+}
+
 public class ValApiRanksResponse
 {
     [JsonPropertyName("status")] public int Status { get; set; }

@@ -22,6 +22,7 @@ public static class ValApi
     private static Urls _versionInfo;
     private static Urls _skinsInfo;
     private static Urls _cardsInfo;
+    private static Urls _spraysInfo;
     private static Urls _gamemodeInfo;
     private static List<Urls> _allInfo;
 
@@ -98,7 +99,13 @@ public static class ValApi
         {
             Name = "Cards",
             Filepath = Constants.LocalAppDataPath + "\\ValAPI\\cards.txt",
-            Url = "/playercards"
+            Url = $"/playercards?language={language}"
+        };
+        _spraysInfo = new Urls
+        {
+            Name = "Sprays",
+            Filepath = Constants.LocalAppDataPath + "\\ValAPI\\sprays.txt",
+            Url = $"/sprays?language={language}"
         };
         _ranksInfo = new Urls
         {
@@ -116,9 +123,9 @@ public static class ValApi
         {
             Name = "Gamemode",
             Filepath = Constants.LocalAppDataPath + "\\ValAPI\\gamemode.txt",
-            Url = "/gamemodes"
+            Url = $"/gamemodes?language={language}"
         };
-        _allInfo = new List<Urls> {_mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo, _cardsInfo, _gamemodeInfo};
+        _allInfo = new List<Urls> {_mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo, _cardsInfo, _spraysInfo, _gamemodeInfo};
         return Task.CompletedTask;
     }
 
@@ -217,10 +224,10 @@ public static class ValApi
                 var skinsResponse = await Client.ExecuteGetAsync<ValApiSkinsResponse>(skinsRequest).ConfigureAwait(false);
                 if (skinsResponse.IsSuccessful)
                 {
-                    Dictionary<Guid, ValSkin> skinsDictionary = new();
+                    Dictionary<Guid, ValNameImage> skinsDictionary = new();
                     if (skinsResponse.Data != null)
                         foreach (var skin in skinsResponse.Data.Data)
-                            skinsDictionary.TryAdd(skin.Uuid, new ValSkin {Name = skin.DisplayName, Image = skin.FullRender});
+                            skinsDictionary.TryAdd(skin.Uuid, new ValNameImage {Name = skin.DisplayName, Image = skin.FullRender});
                     await File.WriteAllTextAsync(_skinsInfo.Filepath, JsonSerializer.Serialize(skinsDictionary)).ConfigureAwait(false);
                 }
                 else
@@ -235,15 +242,33 @@ public static class ValApi
                 var cardsResponse = await Client.ExecuteGetAsync<ValApiCardsResponse>(cardsRequest).ConfigureAwait(false);
                 if (cardsResponse.IsSuccessful)
                 {
-                    Dictionary<Guid, Uri> cardsDictionary = new();
+                    Dictionary<Guid, ValNameImage> cardsDictionary = new();
                     if (cardsResponse.Data != null)
                         foreach (var card in cardsResponse.Data.Data)
-                            cardsDictionary.TryAdd(card.Uuid, card.DisplayIcon);
+                            cardsDictionary.TryAdd(card.Uuid, new ValNameImage {Name = card.DisplayName, Image = card.DisplayIcon});
                     await File.WriteAllTextAsync(_cardsInfo.Filepath, JsonSerializer.Serialize(cardsDictionary)).ConfigureAwait(false);
                 }
                 else
                 {
                     Constants.Log.Error("updateCardsDictionary Failed, Response:{error}", cardsResponse.ErrorException);
+                }
+            }
+
+            async Task UpdateSpraysDictionary()
+            {
+                var spraysRequest = new RestRequest(_spraysInfo.Url);
+                var spraysResponse = await Client.ExecuteGetAsync<ValApiSpraysResponse>(spraysRequest).ConfigureAwait(false);
+                if (spraysResponse.IsSuccessful)
+                {
+                    Dictionary<Guid, ValNameImage> spraysDictionary = new();
+                    if (spraysResponse.Data != null)
+                        foreach (var spray in spraysResponse.Data.Data)
+                            spraysDictionary.TryAdd(spray.Uuid, new ValNameImage {Name = spray.DisplayName, Image = spray.DisplayIcon});
+                    await File.WriteAllTextAsync(_spraysInfo.Filepath, JsonSerializer.Serialize(spraysDictionary)).ConfigureAwait(false);
+                }
+                else
+                {
+                    Constants.Log.Error("updateSpraysDictionary Failed, Response:{error}", spraysResponse.ErrorException);
                 }
             }
 
@@ -338,7 +363,7 @@ public static class ValApi
 
             try
             {
-                await Task.WhenAll(UpdateVersion(), UpdateRanksDictionary(), UpdateAgentsDictionary(), UpdateMapsDictionary(), UpdateSkinsDictionary(), UpdateCardsDictionary(), UpdateGamemodeDictionary()).ConfigureAwait(false);
+                await Task.WhenAll(UpdateVersion(), UpdateRanksDictionary(), UpdateAgentsDictionary(), UpdateMapsDictionary(), UpdateSkinsDictionary(), UpdateCardsDictionary(), UpdateSpraysDictionary(), UpdateGamemodeDictionary()).ConfigureAwait(false);
             }
             catch (Exception e)
             {

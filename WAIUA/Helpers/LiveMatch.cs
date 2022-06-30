@@ -150,15 +150,15 @@ public class LiveMatch
                             var t1 = GetCardAsync(riotPlayer.PlayerIdentity.PlayerCardId, index);
                             var t3 = GetMatchHistoryAsync(riotPlayer.Subject);
                             var t4 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
-                            // var t5 = GetPreSkinInfoAsync(index);
+                            var t5 = GetPreSkinInfoAsync(index, riotPlayer.PlayerIdentity.PlayerCardId);
                             var t6 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
 
-                            await Task.WhenAll(t1, t3, t4, t6).ConfigureAwait(false);
+                            await Task.WhenAll(t1, t3, t4, t5, t6).ConfigureAwait(false);
 
                             player.IdentityData = t1.Result;
                             player.MatchHistoryData = t3.Result;
                             player.RankData = t4.Result;
-                            // player.SkinData = t5.Result;
+                            player.SkinData = t5.Result;
                             player.PlayerUiData = t6.Result;
                             player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
                             player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel.ToString() : "-";
@@ -206,21 +206,17 @@ public class LiveMatch
                                 Player player = new();
 
                                 var t1 = GetAgentInfoAsync(riotPlayer.CharacterId);
-                                // var t2 = GetCompHistoryAsync(riotPlayer.Subject);
                                 var t3 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
-                                var t4 = GetMatchSkinInfoAsync(index);
+                                var t4 = GetMatchSkinInfoAsync(index, riotPlayer.PlayerIdentity.PlayerCardId);
                                 var t5 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
 
                                 await Task.WhenAll(t1, t3, t4, t5).ConfigureAwait(false);
-                                // await Task.WhenAll(t1, t2, t3, t4, t5).ConfigureAwait(false);
 
                                 player.IdentityData = t1.Result;
-                                // player.MatchHistoryData = t2.Result;
                                 player.RankData = t3.Result;
                                 player.SkinData = t4.Result;
                                 player.PlayerUiData = t5.Result;
                                 player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
-                                // player.RankData = await GetPlayerHistoryAsync(riotPlayer.Subject, seasonData).ConfigureAwait(false);
                                 player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel.ToString() : "-";
                                 player.TeamId = riotPlayer.TeamId;
                                 player.Active = Visibility.Visible;
@@ -386,25 +382,20 @@ public class LiveMatch
 
     private static async Task<IdentityData> GetCardAsync(Guid cardid, sbyte index)
     {
-        IdentityData identityData = new();
         if (cardid != Guid.Empty)
         {
-            var cards = JsonSerializer.Deserialize<Dictionary<Guid, Uri>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\cards.txt").ConfigureAwait(false));
+            var cards = JsonSerializer.Deserialize<Dictionary<Guid, ValNameImage>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\cards.txt").ConfigureAwait(false));
             cards.TryGetValue(cardid, out var card);
-            identityData.Image = card;
-            identityData.Name = Resources.Player + " " + (index + 1);
+            return new IdentityData()
+            {
+                Image = card.Image, Name = Resources.Player + " " + (index + 1)
+            };
         }
-        else
-        {
-            Constants.Log.Error("GetCardAsync Failed: CardID is empty");
-            identityData.Image = null;
-            identityData.Name = "";
-        }
-
-        return identityData;
+        Constants.Log.Error("GetCardAsync Failed: CardID is empty");
+        return new IdentityData();
     }
 
-    private static async Task<SkinData> GetMatchSkinInfoAsync(sbyte playerno)
+    private static async Task<SkinData> GetMatchSkinInfoAsync(sbyte playerno, Guid cardid)
     {
         var response = await DoCachedRequestAsync(Method.Get,
             $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/matches/{Matchid}/loadouts",
@@ -412,14 +403,14 @@ public class LiveMatch
         if (response.IsSuccessful)
         {
             var content = JsonSerializer.Deserialize<MatchLoadoutsResponse>(response.Content);
-            return await GetSkinInfoAsync(content.Loadouts[playerno].Loadout);
+            return await GetSkinInfoAsync(content.Loadouts[playerno].Loadout, cardid);
         }
 
         Constants.Log.Error("GetMatchSkinInfoAsync Failed: {e}", response.ErrorException);
         return new SkinData();
     }
 
-    private static async Task<SkinData> GetPreSkinInfoAsync(sbyte playerno)
+    private static async Task<SkinData> GetPreSkinInfoAsync(sbyte playerno, Guid cardid)
     {
         var response = await DoCachedRequestAsync(Method.Get,
             $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/pregame/v1/matches/{Matchid}/loadouts",
@@ -428,7 +419,7 @@ public class LiveMatch
             try
             {
                 var content = JsonSerializer.Deserialize<PreMatchLoadoutsResponse>(response.Content);
-                return await GetSkinInfoAsync(content.Loadouts[playerno]);
+                return await GetSkinInfoAsync(content.Loadouts[playerno], cardid);
             }
             catch
             {
@@ -439,28 +430,22 @@ public class LiveMatch
         return new SkinData();
     }
 
-    private static async Task<SkinData> GetSkinInfoAsync(LoadoutLoadout loadout)
+    private static async Task<SkinData> GetSkinInfoAsync(LoadoutLoadout loadout, Guid cardid)
     {
-        var skins = JsonSerializer.Deserialize<Dictionary<Guid, ValSkin>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\skinchromas.txt").ConfigureAwait(false));
+        var skins = JsonSerializer.Deserialize<Dictionary<Guid, ValNameImage>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\skinchromas.txt").ConfigureAwait(false));
+        var cards = JsonSerializer.Deserialize<Dictionary<Guid, ValNameImage>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\cards.txt").ConfigureAwait(false));
+        var sprays = JsonSerializer.Deserialize<Dictionary<Guid, ValNameImage>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\sprays.txt").ConfigureAwait(false));
 
         return new SkinData()
         {
-            CardImage = skins[loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            CardName = skins[loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            Spray1Image = skins[loadout.Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            Spray1Name = skins[loadout.Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            Spray2Image = skins[loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            Spray2Name = skins[loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            Spray3Image = skins[loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            Spray3Name = skins[loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
+            CardImage = cards[cardid].Image,
+            CardName = cards[cardid].Name,
+            Spray1Image = sprays[loadout.Sprays.SpraySelections[0].SprayId].Image,
+            Spray1Name = sprays[loadout.Sprays.SpraySelections[0].SprayId].Name,
+            Spray2Image = sprays[loadout.Sprays.SpraySelections[1].SprayId].Image,
+            Spray2Name = sprays[loadout.Sprays.SpraySelections[1].SprayId].Name,
+            Spray3Image = sprays[loadout.Sprays.SpraySelections[2].SprayId].Image,
+            Spray3Name = sprays[loadout.Sprays.SpraySelections[2].SprayId].Name,
             
             ClassicImage = skins[loadout.Items["29a0cfab-485b-f5d5-779a-b59f85e204a8"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
                 .Item.Id].Image,

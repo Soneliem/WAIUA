@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:WAIUA.Controls"
              xmlns:controls="clr-namespace:WAIUA.Controls"
              xmlns:fa6="http://schemas.fontawesome.com/icons/fonts"
-             x:Name="Self"
+             x:Name="Self" HorizontalAlignment="Stretch"
              mc:Ignorable="d" Background="Transparent"
              d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignData SkinData}">
-	<Border Background="#252A40" CornerRadius="20" Margin="100">
+	<Border Background="#252A40" CornerRadius="20" Margin="10">
 		<Border.Effect>
 			<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 		</Border.Effect>
@@ -33,21 +33,32 @@
 			<TextBlock Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Text="{Binding Username, ElementName=Self}" 
 			           FontSize="30" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Margin="10"/>
 
-			<controls:InventoryEntryControl Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
-				Image="{Binding SkinDataObject.CardImage, ElementName=Self}" 
-				TooltipName="{Binding SkinDataObject.CardName, ElementName=Self}"/>
-			<controls:InventoryEntryControl 
-				Grid.Column="0" Grid.Row="3"
-				Image="{Binding SkinDataObject.Spray1Image, ElementName=Self}" 
-				TooltipName="{Binding SkinDataObject.Spray1Name, ElementName=Self}"/>
-			<controls:InventoryEntryControl 
-				Grid.Column="0" Grid.Row="4"
-				Image="{Binding SkinDataObject.Spray2Image, ElementName=Self}" 
-				TooltipName="{Binding SkinDataObject.Spray2Name, ElementName=Self}"/>
-			<controls:InventoryEntryControl 
-				Grid.Column="0" Grid.Row="5"
-				Image="{Binding SkinDataObject.Spray3Image, ElementName=Self}" 
-				TooltipName="{Binding SkinDataObject.Spray3Name, ElementName=Self}"/>
+			<Grid Grid.Column="0" Grid.Row="1" Grid.RowSpan="5" Width="Auto">
+				<Grid.RowDefinitions>
+					<RowDefinition SharedSizeGroup="A"></RowDefinition>
+					<RowDefinition SharedSizeGroup="A"></RowDefinition>
+					<RowDefinition SharedSizeGroup="A"></RowDefinition>
+					<RowDefinition SharedSizeGroup="A"></RowDefinition>
+				</Grid.RowDefinitions>
+
+				<controls:InventoryEntryControl  
+					Grid.Row="0"
+					Image="{Binding SkinDataObject.CardImage, ElementName=Self}" 
+					TooltipName="{Binding SkinDataObject.CardName, ElementName=Self}"/>
+				<controls:InventoryEntryControl 
+					Grid.Row="1"
+					Image="{Binding SkinDataObject.Spray1Image, ElementName=Self}" 
+					TooltipName="{Binding SkinDataObject.Spray1Name, ElementName=Self}"/>
+				<controls:InventoryEntryControl 
+					Grid.Row="2"
+					Image="{Binding SkinDataObject.Spray2Image, ElementName=Self}" 
+					TooltipName="{Binding SkinDataObject.Spray2Name, ElementName=Self}"/>
+				<controls:InventoryEntryControl 
+					 Grid.Row="3"
+					Image="{Binding SkinDataObject.Spray3Image, ElementName=Self}" 
+					TooltipName="{Binding SkinDataObject.Spray3Name, ElementName=Self}"/>
+			</Grid>
+			
 
 			<controls:InventoryEntryControl 
 				Grid.Column="1" Grid.Row="1"
@@ -64,7 +75,7 @@
 			<controls:InventoryEntryControl 
 				Grid.Column="1" Grid.Row="4"
 				Image="{Binding SkinDataObject.GhostImage, ElementName=Self}" 
-				TooltipName="{Binding SkinDataObject.GhostImage, ElementName=Self}"/>
+				TooltipName="{Binding SkinDataObject.GhostName, ElementName=Self}"/>
 			<controls:InventoryEntryControl 
 				Grid.Column="1" Grid.Row="5"
 				Image="{Binding SkinDataObject.SheriffImage, ElementName=Self}" 

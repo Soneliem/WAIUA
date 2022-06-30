@@ -123,7 +123,7 @@ public class ValMap
     public Guid UUID { get; set; }
 }
 
-public class ValSkin
+public class ValNameImage
 {
     public string Name { get; set; }
     public Uri Image { get; set; }

@@ -7,7 +7,7 @@
              x:Name="Self"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-	<Border Background="#181E34" CornerRadius="20"  Margin="10" Padding="20" >
+	<Border Background="#181E34" CornerRadius="20"  Margin="10" Padding="15" >
 		<Border.Effect>
 			<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 		</Border.Effect>

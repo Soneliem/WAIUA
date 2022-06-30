@@ -35,9 +35,9 @@
 		</Style>
 		<Storyboard x:Key="expandStoryboard">
 			<DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
-			                 To="1.01" Duration="0:0:0.1" />
+			                 To="1.02" Duration="0:0:0.1" />
 			<DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
-			                 To="1.01" Duration="0:0:0.1" />
+			                 To="1.02" Duration="0:0:0.1" />
 		</Storyboard>
 		<Storyboard x:Key="shrinkStoryboard">
 			<DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
@@ -55,17 +55,17 @@
 		<Border.Effect>
 			<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 		</Border.Effect>
-		<Border.RenderTransform>
-			<ScaleTransform ScaleX="1" ScaleY="1" />
-		</Border.RenderTransform>
-		<Border.Triggers>
-			<EventTrigger RoutedEvent="Border.MouseEnter">
-				<BeginStoryboard Storyboard="{StaticResource expandStoryboard}" />
-			</EventTrigger>
-			<EventTrigger RoutedEvent="Border.MouseLeave">
-				<BeginStoryboard Storyboard="{StaticResource shrinkStoryboard}" />
-			</EventTrigger>
-		</Border.Triggers>
+		<!-- <Border.RenderTransform> -->
+		<!-- 	<ScaleTransform ScaleX="1" ScaleY="1" /> -->
+		<!-- </Border.RenderTransform> -->
+		<!-- <Border.Triggers> -->
+		<!-- 	<EventTrigger RoutedEvent="Border.MouseEnter"> -->
+		<!-- 		<BeginStoryboard Storyboard="{StaticResource expandStoryboard}" /> -->
+		<!-- 	</EventTrigger> -->
+		<!-- 	<EventTrigger RoutedEvent="Border.MouseLeave"> -->
+		<!-- 		<BeginStoryboard Storyboard="{StaticResource shrinkStoryboard}" /> -->
+		<!-- 	</EventTrigger> -->
+		<!-- </Border.Triggers> -->
 		<Grid Margin="15">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
@@ -162,13 +162,19 @@
 			<!-- 	VerticalAlignment="Bottom" -->
 			<!-- 	Stretch="Uniform"> -->
 				<Border Background="#373a4a" CornerRadius="10" Padding="7" Width="Auto"
-				        Grid.Row="2" HorizontalAlignment="Left"
+				        Grid.Row="2" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" 
 				        Grid.Column="1" MouseLeftButtonUp="EventSetter_OnHandler">
-					<!-- <Border.Style> -->
-					<!-- 	<Style TargetType="Border"> -->
-					<!-- 		<EventSetter Event="MouseLeftButtonDown" Handler="EventSetter_OnHandler"></EventSetter> -->
-					<!-- 	</Style> -->
-					<!-- </Border.Style> -->
+					<Border.RenderTransform>
+						<ScaleTransform ScaleX="1" ScaleY="1" />
+					</Border.RenderTransform>
+					<Border.Triggers>
+						<EventTrigger RoutedEvent="Border.MouseEnter">
+							<BeginStoryboard Storyboard="{StaticResource expandStoryboard}" />
+						</EventTrigger>
+						<EventTrigger RoutedEvent="Border.MouseLeave">
+							<BeginStoryboard Storyboard="{StaticResource shrinkStoryboard}" />
+						</EventTrigger>
+					</Border.Triggers>
 					<Border.Effect>
 						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 					</Border.Effect>
@@ -326,7 +332,7 @@
 					</Image>
 				</Border>
 			</Grid>
-			<Popup Grid.Row="1" Grid.Column="0" x:Name="popup" VerticalAlignment="Center" HorizontalAlignment="Stretch" MaxHeight="{Binding Height, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" MaxWidth="{Binding Width, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
+			<Popup Grid.Row="1" Grid.Column="0" x:Name="popup" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MaxHeight="{Binding Height, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" MaxWidth="{Binding Width, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
 			       Placement="Center" StaysOpen="False" PopupAnimation="Fade" AllowsTransparency="True"
 			       PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"></Popup>
 		</Grid>
