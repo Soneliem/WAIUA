@@ -9,7 +9,7 @@ public class XpResponse
 {
     [JsonPropertyName("Version")] public long Version { get; set; }
 
-    [JsonPropertyName("Subject")] public Guid Subject { get; set; }
+    [JsonPropertyName("Subject")] public string Subject { get; set; }
 
     [JsonPropertyName("Progress")] public Progress Progress { get; set; }
 
@@ -24,7 +24,7 @@ public class XpResponse
 
 public class History
 {
-    [JsonPropertyName("ID")] public Guid Id { get; set; }
+    [JsonPropertyName("ID")] public string Id { get; set; }
 
     [JsonPropertyName("MatchStart")] public string MatchStart { get; set; }
 
@@ -394,17 +394,17 @@ public class CompetitiveUpdatesResponse
 
     [JsonPropertyName("Subject")] public Guid Subject { get; set; }
 
-    [JsonPropertyName("Matches")] public CompetitiveUpdatesMatch[] Matches { get; set; }
+    [JsonPropertyName("Matches")] public CompetitiveUpdates[] Matches { get; set; }
 }
 
-public class CompetitiveUpdatesMatch
+public class CompetitiveUpdates
 {
     [JsonPropertyName("MatchID")] public Guid MatchId { get; set; }
 
     [JsonPropertyName("MapID")] public string MapId { get; set; }
 
     [JsonPropertyName("SeasonID"), JsonIgnore]
-    public Guid? SeasonId { get; set; }
+    public string? SeasonId { get; set; }
 
     [JsonPropertyName("MatchStartTime")] public long MatchStartTime { get; set; }
 
@@ -442,7 +442,7 @@ public class MmrResponse
     [JsonPropertyName("QueueSkills")] public QueueSkills QueueSkills { get; set; }
 
     [JsonPropertyName("LatestCompetitiveUpdate")]
-    public LatestCompetitiveUpdate LatestCompetitiveUpdate { get; set; }
+    public CompetitiveUpdates LatestCompetitiveUpdate { get; set; }
 
     [JsonPropertyName("IsLeaderboardAnonymized")]
     public bool IsLeaderboardAnonymized { get; set; }
@@ -451,37 +451,37 @@ public class MmrResponse
     public bool IsActRankBadgeHidden { get; set; }
 }
 
-public class LatestCompetitiveUpdate
-{
-    [JsonPropertyName("MatchID")] public Guid MatchId { get; set; }
-
-    [JsonPropertyName("MapID")] public string MapId { get; set; }
-
-    [JsonPropertyName("SeasonID")] public Guid SeasonId { get; set; }
-
-    [JsonPropertyName("MatchStartTime")] public long MatchStartTime { get; set; }
-
-    [JsonPropertyName("TierAfterUpdate")] public int TierAfterUpdate { get; set; }
-
-    [JsonPropertyName("TierBeforeUpdate")] public int TierBeforeUpdate { get; set; }
-
-    [JsonPropertyName("RankedRatingAfterUpdate")]
-    public int RankedRatingAfterUpdate { get; set; }
-
-    [JsonPropertyName("RankedRatingBeforeUpdate")]
-    public int RankedRatingBeforeUpdate { get; set; }
-
-    [JsonPropertyName("RankedRatingEarned")]
-    public int RankedRatingEarned { get; set; }
-
-    [JsonPropertyName("RankedRatingPerformanceBonus")]
-    public int RankedRatingPerformanceBonus { get; set; }
-
-    [JsonPropertyName("CompetitiveMovement")]
-    public string CompetitiveMovement { get; set; }
-
-    [JsonPropertyName("AFKPenalty")] public int AfkPenalty { get; set; }
-}
+// public class LatestCompetitiveUpdate
+// {
+//     [JsonPropertyName("MatchID")] public Guid MatchId { get; set; }
+//
+//     [JsonPropertyName("MapID")] public string MapId { get; set; }
+//
+//     [JsonPropertyName("SeasonID")] public Guid SeasonId { get; set; }
+//
+//     [JsonPropertyName("MatchStartTime")] public long MatchStartTime { get; set; }
+//
+//     [JsonPropertyName("TierAfterUpdate")] public int TierAfterUpdate { get; set; }
+//
+//     [JsonPropertyName("TierBeforeUpdate")] public int TierBeforeUpdate { get; set; }
+//
+//     [JsonPropertyName("RankedRatingAfterUpdate")]
+//     public int RankedRatingAfterUpdate { get; set; }
+//
+//     [JsonPropertyName("RankedRatingBeforeUpdate")]
+//     public int RankedRatingBeforeUpdate { get; set; }
+//
+//     [JsonPropertyName("RankedRatingEarned")]
+//     public int RankedRatingEarned { get; set; }
+//
+//     [JsonPropertyName("RankedRatingPerformanceBonus")]
+//     public int RankedRatingPerformanceBonus { get; set; }
+//
+//     [JsonPropertyName("CompetitiveMovement")]
+//     public string CompetitiveMovement { get; set; }
+//
+//     [JsonPropertyName("AFKPenalty")] public int AfkPenalty { get; set; }
+// }
 
 public class QueueSkills
 {
@@ -528,7 +528,7 @@ public class SeasonalInfoBySeasonId
 
 public class ActInfo
 {
-    [JsonPropertyName("SeasonID")] public Guid SeasonId { get; set; }
+    [JsonPropertyName("SeasonID")] public string SeasonId { get; set; }
 
     [JsonPropertyName("NumberOfWins")] public int NumberOfWins { get; set; }
 
@@ -647,8 +647,7 @@ public class Event
 
     [JsonPropertyName("DevelopmentOnly")] public bool DevelopmentOnly { get; set; }
 
-    [JsonPropertyName("Type")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyName("Type"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Type { get; set; }
 }
 
@@ -697,8 +696,7 @@ public class Presence
 
     [JsonPropertyName("summary")] public string Summary { get; set; }
 
-    [JsonPropertyName("time")]
-    [JsonIgnore]
+    [JsonPropertyName("time"), JsonIgnore]
     public long Time { get; set; }
 }
 
