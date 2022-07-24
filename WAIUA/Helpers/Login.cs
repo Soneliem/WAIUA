@@ -53,22 +53,28 @@ public static class Login
             return;
         }
 
-        var parts = response.Data.ExtensionData.First().Value.Deserialize<ExternalSessions>().LaunchConfiguration.Arguments[4].Split('=', '&');
-        switch (parts[1])
+        foreach (var parts in from session in response.Data.ExtensionData 
+                 select session.Value.Deserialize<ExternalSessions>() into game where game is {ProductId: "valorant"} 
+                 select game.LaunchConfiguration.Arguments[4].Split('=', '&'))
         {
-            case "latam":
-                Constants.Region = "na";
-                Constants.Shard = "latam";
-                break;
-            case "br":
-                Constants.Region = "na";
-                Constants.Shard = "br";
-                break;
-            default:
-                Constants.Region = parts[1];
-                Constants.Shard = parts[1];
-                break;
+            switch (parts[1])
+            {
+                case "latam":
+                    Constants.Region = "na";
+                    Constants.Shard = "latam";
+                    break;
+                case "br":
+                    Constants.Region = "na";
+                    Constants.Shard = "br";
+                    break;
+                default:
+                    Constants.Region = parts[1];
+                    Constants.Shard = parts[1];
+                    break;
+            }
+            break;
         }
+        
     }
 
     public static async Task<string> GetNameServiceGetUsernameAsync(Guid puuid)
