@@ -729,22 +729,26 @@ public class LiveMatch
                 ppprank = 0;
             }
 
-
-
-            if (rank is 24 or 25 or 26)
+            if (rank is 24 or 25 or 26 or 27)
             {
                 var leaderboardResponse = await DoCachedRequestAsync(Method.Get,
                     $"https://pd.{Constants.Shard}.a.pvp.net/mmr/v1/leaderboards/affinity/{Constants.Region}/queue/competitive/season/{seasonData.CurrentSeason}?startIndex=0&size=0",
                     true).ConfigureAwait(false);
-                if (leaderboardResponse.Content != null)
+                if (leaderboardResponse.Content != null && leaderboardResponse.IsSuccessful)
                 {
                     var leaderboardcontent = JsonSerializer.Deserialize<LeaderboardsResponse>(leaderboardResponse.Content);
-                    rankData.MaxRr = rank switch
+                    try
                     {
-                        24 => leaderboardcontent.TierDetails["22"].RankedRatingThreshold,
-                        25 => leaderboardcontent.TierDetails["23"].RankedRatingThreshold,
-                        26 => leaderboardcontent.TierDetails["24"].RankedRatingThreshold
-                    };
+                        rankData.MaxRr = leaderboardcontent.TierDetails[rank.ToString()].RankedRatingThreshold;
+                    }
+                    catch (Exception e)
+                    {
+                        Constants.Log.Error("GetPlayerHistoryAsync Failed; leaderboardcontent error: {e}", e);
+                    }
+                }
+                else
+                {
+                    Constants.Log.Error("GetPlayerHistoryAsync Failed; leaderboardResponse error: {e}", leaderboardResponse.ErrorException);
                 }
             }
 
