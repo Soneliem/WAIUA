@@ -39,7 +39,6 @@ public partial class PlayerControl : UserControl
 
     private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)
     {
-        popup.IsOpen = true;
         var s = sender as FrameworkElement;
         var player = s.DataContext as Player;
         if (player.IgnData.Username == "----")
@@ -59,5 +58,6 @@ public partial class PlayerControl : UserControl
         RoutedEventArgs e)
     {
         popup.IsOpen = false;
+        e.Handled = true;
     }
 }
