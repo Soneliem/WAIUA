@@ -5,53 +5,6 @@ using System.Text.Json.Serialization;
 
 namespace WAIUA.Objects;
 
-public class XpResponse
-{
-    [JsonPropertyName("Version")] public long Version { get; set; }
-
-    [JsonPropertyName("Subject")] public string Subject { get; set; }
-
-    [JsonPropertyName("Progress")] public Progress Progress { get; set; }
-
-    [JsonPropertyName("History")] public History[] History { get; set; }
-
-    [JsonPropertyName("LastTimeGrantedFirstWin")]
-    public string LastTimeGrantedFirstWin { get; set; }
-
-    [JsonPropertyName("NextTimeFirstWinAvailable")]
-    public string NextTimeFirstWinAvailable { get; set; }
-}
-
-public class History
-{
-    [JsonPropertyName("ID")] public string Id { get; set; }
-
-    [JsonPropertyName("MatchStart")] public string MatchStart { get; set; }
-
-    [JsonPropertyName("StartProgress")] public Progress StartProgress { get; set; }
-
-    [JsonPropertyName("EndProgress")] public Progress EndProgress { get; set; }
-
-    [JsonPropertyName("XPDelta")] public long XpDelta { get; set; }
-
-    [JsonPropertyName("XPSources")] public XpSource[] XpSources { get; set; }
-
-    [JsonPropertyName("XPMultipliers")] public object[] XpMultipliers { get; set; }
-}
-
-public class Progress
-{
-    [JsonPropertyName("Level")] public long Level { get; set; }
-
-    [JsonPropertyName("XP")] public long Xp { get; set; }
-}
-
-public class XpSource
-{
-    [JsonPropertyName("ID")] public string Id { get; set; }
-
-    [JsonPropertyName("Amount")] public long Amount { get; set; }
-}
 
 public class EntitlementsResponse
 {
@@ -144,11 +97,11 @@ public class LiveMatchResponse
     [JsonPropertyName("ConnectionDetails")]
     public ConnectionDetails ConnectionDetails { get; set; }
 
-    [JsonPropertyName("PostGameDetails")] public object PostGameDetails { get; set; }
+    [JsonPropertyName("PostGameDetails"), JsonIgnore] public object PostGameDetails { get; set; }
 
     [JsonPropertyName("Players")] public RiotLivePlayer[] Players { get; set; }
 
-    [JsonPropertyName("MatchmakingData")] public object MatchmakingData { get; set; }
+    [JsonPropertyName("MatchmakingData"), JsonIgnore] public object MatchmakingData { get; set; }
 }
 
 public class PreMatchResponse

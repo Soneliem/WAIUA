@@ -53,7 +53,7 @@ public static class Login
             return;
         }
 
-        var parts = response.Data.ExtensionData.First().Value.Deserialize<ExternalSessions>().LaunchConfiguration.Arguments[3].Split('=', '&');
+        var parts = response.Data.ExtensionData.First().Value.Deserialize<ExternalSessions>().LaunchConfiguration.Arguments[4].Split('=', '&');
         switch (parts[1])
         {
             case "latam":

@@ -161,7 +161,7 @@
 			<!-- 	HorizontalAlignment="Left" -->
 			<!-- 	VerticalAlignment="Bottom" -->
 			<!-- 	Stretch="Uniform"> -->
-				<Border Background="#373a4a" CornerRadius="10" Padding="7" Width="Auto"
+				<Border Background="#778da9" CornerRadius="10" Padding="7" Width="Auto" 
 				        Grid.Row="2" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" 
 				        Grid.Column="1" MouseLeftButtonUp="EventSetter_OnHandler">
 					<Border.RenderTransform>
