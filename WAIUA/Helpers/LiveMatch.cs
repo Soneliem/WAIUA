@@ -148,17 +148,13 @@ public class LiveMatch
                             try
                             {
                                 var t1 = GetCardAsync(riotPlayer.PlayerIdentity.PlayerCardId, index);
-                                var t3 = GetMatchHistoryAsync(riotPlayer.Subject);
                                 var t4 = GetPlayerHistoryAsync(riotPlayer.Subject, seasonData);
-                                // var t5 = GetPreSkinInfoAsync(index);
                                 var t6 = GetPresenceInfoAsync(riotPlayer.Subject, presencesResponse);
 
-                                await Task.WhenAll(t1, t3, t4, t6).ConfigureAwait(false);
+                                await Task.WhenAll(t1, t4, t6).ConfigureAwait(false);
 
                                 player.IdentityData = t1.Result;
-                                player.MatchHistoryData = t3.Result;
                                 player.RankData = t4.Result;
-                                // player.SkinData = t5.Result;
                                 player.PlayerUiData = t6.Result;
                                 player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
                                 player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel.ToString() : "-";
