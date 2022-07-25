@@ -1,14 +1,10 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using WAIUA.Objects;
-using WAIUA.ViewModels;
-using WAIUA.Views;
 
 namespace WAIUA.Controls;
 
@@ -37,7 +33,7 @@ public partial class PlayerControl : UserControl
         e.Handled = true;
     }
 
-    private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)
+    private void ButtonUpHandler(object sender, MouseButtonEventArgs e)
     {
         var s = sender as FrameworkElement;
         var player = s.DataContext as Player;
@@ -49,7 +45,6 @@ public partial class PlayerControl : UserControl
         {
             popup.Child = new InventoryControl(player.SkinData, player.IgnData.Username);
         }
-        
         popup.IsOpen = true;
         e.Handled = true;
     }

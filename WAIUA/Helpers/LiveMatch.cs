@@ -397,7 +397,7 @@ public class LiveMatch
         if (response.IsSuccessful)
         {
             var content = JsonSerializer.Deserialize<MatchLoadoutsResponse>(response.Content);
-            return await GetSkinInfoAsync(content.Loadouts[playerno].Loadout, cardid);
+            return await GetSkinInfoAsync(content.Loadouts[playerno].Loadout, cardid).ConfigureAwait(false);
         }
 
         Constants.Log.Error("GetMatchSkinInfoAsync Failed: {e}", response.ErrorException);
@@ -616,7 +616,6 @@ public class LiveMatch
         var rankData = new RankData();
         if (puuid != Guid.Empty)
         {
-            
             var response = await DoCachedRequestAsync(Method.Get,
                 $"https://pd.{Constants.Region}.a.pvp.net/mmr/v1/players/{puuid}",
                 true).ConfigureAwait(false);
@@ -894,10 +893,9 @@ public class LiveMatch
             {
                 var encodedUsername = Uri.EscapeDataString(username);
                 var url = new Uri("https://tracker.gg/valorant/profile/riot/" + encodedUsername);
-
-                RestClient client = new(url);
-                RestRequest request = new();
-                var response = await client.ExecuteAsync(request).ConfigureAwait(false);
+                var response = await DoCachedRequestAsync(Method.Get,
+                    url.ToString(),
+                    false).ConfigureAwait(false);
                 var numericStatusCode = (short) response.StatusCode;
 
                 if (numericStatusCode == 200) return url;
