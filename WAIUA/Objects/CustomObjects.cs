@@ -45,12 +45,10 @@ public partial class SkinData
     [ObservableProperty] private string _aresName;
     [ObservableProperty] private Uri _buckyImage;
     [ObservableProperty] private string _buckyName;
-
     [ObservableProperty] private Uri _bulldogImage;
     [ObservableProperty] private string _bulldogName;
     [ObservableProperty] private Uri _cardImage;
     [ObservableProperty] private string _cardName;
-
     [ObservableProperty] private Uri _classicImage;
     [ObservableProperty] private string _classicName;
     [ObservableProperty] private Uri _frenzyImage;
@@ -62,7 +60,6 @@ public partial class SkinData
     [ObservableProperty] private Uri _judgeImage;
     [ObservableProperty] private string _judgeName;
     [ObservableProperty] private Uri _largeCardImage;
-
     [ObservableProperty] private Uri _marshalImage;
     [ObservableProperty] private string _marshalName;
     [ObservableProperty] private Uri _meleeImage;
@@ -85,7 +82,6 @@ public partial class SkinData
     [ObservableProperty] private string _spray2Name;
     [ObservableProperty] private Uri _spray3Image;
     [ObservableProperty] private string _spray3Name;
-
     [ObservableProperty] private Uri _stingerImage;
     [ObservableProperty] private string _stingerName;
     [ObservableProperty] private Uri _vandalImage;
