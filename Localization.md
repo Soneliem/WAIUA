@@ -78,3 +78,9 @@ POEditor lets people collaboratively edit translations, supports auto-translatio
 
 **Chinese:**
 - zDragone
+
+**Swedish:**
+- Xosiation
+
+**Turkish:**
+- void

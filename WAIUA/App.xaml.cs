@@ -22,7 +22,7 @@ public partial class App : Application
     {
         Dispatcher.UnhandledException += OnDispatcherUnhandledException;
 
-        WindowPlace = new WindowPlace( Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA\\placement.config");
+        WindowPlace = new WindowPlace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\WAIUA\\placement.config");
 
         if (string.IsNullOrEmpty(Settings.Default.Language))
         {
@@ -58,7 +58,7 @@ public partial class App : Application
         Constants.Log.Information("Application Start. Version: {Version}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
 
         CheckAndUpdateJsonAsync().ConfigureAwait(false);
-        
+
         var conventionViewFactory = new NamingConventionViewFactory();
 
         Ioc.Default.ConfigureServices(

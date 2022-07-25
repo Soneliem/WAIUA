@@ -426,13 +426,13 @@ public class LiveMatch
 
     private static async Task<SkinData> GetSkinInfoAsync(LoadoutLoadout loadout, Guid cardid)
     {
-        Dictionary<Guid, ValNameImage> cards = null;
+        Dictionary<Guid, ValCard> cards = null;
         Dictionary<Guid, ValNameImage> sprays = null;
         Dictionary<Guid, ValNameImage> skins = null;
         try
         {
             skins = JsonSerializer.Deserialize<Dictionary<Guid, ValNameImage>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\skinchromas.txt").ConfigureAwait(false));
-            cards = JsonSerializer.Deserialize<Dictionary<Guid, ValNameImage>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\cards.txt").ConfigureAwait(false));
+            cards = JsonSerializer.Deserialize<Dictionary<Guid, ValCard>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\cards.txt").ConfigureAwait(false));
             sprays = JsonSerializer.Deserialize<Dictionary<Guid, ValNameImage>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\sprays.txt").ConfigureAwait(false));
         }
         catch (Exception e)
@@ -443,6 +443,7 @@ public class LiveMatch
         var skinData = new SkinData
         {
             CardImage = cards[cardid].Image,
+            LargeCardImage = cards[cardid].FullImage,
             CardName = cards[cardid].Name,
             Spray1Image = sprays[loadout.Sprays.SpraySelections[0].SprayId].Image,
             Spray1Name = sprays[loadout.Sprays.SpraySelections[0].SprayId].Name,
@@ -927,6 +928,7 @@ public class LiveMatch
             Constants.Log.Error("GetPresencesAsync Failed; To Base 64 failed: {Exception}", e);
             return null;
         }
+
         var request = new RestRequest().AddHeader("Authorization",
                 $"Basic {base64String}")
             .AddHeader("X-Riot-ClientPlatform",
@@ -952,7 +954,6 @@ public class LiveMatch
         };
 
         foreach (var friend in presences.Presences)
-        {
             try
             {
                 if (friend.Puuid != puuid) continue;
@@ -1039,7 +1040,6 @@ public class LiveMatch
             {
                 Constants.Log.Error("GetPresenceInfoAsync Failed; To Base 64 failed: {Exception}", e);
             }
-        }
 
         return playerUiData;
     }

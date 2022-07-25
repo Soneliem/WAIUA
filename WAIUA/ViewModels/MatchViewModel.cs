@@ -17,12 +17,12 @@ public partial class MatchViewModel : ObservableObject
     [ObservableProperty] private int _countdownTime = 80;
     [ObservableProperty] private DispatcherTimer _countTimer;
     [ObservableProperty] private List<Player> _leftPlayerList;
-    [ObservableProperty] private List<Player> _rightPlayerList;
     [ObservableProperty] private MatchDetails _match;
     [ObservableProperty] private LoadingOverlay _overlay;
     [ObservableProperty] private string _refreshTime = "-";
     private int _resettime = 80;
-    
+    [ObservableProperty] private List<Player> _rightPlayerList;
+
     public MatchViewModel()
     {
         _countTimer = new DispatcherTimer();
@@ -46,11 +46,7 @@ public partial class MatchViewModel : ObservableObject
     [ICommand]
     private void PassiveLoadAsync()
     {
-        if (!_countTimer.IsEnabled)
-        {
-            _countTimer.Start();
-        }
-        
+        if (!_countTimer.IsEnabled) _countTimer.Start();
     }
 
     [ICommand]
@@ -61,7 +57,6 @@ public partial class MatchViewModel : ObservableObject
             _countTimer.Start();
             await GetMatchInfoAsync().ConfigureAwait(false);
         }
-        
     }
 
     [ICommand]
@@ -79,6 +74,7 @@ public partial class MatchViewModel : ObservableObject
             CountdownTime = _resettime;
             await GetMatchInfoAsync().ConfigureAwait(false);
         }
+
         CountdownTime--;
     }
 
@@ -147,7 +143,7 @@ public partial class MatchViewModel : ObservableObject
                 GoHomeEvent?.Invoke();
             }
         }
-        catch (Exception) 
+        catch (Exception)
         {
             // ignored
         }

@@ -20,11 +20,9 @@ public partial class HomeViewModel : ObservableObject
 
     [ObservableProperty] private int _countdownTime = 20;
     [ObservableProperty] private DispatcherTimer _countTimer;
+    private int _cycle = 3;
     [ObservableProperty] private List<Player> _playerList;
     [ObservableProperty] private string _refreshTime = "-";
-    private int _cycle = 3;
-
-    public event EventAction GoMatchEvent;
 
     public HomeViewModel()
     {
@@ -32,6 +30,8 @@ public partial class HomeViewModel : ObservableObject
         _countTimer.Tick += UpdateTimersAsync;
         _countTimer.Interval = new TimeSpan(0, 0, 1);
     }
+
+    public event EventAction GoMatchEvent;
 
     [ICommand]
     private async Task LoadNowAsync()
@@ -43,12 +43,9 @@ public partial class HomeViewModel : ObservableObject
     [ICommand]
     private void PassiveLoadAsync()
     {
-        if (!_countTimer.IsEnabled)
-        {
-            _countTimer.Start();
-        }
+        if (!_countTimer.IsEnabled) _countTimer.Start();
     }
-    
+
     [ICommand]
     private async Task PassiveLoadCheckAsync()
     {
@@ -75,6 +72,7 @@ public partial class HomeViewModel : ObservableObject
             CountdownTime = 15;
             await UpdateChecksAsync(false).ConfigureAwait(false);
         }
+
         CountdownTime--;
     }
 
@@ -135,6 +133,7 @@ public partial class HomeViewModel : ObservableObject
                             await GetPartyPlayerInfoAsync().ConfigureAwait(false);
                             _cycle = 3;
                         }
+
                         _cycle--;
                     }
                 }
@@ -179,6 +178,7 @@ public partial class HomeViewModel : ObservableObject
                                 await GetPartyPlayerInfoAsync().ConfigureAwait(false);
                                 _cycle = 3;
                             }
+
                             _cycle--;
                         }
                     }
@@ -215,7 +215,7 @@ public partial class HomeViewModel : ObservableObject
         try
         {
             LiveMatch newLiveMatch = new();
-            if (await newLiveMatch.CheckAndSetPartyIdAsync().ConfigureAwait(false)) 
+            if (await newLiveMatch.CheckAndSetPartyIdAsync().ConfigureAwait(false))
                 PlayerList = await newLiveMatch.PartyOutputAsync().ConfigureAwait(false);
         }
         catch (Exception)

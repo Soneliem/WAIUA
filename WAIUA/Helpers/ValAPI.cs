@@ -242,10 +242,10 @@ public static class ValApi
                 var cardsResponse = await Client.ExecuteGetAsync<ValApiCardsResponse>(cardsRequest).ConfigureAwait(false);
                 if (cardsResponse.IsSuccessful)
                 {
-                    Dictionary<Guid, ValNameImage> cardsDictionary = new();
+                    Dictionary<Guid, ValCard> cardsDictionary = new();
                     if (cardsResponse.Data != null)
                         foreach (var card in cardsResponse.Data.Data)
-                            cardsDictionary.TryAdd(card.Uuid, new ValNameImage {Name = card.DisplayName, Image = card.DisplayIcon});
+                            cardsDictionary.TryAdd(card.Uuid, new ValCard {Name = card.DisplayName, Image = card.DisplayIcon, FullImage = card.LargeArt});
                     await File.WriteAllTextAsync(_cardsInfo.Filepath, JsonSerializer.Serialize(cardsDictionary)).ConfigureAwait(false);
                 }
                 else
@@ -263,7 +263,7 @@ public static class ValApi
                     Dictionary<Guid, ValNameImage> spraysDictionary = new();
                     if (spraysResponse.Data != null)
                         foreach (var spray in spraysResponse.Data.Data)
-                            spraysDictionary.TryAdd(spray.Uuid, new ValNameImage {Name = spray.DisplayName, Image = spray.DisplayIcon});
+                            spraysDictionary.TryAdd(spray.Uuid, new ValNameImage {Name = spray.DisplayName, Image = spray.FullTransparentIcon});
                     await File.WriteAllTextAsync(_spraysInfo.Filepath, JsonSerializer.Serialize(spraysDictionary)).ConfigureAwait(false);
                 }
                 else
@@ -369,7 +369,6 @@ public static class ValApi
             {
                 Constants.Log.Error("updateGamemodeDictionary Parralel Tasks Failed, Response:{error}", e);
             }
-            
         }
         catch (Exception e)
         {

@@ -41,54 +41,55 @@ public partial class SeasonData
 [INotifyPropertyChanged]
 public partial class SkinData
 {
+    [ObservableProperty] private Uri _aresImage;
+    [ObservableProperty] private string _aresName;
+    [ObservableProperty] private Uri _buckyImage;
+    [ObservableProperty] private string _buckyName;
+
+    [ObservableProperty] private Uri _bulldogImage;
+    [ObservableProperty] private string _bulldogName;
     [ObservableProperty] private Uri _cardImage;
     [ObservableProperty] private string _cardName;
+
+    [ObservableProperty] private Uri _classicImage;
+    [ObservableProperty] private string _classicName;
+    [ObservableProperty] private Uri _frenzyImage;
+    [ObservableProperty] private string _frenzyName;
+    [ObservableProperty] private Uri _ghostImage;
+    [ObservableProperty] private string _ghostName;
+    [ObservableProperty] private Uri _guardianImage;
+    [ObservableProperty] private string _guardianName;
+    [ObservableProperty] private Uri _judgeImage;
+    [ObservableProperty] private string _judgeName;
+    [ObservableProperty] private Uri _largeCardImage;
+
+    [ObservableProperty] private Uri _marshalImage;
+    [ObservableProperty] private string _marshalName;
+    [ObservableProperty] private Uri _meleeImage;
+    [ObservableProperty] private string _meleeName;
+    [ObservableProperty] private Uri _odinImage;
+    [ObservableProperty] private string _odinName;
+    [ObservableProperty] private Uri _operatorImage;
+    [ObservableProperty] private string _operatorName;
+    [ObservableProperty] private Uri _phantomImage;
+    [ObservableProperty] private string _phantomName;
+    [ObservableProperty] private Uri _sheriffImage;
+    [ObservableProperty] private string _sheriffName;
+    [ObservableProperty] private Uri _shortyImage;
+    [ObservableProperty] private string _shortyName;
+    [ObservableProperty] private Uri _spectreImage;
+    [ObservableProperty] private string _spectreName;
     [ObservableProperty] private Uri _spray1Image;
     [ObservableProperty] private string _spray1Name;
     [ObservableProperty] private Uri _spray2Image;
     [ObservableProperty] private string _spray2Name;
     [ObservableProperty] private Uri _spray3Image;
-    [ObservableProperty] private string _spray3Name;  
-    
-    [ObservableProperty] private Uri _classicImage;
-    [ObservableProperty] private string _classicName;
-    [ObservableProperty] private Uri _shortyImage;
-    [ObservableProperty] private string _shortyName;
-    [ObservableProperty] private Uri _frenzyImage;
-    [ObservableProperty] private string _frenzyName;
-    [ObservableProperty] private Uri _ghostImage;
-    [ObservableProperty] private string _ghostName;
-    [ObservableProperty] private Uri _sheriffImage;
-    [ObservableProperty] private string _sheriffName;
-    
+    [ObservableProperty] private string _spray3Name;
+
     [ObservableProperty] private Uri _stingerImage;
     [ObservableProperty] private string _stingerName;
-    [ObservableProperty] private Uri _spectreImage;
-    [ObservableProperty] private string _spectreName;
-    [ObservableProperty] private Uri _buckyImage;
-    [ObservableProperty] private string _buckyName;
-    [ObservableProperty] private Uri _judgeImage;
-    [ObservableProperty] private string _judgeName;
-    
-    [ObservableProperty] private Uri _bulldogImage;
-    [ObservableProperty] private string _bulldogName;
-    [ObservableProperty] private Uri _guardianImage;
-    [ObservableProperty] private string _guardianName;
-    [ObservableProperty] private Uri _phantomImage;
-    [ObservableProperty] private string _phantomName;
     [ObservableProperty] private Uri _vandalImage;
     [ObservableProperty] private string _vandalName;
-    
-    [ObservableProperty] private Uri _marshalImage;
-    [ObservableProperty] private string _marshalName;
-    [ObservableProperty] private Uri _operatorImage;
-    [ObservableProperty] private string _operatorName;
-    [ObservableProperty] private Uri _aresImage;
-    [ObservableProperty] private string _aresName;
-    [ObservableProperty] private Uri _odinImage;
-    [ObservableProperty] private string _odinName;
-    [ObservableProperty] private Uri _meleeImage;
-    [ObservableProperty] private string _meleeName;
 }
 
 [INotifyPropertyChanged]
@@ -121,6 +122,13 @@ public class ValMap
 {
     public string Name { get; set; }
     public Guid UUID { get; set; }
+}
+
+public class ValCard
+{
+    public string Name { get; set; }
+    public Uri Image { get; set; }
+    public Uri FullImage { get; set; }
 }
 
 public class ValNameImage

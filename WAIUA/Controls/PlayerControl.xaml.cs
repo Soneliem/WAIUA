@@ -11,11 +11,12 @@ namespace WAIUA.Controls;
 public partial class PlayerControl : UserControl
 {
     public static readonly DependencyProperty PlayerProperty =
-        DependencyProperty.Register("PlayerCell", typeof(Player), typeof(PlayerControl), new PropertyMetadata(new Player()));    
+        DependencyProperty.Register("PlayerCell", typeof(Player), typeof(PlayerControl), new PropertyMetadata(new Player()));
+
     public PlayerControl()
     {
         InitializeComponent();
-        AddHandler(InventoryControl.CloseButtonEvent, 
+        AddHandler(InventoryControl.CloseButtonEvent,
             new RoutedEventHandler(ClosePopupEventHandlerMethod));
     }
 
@@ -38,13 +39,9 @@ public partial class PlayerControl : UserControl
         var s = sender as FrameworkElement;
         var player = s.DataContext as Player;
         if (player.IgnData.Username == "----")
-        {
             popup.Child = new InventoryControl(player.SkinData, player.IdentityData.Name);
-        }
         else
-        {
             popup.Child = new InventoryControl(player.SkinData, player.IgnData.Username);
-        }
         popup.IsOpen = true;
         e.Handled = true;
     }

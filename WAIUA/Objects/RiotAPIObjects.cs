@@ -5,7 +5,6 @@ using System.Text.Json.Serialization;
 
 namespace WAIUA.Objects;
 
-
 public class EntitlementsResponse
 {
     [JsonPropertyName("accessToken")] public string AccessToken { get; set; }
@@ -97,11 +96,15 @@ public class LiveMatchResponse
     [JsonPropertyName("ConnectionDetails")]
     public ConnectionDetails ConnectionDetails { get; set; }
 
-    [JsonPropertyName("PostGameDetails"), JsonIgnore] public object PostGameDetails { get; set; }
+    [JsonPropertyName("PostGameDetails")]
+    [JsonIgnore]
+    public object PostGameDetails { get; set; }
 
     [JsonPropertyName("Players")] public RiotLivePlayer[] Players { get; set; }
 
-    [JsonPropertyName("MatchmakingData"), JsonIgnore] public object MatchmakingData { get; set; }
+    [JsonPropertyName("MatchmakingData")]
+    [JsonIgnore]
+    public object MatchmakingData { get; set; }
 }
 
 public class PreMatchResponse
@@ -356,7 +359,8 @@ public class CompetitiveUpdates
 
     [JsonPropertyName("MapID")] public string MapId { get; set; }
 
-    [JsonPropertyName("SeasonID"), JsonIgnore]
+    [JsonPropertyName("SeasonID")]
+    [JsonIgnore]
     public string? SeasonId { get; set; }
 
     [JsonPropertyName("MatchStartTime")] public long MatchStartTime { get; set; }
@@ -600,7 +604,8 @@ public class Event
 
     [JsonPropertyName("DevelopmentOnly")] public bool DevelopmentOnly { get; set; }
 
-    [JsonPropertyName("Type"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyName("Type")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Type { get; set; }
 }
 
@@ -649,7 +654,8 @@ public class Presence
 
     [JsonPropertyName("summary")] public string Summary { get; set; }
 
-    [JsonPropertyName("time"), JsonIgnore]
+    [JsonPropertyName("time")]
+    [JsonIgnore]
     public long Time { get; set; }
 }
 

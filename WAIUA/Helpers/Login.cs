@@ -53,8 +53,10 @@ public static class Login
             return;
         }
 
-        foreach (var parts in from session in response.Data.ExtensionData 
-                 select session.Value.Deserialize<ExternalSessions>() into game where game is {ProductId: "valorant"} 
+        foreach (var parts in from session in response.Data.ExtensionData
+                 select session.Value.Deserialize<ExternalSessions>()
+                 into game
+                 where game is {ProductId: "valorant"}
                  select game.LaunchConfiguration.Arguments[4].Split('=', '&'))
         {
             switch (parts[1])
@@ -72,9 +74,9 @@ public static class Login
                     Constants.Shard = parts[1];
                     break;
             }
+
             break;
         }
-        
     }
 
     public static async Task<string> GetNameServiceGetUsernameAsync(Guid puuid)
@@ -94,7 +96,6 @@ public static class Login
         request.AddJsonBody(body);
         var response = await client.ExecutePutAsync(request).ConfigureAwait(false);
         if (response.IsSuccessful)
-        {
             try
             {
                 var incorrectContent = response.Content.Replace("[", string.Empty).Replace("]", string.Empty).Replace("\n", string.Empty);
@@ -106,7 +107,6 @@ public static class Login
                 Constants.Log.Error("GetNameServiceGetUsernameAsync Failed: {e}", e);
                 return "";
             }
-        }
 
         Constants.Log.Error("GetNameServiceGetUsernameAsync Failed: {e}", response.ErrorException);
         return "";
@@ -143,6 +143,7 @@ public static class Login
             Constants.Log.Error("Request to {url} Failed: {e}", url, response.ErrorException);
             return response;
         }
+
         if (attemptCache) Constants.UrlToBody.TryAdd(url, response);
         return response;
     }
