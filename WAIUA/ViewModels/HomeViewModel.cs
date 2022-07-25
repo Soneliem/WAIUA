@@ -215,7 +215,8 @@ public partial class HomeViewModel : ObservableObject
         try
         {
             LiveMatch newLiveMatch = new();
-            if (await newLiveMatch.CheckAndSetPartyIdAsync().ConfigureAwait(false)) PlayerList = await newLiveMatch.PartyOutputAsync().ConfigureAwait(false);
+            if (await newLiveMatch.CheckAndSetPartyIdAsync().ConfigureAwait(false)) 
+                PlayerList = await newLiveMatch.PartyOutputAsync().ConfigureAwait(false);
         }
         catch (Exception)
         {
