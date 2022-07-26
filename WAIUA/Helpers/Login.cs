@@ -37,46 +37,21 @@ public static class Login
 
     public static async Task LocalRegionAsync()
     {
-        var options = new RestClientOptions(new Uri($"https://127.0.0.1:{Constants.Port}/product-session/v1/external-sessions"))
-        {
-            RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
-        };
+        var path = Path.Combine(Environment.GetEnvironmentVariable("LOCALAPPDATA"), "VALORANT\\Saved\\Logs\\ShooterGame.log");
 
-        var client = new RestClient(options);
-        var request = new RestRequest().AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{Constants.LPassword}"))}")
-            .AddHeader("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
-            .AddHeader("X-Riot-ClientVersion", Constants.Version);
-        var response = await client.ExecuteGetAsync<ExternalSessionsResponse>(request).ConfigureAwait(false);
-        if (!response.IsSuccessful || response.Content == "{}")
+        await using var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        using var sr = new StreamReader(fs, Encoding.UTF8);
+
+        while (await sr.ReadLineAsync().ConfigureAwait(false) is { } line)
         {
-            Constants.Log.Error("LocalRegionAsync Failed: {e}", response.ErrorException);
+            if (!line.Contains("https://glz-")) continue;
+            var text = line.Split("https://glz-")[1].Split('.', '-');
+            Constants.Region = text[0];
+            Constants.Shard = text[2];
+            Constants.Log.Information("Region Detected: {region} Shard: {shard}", text[0], text[1]);
             return;
         }
-
-        foreach (var parts in from session in response.Data.ExtensionData
-                 select session.Value.Deserialize<ExternalSessions>()
-                 into game
-                 where game is {ProductId: "valorant"}
-                 select game.LaunchConfiguration.Arguments[4].Split('=', '&'))
-        {
-            switch (parts[1])
-            {
-                case "latam":
-                    Constants.Region = "na";
-                    Constants.Shard = "latam";
-                    break;
-                case "br":
-                    Constants.Region = "na";
-                    Constants.Shard = "br";
-                    break;
-                default:
-                    Constants.Region = parts[1];
-                    Constants.Shard = parts[1];
-                    break;
-            }
-
-            break;
-        }
+        Constants.Log.Error("LocalRegionAsync() Failed: https://glz- could not be found in logs");
     }
 
     public static async Task<string> GetNameServiceGetUsernameAsync(Guid puuid)
