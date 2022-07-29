@@ -86,6 +86,41 @@ public partial class SkinData
     [ObservableProperty] private string _stingerName;
     [ObservableProperty] private Uri _vandalImage;
     [ObservableProperty] private string _vandalName;
+
+    [ObservableProperty] private Uri _aresBuddyImage;
+    [ObservableProperty] private string _aresBuddyName;
+    [ObservableProperty] private Uri _buckyBuddyImage;
+    [ObservableProperty] private string _buckyBuddyName;
+    [ObservableProperty] private Uri _bulldogBuddyImage;
+    [ObservableProperty] private string _bulldogBuddyName;
+    [ObservableProperty] private Uri _classicBuddyImage;
+    [ObservableProperty] private string _classicBuddyName;
+    [ObservableProperty] private Uri _frenzyBuddyImage;
+    [ObservableProperty] private string _frenzyBuddyName;
+    [ObservableProperty] private Uri _ghostBuddyImage;
+    [ObservableProperty] private string _ghostBuddyName;
+    [ObservableProperty] private Uri _guardianBuddyImage;
+    [ObservableProperty] private string _guardianBuddyName;
+    [ObservableProperty] private Uri _judgeBuddyImage;
+    [ObservableProperty] private string _judgeBuddyName;
+    [ObservableProperty] private Uri _marshalBuddyImage;
+    [ObservableProperty] private string _marshalBuddyName;
+    [ObservableProperty] private Uri _odinBuddyImage;
+    [ObservableProperty] private string _odinBuddyName;
+    [ObservableProperty] private Uri _operatorBuddyImage;
+    [ObservableProperty] private string _operatorBuddyName;
+    [ObservableProperty] private Uri _phantomBuddyImage;
+    [ObservableProperty] private string _phantomBuddyName;
+    [ObservableProperty] private Uri _sheriffBuddyImage;
+    [ObservableProperty] private string _sheriffBuddyName;
+    [ObservableProperty] private Uri _shortyBuddyImage;
+    [ObservableProperty] private string _shortyBuddyName;
+    [ObservableProperty] private Uri _spectreBuddyImage;
+    [ObservableProperty] private string _spectreBuddyName;
+    [ObservableProperty] private Uri _stingerBuddyImage;
+    [ObservableProperty] private string _stingerBuddyName;
+    [ObservableProperty] private Uri _vandalBuddyImage;
+    [ObservableProperty] private string _vandalBuddyName;
 }
 
 [INotifyPropertyChanged]

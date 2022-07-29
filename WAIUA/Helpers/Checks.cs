@@ -27,16 +27,15 @@ public class Checks
             $@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Riot Games\Riot Client\Config\lockfile";
 
         if (!File.Exists(lockfileLocation))
-            // Constants.Log.Warning("Valorant Not detected");
             return false;
 
         string lockFileString;
-        await using (var file = new FileStream(lockfileLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+        await using (var fs = new FileStream(lockfileLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
         {
-            using var reader = new StreamReader(file, Encoding.UTF8);
-            lockFileString = (string) reader.ReadToEnd().Clone();
-            file.Close();
-            reader.Close();
+            using var sr = new StreamReader(fs, Encoding.UTF8);
+            lockFileString = await sr.ReadToEndAsync().ConfigureAwait(false);
+            fs.Close();
+            sr.Close();
         }
 
         var parts = lockFileString.Split(":");

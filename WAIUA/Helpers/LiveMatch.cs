@@ -152,9 +152,9 @@ public class LiveMatch
 
                             await Task.WhenAll(t1, t4, t6).ConfigureAwait(false);
 
-                            player.IdentityData = t1.Result;
-                            player.RankData = t4.Result;
-                            player.PlayerUiData = t6.Result;
+                            player.IdentityData = await t1.ConfigureAwait(false);
+                            player.RankData = await t4.ConfigureAwait(false);
+                            player.PlayerUiData = await t6.ConfigureAwait(false);
                             player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
                             player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel.ToString() : "-";
                             player.TeamId = "Blue";
@@ -192,7 +192,11 @@ public class LiveMatch
 
                 foreach (var riotPlayer in matchIdInfo.Players)
                 {
-                    if (riotPlayer.IsCoach) continue;
+                    if (riotPlayer.IsCoach)
+                    {
+                        index++;
+                        continue;
+                    }
 
                     async Task<Player> GetPlayerInfo()
                     {
@@ -206,10 +210,10 @@ public class LiveMatch
 
                             await Task.WhenAll(t1, t3, t4, t5).ConfigureAwait(false);
 
-                            player.IdentityData = t1.Result;
-                            player.RankData = t3.Result;
-                            player.SkinData = t4.Result;
-                            player.PlayerUiData = t5.Result;
+                            player.IdentityData = await t1.ConfigureAwait(false);
+                            player.RankData = await t3.ConfigureAwait(false);
+                            player.SkinData = await t4.ConfigureAwait(false);
+                            player.PlayerUiData = await t5.ConfigureAwait(false);
                             player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
                             player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel.ToString() : "-";
                             player.TeamId = riotPlayer.TeamId;
@@ -298,9 +302,9 @@ public class LiveMatch
 
                     await Task.WhenAll(t1, t3, t4).ConfigureAwait(false);
 
-                    player.IdentityData = t1.Result;
-                    player.MatchHistoryData = t3.Result;
-                    player.RankData = t4.Result;
+                    player.IdentityData = await t1.ConfigureAwait(false);
+                    player.MatchHistoryData = await t3.ConfigureAwait(false);
+                    player.RankData = await t4.ConfigureAwait(false);
                     player.PlayerUiData = new PlayerUIData
                     {
                         BackgroundColour = "#252A40",
@@ -394,33 +398,20 @@ public class LiveMatch
         var response = await DoCachedRequestAsync(Method.Get,
             $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/core-game/v1/matches/{Matchid}/loadouts",
             true).ConfigureAwait(false);
-        if (response.IsSuccessful)
+        if (response.IsSuccessful && response.Content != null)
         {
-            var content = JsonSerializer.Deserialize<MatchLoadoutsResponse>(response.Content);
-            return await GetSkinInfoAsync(content.Loadouts[playerno].Loadout, cardid).ConfigureAwait(false);
-        }
-
-        Constants.Log.Error("GetMatchSkinInfoAsync Failed: {e}", response.ErrorException);
-        return new SkinData();
-    }
-
-    private static async Task<SkinData> GetPreSkinInfoAsync(sbyte playerno, Guid cardid)
-    {
-        var response = await DoCachedRequestAsync(Method.Get,
-            $"https://glz-{Constants.Shard}-1.{Constants.Region}.a.pvp.net/pregame/v1/matches/{Matchid}/loadouts",
-            true).ConfigureAwait(false);
-        if (response.IsSuccessful)
             try
             {
-                var content = JsonSerializer.Deserialize<PreMatchLoadoutsResponse>(response.Content);
-                return await GetSkinInfoAsync(content.Loadouts[playerno], cardid);
+                var content = JsonSerializer.Deserialize<MatchLoadoutsResponse>(response.Content);
+                return await GetSkinInfoAsync(content.Loadouts[playerno].Loadout, cardid).ConfigureAwait(false);
             }
-            catch
+            catch (Exception e)
             {
-                // ignored
+                Constants.Log.Error("GetMatchSkinInfoAsync Failed: {e}", e);
+                return new SkinData();
             }
-
-        Constants.Log.Error("GetPreSkinInfoAsync Failed: {e}", response.ErrorException);
+        }
+        Constants.Log.Error("GetMatchSkinInfoAsync Failed: {e}", response.ErrorException);
         return new SkinData();
     }
 
@@ -428,20 +419,25 @@ public class LiveMatch
     {
         Dictionary<Guid, ValCard> cards = null;
         Dictionary<Guid, ValNameImage> sprays = null;
+        Dictionary<Guid, ValNameImage> buddies = null;
         Dictionary<Guid, ValNameImage> skins = null;
         try
         {
             skins = JsonSerializer.Deserialize<Dictionary<Guid, ValNameImage>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\skinchromas.txt").ConfigureAwait(false));
             cards = JsonSerializer.Deserialize<Dictionary<Guid, ValCard>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\cards.txt").ConfigureAwait(false));
             sprays = JsonSerializer.Deserialize<Dictionary<Guid, ValNameImage>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\sprays.txt").ConfigureAwait(false));
+            buddies = JsonSerializer.Deserialize<Dictionary<Guid, ValNameImage>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\buddies.txt").ConfigureAwait(false));
         }
         catch (Exception e)
         {
             Constants.Log.Error("GetSkinInfoAsync failed: {e}", e);
         }
 
-        var skinData = new SkinData
+        SkinData skinData = null;
+        try
         {
+            skinData = new SkinData
+            {
             CardImage = cards[cardid].Image,
             LargeCardImage = cards[cardid].FullImage,
             CardName = cards[cardid].Name,
@@ -472,6 +468,27 @@ public class LiveMatch
                 .Item.Id].Image,
             SheriffName = skins[loadout.Items["e336c6b8-418d-9340-d77f-7a9e4cfe0702"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
                 .Item.Id].Name,
+            
+            ClassicBuddyImage = buddies[loadout.Items["29a0cfab-485b-f5d5-779a-b59f85e204a8"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            ClassicBuddyName = buddies[loadout.Items["29a0cfab-485b-f5d5-779a-b59f85e204a8"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Name,
+            ShortyBuddyImage = buddies[loadout.Items["42da8ccc-40d5-affc-beec-15aa47b42eda"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            ShortyBuddyName = buddies[loadout.Items["42da8ccc-40d5-affc-beec-15aa47b42eda"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Name,
+            FrenzyBuddyImage = buddies[loadout.Items["44d4e95c-4157-0037-81b2-17841bf2e8e3"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            FrenzyBuddyName = buddies[loadout.Items["44d4e95c-4157-0037-81b2-17841bf2e8e3"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Name,
+            GhostBuddyImage = buddies[loadout.Items["1baa85b4-4c70-1284-64bb-6481dfc3bb4e"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            GhostBuddyName = buddies[loadout.Items["1baa85b4-4c70-1284-64bb-6481dfc3bb4e"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Name,
+            SheriffBuddyImage = buddies[loadout.Items["e336c6b8-418d-9340-d77f-7a9e4cfe0702"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            SheriffBuddyName = buddies[loadout.Items["e336c6b8-418d-9340-d77f-7a9e4cfe0702"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Name,
 
             StingerImage = skins[loadout.Items["f7e1b454-4ad4-1063-ec0a-159e56b58941"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
                 .Item.Id].Image,
@@ -488,6 +505,23 @@ public class LiveMatch
             JudgeImage = skins[loadout.Items["ec845bf4-4f79-ddda-a3da-0db3774b2794"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
                 .Item.Id].Image,
             JudgeName = skins[loadout.Items["ec845bf4-4f79-ddda-a3da-0db3774b2794"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name,
+            
+            StingerBuddyImage = buddies[loadout.Items["f7e1b454-4ad4-1063-ec0a-159e56b58941"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            StingerBuddyName = buddies[loadout.Items["f7e1b454-4ad4-1063-ec0a-159e56b58941"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Name,
+            SpectreBuddyImage = buddies[loadout.Items["462080d1-4035-2937-7c09-27aa2a5c27a7"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            SpectreBuddyName = buddies[loadout.Items["462080d1-4035-2937-7c09-27aa2a5c27a7"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Name,
+            BuckyBuddyImage = buddies[loadout.Items["910be174-449b-c412-ab22-d0873436b21b"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            BuckyBuddyName = buddies[loadout.Items["910be174-449b-c412-ab22-d0873436b21b"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Name,
+            JudgeBuddyImage = buddies[loadout.Items["ec845bf4-4f79-ddda-a3da-0db3774b2794"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            JudgeBuddyName = buddies[loadout.Items["ec845bf4-4f79-ddda-a3da-0db3774b2794"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
                 .Item.Id].Name,
 
             BulldogImage = skins[loadout.Items["ae3de142-4d85-2547-dd26-4e90bed35cf7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
@@ -507,6 +541,23 @@ public class LiveMatch
             VandalName = skins[loadout.Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
                 .Item.Id].Name,
 
+            BulldogBuddyImage = buddies[loadout.Items["ae3de142-4d85-2547-dd26-4e90bed35cf7"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            BulldogBuddyName = buddies[loadout.Items["ae3de142-4d85-2547-dd26-4e90bed35cf7"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Name,
+            GuardianBuddyImage = buddies[loadout.Items["4ade7faa-4cf1-8376-95ef-39884480959b"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            GuardianBuddyName = buddies[loadout.Items["4ade7faa-4cf1-8376-95ef-39884480959b"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Name,
+            PhantomBuddyImage = buddies[loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            PhantomBuddyName = buddies[loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Name,
+            VandalBuddyImage = buddies[loadout.Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            VandalBuddyName = buddies[loadout.Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Name,
+
             MarshalImage = skins[loadout.Items["c4883e50-4494-202c-3ec3-6b8a9284f00b"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
                 .Item.Id].Image,
             MarshalName = skins[loadout.Items["c4883e50-4494-202c-3ec3-6b8a9284f00b"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
@@ -523,12 +574,34 @@ public class LiveMatch
                 .Item.Id].Image,
             OdinName = skins[loadout.Items["63e6c2b6-4a8e-869c-3d4c-e38355226584"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
                 .Item.Id].Name,
+            
+            MarshalBuddyImage = buddies[loadout.Items["c4883e50-4494-202c-3ec3-6b8a9284f00b"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            MarshalBuddyName = buddies[loadout.Items["c4883e50-4494-202c-3ec3-6b8a9284f00b"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Name,
+            OperatorBuddyImage = buddies[loadout.Items["a03b24d3-4319-996d-0f8c-94bbfba1dfc7"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            OperatorBuddyName = buddies[loadout.Items["a03b24d3-4319-996d-0f8c-94bbfba1dfc7"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Name,
+            AresBuddyImage = buddies[loadout.Items["55d8a0f4-4274-ca67-fe2c-06ab45efdf58"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            AresBuddyName = buddies[loadout.Items["55d8a0f4-4274-ca67-fe2c-06ab45efdf58"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Name,
+            OdinBuddyImage = buddies[loadout.Items["63e6c2b6-4a8e-869c-3d4c-e38355226584"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Image,
+            OdinBuddyName = buddies[loadout.Items["63e6c2b6-4a8e-869c-3d4c-e38355226584"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
+                .Item.Id].Name,
+            
             MeleeImage = skins[loadout.Items["2f59173c-4bed-b6c3-2191-dea9b58be9c7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
                 .Item.Id].Image,
             MeleeName = skins[loadout.Items["2f59173c-4bed-b6c3-2191-dea9b58be9c7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
                 .Item.Id].Name
-        };
-        if (skinData == null) Constants.Log.Error("GetSkinInfoAsync failed: skinData is null");
+            };
+        }
+        catch (Exception e)
+        {
+            Constants.Log.Error("GetSkinInfoAsync failed: {e}", e);
+        }
 
         return skinData;
     }

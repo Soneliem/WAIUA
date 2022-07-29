@@ -37,8 +37,14 @@ public static class Login
 
     public static async Task LocalRegionAsync()
     {
-        var path = Path.Combine(Environment.GetEnvironmentVariable("LOCALAPPDATA"), "VALORANT\\Saved\\Logs\\ShooterGame.log");
+        var path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\VALORANT\Saved\Logs\ShooterGame.log";
 
+        if (!File.Exists(path))
+        {
+            Constants.Log.Error("LocalRegionAsync() Failed: Log file not found");
+            return;
+        }
+        
         await using var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
         using var sr = new StreamReader(fs, Encoding.UTF8);
 
@@ -49,8 +55,12 @@ public static class Login
             Constants.Region = text[0];
             Constants.Shard = text[2];
             Constants.Log.Information("Region Detected: {region} Shard: {shard}", text[0], text[1]);
+            fs.Close();
+            sr.Close();
             return;
         }
+        fs.Close();
+        sr.Close();
         Constants.Log.Error("LocalRegionAsync() Failed: https://glz- could not be found in logs");
     }
 
