@@ -182,7 +182,7 @@ public partial class MatchDetails
 public partial class Player
 {
     [ObservableProperty] private string _accountLevel;
-    [ObservableProperty] private Visibility _active = Visibility.Collapsed;
+    [ObservableProperty] private Visibility _skinsActive = Visibility.Collapsed;
     [ObservableProperty] private IdentityData _identityData;
     [ObservableProperty] private IgnData _ignData;
     [ObservableProperty] private MatchHistoryData _matchHistoryData;

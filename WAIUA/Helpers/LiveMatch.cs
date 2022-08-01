@@ -158,7 +158,6 @@ public class LiveMatch
                             player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
                             player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel.ToString() : "-";
                             player.TeamId = "Blue";
-                            player.Active = Visibility.Visible;
                         }
                         catch (Exception e)
                         {
@@ -217,7 +216,7 @@ public class LiveMatch
                             player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, riotPlayer.PlayerIdentity.Incognito, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
                             player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel.ToString() : "-";
                             player.TeamId = riotPlayer.TeamId;
-                            player.Active = Visibility.Visible;
+                            player.SkinsActive = Visibility.Visible;
                         }
                         catch (Exception e)
                         {
@@ -315,7 +314,6 @@ public class LiveMatch
                     player.IgnData = await GetIgcUsernameAsync(riotPlayer.Subject, false, player.PlayerUiData.PartyUuid).ConfigureAwait(false);
                     player.AccountLevel = !riotPlayer.PlayerIdentity.HideAccountLevel ? riotPlayer.PlayerIdentity.AccountLevel.ToString() : "-";
                     player.TeamId = "Blue";
-                    player.Active = Visibility.Visible;
                     return player;
                 }
 
@@ -417,10 +415,10 @@ public class LiveMatch
 
     private static async Task<SkinData> GetSkinInfoAsync(LoadoutLoadout loadout, Guid cardid)
     {
-        Dictionary<Guid, ValCard> cards = null;
-        Dictionary<Guid, ValNameImage> sprays = null;
-        Dictionary<Guid, ValNameImage> buddies = null;
-        Dictionary<Guid, ValNameImage> skins = null;
+        Dictionary<Guid, ValCard> cards;
+        Dictionary<Guid, ValNameImage> sprays;
+        Dictionary<Guid, ValNameImage> buddies;
+        Dictionary<Guid, ValNameImage> skins;
         try
         {
             skins = JsonSerializer.Deserialize<Dictionary<Guid, ValNameImage>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\skinchromas.txt").ConfigureAwait(false));
@@ -430,173 +428,196 @@ public class LiveMatch
         }
         catch (Exception e)
         {
-            Constants.Log.Error("GetSkinInfoAsync failed: {e}", e);
+            Constants.Log.Error("GetSkinInfoAsync failed; Dictionary Loading fail: {e}", e);
+            return new SkinData();
         }
 
-        SkinData skinData = null;
+        SkinData skinData = new SkinData();
         try
         {
-            skinData = new SkinData
+            skinData.CardImage = cards[cardid].Image;
+            skinData.LargeCardImage = cards[cardid].FullImage;
+            skinData.CardName = cards[cardid].Name;
+            skinData.Spray1Image = sprays[loadout.Sprays.SpraySelections[0].SprayId].Image;
+            skinData.Spray1Name = sprays[loadout.Sprays.SpraySelections[0].SprayId].Name;
+            skinData.Spray2Image = sprays[loadout.Sprays.SpraySelections[1].SprayId].Image;
+            skinData.Spray2Name = sprays[loadout.Sprays.SpraySelections[1].SprayId].Name;
+            skinData.Spray3Image = sprays[loadout.Sprays.SpraySelections[2].SprayId].Image;
+            skinData.Spray3Name = sprays[loadout.Sprays.SpraySelections[2].SprayId].Name;
+
+            skinData.ClassicImage = skins[loadout.Items["29a0cfab-485b-f5d5-779a-b59f85e204a8"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.ClassicName = skins[loadout.Items["29a0cfab-485b-f5d5-779a-b59f85e204a8"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+            skinData.ShortyImage = skins[loadout.Items["42da8ccc-40d5-affc-beec-15aa47b42eda"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.ShortyName = skins[loadout.Items["42da8ccc-40d5-affc-beec-15aa47b42eda"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+            skinData.FrenzyImage = skins[loadout.Items["44d4e95c-4157-0037-81b2-17841bf2e8e3"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.FrenzyName = skins[loadout.Items["44d4e95c-4157-0037-81b2-17841bf2e8e3"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+            skinData.GhostImage = skins[loadout.Items["1baa85b4-4c70-1284-64bb-6481dfc3bb4e"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.GhostName = skins[loadout.Items["1baa85b4-4c70-1284-64bb-6481dfc3bb4e"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+            skinData.SheriffImage = skins[loadout.Items["e336c6b8-418d-9340-d77f-7a9e4cfe0702"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.SheriffName = skins[loadout.Items["e336c6b8-418d-9340-d77f-7a9e4cfe0702"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+
+            if (loadout.Items["29a0cfab-485b-f5d5-779a-b59f85e204a8"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var classicSocket))
             {
-            CardImage = cards[cardid].Image,
-            LargeCardImage = cards[cardid].FullImage,
-            CardName = cards[cardid].Name,
-            Spray1Image = sprays[loadout.Sprays.SpraySelections[0].SprayId].Image,
-            Spray1Name = sprays[loadout.Sprays.SpraySelections[0].SprayId].Name,
-            Spray2Image = sprays[loadout.Sprays.SpraySelections[1].SprayId].Image,
-            Spray2Name = sprays[loadout.Sprays.SpraySelections[1].SprayId].Name,
-            Spray3Image = sprays[loadout.Sprays.SpraySelections[2].SprayId].Image,
-            Spray3Name = sprays[loadout.Sprays.SpraySelections[2].SprayId].Name,
+                skinData.ClassicBuddyImage = buddies[classicSocket.Item.Id].Image;
+                skinData.ClassicBuddyName = buddies[classicSocket.Item.Id].Name;
+            }
 
-            ClassicImage = skins[loadout.Items["29a0cfab-485b-f5d5-779a-b59f85e204a8"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            ClassicName = skins[loadout.Items["29a0cfab-485b-f5d5-779a-b59f85e204a8"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            ShortyImage = skins[loadout.Items["42da8ccc-40d5-affc-beec-15aa47b42eda"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            ShortyName = skins[loadout.Items["42da8ccc-40d5-affc-beec-15aa47b42eda"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            FrenzyImage = skins[loadout.Items["44d4e95c-4157-0037-81b2-17841bf2e8e3"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            FrenzyName = skins[loadout.Items["44d4e95c-4157-0037-81b2-17841bf2e8e3"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            GhostImage = skins[loadout.Items["1baa85b4-4c70-1284-64bb-6481dfc3bb4e"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            GhostName = skins[loadout.Items["1baa85b4-4c70-1284-64bb-6481dfc3bb4e"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            SheriffImage = skins[loadout.Items["e336c6b8-418d-9340-d77f-7a9e4cfe0702"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            SheriffName = skins[loadout.Items["e336c6b8-418d-9340-d77f-7a9e4cfe0702"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            
-            ClassicBuddyImage = buddies[loadout.Items["29a0cfab-485b-f5d5-779a-b59f85e204a8"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            ClassicBuddyName = buddies[loadout.Items["29a0cfab-485b-f5d5-779a-b59f85e204a8"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
-            ShortyBuddyImage = buddies[loadout.Items["42da8ccc-40d5-affc-beec-15aa47b42eda"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            ShortyBuddyName = buddies[loadout.Items["42da8ccc-40d5-affc-beec-15aa47b42eda"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
-            FrenzyBuddyImage = buddies[loadout.Items["44d4e95c-4157-0037-81b2-17841bf2e8e3"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            FrenzyBuddyName = buddies[loadout.Items["44d4e95c-4157-0037-81b2-17841bf2e8e3"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
-            GhostBuddyImage = buddies[loadout.Items["1baa85b4-4c70-1284-64bb-6481dfc3bb4e"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            GhostBuddyName = buddies[loadout.Items["1baa85b4-4c70-1284-64bb-6481dfc3bb4e"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
-            SheriffBuddyImage = buddies[loadout.Items["e336c6b8-418d-9340-d77f-7a9e4cfe0702"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            SheriffBuddyName = buddies[loadout.Items["e336c6b8-418d-9340-d77f-7a9e4cfe0702"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
+            if (loadout.Items["42da8ccc-40d5-affc-beec-15aa47b42eda"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var shortySocket))
+            {
+                skinData.ShortyBuddyImage = buddies[shortySocket.Item.Id].Image;
+                skinData.ShortyBuddyName = buddies[shortySocket.Item.Id].Name;
+            }
 
-            StingerImage = skins[loadout.Items["f7e1b454-4ad4-1063-ec0a-159e56b58941"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            StingerName = skins[loadout.Items["f7e1b454-4ad4-1063-ec0a-159e56b58941"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            SpectreImage = skins[loadout.Items["462080d1-4035-2937-7c09-27aa2a5c27a7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            SpectreName = skins[loadout.Items["462080d1-4035-2937-7c09-27aa2a5c27a7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            BuckyImage = skins[loadout.Items["910be174-449b-c412-ab22-d0873436b21b"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            BuckyName = skins[loadout.Items["910be174-449b-c412-ab22-d0873436b21b"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            JudgeImage = skins[loadout.Items["ec845bf4-4f79-ddda-a3da-0db3774b2794"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            JudgeName = skins[loadout.Items["ec845bf4-4f79-ddda-a3da-0db3774b2794"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            
-            StingerBuddyImage = buddies[loadout.Items["f7e1b454-4ad4-1063-ec0a-159e56b58941"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            StingerBuddyName = buddies[loadout.Items["f7e1b454-4ad4-1063-ec0a-159e56b58941"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
-            SpectreBuddyImage = buddies[loadout.Items["462080d1-4035-2937-7c09-27aa2a5c27a7"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            SpectreBuddyName = buddies[loadout.Items["462080d1-4035-2937-7c09-27aa2a5c27a7"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
-            BuckyBuddyImage = buddies[loadout.Items["910be174-449b-c412-ab22-d0873436b21b"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            BuckyBuddyName = buddies[loadout.Items["910be174-449b-c412-ab22-d0873436b21b"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
-            JudgeBuddyImage = buddies[loadout.Items["ec845bf4-4f79-ddda-a3da-0db3774b2794"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            JudgeBuddyName = buddies[loadout.Items["ec845bf4-4f79-ddda-a3da-0db3774b2794"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
+            if (loadout.Items["44d4e95c-4157-0037-81b2-17841bf2e8e3"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var frenzySocket))
+            {
+                skinData.FrenzyBuddyImage = buddies[frenzySocket.Item.Id].Image;
+                skinData.FrenzyBuddyName = buddies[frenzySocket.Item.Id].Name;
+            }
 
-            BulldogImage = skins[loadout.Items["ae3de142-4d85-2547-dd26-4e90bed35cf7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            BulldogName = skins[loadout.Items["ae3de142-4d85-2547-dd26-4e90bed35cf7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            GuardianImage = skins[loadout.Items["4ade7faa-4cf1-8376-95ef-39884480959b"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            GuardianName = skins[loadout.Items["4ade7faa-4cf1-8376-95ef-39884480959b"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            PhantomImage = skins[loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            PhantomName = skins[loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            VandalImage = skins[loadout.Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            VandalName = skins[loadout.Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
+            if (loadout.Items["1baa85b4-4c70-1284-64bb-6481dfc3bb4e"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var ghostSocket))
+            {
+                skinData.GhostBuddyImage = buddies[ghostSocket.Item.Id].Image;
+                skinData.GhostBuddyName = buddies[ghostSocket.Item.Id].Name;
+            }
 
-            BulldogBuddyImage = buddies[loadout.Items["ae3de142-4d85-2547-dd26-4e90bed35cf7"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            BulldogBuddyName = buddies[loadout.Items["ae3de142-4d85-2547-dd26-4e90bed35cf7"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
-            GuardianBuddyImage = buddies[loadout.Items["4ade7faa-4cf1-8376-95ef-39884480959b"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            GuardianBuddyName = buddies[loadout.Items["4ade7faa-4cf1-8376-95ef-39884480959b"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
-            PhantomBuddyImage = buddies[loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            PhantomBuddyName = buddies[loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
-            VandalBuddyImage = buddies[loadout.Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            VandalBuddyName = buddies[loadout.Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
+            if (loadout.Items["e336c6b8-418d-9340-d77f-7a9e4cfe0702"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var sheriffSocket))
+            {
+                skinData.SheriffBuddyImage = buddies[sheriffSocket.Item.Id].Image;
+                skinData.SheriffBuddyName = buddies[sheriffSocket.Item.Id].Name;
+            }
 
-            MarshalImage = skins[loadout.Items["c4883e50-4494-202c-3ec3-6b8a9284f00b"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            MarshalName = skins[loadout.Items["c4883e50-4494-202c-3ec3-6b8a9284f00b"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            OperatorImage = skins[loadout.Items["a03b24d3-4319-996d-0f8c-94bbfba1dfc7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            OperatorName = skins[loadout.Items["a03b24d3-4319-996d-0f8c-94bbfba1dfc7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            AresImage = skins[loadout.Items["55d8a0f4-4274-ca67-fe2c-06ab45efdf58"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            AresName = skins[loadout.Items["55d8a0f4-4274-ca67-fe2c-06ab45efdf58"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            OdinImage = skins[loadout.Items["63e6c2b6-4a8e-869c-3d4c-e38355226584"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            OdinName = skins[loadout.Items["63e6c2b6-4a8e-869c-3d4c-e38355226584"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name,
-            
-            MarshalBuddyImage = buddies[loadout.Items["c4883e50-4494-202c-3ec3-6b8a9284f00b"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            MarshalBuddyName = buddies[loadout.Items["c4883e50-4494-202c-3ec3-6b8a9284f00b"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
-            OperatorBuddyImage = buddies[loadout.Items["a03b24d3-4319-996d-0f8c-94bbfba1dfc7"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            OperatorBuddyName = buddies[loadout.Items["a03b24d3-4319-996d-0f8c-94bbfba1dfc7"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
-            AresBuddyImage = buddies[loadout.Items["55d8a0f4-4274-ca67-fe2c-06ab45efdf58"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            AresBuddyName = buddies[loadout.Items["55d8a0f4-4274-ca67-fe2c-06ab45efdf58"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
-            OdinBuddyImage = buddies[loadout.Items["63e6c2b6-4a8e-869c-3d4c-e38355226584"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Image,
-            OdinBuddyName = buddies[loadout.Items["63e6c2b6-4a8e-869c-3d4c-e38355226584"].Sockets["77258665-71d1-4623-bc72-44db9bd5b3b3"]
-                .Item.Id].Name,
-            
-            MeleeImage = skins[loadout.Items["2f59173c-4bed-b6c3-2191-dea9b58be9c7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Image,
-            MeleeName = skins[loadout.Items["2f59173c-4bed-b6c3-2191-dea9b58be9c7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
-                .Item.Id].Name
-            };
+            skinData.StingerImage = skins[loadout.Items["f7e1b454-4ad4-1063-ec0a-159e56b58941"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.StingerName = skins[loadout.Items["f7e1b454-4ad4-1063-ec0a-159e56b58941"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+            skinData.SpectreImage = skins[loadout.Items["462080d1-4035-2937-7c09-27aa2a5c27a7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.SpectreName = skins[loadout.Items["462080d1-4035-2937-7c09-27aa2a5c27a7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+            skinData.BuckyImage = skins[loadout.Items["910be174-449b-c412-ab22-d0873436b21b"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.BuckyName = skins[loadout.Items["910be174-449b-c412-ab22-d0873436b21b"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+            skinData.JudgeImage = skins[loadout.Items["ec845bf4-4f79-ddda-a3da-0db3774b2794"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.JudgeName = skins[loadout.Items["ec845bf4-4f79-ddda-a3da-0db3774b2794"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+
+            if (loadout.Items["f7e1b454-4ad4-1063-ec0a-159e56b58941"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var stingerSocket))
+            {
+                skinData.StingerBuddyImage = buddies[stingerSocket.Item.Id].Image;
+                skinData.StingerBuddyName = buddies[stingerSocket.Item.Id].Name;
+            }
+            if (loadout.Items["462080d1-4035-2937-7c09-27aa2a5c27a7"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var spectreSocket))
+            {
+                skinData.SpectreBuddyImage = buddies[spectreSocket.Item.Id].Image;
+                skinData.SpectreBuddyName = buddies[spectreSocket.Item.Id].Name;
+            }
+
+            if (loadout.Items["910be174-449b-c412-ab22-d0873436b21b"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var buckySocket))
+            {
+                skinData.BuckyBuddyImage = buddies[buckySocket.Item.Id].Image;
+                skinData.BuckyBuddyName = buddies[buckySocket.Item.Id].Name;
+            }
+
+            if (loadout.Items["ec845bf4-4f79-ddda-a3da-0db3774b2794"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var judgeSocket))
+            {
+                skinData.JudgeBuddyImage = buddies[judgeSocket.Item.Id].Image;
+                skinData.JudgeBuddyName = buddies[judgeSocket.Item.Id].Name;
+            }
+
+            skinData.BulldogImage = skins[loadout.Items["ae3de142-4d85-2547-dd26-4e90bed35cf7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.BulldogName = skins[loadout.Items["ae3de142-4d85-2547-dd26-4e90bed35cf7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+            skinData.GuardianImage = skins[loadout.Items["4ade7faa-4cf1-8376-95ef-39884480959b"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.GuardianName = skins[loadout.Items["4ade7faa-4cf1-8376-95ef-39884480959b"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+            skinData.PhantomImage = skins[loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.PhantomName = skins[loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+            skinData.VandalImage = skins[loadout.Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.VandalName = skins[loadout.Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+
+            if (loadout.Items["ae3de142-4d85-2547-dd26-4e90bed35cf7"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var bulldogSocket))
+            {
+                skinData.BulldogBuddyImage = buddies[bulldogSocket.Item.Id].Image;
+                skinData.BulldogBuddyName = buddies[bulldogSocket.Item.Id].Name;
+            }
+
+            if (loadout.Items["4ade7faa-4cf1-8376-95ef-39884480959b"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var guardianSocket))
+            {
+                skinData.GuardianBuddyImage = buddies[guardianSocket.Item.Id].Image;
+                skinData.GuardianBuddyName = buddies[guardianSocket.Item.Id].Name;
+            }
+
+            if (loadout.Items["ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var phantomSocket))
+            {
+                skinData.PhantomBuddyImage = buddies[phantomSocket.Item.Id].Image;
+                skinData.PhantomBuddyName = buddies[phantomSocket.Item.Id].Name;
+            }
+
+            if (loadout.Items["9c82e19d-4575-0200-1a81-3eacf00cf872"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var vandalSocket))
+            {
+                skinData.VandalBuddyImage = buddies[vandalSocket.Item.Id].Image;
+                skinData.VandalBuddyName = buddies[vandalSocket.Item.Id].Name;
+            }
+
+            skinData.MarshalImage = skins[loadout.Items["c4883e50-4494-202c-3ec3-6b8a9284f00b"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.MarshalName = skins[loadout.Items["c4883e50-4494-202c-3ec3-6b8a9284f00b"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+            skinData.OperatorImage = skins[loadout.Items["a03b24d3-4319-996d-0f8c-94bbfba1dfc7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.OperatorName = skins[loadout.Items["a03b24d3-4319-996d-0f8c-94bbfba1dfc7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+            skinData.AresImage = skins[loadout.Items["55d8a0f4-4274-ca67-fe2c-06ab45efdf58"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.AresName = skins[loadout.Items["55d8a0f4-4274-ca67-fe2c-06ab45efdf58"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+            skinData.OdinImage = skins[loadout.Items["63e6c2b6-4a8e-869c-3d4c-e38355226584"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.OdinName = skins[loadout.Items["63e6c2b6-4a8e-869c-3d4c-e38355226584"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
+
+            if (loadout.Items["c4883e50-4494-202c-3ec3-6b8a9284f00b"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var marshalSocket))
+            {
+                skinData.MarshalBuddyImage = buddies[marshalSocket.Item.Id].Image;
+                skinData.MarshalBuddyName = buddies[marshalSocket.Item.Id].Name;
+            }
+            if (loadout.Items["a03b24d3-4319-996d-0f8c-94bbfba1dfc7"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var operatorSocket))
+            {
+                skinData.OperatorBuddyImage = buddies[operatorSocket.Item.Id].Image;
+                skinData.OperatorBuddyName = buddies[operatorSocket.Item.Id].Name;
+            }
+            if (loadout.Items["55d8a0f4-4274-ca67-fe2c-06ab45efdf58"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var aresSocket))
+            {
+                skinData.AresBuddyImage = buddies[aresSocket.Item.Id].Image;
+                skinData.AresBuddyName = buddies[aresSocket.Item.Id].Name;
+            }
+            if (loadout.Items["63e6c2b6-4a8e-869c-3d4c-e38355226584"].Sockets.TryGetValue("77258665-71d1-4623-bc72-44db9bd5b3b3", out var odinSocket))
+            {
+                skinData.OdinBuddyImage = buddies[odinSocket.Item.Id].Image;
+                skinData.OdinBuddyName = buddies[odinSocket.Item.Id].Name;
+            }
+            skinData.MeleeImage = skins[loadout.Items["2f59173c-4bed-b6c3-2191-dea9b58be9c7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Image;
+            skinData.MeleeName = skins[loadout.Items["2f59173c-4bed-b6c3-2191-dea9b58be9c7"].Sockets["3ad1b2b2-acdb-4524-852f-954a76ddae0a"]
+                .Item.Id].Name;
         }
         catch (Exception e)
         {

@@ -177,10 +177,10 @@ public class ValApiSpraysResponse
 {
     [JsonPropertyName("status")] public long Status { get; set; }
 
-    [JsonPropertyName("data")] public Datum[] Data { get; set; }
+    [JsonPropertyName("data")] public ValApiSprays[] Data { get; set; }
 }
 
-public class Datum
+public class ValApiSprays
 {
     [JsonPropertyName("uuid")] public Guid Uuid { get; set; }
 
@@ -219,6 +219,57 @@ public class Level
     [JsonPropertyName("displayIcon")] public Uri DisplayIcon { get; set; }
 
     [JsonPropertyName("assetPath")] public string AssetPath { get; set; }
+}
+
+public partial class ValApiBuddiesResponse
+{
+    [JsonPropertyName("status")]
+    public long Status { get; set; }
+
+    [JsonPropertyName("data")]
+    public ValApiBuddies[] Data { get; set; }
+}
+
+public partial class ValApiBuddies
+{
+    [JsonPropertyName("uuid")]
+    public Guid Uuid { get; set; }
+
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    [JsonPropertyName("isHiddenIfNotOwned")]
+    public bool IsHiddenIfNotOwned { get; set; }
+
+    [JsonPropertyName("themeUuid")]
+    public Guid? ThemeUuid { get; set; }
+
+    [JsonPropertyName("displayIcon")]
+    public Uri DisplayIcon { get; set; }
+
+    [JsonPropertyName("assetPath")]
+    public string AssetPath { get; set; }
+
+    [JsonPropertyName("levels")]
+    public BuddyLevel[] Levels { get; set; }
+}
+
+public partial class BuddyLevel
+{
+    [JsonPropertyName("uuid")]
+    public Guid Uuid { get; set; }
+
+    [JsonPropertyName("charmLevel")]
+    public long CharmLevel { get; set; }
+
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    [JsonPropertyName("displayIcon")]
+    public Uri DisplayIcon { get; set; }
+
+    [JsonPropertyName("assetPath")]
+    public string AssetPath { get; set; }
 }
 
 public class ValApiRanksResponse

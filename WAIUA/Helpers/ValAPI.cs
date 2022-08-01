@@ -23,6 +23,7 @@ public static class ValApi
     private static Urls _skinsInfo;
     private static Urls _cardsInfo;
     private static Urls _spraysInfo;
+    private static Urls _buddiesInfo;
     private static Urls _gamemodeInfo;
     private static List<Urls> _allInfo;
 
@@ -107,6 +108,12 @@ public static class ValApi
             Filepath = Constants.LocalAppDataPath + "\\ValAPI\\sprays.txt",
             Url = $"/sprays?language={language}"
         };
+        _buddiesInfo = new Urls
+        {
+            Name = "Buddies",
+            Filepath = Constants.LocalAppDataPath + "\\ValAPI\\buddies.txt",
+            Url = $"/buddies?language={language}"
+        };
         _ranksInfo = new Urls
         {
             Name = "Ranks",
@@ -125,7 +132,7 @@ public static class ValApi
             Filepath = Constants.LocalAppDataPath + "\\ValAPI\\gamemode.txt",
             Url = $"/gamemodes?language={language}"
         };
-        _allInfo = new List<Urls> {_mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo, _cardsInfo, _spraysInfo, _gamemodeInfo};
+        _allInfo = new List<Urls> {_mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo, _cardsInfo, _spraysInfo, _buddiesInfo, _gamemodeInfo};
         return Task.CompletedTask;
     }
 
@@ -272,6 +279,24 @@ public static class ValApi
                 }
             }
 
+            async Task UpdateBuddiesDictionary()
+            {
+                var buddiesRequest = new RestRequest(_buddiesInfo.Url);
+                var buddiesResponse = await Client.ExecuteGetAsync<ValApiBuddiesResponse>(buddiesRequest).ConfigureAwait(false);
+                if (buddiesResponse.IsSuccessful)
+                {
+                    Dictionary<Guid, ValNameImage> buddiesDictionary = new();
+                    if (buddiesResponse.Data != null)
+                        foreach (var buddy in buddiesResponse.Data.Data)
+                            buddiesDictionary.TryAdd(buddy.Uuid, new ValNameImage {Name = buddy.DisplayName, Image = buddy.DisplayIcon});
+                    await File.WriteAllTextAsync(_buddiesInfo.Filepath, JsonSerializer.Serialize(buddiesDictionary)).ConfigureAwait(false);
+                }
+                else
+                {
+                    Constants.Log.Error("UpdateBuddiesDictionary Failed, Response:{error}", buddiesResponse.ErrorException);
+                }
+            }
+
             async Task UpdateRanksDictionary()
             {
                 var ranksRequest = new RestRequest(_ranksInfo.Url);
@@ -294,17 +319,14 @@ public static class ValApi
                                     continue;
                                 case 0:
                                 {
-                                    // File.Copy(Directory.GetCurrentDirectory() + "\\Assets\\0.png",
-                                    //     Constants.LocalAppDataPath + "\\ValAPI\\ranksimg\\0.png", true);
-
                                     const string imagePath = "pack://application:,,,/Assets/0.png";
                                     var imageInfo = Application.GetResourceStream(new Uri(imagePath));
                                     using var ms = new MemoryStream();
                                     if (imageInfo != null)
                                     {
-                                        await imageInfo.Stream.CopyToAsync(ms);
+                                        await imageInfo.Stream.CopyToAsync(ms).ConfigureAwait(false);
                                         var imageBytes = ms.ToArray();
-                                        await File.WriteAllBytesAsync(Constants.LocalAppDataPath + "\\ValAPI\\ranksimg\\0.png", imageBytes);
+                                        await File.WriteAllBytesAsync(Constants.LocalAppDataPath + "\\ValAPI\\ranksimg\\0.png", imageBytes).ConfigureAwait(false);
                                     }
 
                                     continue;
@@ -316,7 +338,6 @@ public static class ValApi
                             var request = new RestRequest(rank.LargeIcon);
                             var response = await MediaClient.DownloadDataAsync(request).ConfigureAwait(false);
 
-                            // if (response.IsCompletedSuccessfully)
                             if (response != null)
                                 await File.WriteAllBytesAsync(fileName, response)
                                     .ConfigureAwait(false);
@@ -363,7 +384,7 @@ public static class ValApi
 
             try
             {
-                await Task.WhenAll(UpdateVersion(), UpdateRanksDictionary(), UpdateAgentsDictionary(), UpdateMapsDictionary(), UpdateSkinsDictionary(), UpdateCardsDictionary(), UpdateSpraysDictionary(), UpdateGamemodeDictionary()).ConfigureAwait(false);
+                await Task.WhenAll(UpdateVersion(), UpdateRanksDictionary(), UpdateAgentsDictionary(), UpdateMapsDictionary(), UpdateSkinsDictionary(), UpdateCardsDictionary(), UpdateSpraysDictionary(), UpdateBuddiesDictionary(), UpdateGamemodeDictionary()).ConfigureAwait(false);
             }
             catch (Exception e)
             {

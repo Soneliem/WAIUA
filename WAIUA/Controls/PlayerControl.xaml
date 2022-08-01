@@ -48,24 +48,12 @@
 	</UserControl.Resources>
 
 	<Border
-		Visibility="{Binding PlayerCell.Active, ElementName=Self}"
 		Background="{Binding PlayerCell.PlayerUiData.BackgroundColour, ElementName=Self}"
 		BorderThickness="0" RenderTransformOrigin="0.5,0.5"
 		CornerRadius="20">
 		<Border.Effect>
 			<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 		</Border.Effect>
-		<!-- <Border.RenderTransform> -->
-		<!-- 	<ScaleTransform ScaleX="1" ScaleY="1" /> -->
-		<!-- </Border.RenderTransform> -->
-		<!-- <Border.Triggers> -->
-		<!-- 	<EventTrigger RoutedEvent="Border.MouseEnter"> -->
-		<!-- 		<BeginStoryboard Storyboard="{StaticResource expandStoryboard}" /> -->
-		<!-- 	</EventTrigger> -->
-		<!-- 	<EventTrigger RoutedEvent="Border.MouseLeave"> -->
-		<!-- 		<BeginStoryboard Storyboard="{StaticResource shrinkStoryboard}" /> -->
-		<!-- 	</EventTrigger> -->
-		<!-- </Border.Triggers> -->
 		<Grid Margin="15">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
@@ -155,16 +143,10 @@
 					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 				</Border.Effect>
 			</Border>
-			<!-- <Viewbox -->
-			<!-- 	Grid.Row="2" -->
-			<!-- 	Grid.Column="1" -->
-			<!-- 	Margin="0,5,0,0" -->
-			<!-- 	HorizontalAlignment="Left" -->
-			<!-- 	VerticalAlignment="Bottom" -->
-			<!-- 	Stretch="Uniform"> -->
 			<Border Background="#4c5b6e" CornerRadius="10" Padding="7" Width="Auto"
 			        Grid.Row="2" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5"
-			        Grid.Column="1" MouseLeftButtonUp="ButtonUpHandler">
+			        Grid.Column="1" MouseLeftButtonUp="ButtonUpHandler" 
+			        Visibility="{Binding Path=PlayerCell.SkinsActive, ElementName=Self}">
 				<Border.RenderTransform>
 					<ScaleTransform ScaleX="1" ScaleY="1" />
 				</Border.RenderTransform>
@@ -183,9 +165,9 @@
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" />
 						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
-					<Image Grid.Column="0"
-					       Margin="0,0,20,0" RenderOptions.BitmapScalingMode="HighQuality"
+					<Image Grid.Column="0" RenderOptions.BitmapScalingMode="HighQuality"
 					       Source="{Binding PlayerCell.SkinData.VandalImage, ElementName=Self}"
 					       ToolTip="{Binding PlayerCell.SkinData.VandalName, ElementName=Self}"
 					       ToolTipService.InitialShowDelay="0">
@@ -193,18 +175,28 @@
 							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 						</Image.Effect>
 					</Image>
-					<Image Grid.Column="1" RenderOptions.BitmapScalingMode="HighQuality"
+					<Image Grid.Column="1" RenderOptions.BitmapScalingMode="HighQuality" Margin="10,0,25,0" 
 					       Source="{Binding PlayerCell.SkinData.PhantomImage, ElementName=Self}"
 					       ToolTip="{Binding PlayerCell.SkinData.PhantomName, ElementName=Self}"
 					       ToolTipService.InitialShowDelay="0">
 						<Image.Effect>
-							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+							<DropShadowEffect BlurRadius="5" ShadowDepth="3"/>
 						</Image.Effect>
 					</Image>
+					<Canvas Grid.Column="2"
+						HorizontalAlignment="Right" VerticalAlignment="Bottom">
+						<Polyline
+							Margin="-15,-15,0,0"
+							Fill="#32e2b2"
+							Stroke="#32e2b2"
+							Points="13,10.5 13,2 3,10.5 13,10.5"
+							StrokeStartLineCap="Round"
+							StrokeEndLineCap="Round"
+							StrokeLineJoin="Round"
+							StrokeThickness="5" />
+					</Canvas>
 				</Grid>
 			</Border>
-
-			<!-- </Viewbox> -->
 
 			<UniformGrid
 				Grid.Row="2"

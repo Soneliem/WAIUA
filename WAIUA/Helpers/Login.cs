@@ -54,7 +54,7 @@ public static class Login
             var text = line.Split("https://glz-")[1].Split('.', '-');
             Constants.Region = text[0];
             Constants.Shard = text[2];
-            Constants.Log.Information("Region Detected: {region} Shard: {shard}", text[0], text[1]);
+            Constants.Log.Information("Region Detected: {region} Shard: {shard}", text[0], text[2]);
             fs.Close();
             sr.Close();
             return;

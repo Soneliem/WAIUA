@@ -33,108 +33,132 @@
 			           FontSize="30" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"
 			           VerticalAlignment="Center" Margin="10" />
 
-			<!-- <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="6" Width="Auto"> -->
-			<!-- 	<Grid.RowDefinitions> -->
-			<!-- 		<RowDefinition Height="Auto"></RowDefinition> -->
-			<!-- 		<RowDefinition SharedSizeGroup="A"></RowDefinition> -->
-			<!-- 		<RowDefinition SharedSizeGroup="A"></RowDefinition> -->
-			<!-- 		<RowDefinition SharedSizeGroup="A"></RowDefinition> -->
-			<!-- 	</Grid.RowDefinitions> -->
-
 			<controls:InventoryEntryControl
-				Grid.Row="0" Grid.RowSpan="3"
-				Image="{Binding SkinDataObject.LargeCardImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.CardName, ElementName=Self}" />
+				Grid.Row="0" Grid.RowSpan="3" Grid.Column="0"
+				GunImage="{Binding SkinDataObject.LargeCardImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.CardName, ElementName=Self}" />
 			<controls:InventoryEntryControl
-				Grid.Row="3"
-				Image="{Binding SkinDataObject.Spray1Image, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.Spray1Name, ElementName=Self}" />
+				Grid.Row="3" Grid.Column="0"
+				GunImage="{Binding SkinDataObject.Spray1Image, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.Spray1Name, ElementName=Self}" />
 			<controls:InventoryEntryControl
-				Grid.Row="4"
-				Image="{Binding SkinDataObject.Spray2Image, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.Spray2Name, ElementName=Self}" />
+				Grid.Row="4" Grid.Column="0"
+				GunImage="{Binding SkinDataObject.Spray2Image, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.Spray2Name, ElementName=Self}" />
 			<controls:InventoryEntryControl
-				Grid.Row="5"
-				Image="{Binding SkinDataObject.Spray3Image, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.Spray3Name, ElementName=Self}" />
-			<!-- </Grid> -->
-
+				Grid.Row="5" Grid.Column="0"
+				GunImage="{Binding SkinDataObject.Spray3Image, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.Spray3Name, ElementName=Self}" />
 
 			<controls:InventoryEntryControl
 				Grid.Column="1" Grid.Row="1"
-				Image="{Binding SkinDataObject.ClassicImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.ClassicName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.ClassicImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.ClassicName, ElementName=Self}"
+				BuddyImage="{Binding SkinDataObject.ClassicBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.ClassicBuddyName, ElementName=Self}"/>
 			<controls:InventoryEntryControl
 				Grid.Column="1" Grid.Row="2"
-				Image="{Binding SkinDataObject.ShortyImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.ShortyName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.ShortyImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.ShortyName, ElementName=Self}"
+				BuddyImage="{Binding SkinDataObject.ShortyBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.ShortyBuddyName, ElementName=Self}"/>
 			<controls:InventoryEntryControl
 				Grid.Column="1" Grid.Row="3"
-				Image="{Binding SkinDataObject.FrenzyImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.FrenzyName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.FrenzyImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.FrenzyName, ElementName=Self}"
+				BuddyImage="{Binding SkinDataObject.FrenzyBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.FrenzyBuddyName, ElementName=Self}"/>
 			<controls:InventoryEntryControl
 				Grid.Column="1" Grid.Row="4"
-				Image="{Binding SkinDataObject.GhostImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.GhostName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.GhostImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.GhostName, ElementName=Self}"
+				BuddyImage="{Binding SkinDataObject.GhostBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.GhostBuddyName, ElementName=Self}"/>
 			<controls:InventoryEntryControl
 				Grid.Column="1" Grid.Row="5"
-				Image="{Binding SkinDataObject.SheriffImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.SheriffName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.SheriffImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.SheriffName, ElementName=Self}"
+				BuddyImage="{Binding SkinDataObject.SheriffBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.SheriffBuddyName, ElementName=Self}"/>
 
 			<controls:InventoryEntryControl
 				Grid.Column="2" Grid.Row="1"
-				Image="{Binding SkinDataObject.StingerImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.StingerName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.StingerImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.StingerName, ElementName=Self}"
+				BuddyImage="{Binding SkinDataObject.StingerBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.StingerBuddyName, ElementName=Self}"/>
 			<controls:InventoryEntryControl
 				Grid.Column="2" Grid.Row="2"
-				Image="{Binding SkinDataObject.SpectreImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.SpectreName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.SpectreImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.SpectreName, ElementName=Self}"
+				BuddyImage="{Binding SkinDataObject.SpectreBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.SpectreBuddyName, ElementName=Self}"/>
 			<controls:InventoryEntryControl
 				Grid.Column="2" Grid.Row="3"
-				Image="{Binding SkinDataObject.BuckyImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.BuckyName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.BuckyImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.BuckyName, ElementName=Self}" 
+				BuddyImage="{Binding SkinDataObject.BuckyBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.BuckyBuddyName, ElementName=Self}" />
 			<controls:InventoryEntryControl
 				Grid.Column="2" Grid.Row="4"
-				Image="{Binding SkinDataObject.JudgeImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.JudgeName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.JudgeImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.JudgeName, ElementName=Self}"
+				BuddyImage="{Binding SkinDataObject.JudgeBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.JudgeBuddyName, ElementName=Self}"/>
 
 			<controls:InventoryEntryControl
 				Grid.Column="3" Grid.Row="1"
-				Image="{Binding SkinDataObject.BulldogImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.BulldogName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.BulldogImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.BulldogName, ElementName=Self}"
+				BuddyImage="{Binding SkinDataObject.BulldogBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.BulldogBuddyName, ElementName=Self}"/>
 			<controls:InventoryEntryControl
 				Grid.Column="3" Grid.Row="2"
-				Image="{Binding SkinDataObject.GuardianImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.GuardianName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.GuardianImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.GuardianName, ElementName=Self}"
+				BuddyImage="{Binding SkinDataObject.GuardianBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.GuardianBuddyName, ElementName=Self}"/>
 			<controls:InventoryEntryControl
 				Grid.Column="3" Grid.Row="3"
-				Image="{Binding SkinDataObject.PhantomImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.PhantomName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.PhantomImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.PhantomName, ElementName=Self}"
+				BuddyImage="{Binding SkinDataObject.PhantomBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.PhantomBuddyName, ElementName=Self}"/>
 			<controls:InventoryEntryControl
 				Grid.Column="3" Grid.Row="4"
-				Image="{Binding SkinDataObject.VandalImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.VandalName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.VandalImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.VandalName, ElementName=Self}"
+				BuddyImage="{Binding SkinDataObject.VandalBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.VandalBuddyName, ElementName=Self}"/>
 
 			<controls:InventoryEntryControl
 				Grid.Column="4" Grid.Row="1"
-				Image="{Binding SkinDataObject.MarshalImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.MarshalName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.MarshalImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.MarshalName, ElementName=Self}"
+				BuddyImage="{Binding SkinDataObject.MarshalBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.MarshalBuddyName, ElementName=Self}"/>
 			<controls:InventoryEntryControl
 				Grid.Column="4" Grid.Row="2"
-				Image="{Binding SkinDataObject.OperatorImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.OperatorName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.OperatorImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.OperatorName, ElementName=Self}"
+				BuddyImage="{Binding SkinDataObject.OperatorBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.OperatorBuddyName, ElementName=Self}"/>
 			<controls:InventoryEntryControl
 				Grid.Column="4" Grid.Row="3"
-				Image="{Binding SkinDataObject.AresImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.AresName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.AresImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.AresName, ElementName=Self}"
+				BuddyImage="{Binding SkinDataObject.AresBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.AresBuddyName, ElementName=Self}"/>
 			<controls:InventoryEntryControl
 				Grid.Column="4" Grid.Row="4"
-				Image="{Binding SkinDataObject.OdinImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.OdinName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.OdinImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.OdinName, ElementName=Self}"
+				BuddyImage="{Binding SkinDataObject.OdinBuddyImage, ElementName=Self}"
+				BuddyTooltipName="{Binding SkinDataObject.OdinBuddyName, ElementName=Self}"/>
 			<controls:InventoryEntryControl
 				Grid.Column="4" Grid.Row="5"
-				Image="{Binding SkinDataObject.MeleeImage, ElementName=Self}"
-				TooltipName="{Binding SkinDataObject.MeleeName, ElementName=Self}" />
+				GunImage="{Binding SkinDataObject.MeleeImage, ElementName=Self}"
+				GunTooltipName="{Binding SkinDataObject.MeleeName, ElementName=Self}" />
 
 			<Button
 				Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Cursor="Hand" Click="CloseBtnClick"
