@@ -148,7 +148,7 @@ public class ValApiSkins
 
     [JsonPropertyName("assetPath")] public string AssetPath { get; set; }
 
-    public Dictionary<string, JsonElement>? ExtensionData { get; set; }
+    [JsonExtensionData] public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 }
 
 public class ValApiCards
@@ -289,7 +289,7 @@ public class ValApiRanks
 
     [JsonPropertyName("assetPath")] public string AssetPath { get; set; }
 
-    public Dictionary<string, JsonElement>? ExtensionData { get; set; }
+    [JsonExtensionData] public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 }
 
 public class Tier
@@ -312,7 +312,7 @@ public class Tier
     [JsonPropertyName("rankTriangleUpIcon")]
     public Uri RankTriangleUpIcon { get; set; }
 
-    public Dictionary<string, JsonElement>? ExtensionData { get; set; }
+    [JsonExtensionData] public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 }
 
 public class ValApiGamemodeResponse
@@ -342,9 +342,16 @@ public class ValApiGamemode
 
     [JsonPropertyName("teamRoles")] public string[] TeamRoles { get; set; }
 
-    public Dictionary<string, JsonElement>? ExtensionData { get; set; }
+    [JsonExtensionData] public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("displayIcon")] public Uri DisplayIcon { get; set; }
 
     [JsonPropertyName("assetPath")] public string AssetPath { get; set; }
+}
+
+public class ValApiGamePodsResponse
+{
+    [JsonPropertyName("status")] public long Status { get; set; }
+
+    [JsonPropertyName("data")] public Dictionary<string, JsonElement> Data { get; set; }
 }

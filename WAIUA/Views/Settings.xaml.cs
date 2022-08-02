@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using System.Xml;
 using AutoUpdaterDotNET;
 using WAIUA.Helpers;
@@ -84,16 +85,16 @@ public partial class Settings : UserControl
         await UpdateFilesAsync().ConfigureAwait(false);
     }
 
-    private void ListBox_SelectedAsync(object sender, SelectionChangedEventArgs e)
+    private async void ListBox_SelectedAsync(object sender, SelectionChangedEventArgs e)
     {
         var combo = (ComboBox) sender;
         var index = combo.SelectedIndex;
         Thread.CurrentThread.CurrentCulture = _languageList[index];
         Thread.CurrentThread.CurrentUICulture = _languageList[index];
         Properties.Settings.Default.Language = _languageList[index].TwoLetterISOLanguageName;
-        UpdateFilesAsync().ConfigureAwait(false);
-        Application.Current.Shutdown();
+        await UpdateFilesAsync().ConfigureAwait(false);
         System.Windows.Forms.Application.Restart();
+        Application.Current.Dispatcher.BeginInvokeShutdown(DispatcherPriority.Normal);
     }
 
     private static Task<IEnumerable<CultureInfo>> GetAvailableCulturesAsync()
@@ -121,14 +122,11 @@ public partial class Settings : UserControl
 
     private async void LanguageList_OnDropDownOpenedAsync(object sender, EventArgs e)
     {
-        Mouse.OverrideCursor = Cursors.Wait;
-        if (LanguageCombo.Items.Count == 0)
-            foreach (var language in await GetAvailableCulturesAsync().ConfigureAwait(false))
-            {
-                LanguageCombo.Items.Add(language.NativeName);
-                _languageList.Add(language);
-            }
-
-        Mouse.OverrideCursor = Cursors.Arrow;
+        if (LanguageCombo.Items.Count != 0) return;
+        foreach (var language in await GetAvailableCulturesAsync().ConfigureAwait(false))
+        {
+            LanguageCombo.Items.Add(language.NativeName);
+            _languageList.Add(language);
+        }
     }
 }

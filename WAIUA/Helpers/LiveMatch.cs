@@ -174,7 +174,8 @@ public class LiveMatch
                 }
 
                 var gamePodId = matchIdInfo.GamePodId;
-                if (Constants.GamePodsDictionary.TryGetValue(gamePodId, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
+                var gamePods = JsonSerializer.Deserialize<Dictionary<string, string>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\gamepods.txt").ConfigureAwait(false));
+                if (gamePods != null && gamePods.TryGetValue(gamePodId, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
             }
         }
         else
@@ -228,12 +229,12 @@ public class LiveMatch
 
                     playerTasks.Add(GetPlayerInfo());
 
-
                     index++;
                 }
 
                 var gamePodId = matchIdInfo.GamePodId;
-                if (Constants.GamePodsDictionary.TryGetValue(gamePodId, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
+                var gamePods = JsonSerializer.Deserialize<Dictionary<string, string>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\gamepods.txt").ConfigureAwait(false));
+                if (gamePods.TryGetValue(gamePodId, out var serverName)) MatchInfo.Server = "🌍 " + serverName;
             }
         }
 

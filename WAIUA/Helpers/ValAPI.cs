@@ -24,7 +24,8 @@ public static class ValApi
     private static Urls _cardsInfo;
     private static Urls _spraysInfo;
     private static Urls _buddiesInfo;
-    private static Urls _gamemodeInfo;
+    private static Urls _gamemodesInfo;
+    private static Urls _gamepodsInfo;
     private static List<Urls> _allInfo;
 
     private static readonly Dictionary<string, string> ValApiLanguages = new()
@@ -126,13 +127,19 @@ public static class ValApi
             Filepath = Constants.LocalAppDataPath + "\\ValAPI\\version.txt",
             Url = "/version"
         };
-        _gamemodeInfo = new Urls
+        _gamemodesInfo = new Urls
         {
             Name = "Gamemode",
             Filepath = Constants.LocalAppDataPath + "\\ValAPI\\gamemode.txt",
             Url = $"/gamemodes?language={language}"
         };
-        _allInfo = new List<Urls> {_mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo, _cardsInfo, _spraysInfo, _buddiesInfo, _gamemodeInfo};
+        _gamepodsInfo = new Urls
+        {
+            Name = "GamePods",
+            Filepath = Constants.LocalAppDataPath + "\\ValAPI\\gamepods.txt",
+            Url = $"/locres/{language}"
+        };
+        _allInfo = new List<Urls> { _mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo, _cardsInfo, _spraysInfo, _buddiesInfo, _gamemodesInfo, _gamepodsInfo };
         return Task.CompletedTask;
     }
 
@@ -353,7 +360,7 @@ public static class ValApi
 
             async Task UpdateGamemodeDictionary()
             {
-                var gameModeRequest = new RestRequest(_gamemodeInfo.Url);
+                var gameModeRequest = new RestRequest(_gamemodesInfo.Url);
                 var gameModeResponse = await Client.ExecuteGetAsync<ValApiGamemodeResponse>(gameModeRequest).ConfigureAwait(false);
                 if (gameModeResponse.IsSuccessful)
                 {
@@ -374,7 +381,7 @@ public static class ValApi
                                     .ConfigureAwait(false);
                         }
 
-                    await File.WriteAllTextAsync(_gamemodeInfo.Filepath, JsonSerializer.Serialize(gamemodeDictionary)).ConfigureAwait(false);
+                    await File.WriteAllTextAsync(_gamemodesInfo.Filepath, JsonSerializer.Serialize(gamemodeDictionary)).ConfigureAwait(false);
                 }
                 else
                 {
@@ -382,9 +389,35 @@ public static class ValApi
                 }
             }
 
+            async Task UpdateGamePodsDictionary()
+            {
+                Client.Options.BaseUrl = new Uri("https://valorant-api.com/internal");
+                var gamePodsRequest = new RestRequest(_gamepodsInfo.Url);
+                var gamePodsResponse = await Client.ExecuteGetAsync<ValApiGamePodsResponse>(gamePodsRequest).ConfigureAwait(false);
+                Client.Options.BaseUrl = new Uri("https://valorant-api.com/v1");
+                if (gamePodsResponse.IsSuccessful)
+                {
+                    Dictionary<string, string> gamePodsDictionary = new();
+                    if (gamePodsResponse.Data != null)
+                    {
+                        if (gamePodsResponse.Data.Data.TryGetValue("UI_GamePodStrings", out var gamepodElement))
+                        {
+                            var gamePods = gamepodElement.Deserialize<Dictionary<string, string>>();
+                            foreach (var gamePod in gamePods)
+                                gamePodsDictionary.TryAdd(gamePod.Key, gamePod.Value);
+                        }
+                    }
+                    await File.WriteAllTextAsync(_gamepodsInfo.Filepath, JsonSerializer.Serialize(gamePodsDictionary)).ConfigureAwait(false);
+                }
+                else
+                {
+                    Constants.Log.Error("updateGamePodsDictionary Failed, Response:{error}", gamePodsResponse.ErrorException);
+                }
+            }
+
             try
             {
-                await Task.WhenAll(UpdateVersion(), UpdateRanksDictionary(), UpdateAgentsDictionary(), UpdateMapsDictionary(), UpdateSkinsDictionary(), UpdateCardsDictionary(), UpdateSpraysDictionary(), UpdateBuddiesDictionary(), UpdateGamemodeDictionary()).ConfigureAwait(false);
+                await Task.WhenAll(UpdateVersion(), UpdateRanksDictionary(), UpdateAgentsDictionary(), UpdateMapsDictionary(), UpdateSkinsDictionary(), UpdateCardsDictionary(), UpdateSpraysDictionary(), UpdateBuddiesDictionary(), UpdateGamemodeDictionary(), UpdateGamePodsDictionary()).ConfigureAwait(false);
             }
             catch (Exception e)
             {
