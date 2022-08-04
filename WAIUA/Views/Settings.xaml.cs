@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
@@ -85,16 +86,17 @@ public partial class Settings : UserControl
         await UpdateFilesAsync().ConfigureAwait(false);
     }
 
-    private async void ListBox_SelectedAsync(object sender, SelectionChangedEventArgs e)
+    private void ListBox_SelectedAsync(object sender, SelectionChangedEventArgs e)
     {
         var combo = (ComboBox) sender;
         var index = combo.SelectedIndex;
         Thread.CurrentThread.CurrentCulture = _languageList[index];
         Thread.CurrentThread.CurrentUICulture = _languageList[index];
         Properties.Settings.Default.Language = _languageList[index].TwoLetterISOLanguageName;
-        await UpdateFilesAsync().ConfigureAwait(false);
+        if (File.Exists(Constants.LocalAppDataPath + "\\ValAPI\\version.txt"))
+            File.Delete(Constants.LocalAppDataPath + "\\ValAPI\\version.txt");
+        Application.Current.Shutdown();
         System.Windows.Forms.Application.Restart();
-        Application.Current.Dispatcher.BeginInvokeShutdown(DispatcherPriority.Normal);
     }
 
     private static Task<IEnumerable<CultureInfo>> GetAvailableCulturesAsync()

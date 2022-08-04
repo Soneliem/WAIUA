@@ -284,7 +284,8 @@ public class MatchLoadoutsResponse
 
 public class LoadoutElement
 {
-    [JsonPropertyName("CharacterID"), JsonIgnore]
+    [JsonPropertyName("CharacterID")]
+    [JsonIgnore]
     public Guid CharacterId { get; set; }
 
     [JsonPropertyName("Loadout")] public LoadoutLoadout Loadout { get; set; }

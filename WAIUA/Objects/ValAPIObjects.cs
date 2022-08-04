@@ -221,55 +221,42 @@ public class Level
     [JsonPropertyName("assetPath")] public string AssetPath { get; set; }
 }
 
-public partial class ValApiBuddiesResponse
+public class ValApiBuddiesResponse
 {
-    [JsonPropertyName("status")]
-    public long Status { get; set; }
+    [JsonPropertyName("status")] public long Status { get; set; }
 
-    [JsonPropertyName("data")]
-    public ValApiBuddies[] Data { get; set; }
+    [JsonPropertyName("data")] public ValApiBuddies[] Data { get; set; }
 }
 
-public partial class ValApiBuddies
+public class ValApiBuddies
 {
-    [JsonPropertyName("uuid")]
-    public Guid Uuid { get; set; }
+    [JsonPropertyName("uuid")] public Guid Uuid { get; set; }
 
-    [JsonPropertyName("displayName")]
-    public string DisplayName { get; set; }
+    [JsonPropertyName("displayName")] public string DisplayName { get; set; }
 
     [JsonPropertyName("isHiddenIfNotOwned")]
     public bool IsHiddenIfNotOwned { get; set; }
 
-    [JsonPropertyName("themeUuid")]
-    public Guid? ThemeUuid { get; set; }
+    [JsonPropertyName("themeUuid")] public Guid? ThemeUuid { get; set; }
 
-    [JsonPropertyName("displayIcon")]
-    public Uri DisplayIcon { get; set; }
+    [JsonPropertyName("displayIcon")] public Uri DisplayIcon { get; set; }
 
-    [JsonPropertyName("assetPath")]
-    public string AssetPath { get; set; }
+    [JsonPropertyName("assetPath")] public string AssetPath { get; set; }
 
-    [JsonPropertyName("levels")]
-    public BuddyLevel[] Levels { get; set; }
+    [JsonPropertyName("levels")] public BuddyLevel[] Levels { get; set; }
 }
 
-public partial class BuddyLevel
+public class BuddyLevel
 {
-    [JsonPropertyName("uuid")]
-    public Guid Uuid { get; set; }
+    [JsonPropertyName("uuid")] public Guid Uuid { get; set; }
 
-    [JsonPropertyName("charmLevel")]
-    public long CharmLevel { get; set; }
+    [JsonPropertyName("charmLevel")] public long CharmLevel { get; set; }
 
-    [JsonPropertyName("displayName")]
-    public string DisplayName { get; set; }
+    [JsonPropertyName("displayName")] public string DisplayName { get; set; }
 
-    [JsonPropertyName("displayIcon")]
-    public Uri DisplayIcon { get; set; }
+    [JsonPropertyName("displayIcon")] public Uri DisplayIcon { get; set; }
 
-    [JsonPropertyName("assetPath")]
-    public string AssetPath { get; set; }
+    [JsonPropertyName("assetPath")] public string AssetPath { get; set; }
 }
 
 public class ValApiRanksResponse

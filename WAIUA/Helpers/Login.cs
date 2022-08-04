@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -44,7 +43,7 @@ public static class Login
             Constants.Log.Error("LocalRegionAsync() Failed: Log file not found");
             return;
         }
-        
+
         await using var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
         using var sr = new StreamReader(fs, Encoding.UTF8);
 
@@ -59,6 +58,7 @@ public static class Login
             sr.Close();
             return;
         }
+
         fs.Close();
         sr.Close();
         Constants.Log.Error("LocalRegionAsync() Failed: https://glz- could not be found in logs");
@@ -100,6 +100,13 @@ public static class Login
 
     private static async Task GetLatestVersionAsync()
     {
+        if (!File.Exists(Constants.LocalAppDataPath + "\\ValAPI\\version.txt"))
+        {
+            Constants.Log.Error("GetLatestVersionAsync() Failed: version.txt not found");
+            await ValApi.UpdateFilesAsync().ConfigureAwait(false);
+            return;
+        }
+
         var lines = await File.ReadAllLinesAsync(Constants.LocalAppDataPath + "\\ValAPI\\version.txt").ConfigureAwait(false);
         Constants.Version = lines[0];
     }

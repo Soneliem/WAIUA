@@ -7,7 +7,7 @@
              x:Name="Self"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-	<Border Background="#181E34" CornerRadius="20" 
+	<Border Background="#181E34" CornerRadius="20"
 	        Margin="10">
 		<Border.Effect>
 			<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
@@ -23,7 +23,8 @@
 			<Border
 				Background="#32e2b2" CornerRadius="5" MaxHeight="25"
 				HorizontalAlignment="Left" Margin="10"
-				VerticalAlignment="Bottom" Visibility="{Binding BuddyTooltipName, Converter={c:IsStringEmptyToVisibilityConverter}, ElementName=Self}">
+				VerticalAlignment="Bottom"
+				Visibility="{Binding BuddyTooltipName, Converter={c:IsStringEmptyToVisibilityConverter}, ElementName=Self}">
 				<Image Source="{Binding BuddyImage, ElementName=Self}"
 				       ToolTip="{Binding BuddyTooltipName, ElementName=Self}"
 				       ToolTipService.InitialShowDelay="0" Margin="5">
@@ -36,7 +37,7 @@
 				</Border.Effect>
 			</Border>
 		</Grid>
-		
+
 	</Border>
 
 </UserControl>

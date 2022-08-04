@@ -9,7 +9,7 @@ namespace WAIUA.Helpers;
 public static class Constants
 {
     public static ConcurrentDictionary<string, RestResponse> UrlToBody = new();
-    
+
     public static readonly List<Guid> BeforeAscendantSeasons = new()
     {
         new Guid("0df5adb9-4dcb-6899-1306-3e9860661dd3"),
@@ -39,6 +39,7 @@ public static class Constants
     public static string LocalAppDataPath { get; set; }
     public static Guid Ppuuid { get; set; }
     public static Guid PPartyId { get; set; }
+    public static Guid MatchId { get; set; }
     public static string Port { get; set; }
     public static string LPassword { get; set; }
 

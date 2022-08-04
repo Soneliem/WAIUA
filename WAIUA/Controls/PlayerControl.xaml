@@ -91,41 +91,51 @@
 					Foreground="#32e2b2"
 					Text="{Binding PlayerCell.IdentityData.Name, ElementName=Self}" />
 			</Viewbox>
-			<Viewbox
-				Grid.Row="1"
-				Grid.Column="1"
-				Margin="0"
-				HorizontalAlignment="Left"
-				VerticalAlignment="Center"
-				Stretch="Uniform">
-				<StackPanel Orientation="Horizontal">
-					<TextBox
-						Background="Transparent"
-						FontFamily="{StaticResource Nunito}"
-						BorderThickness="0"
-						FontWeight="Normal"
-						Foreground="#9f97b0"
-						IsReadOnly="True"
-						Text="{Binding PlayerCell.IgnData.Username, ElementName=Self}"
-						Visibility="{Binding PlayerCell.IgnData.TrackerDisabled, ElementName=Self}" />
-					<TextBlock
-						FontWeight="Normal"
-						Foreground="#9f97b0"
-						ToolTip="{x:Static p:Resources.TrackerToolTip}"
-						ToolTipService.InitialShowDelay="0"
-						Visibility="{Binding PlayerCell.IgnData.TrackerEnabled, ElementName=Self}">
-						<Hyperlink
-							NavigateUri="{Binding PlayerCell.IgnData.TrackerUri, ElementName=Self}"
-							RequestNavigate="HandleLinkClick"
-							TextDecorations="">
-							<Hyperlink.Inlines>
-								<Run Text="{Binding PlayerCell.IgnData.Username, ElementName=Self}" />
-							</Hyperlink.Inlines>
-						</Hyperlink>
-					</TextBlock>
-
-				</StackPanel>
-			</Viewbox>
+			<!-- <Viewbox -->
+			<!-- 	Grid.Row="1" -->
+			<!-- 	Grid.Column="1" -->
+			<!-- 	Margin="0" -->
+			<!-- 	HorizontalAlignment="Left" -->
+			<!-- 	VerticalAlignment="Center" -->
+			<!-- 	Stretch="Uniform"> -->
+				<Grid Grid.Row="1"
+					Grid.Column="1" HorizontalAlignment="Left" >
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					<Viewbox>
+						<TextBlock 
+							FontFamily="{StaticResource Nunito}"
+							FontWeight="Normal"
+							Foreground="#9f97b0"
+							Text="{Binding PlayerCell.IgnData.Username, ElementName=Self}"/>
+					</Viewbox>
+					<!-- <TextBlock  -->
+					<!-- 	Grid.Column="1" -->
+					<!-- 	FontWeight="Normal" -->
+					<!-- 	Foreground="#9f97b0" -->
+					<!-- 	ToolTip="{x:Static p:Resources.TrackerToolTip}" -->
+					<!-- 	ToolTipService.InitialShowDelay="0" -->
+					<!-- 	Visibility="{Binding PlayerCell.IgnData.TrackerEnabled, ElementName=Self}"> -->
+					<!-- 	<Hyperlink -->
+					<!-- 		NavigateUri="{Binding PlayerCell.IgnData.TrackerUri, ElementName=Self}" -->
+					<!-- 		RequestNavigate="HandleLinkClick" -->
+					<!-- 		TextDecorations=""> -->
+					<!-- 		<Hyperlink.Inlines> -->
+					<!-- 			<Run Text="{Binding PlayerCell.IgnData.Username, ElementName=Self}" /> -->
+					<!-- 		</Hyperlink.Inlines> -->
+					<!-- 	</Hyperlink> -->
+					<!-- </TextBlock> -->
+					<Viewbox ToolTip="{x:Static p:Resources.TrackerToolTip}" ToolTipService.InitialShowDelay="0" 
+					         Grid.Column="1" Stretch="Uniform" Cursor="Hand" MouseLeftButtonDown="HandleLinkClick"
+					         Visibility="{Binding PlayerCell.IgnData.TrackerEnabled, ElementName=Self}">
+						<Canvas Height="23.44" Width="68.65" Margin="5, 25, 0, 25">
+							<Path Data="M13.814 23.442H7.535V5.86H0V0h40.228a4.2 4.2 0 014.186 4.186v6.447a4.2 4.2 0 01-4.186 4.186H39.6l4.814 8.623h-6.865l-5.065-8.916h-3.517V9.209c3.1-.084 6.112.084 9.084-.084V5.86H27.628v17.582h-6.279V5.86c-2.6.042-5.065-.042-7.535.084zM51.907 23.442h-6.279V0h7.954l8.791 13.479V0h6.279v23.442h-6.865L51.908 8.916z" Stroke="#000000" StrokeThickness="0.1" Fill="Red" />
+						</Canvas>
+					</Viewbox>
+				</Grid>
+			<!-- </Viewbox> -->
 			<Border
 				Grid.Row="2"
 				Grid.Column="0"
@@ -145,7 +155,7 @@
 			</Border>
 			<Border Background="#525b5d" CornerRadius="10" Padding="7" Width="Auto"
 			        Grid.Row="2" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5"
-			        Grid.Column="1" MouseLeftButtonUp="ButtonUpHandler" 
+			        Grid.Column="1" MouseLeftButtonUp="ButtonUpHandler" Cursor="Hand"
 			        Visibility="{Binding Path=PlayerCell.SkinsActive, ElementName=Self}">
 				<Border.RenderTransform>
 					<ScaleTransform ScaleX="1" ScaleY="1" />
@@ -175,16 +185,16 @@
 							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 						</Image.Effect>
 					</Image>
-					<Image Grid.Column="1" RenderOptions.BitmapScalingMode="HighQuality" Margin="10,0,25,0" 
+					<Image Grid.Column="1" RenderOptions.BitmapScalingMode="HighQuality" Margin="10,0,25,0"
 					       Source="{Binding PlayerCell.SkinData.PhantomImage, ElementName=Self}"
 					       ToolTip="{Binding PlayerCell.SkinData.PhantomName, ElementName=Self}"
 					       ToolTipService.InitialShowDelay="0">
 						<Image.Effect>
-							<DropShadowEffect BlurRadius="5" ShadowDepth="3"/>
+							<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 						</Image.Effect>
 					</Image>
 					<Canvas Grid.Column="2"
-						HorizontalAlignment="Right" VerticalAlignment="Bottom">
+					        HorizontalAlignment="Right" VerticalAlignment="Bottom">
 						<Polyline
 							Margin="-15,-15,0,0"
 							Fill="#32e2b2"
@@ -193,7 +203,7 @@
 							StrokeStartLineCap="Round"
 							StrokeEndLineCap="Round"
 							StrokeLineJoin="Round"
-							StrokeThickness="15"/>
+							StrokeThickness="15" />
 					</Canvas>
 				</Grid>
 			</Border>

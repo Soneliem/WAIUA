@@ -139,7 +139,7 @@ public static class ValApi
             Filepath = Constants.LocalAppDataPath + "\\ValAPI\\gamepods.txt",
             Url = $"/locres/{language}"
         };
-        _allInfo = new List<Urls> { _mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo, _cardsInfo, _spraysInfo, _buddiesInfo, _gamemodesInfo, _gamepodsInfo };
+        _allInfo = new List<Urls> {_mapsInfo, _agentsInfo, _ranksInfo, _versionInfo, _skinsInfo, _cardsInfo, _spraysInfo, _buddiesInfo, _gamemodesInfo, _gamepodsInfo};
         return Task.CompletedTask;
     }
 
@@ -399,14 +399,13 @@ public static class ValApi
                 {
                     Dictionary<string, string> gamePodsDictionary = new();
                     if (gamePodsResponse.Data != null)
-                    {
                         if (gamePodsResponse.Data.Data.TryGetValue("UI_GamePodStrings", out var gamepodElement))
                         {
                             var gamePods = gamepodElement.Deserialize<Dictionary<string, string>>();
                             foreach (var gamePod in gamePods)
                                 gamePodsDictionary.TryAdd(gamePod.Key, gamePod.Value);
                         }
-                    }
+
                     await File.WriteAllTextAsync(_gamepodsInfo.Filepath, JsonSerializer.Serialize(gamePodsDictionary)).ConfigureAwait(false);
                 }
                 else
