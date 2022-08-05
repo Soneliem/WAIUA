@@ -1,9 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Navigation;
 using WAIUA.Objects;
 
 namespace WAIUA.Controls;

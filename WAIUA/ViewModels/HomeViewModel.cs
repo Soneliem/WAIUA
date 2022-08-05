@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using FontAwesome6;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
 using WAIUA.Helpers;
 using WAIUA.Objects;
 using WAIUA.Views;
@@ -33,20 +33,20 @@ public partial class HomeViewModel : ObservableObject
 
     public event EventAction GoMatchEvent;
 
-    [ICommand]
+    [RelayCommand]
     private async Task LoadNowAsync()
     {
         CountdownTime = 20;
         await UpdateChecksAsync(true).ConfigureAwait(false);
     }
 
-    [ICommand]
+    [RelayCommand]
     private void PassiveLoadAsync()
     {
         if (!_countTimer.IsEnabled) _countTimer.Start();
     }
 
-    [ICommand]
+    [RelayCommand]
     private async Task PassiveLoadCheckAsync()
     {
         if (!_countTimer.IsEnabled)
@@ -56,7 +56,7 @@ public partial class HomeViewModel : ObservableObject
         }
     }
 
-    [ICommand]
+    [RelayCommand]
     private void StopPassiveLoadAsync()
     {
         _countTimer.Stop();
@@ -77,7 +77,7 @@ public partial class HomeViewModel : ObservableObject
     }
 
 
-    [ICommand]
+    [RelayCommand]
     private async Task UpdateChecksAsync(bool forcePartyUpdate)
     {
         Application.Current.Dispatcher.Invoke(() =>
@@ -209,7 +209,7 @@ public partial class HomeViewModel : ObservableObject
         }
     }
 
-    [ICommand]
+    [RelayCommand]
     private async Task GetPartyPlayerInfoAsync()
     {
         try

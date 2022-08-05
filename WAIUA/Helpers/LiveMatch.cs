@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
-using FlareSolverrSharp;
 using RestSharp;
 using RestSharp.Serializers.Json;
 using WAIUA.Objects;
@@ -43,10 +40,7 @@ public class LiveMatch
             Stage = "core";
             if (response.Data.MatchId == Constants.MatchId) return true;
             Constants.MatchId = response.Data.MatchId;
-            foreach (var key in Constants.UrlToBody.Keys.Where(key => key.Contains("mmr")))
-            {
-                Constants.UrlToBody.TryRemove(key, out _);
-            }
+            foreach (var key in Constants.UrlToBody.Keys.Where(key => key.Contains("mmr"))) Constants.UrlToBody.TryRemove(key, out _);
             return true;
         }
 
@@ -993,6 +987,9 @@ public class LiveMatch
 
     private static async Task<Uri> TrackerAsync(string username)
     {
+        // Temporarily disabled
+        return null;
+
         try
         {
             if (!string.IsNullOrEmpty(username))
@@ -1004,7 +1001,7 @@ public class LiveMatch
                     false).ConfigureAwait(false);
 
                 var numericStatusCode = (short) response.StatusCode;
-                
+
                 if (numericStatusCode == 200) return url;
             }
         }

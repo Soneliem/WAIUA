@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using WAIUA.ViewModels;
 
 namespace WAIUA;

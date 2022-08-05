@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Threading;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using WAIUA.Helpers;
 using WAIUA.Objects;
 
@@ -43,13 +43,13 @@ public partial class MatchViewModel : ObservableObject
 
     public event EventAction GoHomeEvent;
 
-    [ICommand]
+    [RelayCommand]
     private void PassiveLoadAsync()
     {
         if (!_countTimer.IsEnabled) _countTimer.Start();
     }
 
-    [ICommand]
+    [RelayCommand]
     private async Task PassiveLoadCheckAsync()
     {
         if (!_countTimer.IsEnabled)
@@ -59,7 +59,7 @@ public partial class MatchViewModel : ObservableObject
         }
     }
 
-    [ICommand]
+    [RelayCommand]
     private void StopPassiveLoadAsync()
     {
         CountTimer?.Stop();
@@ -78,7 +78,7 @@ public partial class MatchViewModel : ObservableObject
         CountdownTime--;
     }
 
-    [ICommand]
+    [RelayCommand]
     private async Task GetMatchInfoAsync()
     {
         Overlay = new LoadingOverlay

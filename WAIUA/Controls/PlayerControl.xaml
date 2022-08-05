@@ -98,43 +98,45 @@
 			<!-- 	HorizontalAlignment="Left" -->
 			<!-- 	VerticalAlignment="Center" -->
 			<!-- 	Stretch="Uniform"> -->
-				<Grid Grid.Row="1"
-					Grid.Column="1" HorizontalAlignment="Left" >
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<Viewbox>
-						<TextBlock 
-							FontFamily="{StaticResource Nunito}"
-							FontWeight="Normal"
-							Foreground="#9f97b0"
-							Text="{Binding PlayerCell.IgnData.Username, ElementName=Self}"/>
-					</Viewbox>
-					<!-- <TextBlock  -->
-					<!-- 	Grid.Column="1" -->
-					<!-- 	FontWeight="Normal" -->
-					<!-- 	Foreground="#9f97b0" -->
-					<!-- 	ToolTip="{x:Static p:Resources.TrackerToolTip}" -->
-					<!-- 	ToolTipService.InitialShowDelay="0" -->
-					<!-- 	Visibility="{Binding PlayerCell.IgnData.TrackerEnabled, ElementName=Self}"> -->
-					<!-- 	<Hyperlink -->
-					<!-- 		NavigateUri="{Binding PlayerCell.IgnData.TrackerUri, ElementName=Self}" -->
-					<!-- 		RequestNavigate="HandleLinkClick" -->
-					<!-- 		TextDecorations=""> -->
-					<!-- 		<Hyperlink.Inlines> -->
-					<!-- 			<Run Text="{Binding PlayerCell.IgnData.Username, ElementName=Self}" /> -->
-					<!-- 		</Hyperlink.Inlines> -->
-					<!-- 	</Hyperlink> -->
-					<!-- </TextBlock> -->
-					<Viewbox ToolTip="{x:Static p:Resources.TrackerToolTip}" ToolTipService.InitialShowDelay="0" 
-					         Grid.Column="1" Stretch="Uniform" Cursor="Hand" MouseLeftButtonDown="HandleLinkClick"
-					         Visibility="{Binding PlayerCell.IgnData.TrackerEnabled, ElementName=Self}">
-						<Canvas Height="23.44" Width="68.65" Margin="5, 25, 0, 25">
-							<Path Data="M13.814 23.442H7.535V5.86H0V0h40.228a4.2 4.2 0 014.186 4.186v6.447a4.2 4.2 0 01-4.186 4.186H39.6l4.814 8.623h-6.865l-5.065-8.916h-3.517V9.209c3.1-.084 6.112.084 9.084-.084V5.86H27.628v17.582h-6.279V5.86c-2.6.042-5.065-.042-7.535.084zM51.907 23.442h-6.279V0h7.954l8.791 13.479V0h6.279v23.442h-6.865L51.908 8.916z" Stroke="#000000" StrokeThickness="0.1" Fill="Red" />
-						</Canvas>
-					</Viewbox>
-				</Grid>
+			<Grid Grid.Row="1"
+			      Grid.Column="1" HorizontalAlignment="Left">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Viewbox>
+					<TextBlock
+						FontFamily="{StaticResource Nunito}"
+						FontWeight="Normal"
+						Foreground="#9f97b0"
+						Text="{Binding PlayerCell.IgnData.Username, ElementName=Self}" />
+				</Viewbox>
+				<!-- <TextBlock  -->
+				<!-- 	Grid.Column="1" -->
+				<!-- 	FontWeight="Normal" -->
+				<!-- 	Foreground="#9f97b0" -->
+				<!-- 	ToolTip="{x:Static p:Resources.TrackerToolTip}" -->
+				<!-- 	ToolTipService.InitialShowDelay="0" -->
+				<!-- 	Visibility="{Binding PlayerCell.IgnData.TrackerEnabled, ElementName=Self}"> -->
+				<!-- 	<Hyperlink -->
+				<!-- 		NavigateUri="{Binding PlayerCell.IgnData.TrackerUri, ElementName=Self}" -->
+				<!-- 		RequestNavigate="HandleLinkClick" -->
+				<!-- 		TextDecorations=""> -->
+				<!-- 		<Hyperlink.Inlines> -->
+				<!-- 			<Run Text="{Binding PlayerCell.IgnData.Username, ElementName=Self}" /> -->
+				<!-- 		</Hyperlink.Inlines> -->
+				<!-- 	</Hyperlink> -->
+				<!-- </TextBlock> -->
+				<Viewbox ToolTip="{x:Static p:Resources.TrackerToolTip}" ToolTipService.InitialShowDelay="0"
+				         Grid.Column="1" Stretch="Uniform" Cursor="Hand" MouseLeftButtonDown="HandleLinkClick"
+				         Visibility="{Binding PlayerCell.IgnData.TrackerEnabled, ElementName=Self}">
+					<Canvas Height="23.44" Width="68.65" Margin="5, 25, 0, 25">
+						<Path
+							Data="M13.814 23.442H7.535V5.86H0V0h40.228a4.2 4.2 0 014.186 4.186v6.447a4.2 4.2 0 01-4.186 4.186H39.6l4.814 8.623h-6.865l-5.065-8.916h-3.517V9.209c3.1-.084 6.112.084 9.084-.084V5.86H27.628v17.582h-6.279V5.86c-2.6.042-5.065-.042-7.535.084zM51.907 23.442h-6.279V0h7.954l8.791 13.479V0h6.279v23.442h-6.865L51.908 8.916z"
+							Stroke="#000000" StrokeThickness="0.1" Fill="Red" />
+					</Canvas>
+				</Viewbox>
+			</Grid>
 			<!-- </Viewbox> -->
 			<Border
 				Grid.Row="2"
@@ -312,7 +314,7 @@
 					Value="{Binding PlayerCell.MatchHistoryData.RankProgress, ElementName=Self}" />
 			</Border>
 
-			<Grid Grid.RowSpan="3" Grid.Row="0" Grid.Column="3" Margin="-15">
+			<Grid Grid.RowSpan="3" Grid.Row="0" Grid.Column="3" Margin="-15" IsHitTestVisible="False">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="4*" />
 					<ColumnDefinition Width="1*" />
