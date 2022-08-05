@@ -21,7 +21,7 @@
 				</Image.Effect>
 			</Image>
 			<Border
-				Background="#32e2b2" CornerRadius="5" MaxHeight="25"
+				Background="#32e2b2" CornerRadius="5" MaxHeight="30"
 				HorizontalAlignment="Left" Margin="10"
 				VerticalAlignment="Bottom"
 				Visibility="{Binding BuddyTooltipName, Converter={c:IsStringEmptyToVisibilityConverter}, ElementName=Self}">
@@ -37,7 +37,6 @@
 				</Border.Effect>
 			</Border>
 		</Grid>
-
 	</Border>
 
 </UserControl>

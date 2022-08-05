@@ -873,6 +873,41 @@ public class LiveMatch
                 }
             }
 
+            var peakRank = 0;
+            try
+            {
+                foreach (var act in content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act)
+                {
+                    var season = act.Value.Deserialize<ActInfo>();
+                    if (season != null)
+
+                        // foreach (var tier in season.WinsByTier)
+                        // {
+                        if (Constants.BeforeAscendantSeasons.Contains(new Guid(season.SeasonId)) && Convert.ToInt32(season.WinsByTier.Last().Key) > 20)
+                        {
+                            if (Convert.ToInt32(season.WinsByTier.Last().Key) > peakRank)
+                            {
+                                peakRank = Convert.ToInt32(season.WinsByTier.Last().Key);
+                                peakRank += 3;
+                            }
+                        }
+                        else
+                        {
+                            if (Convert.ToInt32(season.WinsByTier.Last().Key) > peakRank)
+                            {
+                                peakRank = Convert.ToInt32(season.WinsByTier.Last().Key);
+                            }
+                        }
+
+
+                    // }
+                }
+            }
+            catch (Exception e)
+            {
+                Constants.Log.Error("GetPlayerHistoryAsync Failed; Peak rank calculation error: {e}", e);
+            }
+
             try
             {
                 var ranks = JsonSerializer.Deserialize<Dictionary<int, string>>(await File.ReadAllTextAsync(Constants.LocalAppDataPath + "\\ValAPI\\competitivetiers.txt").ConfigureAwait(false));
@@ -892,6 +927,10 @@ public class LiveMatch
                 ranks.TryGetValue(ppprank, out var rank3);
                 rankData.PreviouspreviouspreviousrankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{ppprank}.png");
                 rankData.PreviouspreviouspreviousrankName = rank3;
+
+                ranks.TryGetValue(peakRank, out var peakRank0);
+                rankData.PeakRankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{peakRank}.png");
+                rankData.PeakRankName = peakRank0;
             }
             catch (Exception e)
             {

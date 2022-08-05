@@ -133,6 +133,8 @@ public partial class RankData
     [ObservableProperty] private string _previousrankName;
     [ObservableProperty] private Uri _rankImage;
     [ObservableProperty] private string _rankName;
+    [ObservableProperty] private Uri _peakRankImage;
+    [ObservableProperty] private string _peakRankName;
 }
 
 [INotifyPropertyChanged]
