@@ -147,6 +147,7 @@ public partial class MatchHistoryData
     [ObservableProperty] private int _previouspreviouspreviousGame;
     [ObservableProperty] private string _previouspreviouspreviousGameColour;
     [ObservableProperty] private int _rankProgress;
+    [ObservableProperty] private int _winRate;
 }
 
 public class ValMap

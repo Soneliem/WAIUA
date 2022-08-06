@@ -199,7 +199,7 @@
 					           Text="{Binding PlayerCell.MatchHistoryData.PreviouspreviouspreviousGame, ElementName=Self}"
 					           Foreground="#252A40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
 					<Border.Effect>
-						<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
+						<DropShadowEffect BlurRadius="5" ShadowDepth="3" /> 
 					</Border.Effect>
 				</Border>
 				<Border Grid.Column="3"
@@ -241,11 +241,11 @@
 						</Image.Effect>
 					</Image>
 					<TextBlock FontFamily="{StaticResource Nunito}" 
-					           Text=" WR: " 
+					           Text="  WR: " 
 					           Foreground="#32e2b2" FontWeight="Bold"  VerticalAlignment="Center" />
 					<TextBlock FontFamily="{StaticResource Nunito}" 
-					           Text="69%" 
-					           Foreground="#32e2b2" FontWeight="SemiBold" VerticalAlignment="Center" />
+					           Text="{Binding PlayerCell.MatchHistoryData.WinRate, StringFormat={}{0}%, ElementName=Self}" 
+					           Foreground="White" FontWeight="SemiBold" VerticalAlignment="Center" />
 					
 				</StackPanel>
 				

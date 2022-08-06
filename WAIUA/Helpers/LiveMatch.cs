@@ -672,6 +672,26 @@ public class LiveMatch
                         < 0 => "#ff4654",
                         _ => "#7f7f7f"
                     };
+                    try
+                    {
+                        var wins = 0;
+                        var total = 0;
+                        foreach (var match in content.Matches)
+                        {
+                            if (match.RankedRatingEarned > 0)
+                            {
+                                wins++;
+                            }
+
+                            total++;
+                        }
+
+                        history.WinRate = (int) Math.Round((decimal) wins / total * 100);
+                    }
+                    catch (Exception e)
+                    {
+                        Constants.Log.Error("GetMatchHistoryAsync; WR calculation error: {e}", e);
+                    }
                 }
 
                 if (content?.Matches.Length > 1)
@@ -876,31 +896,21 @@ public class LiveMatch
             var peakRank = 0;
             try
             {
-                foreach (var act in content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act)
+                foreach (var season in content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.Select(act => act.Value.Deserialize<ActInfo>()).Where(season => season != null))
                 {
-                    var season = act.Value.Deserialize<ActInfo>();
-                    if (season != null)
-
-                        // foreach (var tier in season.WinsByTier)
-                        // {
-                        if (Constants.BeforeAscendantSeasons.Contains(new Guid(season.SeasonId)) && Convert.ToInt32(season.WinsByTier.Last().Key) > 20)
+                    if (Constants.BeforeAscendantSeasons.Contains(new Guid(season.SeasonId)) && Convert.ToInt32(season.WinsByTier.Last().Key) > 20)
+                    {
+                        if (Convert.ToInt32(season.WinsByTier.Last().Key) <= peakRank) continue;
+                        peakRank = Convert.ToInt32(season.WinsByTier.Last().Key);
+                        peakRank += 3;
+                    }
+                    else
+                    {
+                        if (Convert.ToInt32(season.WinsByTier.Last().Key) > peakRank)
                         {
-                            if (Convert.ToInt32(season.WinsByTier.Last().Key) > peakRank)
-                            {
-                                peakRank = Convert.ToInt32(season.WinsByTier.Last().Key);
-                                peakRank += 3;
-                            }
+                            peakRank = Convert.ToInt32(season.WinsByTier.Last().Key);
                         }
-                        else
-                        {
-                            if (Convert.ToInt32(season.WinsByTier.Last().Key) > peakRank)
-                            {
-                                peakRank = Convert.ToInt32(season.WinsByTier.Last().Key);
-                            }
-                        }
-
-
-                    // }
+                    }
                 }
             }
             catch (Exception e)
