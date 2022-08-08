@@ -167,7 +167,8 @@
   </data>
   <data name="Translator" xml:space="preserve">
     <value>Ins Deutsche Übersetzt von lolostill und NNebus</value>
-    <comment>Fuzzy</comment>
+    <comment>Please replace the Language and Names
+Fuzzy</comment>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Hier klicken, um Matchdaten neu zu laden</value>
@@ -245,5 +246,13 @@
   </data>
   <data name="Player" xml:space="preserve">
     <value>Spieler</value>
+  </data>
+  <data name="Peak" xml:space="preserve">
+    <value></value>
+    <comment>Peak Rank</comment>
+  </data>
+  <data name="WR" xml:space="preserve">
+    <value></value>
+    <comment>Win Rate</comment>
   </data>
 </root>
