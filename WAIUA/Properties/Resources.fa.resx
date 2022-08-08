@@ -167,6 +167,7 @@
   </data>
   <data name="Translator" xml:space="preserve">
     <value>ترجمه شده به فارسی توسط 1798#Kourosh</value>
+    <comment>Please replace the Language and Names</comment>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>برای تازه کردن مسابقه اینجا کلیک کنید</value>
@@ -242,5 +243,13 @@
   </data>
   <data name="Player" xml:space="preserve">
     <value>بازیکن</value>
+  </data>
+  <data name="Peak" xml:space="preserve">
+    <value></value>
+    <comment>Peak Rank</comment>
+  </data>
+  <data name="WR" xml:space="preserve">
+    <value></value>
+    <comment>Win Rate</comment>
   </data>
 </root>
