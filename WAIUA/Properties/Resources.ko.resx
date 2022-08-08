@@ -167,6 +167,7 @@
   </data>
   <data name="Translator" xml:space="preserve">
     <value>한국어 변역 ramon,Heart</value>
+    <comment>Please replace the Language and Names</comment>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>매치 상태 새로고침하기</value>
@@ -242,5 +243,13 @@
   </data>
   <data name="Player" xml:space="preserve">
     <value>플레이어</value>
+  </data>
+  <data name="Peak" xml:space="preserve">
+    <value></value>
+    <comment>Peak Rank</comment>
+  </data>
+  <data name="WR" xml:space="preserve">
+    <value></value>
+    <comment>Win Rate</comment>
   </data>
 </root>
