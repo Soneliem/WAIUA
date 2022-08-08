@@ -127,14 +127,20 @@ public partial class RankData
     [ObservableProperty] private int _maxRr = 100;
     [ObservableProperty] private Uri _previouspreviouspreviousrankImage;
     [ObservableProperty] private string _previouspreviouspreviousrankName;
+    [ObservableProperty] private string _previouspreviouspreviousStats;
     [ObservableProperty] private Uri _previouspreviousrankImage;
     [ObservableProperty] private string _previouspreviousrankName;
+    [ObservableProperty] private string _previouspreviousStats;
     [ObservableProperty] private Uri _previousrankImage;
     [ObservableProperty] private string _previousrankName;
+    [ObservableProperty] private string _previousrankStats;
     [ObservableProperty] private Uri _rankImage;
     [ObservableProperty] private string _rankName;
+    [ObservableProperty] private string _rankStats;
     [ObservableProperty] private Uri _peakRankImage;
     [ObservableProperty] private string _peakRankName;
+    [ObservableProperty] private string _peakRankSeason;
+    [ObservableProperty] private int _winRate;
 }
 
 [INotifyPropertyChanged]
@@ -147,7 +153,6 @@ public partial class MatchHistoryData
     [ObservableProperty] private int _previouspreviouspreviousGame;
     [ObservableProperty] private string _previouspreviouspreviousGameColour;
     [ObservableProperty] private int _rankProgress;
-    [ObservableProperty] private int _winRate;
 }
 
 public class ValMap

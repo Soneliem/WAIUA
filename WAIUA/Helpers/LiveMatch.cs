@@ -647,7 +647,7 @@ public class LiveMatch
             if (puuid != Guid.Empty)
             {
                 var response = await DoCachedRequestAsync(Method.Get,
-                    $"https://pd.{Constants.Region}.a.pvp.net/mmr/v1/players/{puuid}/competitiveupdates?queue=competitive",
+                    $"https://pd.{Constants.Region}.a.pvp.net/mmr/v1/players/{puuid}/competitiveupdates?startIndex=0&endIndex=3&queue=competitive",
                     true).ConfigureAwait(false);
                 if (!response.IsSuccessful)
                 {
@@ -672,26 +672,6 @@ public class LiveMatch
                         < 0 => "#ff4654",
                         _ => "#7f7f7f"
                     };
-                    try
-                    {
-                        var wins = 0;
-                        var total = 0;
-                        foreach (var match in content.Matches)
-                        {
-                            if (match.RankedRatingEarned > 0)
-                            {
-                                wins++;
-                            }
-
-                            total++;
-                        }
-
-                        history.WinRate = (int) Math.Round((decimal) wins / total * 100);
-                    }
-                    catch (Exception e)
-                    {
-                        Constants.Log.Error("GetMatchHistoryAsync; WR calculation error: {e}", e);
-                    }
                 }
 
                 if (content?.Matches.Length > 1)
@@ -751,15 +731,16 @@ public class LiveMatch
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
             };
             var content = JsonSerializer.Deserialize<MmrResponse>(response.Content, options);
-            int rank, prank, pprank, ppprank;
+            int rank = 0, pRank = 0, ppRank = 0, pppRank = 0;
             try
             {
                 if (content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.CurrentSeason.ToString(), out var currentActJsonElement))
                 {
                     var currentAct = currentActJsonElement.Deserialize<ActInfo>();
-                    rank = currentAct.CompetitiveTier;
-
+                    rank =  currentAct.CompetitiveTier;
                     if (rank is 1 or 2) rank = 0;
+
+                    rankData.RankStats = $"WR: {Math.Round((decimal) currentAct.NumberOfWinsWithPlacements / currentAct.NumberOfGames * 100, 1)}%";
                 }
                 else
                 {
@@ -775,99 +756,93 @@ public class LiveMatch
             {
                 if (content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.PreviousSeason.ToString(), out var pActJsonElement))
                 {
-                    var PAct = pActJsonElement.Deserialize<ActInfo>();
-                    switch (PAct.CompetitiveTier)
+                    var pAct = pActJsonElement.Deserialize<ActInfo>();
+                    
+                    pRank = pAct.WinsByTier.Keys.Select(tier => Convert.ToInt32(tier)).Prepend(pRank).Max();
+                    switch (pRank)
                     {
                         case 1 or 2:
-                            prank = 0;
+                            pRank = 0;
                             break;
                         case > 20:
                         {
-                            if (Constants.BeforeAscendantSeasons.Contains(seasonData.PreviousSeason))
-                                prank = PAct.CompetitiveTier + 3;
-                            else
-                                prank = PAct.CompetitiveTier;
+                            if (Constants.BeforeAscendantSeasons.Contains(seasonData.PreviousSeason)) pRank += 3;
                             break;
                         }
-                        default:
-                            prank = PAct.CompetitiveTier;
-                            break;
                     }
+
+                    rankData.PreviousrankStats = $"WR: {Math.Round((decimal) pAct.NumberOfWinsWithPlacements / pAct.NumberOfGames * 100, 1)}%";
                 }
                 else
                 {
-                    prank = 0;
+                    pRank = 0;
                 }
             }
             catch (Exception)
             {
-                prank = 0;
+                pRank = 0;
             }
 
             try
             {
                 if (content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.PreviouspreviousSeason.ToString(), out var ppActJsonElement))
                 {
-                    var PPAct = ppActJsonElement.Deserialize<ActInfo>();
-                    switch (PPAct.CompetitiveTier)
+                    var ppAct = ppActJsonElement.Deserialize<ActInfo>();
+                    
+                    ppRank = ppAct.WinsByTier.Keys.Select(tier => Convert.ToInt32(tier)).Prepend(ppRank).Max();
+                    switch (ppRank)
                     {
                         case 1 or 2:
-                            pprank = 0;
+                            ppRank = 0;
                             break;
                         case > 20:
                         {
-                            if (Constants.BeforeAscendantSeasons.Contains(seasonData.PreviouspreviousSeason))
-                                pprank = PPAct.CompetitiveTier + 3;
-                            else
-                                pprank = PPAct.CompetitiveTier;
+                            if (Constants.BeforeAscendantSeasons.Contains(seasonData.PreviouspreviousSeason)) ppRank += 3;
                             break;
                         }
-                        default:
-                            pprank = PPAct.CompetitiveTier;
-                            break;
                     }
+
+                    rankData.PreviouspreviousStats = $"WR: {Math.Round((decimal) ppAct.NumberOfWinsWithPlacements / ppAct.NumberOfGames * 100,1)}%";
                 }
                 else
                 {
-                    pprank = 0;
+                    ppRank = 0;
                 }
             }
             catch (Exception)
             {
-                pprank = 0;
+                ppRank = 0;
             }
 
             try
             {
                 if (content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.PreviouspreviouspreviousSeason.ToString(), out var pppActJsonElement))
                 {
-                    var PPPAct = pppActJsonElement.Deserialize<ActInfo>();
-                    switch (PPPAct.CompetitiveTier)
+                    var pppAct = pppActJsonElement.Deserialize<ActInfo>();
+                    
+                    pppRank = pppAct.WinsByTier.Keys.Select(tier => Convert.ToInt32(tier)).Prepend(pppRank).Max();
+                    switch (pppRank)
                     {
                         case 1 or 2:
-                            ppprank = 0;
+                            pppRank = 0;
                             break;
                         case > 20:
                         {
-                            if (Constants.BeforeAscendantSeasons.Contains(seasonData.PreviouspreviouspreviousSeason))
-                                ppprank = PPPAct.CompetitiveTier + 3;
-                            else
-                                ppprank = PPPAct.CompetitiveTier;
+                            if (Constants.BeforeAscendantSeasons.Contains(seasonData.PreviouspreviouspreviousSeason)) pppRank += 3;
                             break;
                         }
-                        default:
-                            ppprank = PPPAct.CompetitiveTier;
-                            break;
                     }
+
+                    rankData.PreviouspreviouspreviousStats = $"WR: {Math.Round((decimal) pppAct.NumberOfWinsWithPlacements / pppAct.NumberOfGames * 100, 1)}";
                 }
                 else
                 {
-                    ppprank = 0;
+                    pppRank = 0;
                 }
             }
             catch (Exception)
             {
-                ppprank = 0;
+                pppRank = 0;
             }
 
             if (rank >= 24)
@@ -896,26 +871,34 @@ public class LiveMatch
             var peakRank = 0;
             try
             {
+                var wins = 0;
+                var total = 0;
                 foreach (var season in content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.Select(act => act.Value.Deserialize<ActInfo>()).Where(season => season != null))
                 {
-                    if (Constants.BeforeAscendantSeasons.Contains(new Guid(season.SeasonId)) && Convert.ToInt32(season.WinsByTier.Last().Key) > 20)
+                    foreach (var tier in season.WinsByTier.Keys)
                     {
-                        if (Convert.ToInt32(season.WinsByTier.Last().Key) <= peakRank) continue;
-                        peakRank = Convert.ToInt32(season.WinsByTier.Last().Key);
-                        peakRank += 3;
-                    }
-                    else
-                    {
-                        if (Convert.ToInt32(season.WinsByTier.Last().Key) > peakRank)
+                        if (Constants.BeforeAscendantSeasons.Contains(new Guid(season.SeasonId)) && Convert.ToInt32(tier) > 20)
                         {
-                            peakRank = Convert.ToInt32(season.WinsByTier.Last().Key);
+                            if (Convert.ToInt32(tier) <= peakRank) continue;
+                            peakRank = Convert.ToInt32(tier);
+                            peakRank += 3;
+                        }
+                        else
+                        {
+                            if (Convert.ToInt32(tier) <= peakRank) continue;
+                            peakRank = Convert.ToInt32(tier);
                         }
                     }
+                    
+                    wins += season.NumberOfWinsWithPlacements;
+                    total += season.NumberOfGames;
                 }
+                rankData.WinRate = (int) Math.Round((decimal) wins / total * 100);
+
             }
             catch (Exception e)
             {
-                Constants.Log.Error("GetPlayerHistoryAsync Failed; Peak rank calculation error: {e}", e);
+                Constants.Log.Error("GetPlayerHistoryAsync Failed; Peak rank or WR calculation error: {e}", e);
             }
 
             try
@@ -926,16 +909,16 @@ public class LiveMatch
                 rankData.RankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{rank}.png");
                 rankData.RankName = rank0;
 
-                ranks.TryGetValue(prank, out var rank1);
-                rankData.PreviousrankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{prank}.png");
+                ranks.TryGetValue(pRank, out var rank1);
+                rankData.PreviousrankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{pRank}.png");
                 rankData.PreviousrankName = rank1;
 
-                ranks.TryGetValue(pprank, out var rank2);
-                rankData.PreviouspreviousrankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{pprank}.png");
+                ranks.TryGetValue(ppRank, out var rank2);
+                rankData.PreviouspreviousrankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{ppRank}.png");
                 rankData.PreviouspreviousrankName = rank2;
 
-                ranks.TryGetValue(ppprank, out var rank3);
-                rankData.PreviouspreviouspreviousrankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{ppprank}.png");
+                ranks.TryGetValue(pppRank, out var rank3);
+                rankData.PreviouspreviouspreviousrankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{pppRank}.png");
                 rankData.PreviouspreviouspreviousrankName = rank3;
 
                 ranks.TryGetValue(peakRank, out var peakRank0);

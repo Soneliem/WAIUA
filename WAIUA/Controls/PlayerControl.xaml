@@ -230,7 +230,7 @@
 			        Grid.Column="2" >
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 					<TextBlock FontFamily="{StaticResource Nunito}" 
-					           Text="Peak: " 
+					           Text="{x:Static p:Resources.Peak}" Margin="0,0,3,0"
 					           Foreground="#32e2b2" FontWeight="Bold"  VerticalAlignment="Center" />
 					<Image
 						Source="{Binding PlayerCell.RankData.PeakRankImage, ElementName=Self}"
@@ -241,10 +241,10 @@
 						</Image.Effect>
 					</Image>
 					<TextBlock FontFamily="{StaticResource Nunito}" 
-					           Text="  WR: " 
+					           Text="{x:Static p:Resources.WR}" Margin="5,0,2,0"
 					           Foreground="#32e2b2" FontWeight="Bold"  VerticalAlignment="Center" />
 					<TextBlock FontFamily="{StaticResource Nunito}" 
-					           Text="{Binding PlayerCell.MatchHistoryData.WinRate, StringFormat={}{0}%, ElementName=Self}" 
+					           Text="{Binding PlayerCell.RankData.WinRate, StringFormat={}{0}%, ElementName=Self}" 
 					           Foreground="White" FontWeight="SemiBold" VerticalAlignment="Center" />
 					
 				</StackPanel>
@@ -254,8 +254,20 @@
 				
 			<Image Grid.Row="2" Grid.Column="2"
 			       Source="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankImage, ElementName=Self}"
-			       ToolTip="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankName, ElementName=Self}"
 			       ToolTipService.InitialShowDelay="0" RenderOptions.BitmapScalingMode="HighQuality">
+				<Image.ToolTip>
+					<ToolTip DataContext="{Binding RelativeSource={RelativeSource Self},Path=PlacementTarget.Parent}">
+						<StackPanel Width="200">  
+							<StackPanel Orientation="Horizontal" Background="#252A40" Width="200">  
+								<Image Source="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankImage, ElementName=Self}" 
+								       Margin="10 5"></Image>  
+								<Label Foreground="White" Content="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankName, ElementName=Self}"  FontSize="20" FontWeight="Bold"></Label>  
+							</StackPanel>  
+							<Line Stroke="Gray" StrokeThickness="2" X2="200"></Line>  
+							<TextBlock Text="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankStats, ElementName=Self}"  FontWeight="ExtraBold"></TextBlock>  
+						</StackPanel> 
+					</ToolTip>
+				</Image.ToolTip>
 				<Image.Effect>
 					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 				</Image.Effect>
