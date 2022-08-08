@@ -167,6 +167,7 @@
   </data>
   <data name="Translator" xml:space="preserve">
     <value>Переведено на русский Язык ZzyzxFox и DXGames</value>
+    <comment>Please replace the Language and Names</comment>
   </data>
   <data name="RefreshMatch" xml:space="preserve">
     <value>Нажмите, чтобы обновить матч</value>
@@ -242,5 +243,13 @@
   </data>
   <data name="Player" xml:space="preserve">
     <value>Player</value>
+  </data>
+  <data name="Peak" xml:space="preserve">
+    <value></value>
+    <comment>Peak Rank</comment>
+  </data>
+  <data name="WR" xml:space="preserve">
+    <value></value>
+    <comment>Win Rate</comment>
   </data>
 </root>
