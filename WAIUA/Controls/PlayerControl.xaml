@@ -5,6 +5,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:p="clr-namespace:WAIUA.Properties"
+	xmlns:controls="clr-namespace:WAIUA.Controls"
 	x:Name="Self"
 	d:DesignHeight="450"
 	d:DesignWidth="2000"
@@ -31,7 +32,20 @@
 			<Setter Property="FontFamily" Value="{StaticResource Nunito}" />
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="ToolTipService.InitialShowDelay" Value="0" />
-			<Setter Property="HasDropShadow" Value="False" />
+			<Setter Property="OverridesDefaultStyle" Value="true" />
+			<Setter Property="HasDropShadow" Value="True" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="ToolTip">
+						<Border Name="Border" CornerRadius="4"
+						        BorderThickness="1" Background="#32e2b2"
+						        Width="{TemplateBinding Width}"
+						        Height="{TemplateBinding Height}">
+							<ContentPresenter Margin="4" HorizontalAlignment="Left" VerticalAlignment="Top" />
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
 		</Style>
 		<Storyboard x:Key="ExpandStoryboard">
 			<DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
@@ -256,16 +270,18 @@
 			       Source="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankImage, ElementName=Self}"
 			       ToolTipService.InitialShowDelay="0" RenderOptions.BitmapScalingMode="HighQuality">
 				<Image.ToolTip>
-					<ToolTip DataContext="{Binding RelativeSource={RelativeSource Self},Path=PlacementTarget.Parent}">
-						<StackPanel Width="200">  
-							<StackPanel Orientation="Horizontal" Background="#252A40" Width="200">  
-								<Image Source="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankImage, ElementName=Self}" 
-								       Margin="10 5"></Image>  
-								<Label Foreground="White" Content="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankName, ElementName=Self}"  FontSize="20" FontWeight="Bold"></Label>  
-							</StackPanel>  
-							<Line Stroke="Gray" StrokeThickness="2" X2="200"></Line>  
-							<TextBlock Text="{Binding PlayerCell.RankData.PreviouspreviouspreviousrankStats, ElementName=Self}"  FontWeight="ExtraBold"></TextBlock>  
-						</StackPanel> 
+					<ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+						<Border Margin="3" Background="#252A40" CornerRadius="4" Padding="4">
+							<StackPanel Orientation="Horizontal" >
+								<Image Source="{Binding RankData.PreviouspreviouspreviousrankImage}" Width="100"
+								       Margin="10 5"></Image>
+								<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0">
+									<Label Foreground="White" Content="{Binding RankData.PreviouspreviouspreviousrankName}"  FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+									<TextBlock Text="{Binding RankData.PreviouspreviouspreviousStats}" Foreground="#9f97b0" FontWeight="ExtraBold" HorizontalAlignment="Center"></TextBlock>
+								</StackPanel>
+
+							</StackPanel>
+						</Border>
 					</ToolTip>
 				</Image.ToolTip>
 				<Image.Effect>
@@ -274,16 +290,44 @@
 			</Image>
 			<Image Grid.Row="2" Grid.Column="3"
 			       Source="{Binding PlayerCell.RankData.PreviouspreviousrankImage, ElementName=Self}"
-			       ToolTip="{Binding PlayerCell.RankData.PreviouspreviousrankName, ElementName=Self}"
 			       ToolTipService.InitialShowDelay="0" RenderOptions.BitmapScalingMode="HighQuality">
+				<Image.ToolTip>
+					<ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+						<Border Margin="3" Background="#252A40" CornerRadius="4" Padding="4">
+							<StackPanel Orientation="Horizontal" >
+								<Image Source="{Binding RankData.PreviouspreviousrankImage}" Width="100"
+								       Margin="10 5"></Image>
+								<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0">
+									<Label Foreground="White" Content="{Binding RankData.PreviouspreviousrankName}"  FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+									<TextBlock Text="{Binding RankData.PreviouspreviousStats}" Foreground="#9f97b0" FontWeight="ExtraBold" HorizontalAlignment="Center"></TextBlock>
+								</StackPanel>
+
+							</StackPanel>
+						</Border>
+					</ToolTip>
+				</Image.ToolTip>
 				<Image.Effect>
 					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 				</Image.Effect>
 			</Image>
 			<Image Grid.Row="2" Grid.Column="4"
 			       Source="{Binding PlayerCell.RankData.PreviousrankImage, ElementName=Self}"
-			       ToolTip="{Binding PlayerCell.RankData.PreviousrankName, ElementName=Self}"
 			       ToolTipService.InitialShowDelay="0" RenderOptions.BitmapScalingMode="HighQuality">
+				<Image.ToolTip>
+					<ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+						<Border Margin="3" Background="#252A40" CornerRadius="4" Padding="4">
+							<StackPanel Orientation="Horizontal" >
+								<Image Source="{Binding RankData.PreviousrankImage}" Width="100"
+								       Margin="10 5"></Image>
+								<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0">
+									<Label Foreground="White" Content="{Binding RankData.PreviousrankName}"  FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+									<TextBlock Text="{Binding RankData.PreviousrankStats}" Foreground="#9f97b0" FontWeight="ExtraBold" HorizontalAlignment="Center"></TextBlock>
+								</StackPanel>
+
+							</StackPanel>
+						</Border>
+					</ToolTip>
+				</Image.ToolTip>
 				<Image.Effect>
 					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 				</Image.Effect>
@@ -298,12 +342,26 @@
 				Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
 				Margin="10,0,0,10"
 				HorizontalAlignment="Right"
-				ToolTip="{Binding PlayerCell.RankData.RankName, ElementName=Self}"
 				ToolTipService.InitialShowDelay="0">
 				<Border.Background>
 					<ImageBrush RenderOptions.BitmapScalingMode="HighQuality"
 					            ImageSource="{Binding PlayerCell.RankData.RankImage, ElementName=Self}" />
 				</Border.Background>
+				<Border.ToolTip>
+					<ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+						<Border Margin="3" Background="#252A40" CornerRadius="4" Padding="4">
+							<StackPanel Orientation="Horizontal" >
+								<Image Source="{Binding RankData.RankImage}" Width="100"
+								       Margin="10 5"></Image>
+								<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0">
+									<Label Foreground="White" Content="{Binding RankData.RankName}"  FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+									<TextBlock Text="{Binding RankData.RankStats}" Foreground="#9f97b0" FontWeight="ExtraBold" HorizontalAlignment="Center"></TextBlock>
+								</StackPanel>
+
+							</StackPanel>
+						</Border>
+					</ToolTip>
+				</Border.ToolTip>
 				<Border.Effect>
 					<DropShadowEffect BlurRadius="5" ShadowDepth="3" />
 				</Border.Effect>

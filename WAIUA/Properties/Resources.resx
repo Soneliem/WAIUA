@@ -133,10 +133,10 @@
     <value>Click To Refresh Match</value>
   </data>
   <data name="Latestversion" xml:space="preserve">
-    <value>Latest Version: </value>
+    <value>Latest Version:</value>
   </data>
   <data name="CurrentVersion" xml:space="preserve">
-    <value>Current Version: </value>
+    <value>Current Version:</value>
   </data>
   <data name="CheckUpdates" xml:space="preserve">
     <value>Check for Updates</value>
@@ -232,15 +232,21 @@
     <value>Refreshing In:</value>
   </data>
   <data name="Player" xml:space="preserve">
-	  <value>Player</value>
+    <value>Player</value>
   </data>
   <data name="StartTrainer" xml:space="preserve">
-	  <value>Start Aim Trainer</value>
+    <value>Start Aim Trainer</value>
   </data>
   <data name="HighScore" xml:space="preserve">
-	  <value>High Score:</value>
+    <value>High Score:</value>
   </data>
   <data name="Score" xml:space="preserve">
-	  <value>Score:</value>
+    <value>Score:</value>
+  </data>
+  <data name="Peak" xml:space="preserve">
+	  <value>Peak:</value>
+  </data>
+  <data name="WR" xml:space="preserve">
+	  <value>WR:</value>
   </data>
 </root>

@@ -740,7 +740,7 @@ public class LiveMatch
                     rank =  currentAct.CompetitiveTier;
                     if (rank is 1 or 2) rank = 0;
 
-                    rankData.RankStats = $"WR: {Math.Round((decimal) currentAct.NumberOfWinsWithPlacements / currentAct.NumberOfGames * 100, 1)}%";
+                    rankData.RankStats = $"{Resources.WR} {currentAct.NumberOfWinsWithPlacements}/{currentAct.NumberOfGames} ({Math.Round((decimal) currentAct.NumberOfWinsWithPlacements / currentAct.NumberOfGames * 100, 1)}%)";
                 }
                 else
                 {
@@ -771,7 +771,7 @@ public class LiveMatch
                         }
                     }
 
-                    rankData.PreviousrankStats = $"WR: {Math.Round((decimal) pAct.NumberOfWinsWithPlacements / pAct.NumberOfGames * 100, 1)}%";
+                    rankData.PreviousrankStats = $"{Resources.WR} {pAct.NumberOfWinsWithPlacements}/{pAct.NumberOfGames} ({Math.Round((decimal) pAct.NumberOfWinsWithPlacements / pAct.NumberOfGames * 100, 1)}%)";
                 }
                 else
                 {
@@ -802,7 +802,7 @@ public class LiveMatch
                         }
                     }
 
-                    rankData.PreviouspreviousStats = $"WR: {Math.Round((decimal) ppAct.NumberOfWinsWithPlacements / ppAct.NumberOfGames * 100,1)}%";
+                    rankData.PreviouspreviousStats = $"{Resources.WR} {ppAct.NumberOfWinsWithPlacements}/{ppAct.NumberOfGames} ({Math.Round((decimal) ppAct.NumberOfWinsWithPlacements / ppAct.NumberOfGames * 100, 1)}%)";
                 }
                 else
                 {
@@ -833,7 +833,7 @@ public class LiveMatch
                         }
                     }
 
-                    rankData.PreviouspreviouspreviousStats = $"WR: {Math.Round((decimal) pppAct.NumberOfWinsWithPlacements / pppAct.NumberOfGames * 100, 1)}";
+                    rankData.PreviouspreviouspreviousStats = $"{Resources.WR} {pppAct.NumberOfWinsWithPlacements}/{pppAct.NumberOfGames} ({Math.Round((decimal) pppAct.NumberOfWinsWithPlacements / pppAct.NumberOfGames * 100, 1)}%)";
                 }
                 else
                 {

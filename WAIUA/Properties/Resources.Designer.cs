@@ -169,7 +169,7 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current Version: .
+        ///   Looks up a localized string similar to Current Version:.
         /// </summary>
         public static string CurrentVersion {
             get {
@@ -232,7 +232,7 @@ namespace WAIUA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Latest Version: .
+        ///   Looks up a localized string similar to Latest Version:.
         /// </summary>
         public static string Latestversion {
             get {
@@ -273,6 +273,15 @@ namespace WAIUA.Properties {
         public static string NoValGame {
             get {
                 return ResourceManager.GetString("NoValGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Peak:.
+        /// </summary>
+        public static string Peak {
+            get {
+                return ResourceManager.GetString("Peak", resourceCulture);
             }
         }
         
@@ -426,6 +435,15 @@ namespace WAIUA.Properties {
         public static string Valorant {
             get {
                 return ResourceManager.GetString("Valorant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WR:.
+        /// </summary>
+        public static string WR {
+            get {
+                return ResourceManager.GetString("WR", resourceCulture);
             }
         }
         
