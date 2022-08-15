@@ -114,7 +114,10 @@
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
 				<Viewbox>
-					<TextBlock
+					<TextBox
+						Background="Transparent"
+						IsReadOnly="True"
+						BorderThickness="0"
 						FontFamily="{StaticResource Nunito}"
 						FontWeight="Normal"
 						Foreground="#9f97b0"
