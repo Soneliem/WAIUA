@@ -731,7 +731,7 @@ public class LiveMatch
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
             };
             var content = JsonSerializer.Deserialize<MmrResponse>(response.Content, options);
-            int rank = 0, pRank = 0, ppRank = 0, pppRank = 0;
+            int rank = 0, pRank = 0, ppRank = 0, pppRank = 0, peakRank = 0;;
             try
             {
                 if (content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.CurrentSeason.ToString(), out var currentActJsonElement))
@@ -739,6 +739,7 @@ public class LiveMatch
                     var currentAct = currentActJsonElement.Deserialize<ActInfo>();
                     rank =  currentAct.CompetitiveTier;
                     if (rank is 1 or 2) rank = 0;
+                    peakRank = rank;
 
                     rankData.RankStats = $"{Resources.WR} {currentAct.NumberOfWinsWithPlacements}/{currentAct.NumberOfGames} ({Math.Round((decimal) currentAct.NumberOfWinsWithPlacements / currentAct.NumberOfGames * 100, 1)}%)";
                 }
@@ -868,7 +869,6 @@ public class LiveMatch
                 }
             }
 
-            var peakRank = 0;
             try
             {
                 var wins = 0;
