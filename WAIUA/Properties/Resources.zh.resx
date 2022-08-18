@@ -233,23 +233,23 @@
     <value>刷新中。。。</value>
   </data>
   <data name="Score" xml:space="preserve">
-    <value>Score:</value>
+    <value>分数:</value>
   </data>
   <data name="HighScore" xml:space="preserve">
-    <value>High Score:</value>
+    <value>最高分：</value>
   </data>
   <data name="StartTrainer" xml:space="preserve">
-    <value>Start Aim Trainer</value>
+    <value>开始瞄准训练</value>
   </data>
   <data name="Player" xml:space="preserve">
-    <value>Player</value>
+    <value>玩家</value>
   </data>
   <data name="Peak" xml:space="preserve">
-    <value></value>
+    <value>最高</value>
     <comment>Peak Rank</comment>
   </data>
   <data name="WR" xml:space="preserve">
-    <value></value>
+    <value>胜率</value>
     <comment>Win Rate</comment>
   </data>
 </root>
