@@ -245,11 +245,11 @@
     <value>플레이어</value>
   </data>
   <data name="Peak" xml:space="preserve">
-    <value></value>
+    <value>최고 티어:</value>
     <comment>Peak Rank</comment>
   </data>
   <data name="WR" xml:space="preserve">
-    <value></value>
+    <value>승률:</value>
     <comment>Win Rate</comment>
   </data>
 </root>
