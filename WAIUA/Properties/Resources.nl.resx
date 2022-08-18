@@ -245,11 +245,11 @@
     <value>Speler</value>
   </data>
   <data name="Peak" xml:space="preserve">
-    <value></value>
+    <value>Hoogtepunt:</value>
     <comment>Peak Rank</comment>
   </data>
   <data name="WR" xml:space="preserve">
-    <value></value>
+    <value>WK:</value>
     <comment>Win Rate</comment>
   </data>
 </root>
