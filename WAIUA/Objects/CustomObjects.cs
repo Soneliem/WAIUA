@@ -139,7 +139,8 @@ public partial class RankData
     [ObservableProperty] private string _rankStats;
     [ObservableProperty] private Uri _peakRankImage;
     [ObservableProperty] private string _peakRankName;
-    [ObservableProperty] private string _peakRankSeason;
+    [ObservableProperty] private string _peakRankEpisode;
+    [ObservableProperty] private string _peakRankAct;
     [ObservableProperty] private int _winRate;
 }
 

@@ -731,17 +731,19 @@ public class LiveMatch
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
             };
             var content = JsonSerializer.Deserialize<MmrResponse>(response.Content, options);
-            int rank = 0, pRank = 0, ppRank = 0, pppRank = 0, peakRank = 0;;
+            int rank = 0, pRank = 0, ppRank = 0, pppRank = 0, peakRank = 0;
+            var peakSeasonId = "";
             try
             {
                 if (content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.CurrentSeason.ToString(), out var currentActJsonElement))
                 {
                     var currentAct = currentActJsonElement.Deserialize<ActInfo>();
-                    rank =  currentAct.CompetitiveTier;
+                    rank = currentAct.CompetitiveTier;
                     if (rank is 1 or 2) rank = 0;
-                    peakRank = rank;
 
                     rankData.RankStats = $"{Resources.WR} {currentAct.NumberOfWinsWithPlacements}/{currentAct.NumberOfGames} ({Math.Round((decimal) currentAct.NumberOfWinsWithPlacements / currentAct.NumberOfGames * 100, 1)}%)";
+                    peakRank = rank;
+                    peakSeasonId = currentAct.SeasonId;
                 }
                 else
                 {
@@ -758,7 +760,7 @@ public class LiveMatch
                 if (content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.PreviousSeason.ToString(), out var pActJsonElement))
                 {
                     var pAct = pActJsonElement.Deserialize<ActInfo>();
-                    
+
                     pRank = pAct.WinsByTier.Keys.Select(tier => Convert.ToInt32(tier)).Prepend(pRank).Max();
                     switch (pRank)
                     {
@@ -789,7 +791,7 @@ public class LiveMatch
                 if (content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.PreviouspreviousSeason.ToString(), out var ppActJsonElement))
                 {
                     var ppAct = ppActJsonElement.Deserialize<ActInfo>();
-                    
+
                     ppRank = ppAct.WinsByTier.Keys.Select(tier => Convert.ToInt32(tier)).Prepend(ppRank).Max();
                     switch (ppRank)
                     {
@@ -820,7 +822,7 @@ public class LiveMatch
                 if (content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.TryGetValue(seasonData.PreviouspreviouspreviousSeason.ToString(), out var pppActJsonElement))
                 {
                     var pppAct = pppActJsonElement.Deserialize<ActInfo>();
-                    
+
                     pppRank = pppAct.WinsByTier.Keys.Select(tier => Convert.ToInt32(tier)).Prepend(pppRank).Max();
                     switch (pppRank)
                     {
@@ -869,37 +871,83 @@ public class LiveMatch
                 }
             }
 
+            var wins = 0;
+            var total = 0;
             try
             {
-                var wins = 0;
-                var total = 0;
                 foreach (var season in content.QueueSkills.Competitive.SeasonalInfoBySeasonId.Act.Select(act => act.Value.Deserialize<ActInfo>()).Where(season => season != null))
                 {
-                    foreach (var tier in season.WinsByTier.Keys)
+                    try
                     {
-                        if (Constants.BeforeAscendantSeasons.Contains(new Guid(season.SeasonId)) && Convert.ToInt32(tier) > 20)
-                        {
-                            if (Convert.ToInt32(tier) <= peakRank) continue;
-                            peakRank = Convert.ToInt32(tier);
-                            peakRank += 3;
-                        }
-                        else
-                        {
-                            if (Convert.ToInt32(tier) <= peakRank) continue;
-                            peakRank = Convert.ToInt32(tier);
-                        }
+                        foreach (var tier in season.WinsByTier.Keys)
+                            if (Constants.BeforeAscendantSeasons.Contains(new Guid(season.SeasonId)) && Convert.ToInt32(tier) > 20)
+                            {
+                                if (Convert.ToInt32(tier) <= peakRank) continue;
+                                peakRank = Convert.ToInt32(tier) + 3;
+                                peakSeasonId = season.SeasonId;
+                            }
+                            else
+                            {
+                                if (Convert.ToInt32(tier) <= peakRank) continue;
+                                peakRank = Convert.ToInt32(tier);
+                                peakSeasonId = season.SeasonId;
+                            }
                     }
-                    
-                    wins += season.NumberOfWinsWithPlacements;
-                    total += season.NumberOfGames;
+                    catch (Exception)
+                    {
+                        // ignored
+                    }
+
+                    try
+                    {
+                        wins += season.NumberOfWinsWithPlacements;
+                        total += season.NumberOfGames;
+                    }
+                    catch (Exception)
+                    {
+                        // ignored
+                    }
                 }
+
                 rankData.WinRate = (int) Math.Round((decimal) wins / total * 100);
+            }
+            catch (Exception e)
+            {
+                Constants.Log.Error("GetPlayerHistoryAsync Failed; Peak rank calculation error: {e}", e);
+            }
+
+            try
+            {
+
+
+                var contentResponse = await DoCachedRequestAsync(Method.Get,
+                    $"https://shared.{Constants.Region}.a.pvp.net/content-service/v3/content", true).ConfigureAwait(false);
+                if (contentResponse.Content != null && contentResponse.IsSuccessful)
+                {
+                    var contentContent = JsonSerializer.Deserialize<ContentResponse>(contentResponse.Content);
+
+                    var actFound = false;
+                    foreach (var season in contentContent.Seasons)
+                    {
+                        if (season.Id.ToString() == peakSeasonId)
+                        {
+                            rankData.PeakRankAct = season.Name;
+                            actFound = true;
+                        }
+
+                        if (!actFound || season.Type != "episode") continue;
+                        rankData.PeakRankEpisode = season.Name;
+                        break;
+                    }
+                }
 
             }
             catch (Exception e)
             {
-                Constants.Log.Error("GetPlayerHistoryAsync Failed; Peak rank or WR calculation error: {e}", e);
+                Constants.Log.Error("GetPlayerHistoryAsync Failed; Peak rank ES calculation error: {e}", e);
             }
+
+
 
             try
             {
@@ -923,7 +971,7 @@ public class LiveMatch
 
                 ranks.TryGetValue(peakRank, out var peakRank0);
                 rankData.PeakRankImage = new Uri(Constants.LocalAppDataPath + $"\\ValAPI\\ranksimg\\{peakRank}.png");
-                rankData.PeakRankName = peakRank0;
+                rankData.PeakRankName = peakRank0 + " ("+rankData.PeakRankEpisode + " - " + rankData.PeakRankAct+")";
             }
             catch (Exception e)
             {
@@ -943,27 +991,30 @@ public class LiveMatch
         var seasonData = new SeasonData();
         try
         {
-            RestClient client = new($"https://shared.{Constants.Region}.a.pvp.net/content-service/v3/content");
-            var request = new RestRequest().AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken)
-                .AddHeader("Authorization", $"Bearer {Constants.AccessToken}")
-                .AddHeader("X-Riot-ClientPlatform",
-                    "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
-                .AddHeader("X-Riot-ClientVersion", Constants.Version);
-            client.UseSystemTextJson(new JsonSerializerOptions
-            {
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
-            });
-            var response = await client.ExecuteGetAsync<ContentResponse>(request).ConfigureAwait(false);
-            sbyte index = 0;
-            sbyte currentindex = 0;
-
-            if (!response.IsSuccessful)
+            // RestClient client = new($"https://shared.{Constants.Region}.a.pvp.net/content-service/v3/content");
+            // var request = new RestRequest().AddHeader("X-Riot-Entitlements-JWT", Constants.EntitlementToken)
+            //     .AddHeader("Authorization", $"Bearer {Constants.AccessToken}")
+            //     .AddHeader("X-Riot-ClientPlatform",
+            //         "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9")
+            //     .AddHeader("X-Riot-ClientVersion", Constants.Version);
+            // client.UseSystemTextJson(new JsonSerializerOptions
+            // {
+            //     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+            // });
+            // var response = await client.ExecuteGetAsync<ContentResponse>(request).ConfigureAwait(false);
+            var response = await DoCachedRequestAsync(Method.Get,
+                $"https://shared.{Constants.Region}.a.pvp.net/content-service/v3/content", true).ConfigureAwait(false);
+            if (response.Content == null || !response.IsSuccessful)
             {
                 Constants.Log.Error("GetSeasonsAsync Failed: {e}", response.ErrorException);
                 return seasonData;
             }
 
-            foreach (var season in response.Data.Seasons)
+            var content = JsonSerializer.Deserialize<ContentResponse>(response.Content);
+
+            sbyte index = 0;
+            sbyte currentindex = 0;
+            foreach (var season in content.Seasons)
             {
                 if (season.IsActive & (season.Type == "act"))
                 {
@@ -976,36 +1027,36 @@ public class LiveMatch
             }
 
             currentindex--;
-            if (response.Data.Seasons[currentindex].Type == "act")
+            if (content.Seasons[currentindex].Type == "act")
             {
-                seasonData.PreviousSeason = response.Data.Seasons[currentindex].Id;
+                seasonData.PreviousSeason = content.Seasons[currentindex].Id;
             }
             else
             {
                 currentindex--;
-                seasonData.PreviousSeason = response.Data.Seasons[currentindex].Id;
+                seasonData.PreviousSeason = content.Seasons[currentindex].Id;
             }
 
             currentindex--;
-            if (response.Data.Seasons[currentindex].Type == "act")
+            if (content.Seasons[currentindex].Type == "act")
             {
-                seasonData.PreviouspreviousSeason = response.Data.Seasons[currentindex].Id;
+                seasonData.PreviouspreviousSeason = content.Seasons[currentindex].Id;
             }
             else
             {
                 currentindex--;
-                seasonData.PreviouspreviousSeason = response.Data.Seasons[currentindex].Id;
+                seasonData.PreviouspreviousSeason = content.Seasons[currentindex].Id;
             }
 
             currentindex--;
-            if (response.Data.Seasons[currentindex].Type == "act")
+            if (content.Seasons[currentindex].Type == "act")
             {
-                seasonData.PreviouspreviouspreviousSeason = response.Data.Seasons[currentindex].Id;
+                seasonData.PreviouspreviouspreviousSeason = content.Seasons[currentindex].Id;
             }
             else
             {
                 currentindex--;
-                seasonData.PreviouspreviouspreviousSeason = response.Data.Seasons[currentindex].Id;
+                seasonData.PreviouspreviouspreviousSeason = content.Seasons[currentindex].Id;
             }
         }
         catch (Exception e)

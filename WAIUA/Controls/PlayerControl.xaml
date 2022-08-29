@@ -274,7 +274,7 @@
 			       ToolTipService.InitialShowDelay="0" RenderOptions.BitmapScalingMode="HighQuality">
 				<Image.ToolTip>
 					<ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-						<Border Margin="3" Background="#252A40" CornerRadius="4" Padding="4">
+						<Border Margin="1" Background="#252A40" CornerRadius="4" Padding="4">
 							<StackPanel Orientation="Horizontal" >
 								<Image Source="{Binding RankData.PreviouspreviouspreviousrankImage}" Width="100"
 								       Margin="10 5"></Image>
@@ -296,7 +296,7 @@
 			       ToolTipService.InitialShowDelay="0" RenderOptions.BitmapScalingMode="HighQuality">
 				<Image.ToolTip>
 					<ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-						<Border Margin="3" Background="#252A40" CornerRadius="4" Padding="4">
+						<Border Margin="1" Background="#252A40" CornerRadius="4" Padding="4">
 							<StackPanel Orientation="Horizontal" >
 								<Image Source="{Binding RankData.PreviouspreviousrankImage}" Width="100"
 								       Margin="10 5"></Image>
@@ -318,7 +318,7 @@
 			       ToolTipService.InitialShowDelay="0" RenderOptions.BitmapScalingMode="HighQuality">
 				<Image.ToolTip>
 					<ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-						<Border Margin="3" Background="#252A40" CornerRadius="4" Padding="4">
+						<Border Margin="1" Background="#252A40" CornerRadius="4" Padding="4">
 							<StackPanel Orientation="Horizontal" >
 								<Image Source="{Binding RankData.PreviousrankImage}" Width="100"
 								       Margin="10 5"></Image>
@@ -352,7 +352,7 @@
 				</Border.Background>
 				<Border.ToolTip>
 					<ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-						<Border Margin="3" Background="#252A40" CornerRadius="4" Padding="4">
+						<Border Margin="1" Background="#252A40" CornerRadius="4" Padding="4">
 							<StackPanel Orientation="Horizontal" >
 								<Image Source="{Binding RankData.RankImage}" Width="100"
 								       Margin="10 5"></Image>
