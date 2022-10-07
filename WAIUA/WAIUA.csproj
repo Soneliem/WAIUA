@@ -157,9 +157,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Autoupdater.NET.Official" Version="1.7.4" />
+        <PackageReference Include="Autoupdater.NET.Official" Version="1.7.5" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
-        <PackageReference Include="FontAwesome6.Fonts" Version="2.2.0" />
+        <PackageReference Include="FontAwesome6.Fonts" Version="2.3.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
         <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
         <PackageReference Include="RestoreWindowPlace" Version="2.1.0" />

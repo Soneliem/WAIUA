@@ -34,6 +34,7 @@ POEditor lets people collaboratively edit translations, supports auto-translatio
 **Japanese:**
 - Aron
 - nepixjp
+- Massyu
   
 **Russian:**
 - ZzyzxFox
@@ -84,3 +85,12 @@ POEditor lets people collaboratively edit translations, supports auto-translatio
 
 **Turkish:**
 - void
+
+**Czech:**
+- Dom_Zel
+
+**Danish:**
+- r3verse
+
+**Slovak:**
+- Dom_Zel

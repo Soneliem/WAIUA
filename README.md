@@ -61,13 +61,17 @@
 |:---:|:---:|:---:|:---:|
 |![rank](Screenshots/rank.png)|![rank](Screenshots/pranks.png)|![rank](Screenshots/history.png)|![card](Screenshots/card.png)|
 
-|In-game and Agent Name|Vandal And Phantom Skin|Party Indicators|Fully translated into 15+ languages|
+|In-game and Agent Name|Inventory View|Party Indicators|Fully translated into 20+ languages|
 |:---:|:---:|:---:|:---:|
-|![name](Screenshots/name.png)|![skin](Screenshots/skin.png)|![party](Screenshots/party.png)|![translation](Screenshots/language.png)|
+|![name](Screenshots/name.png)|![skin](Screenshots/inventory.png)|![party](Screenshots/party.png)|![translation](Screenshots/language.png)|
 
-|Tracker.gg Intergration|Mini-Aim Trainer|Support For all Game Modes|Auto Refresh and Updates|
+|All Time Peak Rank|Peak Rank for Each Act|Mini-Aim Trainer|Lobby View|
 |:---:|:---:|:---:|:---:|
-|![tracker](Screenshots/tracker.png)|![trainer](Screenshots/trainer.png)|![mode](Screenshots/mode.png)|![refresh](Screenshots/refresh.png)|
+|![peak](Screenshots/peak.png)|![trainer](Screenshots/peakact.png)|![mode](Screenshots/trainer.png)|![refresh](Screenshots/refresh.png)|
+
+|Peak Rank|Mini-Aim Trainer|Support For all Game Modes|Auto Updates|
+|:---:|:---:|:---:|:---:|
+|![peak](Screenshots/peak.png)|![trainer](Screenshots/trainer.png)|![mode](Screenshots/mode.png)|![refresh](Screenshots/refresh.png)|
 
 ## Getting Started
 

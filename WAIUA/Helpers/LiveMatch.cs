@@ -918,8 +918,6 @@ public class LiveMatch
 
             try
             {
-
-
                 var contentResponse = await DoCachedRequestAsync(Method.Get,
                     $"https://shared.{Constants.Region}.a.pvp.net/content-service/v3/content", true).ConfigureAwait(false);
                 if (contentResponse.Content != null && contentResponse.IsSuccessful)
