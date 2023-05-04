@@ -1,3 +1,7 @@
+> :warning: **Start Announcement**
+WAIUA has left left active development. It won't stop working immediately, as WAIUA is completely standalone and communicates directly with Riot Servers. However, like it has happened before, changes to Riot's architecture will eventually break WAIUA's functionality. Full story on my Discord server.
+> :warning: **End Announcement**
+
 <p align="center">
   <a href="https://github.com/Soneliem/WAIUA">
     <img src="Screenshots/logo.png" alt="Logo" width="80" height="80">
