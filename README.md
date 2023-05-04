@@ -1,5 +1,7 @@
 > :warning: **Start Announcement**
-# WAIUA has left left active development. It won't stop working immediately, as WAIUA is completely standalone and communicates directly with Riot Servers. However, like it has happened before, changes to Riot's architecture will eventually break WAIUA's functionality. Full story on my Discord server.
+>
+# WAIUA has left active development. It won't stop working immediately, as WAIUA is completely standalone and communicates directly with Riot Servers. However, like it has happened before, changes to Riot's architecture will eventually break WAIUA's functionality. Full story on my Discord server
+>
 > :warning: **End Announcement**
 
 <p align="center">
@@ -99,13 +101,15 @@ To get the app up and running follow these simple steps.
 Please check the [issues tab](https://github.com/Soneliem/WAIUA/issues) before making a new issue. My [Discord Server](https://discord.gg/X7CYCeZSRK) has a list of known bugs and upcoming features.
 
 ## Built With
+
 * [WPF](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/?view=netdesktop-6.0)
 * [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
 * [.NET 6.0](https://dotnet.microsoft.com/)
 
 I knew none of these things before making this lol
 
-#### Packages that I used/ recommend:
+#### Packages that I used/ recommend
+
 * [RestSharp](https://restsharp.dev/) for API requests
 * [System.Text.Json](https://docs.microsoft.com/en-us/dotnet/api/system.text.json) to deserialise JSON. Source generators are a Godsend
 * [Windows Community Toolkit MVVM](https://docs.microsoft.com/en-us/windows/communitytoolkit/mvvm/introduction) for MVVM. Ty for Source Generators too
@@ -113,19 +117,19 @@ I knew none of these things before making this lol
 * [Inno Setup](https://jrsoftware.org/isinfo.php) to install WAIUA
 * [FontAwesome](https://fontawesome.com/license) for icons. I'm also supposed say that I changed the colours so here it is
 
-
 ## Why I Made This
 
-The main reason I made this was to detect smurfs. This app basically settles the debates between team members or the enemy. The set of available features was chosen carefully to maintain the competitive integrity of the game. Many suggestions that I get are declined due to this (unless a certain "competing" verified app implements it). 
+The main reason I made this was to detect smurfs. This app basically settles the debates between team members or the enemy. The set of available features was chosen carefully to maintain the competitive integrity of the game. Many suggestions that I get are declined due to this (unless a certain "competing" verified app implements it).
 
-Another reason to making this was that I wanted some experience with .NET and GUI apps. This application uses C# as the backend, WPF as the frontend and .NET as the framework. I knew none of these when I began, so this was a fun journey. I've gained alot of experice of how to and how not to (mostly the latter) use WPF and C#. 
+Another reason to making this was that I wanted some experience with .NET and GUI apps. This application uses C# as the backend, WPF as the frontend and .NET as the framework. I knew none of these when I began, so this was a fun journey. I've gained alot of experice of how to and how not to (mostly the latter) use WPF and C#.
 
 ## Contributing
 
 I welcome any sort of contribution. Please remember that translations are managed externally as mentioned below.
 
 ## Sponsors
-This project is sponsored by: 
+
+This project is sponsored by:
 
 <!-- sponsors --><!-- sponsors -->  
 
@@ -152,6 +156,6 @@ WAIUA Supports full localization and instructions to help with translations can 
 * This project uses Riot's in-game API for most of the information
 
 ## DISCLAIMER
+
 THIS PROJECT IS NOT ASSOCIATED OR ENDORSED BY RIOT GAMES. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
 By using this application, you agree that you, the individual, are knowingly accessing all information required to be displayed.
-
